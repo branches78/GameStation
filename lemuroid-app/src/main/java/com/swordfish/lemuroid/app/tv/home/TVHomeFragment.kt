@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.leanback.app.RowsSupportFragment
 import androidx.leanback.widget.ArrayObjectAdapter
@@ -49,6 +50,7 @@ class TVHomeFragment : RowsSupportFragment() {
     }
 
     private var emptyLibraryView: View? = null
+    private var rowsView: View? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -66,18 +68,23 @@ class TVHomeFragment : RowsSupportFragment() {
             .setOnClickListener { TVHelper.launchFolderPicker(requireContext()) }
         root.addView(emptyView)
         emptyLibraryView = emptyView
+        this.rowsView = rowsView
 
         return root
     }
 
     override fun onDestroyView() {
         emptyLibraryView = null
+        rowsView = null
         super.onDestroyView()
     }
 
     private fun updateEmptyLibraryCard(viewState: TVHomeViewModel.HomeViewState) {
         val emptyView = emptyLibraryView ?: return
-        emptyView.isVisible = viewState.metaSystems.isEmpty()
+        val isLibraryEmpty = viewState.metaSystems.isEmpty()
+        emptyView.isVisible = isLibraryEmpty
+        // The empty rows list is still focusable and would take the remote focus instead of the button.
+        rowsView?.isInvisible = isLibraryEmpty
         emptyView.findViewById<View>(R.id.tv_empty_library_action).isEnabled = !viewState.indexInProgress
     }
 

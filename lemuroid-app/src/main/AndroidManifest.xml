@@ -115,17 +115,9 @@
         </activity>
 
         <activity
-            android:name=".app.tv.settings.TVSettingsActivity"
-            android:theme="@style/LemuroidLeanbackPreferencesTheme" />
-
-        <activity
             android:name=".app.tv.folderpicker.TVFolderPickerActivity"
             android:theme="@style/Theme.Leanback.GuidedStep" />
         <activity android:name=".app.tv.folderpicker.TVFolderPickerLauncher" />
-
-        <activity
-            android:name=".app.tv.input.TVGamePadBindingActivity"
-            android:theme="@style/Theme.Leanback.GuidedStep" />
 
         <activity
             android:name=".app.tv.game.TVGameActivity"
@@ -135,11 +127,6 @@
 
         <activity
             android:name=".app.tv.gamemenu.TVGameMenuActivity"
-            android:process=":game"
-            android:theme="@style/LemuroidLeanbackPreferencesTheme" />
-
-        <activity
-            android:name=".app.tv.input.TVGamePadShortcutBindingActivity"
             android:process=":game"
             android:theme="@style/LemuroidLeanbackPreferencesTheme" />
 

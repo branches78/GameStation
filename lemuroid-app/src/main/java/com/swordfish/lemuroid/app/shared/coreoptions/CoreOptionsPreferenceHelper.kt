@@ -112,6 +112,7 @@ object CoreOptionsPreferenceHelper {
         preference.title = it.getDisplayName(context)
         preference.setDefaultValue(it.getCurrentValue() == "enabled")
         preference.isChecked = it.getCurrentValue() == "enabled"
+        preference.summary = it.getDescription(context)
         preference.isIconSpaceReserved = false
         return preference
     }

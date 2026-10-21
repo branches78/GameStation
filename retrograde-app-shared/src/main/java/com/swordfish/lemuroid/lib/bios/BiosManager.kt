@@ -126,6 +126,20 @@ class BiosManager(private val directoriesManager: DirectoriesManager) {
                     "8D8CB7E4",
                 ),
                 Bios(
+                    "scph5500.bin",
+                    "8DD7D5296A650FAC7319BCE665A6A53C",
+                    "PS Original 3.0 NTSC-J",
+                    SystemID.PSX,
+                    "FF3EEB8C",
+                ),
+                Bios(
+                    "scph5502.bin",
+                    "32736F17079D0B2B7024407C39BD3050",
+                    "PS Original 3.0 PAL",
+                    SystemID.PSX,
+                    "4D9E7C86",
+                ),
+                Bios(
                     "scph1001.bin",
                     "924E392ED05558FFDB115408C263DCCF",
                     "PS Original 2.2 NTSC-U/C",

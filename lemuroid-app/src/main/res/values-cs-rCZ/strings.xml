@@ -5,7 +5,7 @@
     <string name="title_systems">Systémy</string>
     <string name="title_games">Hry</string>
     <string name="title_settings">Nastavení</string>
-    <string name="recent">Nedávné</string>
+    <string name="recent">Pokračovat ve hraní</string>
     <string name="favorites">Oblíbené</string>
     <string name="discover">Objevit</string>
     <string name="rescan">Znovu prohledat</string>
@@ -22,7 +22,6 @@
     <string name="back">Zpět</string>
     <string name="close">Zavřít</string>
     <string name="game_page_search_suggestion">Hledat hry</string>
-    <string name="settings_category_general">Obecné</string>
     <string name="settings_category_input">Vstup</string>
     <string name="settings_category_misc">Ostatní</string>
     <string name="settings_title_enable_autosave">Stav automatického uložení</string>
@@ -42,17 +41,14 @@
     <string name="settings_gamepad_category_enabled">Povolená zařízení</string>
     <string name="settings_gamepad_category_general">Obecné</string>
     <string name="settings_gamepad_title_reset_bindings">Rezetovat nastavení kláves</string>
-    <string name="settings_gamepad_title_game_menu">Menu</string>
-    <string name="settings_title_open_cores_selection">Změnit jádra</string>
-    <string name="settings_description_open_cores_selection">Vyberte, které jádro je přiřazeno k systému</string>
+    <string name="settings_title_open_cores_selection">Jádra</string>
+    <string name="settings_description_open_cores_selection">Vyberte a nastavte jádro každého systému</string>
     <string name="settings_title_display_bios_info">BIOS</string>
     <string name="settings_description_display_bios_info">Zobrazit detekované a podporované soubory BIOSu</string>
     <string name="settings_bios_category_detected">Detekováno</string>
     <string name="settings_bios_category_not_detected">Podporováno</string>
     <string name="settings_title_reset_settings">Obnovení továrního nastavení</string>
-    <string name="settings_description_reset_settings">Resetovat GameStation do továrního nastavení</string>
-    <string name="settings_title_advanced_settings">Pokročilé nastavení</string>
-    <string name="settings_description_advanced_settings">Zobrazit pokročilé nastavení</string>
+    <string name="settings_description_reset_settings">Resetovat PlayRetro do továrního nastavení</string>
     <string name="settings_title_low_latency_audio">Preferovat zvuk s nízkou latencí</string>
     <string name="settings_description_low_latency_audio">Snížit latenci zvuku na podporovaných zařízeních. Může způsobit nepříjemné zvuky.</string>
     <string name="settings_title_direct_game_load">Přímé načtení hry</string>
@@ -62,7 +58,7 @@
     <string name="settings_title_enable_device_rumble">Vybrace zařízení</string>
     <string name="settings_description_enable_device_rumble">Pokud není připojen žádný ovladač, vibrujte tímto zařízením</string>
     <string name="reset_settings_warning_message_title">Jste si jisti?</string>
-    <string name="reset_settings_warning_message_description">Tohle vyresetuje GameStation do továrního nastavení, Savy a Stavu budou zachovány.</string>
+    <string name="reset_settings_warning_message_description">Tohle vyresetuje PlayRetro do továrního nastavení, Savy a Stavu budou zachovány.</string>
     <string name="settings_title_save_sync">Ukládání do cloudu</string>
     <string name="settings_description_save_sync">Zálohovat a synchronizovat vaše uložené pozice na cloudu</string>
     <string name="settings_save_sync_refresh">Manuální synchronizace</string>
@@ -80,13 +76,13 @@
     <string name="game_context_menu_restart">Restartovat</string>
     <string name="game_context_menu_create_shortcut">Připnout do launcheru</string>
     <string name="home_notification_title">Povolit oznámení</string>
-    <string name="home_notification_message">GameStation používá oznámení, aby informoval, zda hra nebo operace běží v pozadí.</string>
+    <string name="home_notification_message">PlayRetro používá oznámení, aby informoval, zda hra nebo operace běží v pozadí.</string>
     <string name="home_notification_action">Povolit</string>
     <string name="home_microphone_title">Povolit mikrofon</string>
     <string name="home_microphone_message">Nintendo DS hry mohou používat mikrofon k poskytování některých funkcí.</string>
     <string name="home_microphone_action">Povolit</string>
     <string name="home_empty_title">Zvolit složku s ROMkami</string>
-    <string name="home_empty_message">GameStation potřebuje naskenovat složku obsahující ROM soubory.\nTo může trvat až několik minut.</string>
+    <string name="home_empty_message">PlayRetro potřebuje naskenovat složku obsahující ROM soubory.\nTo může trvat až několik minut.</string>
     <string name="home_empty_action">Vybrat adresář</string>
     <string name="game_menu_save">Uložit</string>
     <string name="game_menu_load">Načíst</string>
@@ -106,7 +102,6 @@
     <string name="game_toast_quick_save_loaded">Rychlé načtení</string>
     <string name="game_toast_quick_save_saved">Rychlé uložení</string>
     <string name="empty_view_default">Žádné položky</string>
-    <string name="core_settings_title">Nastavení jádra</string>
     <string name="core_settings_category_preferences">Preference</string>
     <string name="core_settings_category_controllers">Ovladače</string>
     <string name="core_settings_controller">Ovladač %1$s</string>
@@ -119,17 +114,16 @@
     <string name="game_running_notification_title_alternative">Hra běží</string>
     <string name="game_running_notification_message">Ujistěte se, že jste uložili svůj postup</string>
     <string name="game_loader_error_gl_incompatible">Toto jádro vyžaduje verzi OpenGL ES, která není podporována vaším zařízením.</string>
-    <string name="game_loader_error_load_game">Stalo se něco zlého při načítání vaší hry. Ujistěte se, že ROM je podporováná GameStationem a znovu naskenujte vaše hry.</string>
+    <string name="game_loader_error_load_game">Stalo se něco zlého při načítání vaší hry. Ujistěte se, že ROM je podporováná PlayRetroem a znovu naskenujte vaše hry.</string>
     <string name="game_loader_error_save">Stalo se něco závažného s vaším savem. Pokud problémy přetrvávají, zkuste vypnout automatické ukládání.</string>
     <string name="game_loader_error_unsupported_architecture">Tohle jádro není podporované vaším zařízením.</string>
     <string name="game_loader_error_generic">Došlo k něčemu špatného. Zkuste následující:\n
         \n\u2022 Vypněte automatické ukládání a znovu spusťte hru
         \n\u2022 Přejděte do nastavení Androidu a vyčistěte mezipaměť aplikace
-        \n\u2022 Přejděte do nastavení GameStation a proveďte reset do továrního nastavení
+        \n\u2022 Přejděte do nastavení PlayRetro a proveďte reset do továrního nastavení
         \n\nPokud nic z výše uvedeného nepomůže, je možné, že tato hra/jádro není podporováno vaším zařízením.
     </string>
     <string name="game_loader_error_missing_bios">Vypadá to, že vám chybí požadované BIOS soubory. Vložte je do složky s ROMkami a znovu naskenujte. Vyžadouvané soubory: %1$s</string>
-    <string name="game_shortcut_error">Nastala chyba při načítání vaší hry. Prosím, zkontrolujte, zda tato hra existuje ve vaší knihovně.</string>
     <string name="dialog_saf_not_found">Toto zařízení nepodporuje výběr souborů zapomocí StorageAccessFramework. Prosím, zkopírujte ručně nekomprimované ROM soubory do %1$s a znovu oskenujte.</string>
     <string name="system_grid_details">%1$s her</string>
     <string name="tv_folder_picker_title">Zvolit složku s ROMkami</string>
@@ -139,30 +133,26 @@
     <string name="tv_folder_storage_secondary">Sekundární úložiště %1$s</string>
     <string name="tv_folder_storage_title">Vyberte úložiště</string>
     <string name="tv_home_section_favorites">Oblíbené</string>
-    <string name="tv_home_section_recents">Nedávné</string>
-    <string name="tv_home_section_systems">Systémy</string>
-    <string name="tv_home_section_settings">Nastavení</string>
+    <string name="tv_home_section_recents">Pokračovat ve hraní</string>
     <string name="gamepad_binding_update_title">Přiřadit \"RetroPad %1$s\"</string>
     <string name="gamepad_binding_update_description">Stiskněte tlačítko na svém \"%1$s\"</string>
     <string name="shortcut_binding_update_title">Přiřadit \"Zástupce %1$s\"</string>
     <string name="shortcut_binding_update_description">Stiskněte první, poté druhé tlačítko pro navázání kombinace na \"%1$s\"</string>
     <string name="tv_search_results">Hry</string>
     <string name="tv_game_message_missing_gamepad">Gamepad je zapotřebí k hraní. Prosím připojte nějaký.</string>
-    <string name="game_edit_touch_controls_error_not_visible">Odpojte ovladač pro úpravu dotykového ovládání</string>
     <string name="game_interactory_busy">Vyčkejte pro dokončení zbývajících operací</string>
     <string name="mobile_settings_help">Nápověda</string>
-    <string name="mobile_settings_support">Podpora</string>
-    <string name="lemuroid_help_content"><![CDATA[        <b>&#8226;Jak se používá GameStation</b><br/>
-        Zkopírujte veškeré vaše ROM soubory do složky na vašem zařízení a vyberte ji v GameStationu. Tahle složka může mít podsložky. Až sken zkončí, měli by jste vidět vaše hry.<br/><br/>
+    <string name="lemuroid_help_content"><![CDATA[        <b>&#8226;Jak se používá PlayRetro</b><br/>
+        Zkopírujte veškeré vaše ROM soubory do složky na vašem zařízení a vyberte ji v PlayRetrou. Tahle složka může mít podsložky. Až sken zkončí, měli by jste vidět vaše hry.<br/><br/>
         <b>&#8226;Proč to nenašlo žádné hry?</b><br/>
         Pokud jsou vaše ROMky komprimované, zkuste je rozbalit. Pokud to nepomůže, zkuste vložit ROMky každé do složek zvlášť podle systému. Názvy systémů jsou: $SYSTEMS.
     ]]></string>
     <string name="lemuroid_crash_disclamer">Vypadá to, že jádro od Libretro narazylo na nečekaný problém. Pokud přetrvává zkuste následující:\n
         \n\u2022 Vypněte automatické ukládání a znovu spusťte hru
         \n\u2022 Přejděte do nastavení Androidu a vyčistěte mezipaměť aplikace
-        \n\u2022 Přejděte do nastavení GameStationu a proveďte reset do továrního nastavení
+        \n\u2022 Přejděte do nastavení PlayRetrou a proveďte reset do továrního nastavení
         \n\u2022Pokud niz z výše uvedeného nepomůže, je možné, že tato hra/jádro není podporováno vaším zařízením.    </string>
-    <string name="error_message_incompatible_state">Tento save state není kompatibilní se současnou verzí jádra. Prosím načtěte nejnovější save nebo použijte předchozí verzi GameStationu.</string>
+    <string name="error_message_incompatible_state">Tento save state není kompatibilní se současnou verzí jádra. Prosím načtěte nejnovější save nebo použijte předchozí verzi PlayRetrou.</string>
     <string name="shader_filter_names_auto">Automatický</string>
     <string name="shader_filter_names_sharp">Ostrý</string>
     <string name="shader_filter_names_smooth">Hladký</string>
@@ -178,4 +168,21 @@
     <string name="tilt_configuration_buttons_l_r">L – R</string>
     <string name="tilt_configuration_buttons_l1_r1">L1 – R1</string>
     <string name="tilt_configuration_buttons_l2_r2">L2 – R2</string>
+    <string name="settings_category_display">Obrazovka</string>
+    <string name="settings_category_sound">Zvuk</string>
+    <string name="settings_title_viewport_alignment">Zarovnání obrazu</string>
+    <string name="settings_description_viewport_alignment">Poloha obrazu hry na obrazovce, když zbývá volné místo, aby zůstal prostor pro dotykové ovládání.</string>
+    <string name="viewport_alignment_names_top">Nahoře</string>
+    <string name="viewport_alignment_names_center">Uprostřed</string>
+    <string name="viewport_alignment_names_bottom">Dole</string>
+    <string name="core_options_category_core">Jádro</string>
+    <string name="core_options_category_options">Možnosti</string>
+    <string name="core_options_category_advanced">Pokročilé</string>
+    <string name="core_options_single_core">%1$s (jediné dostupné)</string>
+    <string name="core_options_not_used_yet">Zahrajte si jednou hru pro %1$s, abyste zde viděli možnosti jeho jádra.</string>
+    <string name="core_options_none">Toto jádro nemá žádné nastavitelné možnosti.</string>
+    <string name="core_options_reset">Obnovit možnosti tohoto jádra</string>
+    <string name="core_options_summary_count">%1$s · Možnosti: %2$d</string>
+    <string name="core_options_summary_none">%1$s · Bez možností</string>
+    <string name="core_options_summary_unused">%1$s · Zatím nepoužito</string>
 </resources>

@@ -5,8 +5,10 @@ import android.os.Bundle
 import android.view.View
 import androidx.leanback.app.VerticalGridSupportFragment
 import androidx.leanback.widget.ArrayObjectAdapter
+import androidx.leanback.widget.BrowseFrameLayout
 import androidx.leanback.widget.OnItemViewClickedListener
 import androidx.leanback.widget.VerticalGridPresenter
+import androidx.leanback.widget.VerticalGridView
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -51,6 +53,7 @@ class TVSystemsFragment : VerticalGridSupportFragment() {
             val topPadding = resources.getDimensionPixelSize(R.dimen.tv_systems_grid_top_padding)
             it.setPadding(it.paddingLeft, topPadding, it.paddingRight, it.paddingBottom)
         }
+        allowFocusUpToTabs(view)
 
         val cardSize = resources.getDimensionPixelSize(com.swordfish.lemuroid.lib.R.dimen.card_size)
         val cardPadding = resources.getDimensionPixelSize(com.swordfish.lemuroid.lib.R.dimen.systems_card_padding)
@@ -77,6 +80,17 @@ class TVSystemsFragment : VerticalGridSupportFragment() {
                 .distinctUntilChanged()
                 .collect { systemsAdapter.setItems(it, TVHomeFragment.LEANBACK_SYSTEM_DIFF_CALLBACK) }
         }
+    }
+
+    /**
+     * Leanback moves the focus up from the first row to its own title area, which is hidden here,
+     * so the focus got stuck. Letting it leave the grid makes the tabs bar take it instead.
+     */
+    private fun allowFocusUpToTabs(view: View) {
+        (view.findViewById<View>(androidx.leanback.R.id.grid_frame) as? BrowseFrameLayout)
+            ?.onFocusSearchListener = null
+        (view.findViewById<View>(androidx.leanback.R.id.browse_grid) as? VerticalGridView)
+            ?.setFocusOutAllowed(true, false)
     }
 
     companion object {

@@ -44,9 +44,9 @@ class StartupBenchmarks {
     fun startupCompilationBaselineProfiles() = benchmark(CompilationMode.Partial(BaselineProfileMode.Require))
 
     private fun benchmark(compilationMode: CompilationMode) {
-        // This example works only with the variant with application id `com.gamestation.tv`."
+        // This example works only with the variant with application id `com.playretro.tv`."
         rule.measureRepeated(
-            packageName = "com.gamestation.tv",
+            packageName = "com.playretro.tv",
             metrics = listOf(StartupTimingMetric()),
             compilationMode = compilationMode,
             startupMode = StartupMode.COLD,

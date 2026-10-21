@@ -22,4 +22,15 @@
     <string name="value_mupen64plus_bilinearmode_standard">Estàndard</string>
     <string name="value_melonds_screen_layout_leftright">Esquerra-dreta</string>
     <string name="value_ppsspp_cpu_core_jit">JIT</string>
+    <string name="setting_description_pcsx_rearmed_drc">Més velocitat i àudio estable</string>
+    <string name="setting_description_melonds_jit_enable">Només funciona en Android de 64 bits</string>
+    <string name="setting_swanstation_resolution_scale">Resolució interna</string>
+    <string name="setting_swanstation_pgxp">Correcció de geometria (PGXP)</string>
+    <string name="setting_swanstation_widescreen">Pantalla panoràmica (hack)</string>
+    <string name="setting_swanstation_cpu_mode">Mode de CPU</string>
+    <string name="value_swanstation_cpu_interpreter">Intèrpret</string>
+    <string name="value_swanstation_cpu_cached_interpreter">Intèrpret amb memòria cau</string>
+    <string name="value_swanstation_cpu_recompiler">Recompilador</string>
+    <string name="value_swanstation_enabled">Activat</string>
+    <string name="value_swanstation_disabled">Desactivat</string>
 </resources>

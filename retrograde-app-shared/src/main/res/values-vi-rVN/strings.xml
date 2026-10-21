@@ -9,4 +9,15 @@
     <string name="controller_standard">Tiêu chuẩn</string>
     <!-- Core settings titles -->
     <!-- Core settings values. Duplicated here to ease the translation process. -->
+    <string name="setting_description_pcsx_rearmed_drc">Giả lập nhanh hơn và âm thanh ổn định</string>
+    <string name="setting_description_melonds_jit_enable">Chỉ hoạt động trên Android 64-bit</string>
+    <string name="setting_swanstation_resolution_scale">Độ phân giải nội bộ</string>
+    <string name="setting_swanstation_pgxp">Hiệu chỉnh hình học (PGXP)</string>
+    <string name="setting_swanstation_widescreen">Hack màn hình rộng</string>
+    <string name="setting_swanstation_cpu_mode">Chế độ CPU</string>
+    <string name="value_swanstation_cpu_interpreter">Trình thông dịch</string>
+    <string name="value_swanstation_cpu_cached_interpreter">Trình thông dịch có bộ đệm</string>
+    <string name="value_swanstation_cpu_recompiler">Trình biên dịch lại</string>
+    <string name="value_swanstation_enabled">Bật</string>
+    <string name="value_swanstation_disabled">Tắt</string>
 </resources>

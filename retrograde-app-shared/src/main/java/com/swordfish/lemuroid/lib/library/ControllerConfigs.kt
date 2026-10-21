@@ -183,6 +183,12 @@ object ControllerConfigs {
                 ),
         )
 
+    // SwanStation names its controllers differently, so they are matched by libretro device id
+    // (RETRO_DEVICE_JOYPAD and RETRO_DEVICE_SUBCLASS(RETRO_DEVICE_ANALOG, 0)).
+    val SWANSTATION_STANDARD = PSX_STANDARD.copy(libretroDescriptor = null, libretroId = 1)
+
+    val SWANSTATION_DUALSHOCK = PSX_DUALSHOCK.copy(libretroDescriptor = null, libretroId = 261)
+
     val PSP =
         ControllerConfig(
             "default",

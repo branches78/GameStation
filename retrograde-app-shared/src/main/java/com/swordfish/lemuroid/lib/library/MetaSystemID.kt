@@ -1,6 +1,5 @@
 package com.swordfish.lemuroid.lib.library
 
-import com.swordfish.lemuroid.common.graphics.ColorUtils
 import com.swordfish.lemuroid.lib.R
 
 fun GameSystem.metaSystemID() = MetaSystemID.fromSystemID(id)
@@ -114,10 +113,6 @@ enum class MetaSystemID(val titleResId: Int, val imageResId: Int, val systemIDs:
         listOf(SystemID.NINTENDO_3DS),
     ),
     ;
-
-    fun color(): Int {
-        return ColorUtils.color(ordinal.toFloat() / values().size)
-    }
 
     companion object {
         fun fromSystemID(systemID: SystemID): MetaSystemID {

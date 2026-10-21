@@ -19,7 +19,11 @@ import java.util.concurrent.TimeUnit
  * and covers that don't exist at all are not requested again for a few days.
  */
 class ThumbnailFallbackInterceptor(context: Context) : Interceptor {
-    private val preferences = context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE)
+    private val preferences =
+        context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE).also {
+            // Entries are never removed one by one, so the whole list is reset if it grows too much.
+            if (it.all.size > MAX_ENTRIES) it.edit { clear() }
+        }
 
     override suspend fun intercept(chain: Interceptor.Chain): ImageResult {
         val url = chain.request.data as? String
@@ -105,6 +109,7 @@ class ThumbnailFallbackInterceptor(context: Context) : Interceptor {
         private const val THUMBNAILS_HOST = "thumbnails.libretro.com"
         private const val EXTENSION = ".png"
         private const val MAX_ALTERNATIVES = 6
+        private const val MAX_ENTRIES = 5000
 
         private val LANGUAGE_GROUP = Regex("\\s*\\((?:[A-Z][a-z](?:[,+][A-Z][a-z])*)\\)")
         private val FALLBACK_REGIONS = listOf("USA", "World", "Europe", "Japan")

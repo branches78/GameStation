@@ -13,7 +13,7 @@ android {
         versionCode = 1
         // App version is independent from CORES_VERSION in CoreUpdaterImpl (LemuroidCores tag).
         versionName = "1.0.0"
-        applicationId = "com.gamestation.tv"
+        applicationId = "com.playretro.tv"
     }
     flavorDimensions += listOf("opensource", "cores")
 
@@ -83,11 +83,18 @@ android {
             storeFile = file("$rootDir/debug.keystore")
         }
 
+        // Release signing data lives in keystore.properties (not committed), next to release.jks.
+        // Expected keys: storeFile (optional, defaults to release.jks), storePassword, keyAlias, keyPassword.
+        val keystoreProperties =
+            java.util.Properties().apply {
+                val propertiesFile = rootProject.file("keystore.properties")
+                if (propertiesFile.exists()) propertiesFile.inputStream().use { load(it) }
+            }
         maybeCreate("release").apply {
-            storeFile = file("$rootDir/release.jks")
-            keyAlias = "lemuroid"
-            storePassword = "lemuroid"
-            keyPassword = "lemuroid"
+            storeFile = file("$rootDir/${keystoreProperties.getProperty("storeFile", "release.jks")}")
+            keyAlias = keystoreProperties.getProperty("keyAlias")
+            storePassword = keystoreProperties.getProperty("storePassword")
+            keyPassword = keystoreProperties.getProperty("keyPassword")
         }
     }
 
@@ -96,12 +103,12 @@ android {
             isMinifyEnabled = true
             signingConfig = signingConfigs["release"]
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
-            resValue("string", "lemuroid_name", "GameStation")
+            resValue("string", "lemuroid_name", "PlayRetro")
         }
         getByName("debug") {
             applicationIdSuffix = ".debug"
             versionNameSuffix = "-DEBUG"
-            resValue("string", "lemuroid_name", "GameStation Debug")
+            resValue("string", "lemuroid_name", "PlayRetro Debug")
         }
     }
 

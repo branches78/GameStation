@@ -33,6 +33,11 @@ fun NavController.navigateToRoute(route: MainRoute) {
     this.navigate(route.route)
 }
 
+/** Opens the options of the core used by a system ([systemId] is the database name of the system). */
+fun NavController.navigateToCoreOptions(systemId: String) {
+    this.navigate(MainRoute.SETTINGS_CORE_OPTIONS.route.replace("{systemId}", systemId))
+}
+
 enum class MainRoute(
     val route: String,
     @StringRes val titleId: Int,
@@ -43,6 +48,12 @@ enum class MainRoute(
     HOME(
         route = "home",
         titleId = R.string.title_home,
+    ),
+    // Not a tab: opened from the "Show all" card of the home favorites row.
+    FAVORITES(
+        route = "favorites",
+        titleId = R.string.favorites,
+        parent = HOME,
     ),
     SEARCH(
         route = "search",
@@ -71,6 +82,12 @@ enum class MainRoute(
         route = "settings/cores",
         titleId = R.string.settings_title_open_cores_selection,
         parent = SETTINGS,
+    ),
+    SETTINGS_CORE_OPTIONS(
+        route = "settings/cores/{systemId}",
+        titleId = R.string.settings_title_open_cores_selection,
+        parent = SETTINGS_CORES_SELECTION,
+        listOf(navArgument("systemId") { type = NavType.StringType }),
     ),
     SETTINGS_INPUT_DEVICES(
         route = "settings/inputdevices",

@@ -4,10 +4,7 @@ import com.swordfish.lemuroid.app.tv.folderpicker.TVFolderPickerActivity
 import com.swordfish.lemuroid.app.tv.folderpicker.TVFolderPickerLauncher
 import com.swordfish.lemuroid.app.tv.game.TVGameActivity
 import com.swordfish.lemuroid.app.tv.gamemenu.TVGameMenuActivity
-import com.swordfish.lemuroid.app.tv.input.TVGamePadBindingActivity
-import com.swordfish.lemuroid.app.tv.input.TVGamePadShortcutBindingActivity
 import com.swordfish.lemuroid.app.tv.main.MainTVActivity
-import com.swordfish.lemuroid.app.tv.settings.TVSettingsActivity
 import com.swordfish.lemuroid.lib.injection.PerActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -33,16 +30,4 @@ abstract class LemuroidTVApplicationModule {
     @PerActivity
     @ContributesAndroidInjector
     abstract fun tvFolderPickerActivity(): TVFolderPickerActivity
-
-    @PerActivity
-    @ContributesAndroidInjector
-    abstract fun tvGamePadBindingActivity(): TVGamePadBindingActivity
-
-    @PerActivity
-    @ContributesAndroidInjector
-    abstract fun tvGamePadShortcutBindingActivity(): TVGamePadShortcutBindingActivity
-
-    @PerActivity
-    @ContributesAndroidInjector(modules = [TVSettingsActivity.Module::class])
-    abstract fun tvSettingsActivity(): TVSettingsActivity
 }

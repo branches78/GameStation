@@ -45,7 +45,7 @@ class DriveFactory(private val context: Context) {
         val jsonFactory = GsonFactory.getDefaultInstance()
 
         return Drive.Builder(httpTransport, jsonFactory, credential)
-            .setApplicationName("com.gamestation.tv")
+            .setApplicationName("com.playretro.tv")
             .build()
     }
 }

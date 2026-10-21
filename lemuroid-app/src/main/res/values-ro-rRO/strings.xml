@@ -5,7 +5,7 @@
     <string name="title_systems">Sisteme</string>
     <string name="title_games">Jocuri</string>
     <string name="title_settings">Setări</string>
-    <string name="recent">Recente</string>
+    <string name="recent">Continuă jocul</string>
     <string name="favorites">Favorite</string>
     <string name="discover">Descoperă</string>
     <string name="rescan">Rescanează</string>
@@ -22,7 +22,6 @@
     <string name="back">Înapoi</string>
     <string name="close">Închide</string>
     <string name="game_page_search_suggestion">Caută jocuri</string>
-    <string name="settings_category_general">Setări generale</string>
     <string name="settings_category_input">Intrări</string>
     <string name="settings_category_misc">Diverse</string>
     <string name="settings_title_enable_autosave">Autosalvare in curs</string>
@@ -42,17 +41,14 @@
     <string name="settings_gamepad_category_enabled">Dispozitive activate</string>
     <string name="settings_gamepad_category_general">Setări generale</string>
     <string name="settings_gamepad_title_reset_bindings">Resetare legături</string>
-    <string name="settings_gamepad_title_game_menu">Meniu</string>
-    <string name="settings_title_open_cores_selection">Schimbă Nucleele</string>
-    <string name="settings_description_open_cores_selection">Selectați care nucleu este asociat unui sistem</string>
+    <string name="settings_title_open_cores_selection">Nuclee</string>
+    <string name="settings_description_open_cores_selection">Alege și configurează nucleul fiecărui sistem</string>
     <string name="settings_title_display_bios_info">BIOS</string>
     <string name="settings_description_display_bios_info">Afișează fișierele BIOS detectate și suportate</string>
     <string name="settings_bios_category_detected">Detectat</string>
     <string name="settings_bios_category_not_detected">Suportat</string>
     <string name="settings_title_reset_settings">Resetare la valorile din fabrică</string>
-    <string name="settings_description_reset_settings">Resetați GameStation la setările sale din fabrică</string>
-    <string name="settings_title_advanced_settings">Setări avansate</string>
-    <string name="settings_description_advanced_settings">Afișează setările avansate</string>
+    <string name="settings_description_reset_settings">Resetați PlayRetro la setările sale din fabrică</string>
     <string name="settings_title_low_latency_audio">Preferă audio cu latență mică</string>
     <string name="settings_description_low_latency_audio">Reduceți latența audio pe dispozitivele acceptate. Poate crește numărul de glitch-uri.</string>
     <string name="settings_title_direct_game_load">Încărcare directă a jocului</string>
@@ -62,7 +58,7 @@
     <string name="settings_title_enable_device_rumble">Vibrare dispozitiv</string>
     <string name="settings_description_enable_device_rumble">Când nu este conectat nici un controler, folosește vibrarea dispozitivului</string>
     <string name="reset_settings_warning_message_title">Ești sigur?</string>
-    <string name="reset_settings_warning_message_description">Acest lucru va reseta GameStation la setările din fabrică. Salvările și Statele vor fi păstrate.</string>
+    <string name="reset_settings_warning_message_description">Acest lucru va reseta PlayRetro la setările din fabrică. Salvările și Statele vor fi păstrate.</string>
     <string name="settings_title_save_sync">Salvare în cloud</string>
     <string name="settings_description_save_sync">Fă o copie de rezervă și sincronizează salvările tale în cloud</string>
     <string name="settings_save_sync_refresh">Sincronizare manuală</string>
@@ -80,13 +76,13 @@
     <string name="game_context_menu_restart">Reporniţi</string>
     <string name="game_context_menu_create_shortcut">Fixează în lansator</string>
     <string name="home_notification_title">Activați notificările</string>
-    <string name="home_notification_message">GameStation folosește notificări pentru a te anunța când un joc sau o activitate rulează în fundal.</string>
+    <string name="home_notification_message">PlayRetro folosește notificări pentru a te anunța când un joc sau o activitate rulează în fundal.</string>
     <string name="home_notification_action">Activați</string>
     <string name="home_microphone_title">Activează microfonul</string>
     <string name="home_microphone_message">Jocurile Nintendo DS pot folosi microfonul pentru a oferi unele funcționalități.</string>
     <string name="home_microphone_action">Activare</string>
     <string name="home_empty_title">Alege directorul de ROM-uri</string>
-    <string name="home_empty_message">GameStation trebuie să scaneze un director care conține fișiere ROM.\nAcest lucru ar putea dura până la câteva minute.</string>
+    <string name="home_empty_message">PlayRetro trebuie să scaneze un director care conține fișiere ROM.\nAcest lucru ar putea dura până la câteva minute.</string>
     <string name="home_empty_action">Selectare director</string>
     <string name="game_menu_save">Salvare</string>
     <string name="game_menu_load">Încărcare</string>
@@ -106,7 +102,6 @@
     <string name="game_toast_quick_save_loaded">Încărcare rapidă</string>
     <string name="game_toast_quick_save_saved">Salvat rapid</string>
     <string name="empty_view_default">Nu există articole</string>
-    <string name="core_settings_title">Setări nucleu</string>
     <string name="core_settings_category_preferences">Preferințe</string>
     <string name="core_settings_category_controllers">Controlori</string>
     <string name="core_settings_controller">Controller %1$s</string>
@@ -119,11 +114,10 @@
     <string name="game_running_notification_title_alternative">Jocul rulează</string>
     <string name="game_running_notification_message">Asigură-te că îți salvezi progresul</string>
     <string name="game_loader_error_gl_incompatible">Acest Nucleu necesită o versiune OpenGL ES care nu este suportată de dispozitivul dvs.</string>
-    <string name="game_loader_error_load_game">Ceva rău s-a întâmplat în timpul încărcării jocului. Asigură-te că ROM-ul este sprijinit de GameStation și rescanează-ți jocurile.</string>
+    <string name="game_loader_error_load_game">Ceva rău s-a întâmplat în timpul încărcării jocului. Asigură-te că ROM-ul este sprijinit de PlayRetro și rescanează-ți jocurile.</string>
     <string name="game_loader_error_save">Ceva rău s-a întâmplat cu fișierul de salvare. Dacă problema persistă, dezactivați salvarea automată.</string>
     <string name="game_loader_error_unsupported_architecture">Acest nucleu nu este acceptat de dispozitivul dvs.</string>
     <string name="game_loader_error_missing_bios">Se pare că nu ai BIOS necesar, pune-le în directorul ROM-uri și rescanează. Fișiere necesare: %1$s</string>
-    <string name="game_shortcut_error">Ceva rău s-a întâmplat în timpul încărcării jocului. Te rugăm să te asiguri că acest joc mai există în biblioteca ta.</string>
     <string name="dialog_saf_not_found">Acest dispozitiv nu acceptă selectorul de fișiere StorageAccessFramework copiați manual fișierele ROM necomprimate în %1$s și apăsați Rescan.</string>
     <string name="system_grid_details">Partide %1$s</string>
     <string name="tv_folder_picker_title">Selectează directorul ROM-urilor</string>
@@ -133,25 +127,21 @@
     <string name="tv_folder_storage_secondary">Stocare secundară %1$s</string>
     <string name="tv_folder_storage_title">Alege stocarea</string>
     <string name="tv_home_section_favorites">Favorite</string>
-    <string name="tv_home_section_recents">Recente</string>
-    <string name="tv_home_section_systems">Sisteme</string>
-    <string name="tv_home_section_settings">Setări</string>
+    <string name="tv_home_section_recents">Continuă jocul</string>
     <string name="gamepad_binding_update_title">Asociați „RetroPad %1$s”</string>
     <string name="gamepad_binding_update_description">Apăsați un buton pe „%1$s”</string>
     <string name="shortcut_binding_update_title">Asociază \"Scurtătură %1$s\"</string>
     <string name="shortcut_binding_update_description">Apăsați primul, apoi al doilea buton pentru a lega o combinație pe \"%1$s</string>
     <string name="tv_search_results">Jocuri</string>
     <string name="tv_game_message_missing_gamepad">Jocurile sunt necesare pentru a juca. Vă rugăm să conectați unul.</string>
-    <string name="game_edit_touch_controls_error_not_visible">Deconectează tastatura pentru a edita controalele de atingere</string>
     <string name="game_interactory_busy">Așteptați ca operațiunile în așteptare să se finalizeze</string>
     <string name="mobile_settings_help">Ajutor</string>
-    <string name="mobile_settings_support">Asistență</string>
-    <string name="lemuroid_help_content"><![CDATA[        <b>&#8226;Cum folosesc GameStation?</b><br/>
-        Copiază toate fișierele ROM-uri într-un director de pe dispozitivul tău și selectează-le în GameStation. Acest director are permisiunea de a avea subdirectoare. După ce scanarea se finalizează ar trebui să vezi jocurile tale.<br/><br/>
+    <string name="lemuroid_help_content"><![CDATA[        <b>&#8226;Cum folosesc PlayRetro?</b><br/>
+        Copiază toate fișierele ROM-uri într-un director de pe dispozitivul tău și selectează-le în PlayRetro. Acest director are permisiunea de a avea subdirectoare. După ce scanarea se finalizează ar trebui să vezi jocurile tale.<br/><br/>
         <b>&#8226;De ce nu sunt detectate jocurile mele?</b><br/>
         Dacă jocurile sunt comprimate, încercaţi să le comprimaţi. Dacă nu funcționează, încercați să puneți ROM-urile în directoare separate, câte una pentru fiecare sistem cu următoarele nume: $SYSTEMS.
     ]]></string>
-    <string name="error_message_incompatible_state">Această stare de salvare nu este compatibilă cu versiunea de bază curentă. Vă rugăm să încărcați ultima salvare din joc sau să folosiți o versiune GameStation anterioară.</string>
+    <string name="error_message_incompatible_state">Această stare de salvare nu este compatibilă cu versiunea de bază curentă. Vă rugăm să încărcați ultima salvare din joc sau să folosiți o versiune PlayRetro anterioară.</string>
     <string name="shader_filter_names_auto">Auto</string>
     <string name="shader_filter_names_sharp">Ascuţit</string>
     <string name="shader_filter_names_smooth">Netezit</string>
@@ -167,4 +157,21 @@
     <string name="tilt_configuration_buttons_l_r">L - R</string>
     <string name="tilt_configuration_buttons_l1_r1">L1 – R1</string>
     <string name="tilt_configuration_buttons_l2_r2">L2 - R2</string>
+    <string name="settings_category_display">Ecran</string>
+    <string name="settings_category_sound">Sunet</string>
+    <string name="settings_title_viewport_alignment">Alinierea imaginii</string>
+    <string name="settings_description_viewport_alignment">Poziția imaginii jocului pe ecran când rămâne spațiu liber, pentru a lăsa loc comenzilor tactile.</string>
+    <string name="viewport_alignment_names_top">Sus</string>
+    <string name="viewport_alignment_names_center">Centru</string>
+    <string name="viewport_alignment_names_bottom">Jos</string>
+    <string name="core_options_category_core">Nucleu</string>
+    <string name="core_options_category_options">Opțiuni</string>
+    <string name="core_options_category_advanced">Avansate</string>
+    <string name="core_options_single_core">%1$s (singurul disponibil)</string>
+    <string name="core_options_not_used_yet">Joacă o dată un joc %1$s pentru a vedea aici opțiunile nucleului său.</string>
+    <string name="core_options_none">Acest nucleu nu are opțiuni configurabile.</string>
+    <string name="core_options_reset">Resetează opțiunile acestui nucleu</string>
+    <string name="core_options_summary_count">%1$s · Opțiuni: %2$d</string>
+    <string name="core_options_summary_none">%1$s · Fără opțiuni</string>
+    <string name="core_options_summary_unused">%1$s · Încă nefolosit</string>
 </resources>

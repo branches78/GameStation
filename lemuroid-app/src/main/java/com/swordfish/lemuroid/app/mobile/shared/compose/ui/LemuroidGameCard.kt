@@ -14,6 +14,7 @@ import com.swordfish.lemuroid.lib.library.db.entity.Game
 fun LemuroidGameCard(
     modifier: Modifier = Modifier,
     game: Game,
+    matchCoverShape: Boolean = true,
     onClick: () -> Unit = { },
     onLongClick: () -> Unit = { },
 ) {
@@ -29,7 +30,7 @@ fun LemuroidGameCard(
                         onLongClick = onLongClick,
                     ),
         ) {
-            LemuroidGameImage(game = game)
+            LemuroidGameImage(game = game, matchCoverShape = matchCoverShape)
             LemuroidGameTexts(game = game)
         }
     }

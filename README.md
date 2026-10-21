@@ -54,3 +54,11 @@ It originated from a rib of [Retrograde](https://github.com/retrograde/retrograd
 
 ### Languages:
 You can help translate Lemuroid in your native language by going here: https://crowdin.com/project/lemuroid
+
+### Credits:
+- System icons: "FlatUI" theme from [RetroArch assets](https://github.com/libretro/retroarch-assets) by libretro,
+  licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+- Emulation cores: [libretro](https://github.com/libretro) cores (GPL and other open source licenses), distributed
+  from [PlayRetroCores](https://github.com/branches78/PlayRetroCores), a fork of
+  [LemuroidCores](https://github.com/Swordfish90/LemuroidCores) that adds [SwanStation](https://github.com/libretro/swanstation).
+  The source code of each core is available in its libretro repository.

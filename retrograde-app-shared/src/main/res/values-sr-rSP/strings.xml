@@ -11,8 +11,6 @@
     <string name="controller_landscape">Пејзаж</string>
     <string name="controller_portrait">Портрет</string>
     <string name="controller_dos_auto">Аутоматско</string>
-    <string name="controller_dos_mouse_left">Миш са левим штапом</string>
-    <string name="controller_dos_mouse_right">Миш са десним штапом</string>
     <!-- Core settings titles -->
     <string name="setting_stella_filter">Телевизијски ефекат</string>
     <string name="setting_stella_crop_hoverscan">Одсеци хоризонтални превелики скен</string>
@@ -40,12 +38,9 @@
     <string name="setting_pcsx_rearmed_frameskip">Прескакање фрејмова</string>
     <string name="setting_pcsx_rearmed_drc">Динамични рекомпајлер</string>
     <string name="setting_ppsspp_auto_frameskip">Аутоматско прескакање фрејмова</string>
-    <string name="setting_ppsspp_frameskip">Прескакање фрејмова</string>
     <string name="setting_ppsspp_cpu_core">Динамични рекомпајлер</string>
     <string name="setting_ppsspp_internal_resolution">Резолуција</string>
     <string name="setting_ppsspp_texture_scaling_level">Ниво скалирања текстуре</string>
-    <string name="setting_ppsspp_texture_scaling_type">Тип скалирања текстуре</string>
-    <string name="setting_ppsspp_texture_filtering">Филтрирање текстуре</string>
     <string name="setting_fbneo_frameskip">Прескакање фрејмова</string>
     <string name="setting_fbneo_cpu_speed_adjust">Брзина процесора (CPU)</string>
     <string name="setting_melonds_screen_layout">Распоред екрана</string>
@@ -100,8 +95,6 @@
     <string name="value_mupen64plus_mupen64plus_pak2_rumble">Тутњава</string>
     <string name="value_melonds_screen_layout_topbottom">Горе - Доле</string>
     <string name="value_melonds_screen_layout_leftright">Лево - Десно</string>
-    <string name="value_melonds_screen_layout_hybridtop">Хибридно горе</string>
-    <string name="value_melonds_screen_layout_hybridbottom">Хибридно доле</string>
     <string name="value_melonds_mic_input_microphone">Прави микрофон</string>
     <string name="value_melonds_mic_input_blow">Симулирај звукове удараца</string>
     <string name="value_citra_layout_option_topbottom">Горе - Доле</string>
@@ -114,4 +107,15 @@
     <string name="value_handy_rot_none">0</string>
     <string name="value_handy_rot_90">90</string>
     <string name="value_handy_rot_270">270</string>
+    <string name="setting_description_pcsx_rearmed_drc">Бржа емулација и стабилан звук</string>
+    <string name="setting_description_melonds_jit_enable">Ради само на 64-битном Android-у</string>
+    <string name="setting_swanstation_resolution_scale">Унутрашња резолуција</string>
+    <string name="setting_swanstation_pgxp">Исправка геометрије (PGXP)</string>
+    <string name="setting_swanstation_widescreen">Хак за широки екран</string>
+    <string name="setting_swanstation_cpu_mode">Режим процесора</string>
+    <string name="value_swanstation_cpu_interpreter">Интерпретатор</string>
+    <string name="value_swanstation_cpu_cached_interpreter">Интерпретатор са кешом</string>
+    <string name="value_swanstation_cpu_recompiler">Рекомпајлер</string>
+    <string name="value_swanstation_enabled">Укључено</string>
+    <string name="value_swanstation_disabled">Искључено</string>
 </resources>

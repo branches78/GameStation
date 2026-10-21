@@ -26,6 +26,8 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.fredporciuncula.flow.preferences.FlowSharedPreferences
 import com.swordfish.lemuroid.R
+import com.swordfish.lemuroid.app.mobile.feature.favorites.FavoritesScreen
+import com.swordfish.lemuroid.app.mobile.feature.favorites.FavoritesViewModel
 import com.swordfish.lemuroid.app.mobile.feature.games.GamesScreen
 import com.swordfish.lemuroid.app.mobile.feature.games.GamesViewModel
 import com.swordfish.lemuroid.app.mobile.feature.home.HomeScreen
@@ -34,6 +36,7 @@ import com.swordfish.lemuroid.app.mobile.feature.search.SearchScreen
 import com.swordfish.lemuroid.app.mobile.feature.search.SearchViewModel
 import com.swordfish.lemuroid.app.mobile.feature.settings.bios.BiosScreen
 import com.swordfish.lemuroid.app.mobile.feature.settings.bios.BiosSettingsViewModel
+import com.swordfish.lemuroid.app.mobile.feature.settings.coreselection.CoreOptionsSettingsScreen
 import com.swordfish.lemuroid.app.mobile.feature.settings.coreselection.CoresSelectionScreen
 import com.swordfish.lemuroid.app.mobile.feature.settings.coreselection.CoresSelectionViewModel
 import com.swordfish.lemuroid.app.mobile.feature.settings.general.SettingsScreen
@@ -60,6 +63,7 @@ import com.swordfish.lemuroid.lib.bios.BiosManager
 import com.swordfish.lemuroid.lib.core.CoresSelection
 import com.swordfish.lemuroid.lib.injection.PerActivity
 import com.swordfish.lemuroid.lib.library.covers.CustomCoverManager
+import com.swordfish.lemuroid.lib.library.GameSystem
 import com.swordfish.lemuroid.lib.library.MetaSystemID
 import com.swordfish.lemuroid.lib.library.SystemID
 import com.swordfish.lemuroid.lib.library.db.RetrogradeDatabase
@@ -137,6 +141,9 @@ class MainActivity : RetrogradeComponentActivity(), BusyActivity {
             val currentSystemTitleId =
                 navBackStackEntry.value?.arguments?.getString("metaSystemId")
                     ?.let { runCatching { MetaSystemID.valueOf(it).titleResId }.getOrNull() }
+                    // The core options of a system also show the system name.
+                    ?: navBackStackEntry.value?.arguments?.getString("systemId")
+                        ?.let { runCatching { GameSystem.findById(it).titleResId }.getOrNull() }
 
             val infoDialogDisplayed =
                 remember {
@@ -204,6 +211,15 @@ class MainActivity : RetrogradeComponentActivity(), BusyActivity {
                                             coresSelection,
                                         ),
                                 ),
+                            onGameClick = onGameClick,
+                            onGameLongClick = onGameLongClick,
+                            onShowAllFavorites = { navController.navigateToRoute(MainRoute.FAVORITES) },
+                        )
+                    }
+                    composable(MainRoute.FAVORITES) {
+                        FavoritesScreen(
+                            modifier = Modifier.padding(padding),
+                            viewModel = viewModel(factory = FavoritesViewModel.Factory(retrogradeDb)),
                             onGameClick = onGameClick,
                             onGameLongClick = onGameLongClick,
                         )
@@ -294,6 +310,21 @@ class MainActivity : RetrogradeComponentActivity(), BusyActivity {
                                             coresSelection,
                                         ),
                                 ),
+                            navController = navController,
+                        )
+                    }
+                    composable(MainRoute.SETTINGS_CORE_OPTIONS) { entry ->
+                        CoreOptionsSettingsScreen(
+                            modifier = Modifier.padding(padding),
+                            viewModel =
+                                viewModel(
+                                    factory =
+                                        CoresSelectionViewModel.Factory(
+                                            applicationContext,
+                                            coresSelection,
+                                        ),
+                                ),
+                            systemId = entry.arguments?.getString("systemId")!!,
                         )
                     }
                     composable(MainRoute.SETTINGS_INPUT_DEVICES) {

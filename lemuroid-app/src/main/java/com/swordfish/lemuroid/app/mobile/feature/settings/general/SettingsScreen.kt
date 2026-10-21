@@ -29,7 +29,6 @@ import com.swordfish.lemuroid.app.utils.android.settings.indexPreferenceState
 import com.swordfish.lemuroid.app.utils.android.settings.intPreferenceState
 import com.swordfish.lemuroid.app.tv.shared.TVHelper
 import com.swordfish.lemuroid.app.utils.android.stringListResource
-import com.swordfish.lemuroid.lib.library.GameSystem
 
 @Composable
 fun SettingsScreen(
@@ -63,22 +62,21 @@ fun SettingsScreen(
     LemuroidSettingsPage(modifier = modifier) {
         RomsSettings(
             state = state,
+            cacheState = cacheState,
             onChangeFolder = {
                 if (isTV) TVHelper.launchFolderPicker(context) else viewModel.changeLocalStorageFolder()
             },
             indexingInProgress = indexingInProgress,
             scanInProgress = scanInProgress,
+            navController = navController,
         )
-        GeneralSettings(
-            cacheState = cacheState,
-            isTV = isTV,
-            onResetAllSettings = { viewModel.resetAllSettings() },
-        )
+        DisplaySettings(isTV = isTV)
+        SoundSettings()
         InputSettings(navController = navController, isTV = isTV)
         MiscSettings(
             indexingInProgress = indexingInProgress,
-            isSaveSyncSupported = state.isSaveSyncSupported,
             navController = navController,
+            onResetAllSettings = { viewModel.resetAllSettings() },
         )
     }
 }
@@ -86,31 +84,14 @@ fun SettingsScreen(
 @Composable
 private fun MiscSettings(
     indexingInProgress: Boolean,
-    isSaveSyncSupported: Boolean,
     navController: NavController,
+    onResetAllSettings: () -> Unit,
 ) {
+    val factoryResetDialogState = remember { mutableStateOf(false) }
+
     LemuroidCardSettingsGroup(
         title = { Text(text = stringResource(id = R.string.settings_category_misc)) },
     ) {
-        if (isSaveSyncSupported) {
-            LemuroidSettingsMenuLink(
-                title = { Text(text = stringResource(id = R.string.settings_title_save_sync)) },
-                subtitle = {
-                    Text(text = stringResource(id = R.string.settings_description_save_sync))
-                },
-                onClick = { navController.navigateToRoute(MainRoute.SETTINGS_SAVE_SYNC) },
-            )
-        }
-        // Only shown when at least one system can choose between several cores.
-        if (GameSystem.all().any { it.systemCoreConfigs.size > 1 }) {
-            LemuroidSettingsMenuLink(
-                title = { Text(text = stringResource(id = R.string.settings_title_open_cores_selection)) },
-                subtitle = {
-                    Text(text = stringResource(id = R.string.settings_description_open_cores_selection))
-                },
-                onClick = { navController.navigateToRoute(MainRoute.SETTINGS_CORES_SELECTION) },
-            )
-        }
         LemuroidSettingsMenuLink(
             title = { Text(text = stringResource(id = R.string.settings_title_display_bios_info)) },
             subtitle = {
@@ -119,6 +100,23 @@ private fun MiscSettings(
             enabled = !indexingInProgress,
             onClick = { navController.navigateToRoute(MainRoute.SETTINGS_BIOS) },
         )
+        // Always shown, even when every system has a single core.
+        LemuroidSettingsMenuLink(
+            title = { Text(text = stringResource(id = R.string.settings_title_open_cores_selection)) },
+            subtitle = {
+                Text(text = stringResource(id = R.string.settings_description_open_cores_selection))
+            },
+            onClick = { navController.navigateToRoute(MainRoute.SETTINGS_CORES_SELECTION) },
+        )
+        LemuroidSettingsMenuLink(
+            title = { Text(text = stringResource(id = R.string.settings_title_reset_settings)) },
+            subtitle = { Text(text = stringResource(id = R.string.settings_description_reset_settings)) },
+            onClick = { factoryResetDialogState.value = true },
+        )
+    }
+
+    if (factoryResetDialogState.value) {
+        FactoryResetDialog(factoryResetDialogState, onResetAllSettings)
     }
 }
 
@@ -130,6 +128,13 @@ private fun InputSettings(
     LemuroidCardSettingsGroup(
         title = { Text(text = stringResource(id = R.string.settings_category_input)) },
     ) {
+        LemuroidSettingsMenuLink(
+            title = { Text(text = stringResource(id = R.string.settings_title_gamepad_settings)) },
+            subtitle = {
+                Text(text = stringResource(id = R.string.settings_description_gamepad_settings))
+            },
+            onClick = { navController.navigateToRoute(MainRoute.SETTINGS_INPUT_DEVICES) },
+        )
         if (!isTV) {
             LemuroidSettingsList(
                 state =
@@ -144,14 +149,6 @@ private fun InputSettings(
                 items = stringListResource(R.array.pref_key_haptic_feedback_mode_display_names),
             )
         }
-        LemuroidSettingsMenuLink(
-            title = { Text(text = stringResource(id = R.string.settings_title_gamepad_settings)) },
-            subtitle = {
-                Text(text = stringResource(id = R.string.settings_description_gamepad_settings))
-            },
-            onClick = { navController.navigateToRoute(MainRoute.SETTINGS_INPUT_DEVICES) },
-        )
-        // Options that used to live in the "Advanced" screen.
         val rumbleEnabled = booleanPreferenceState(R.string.pref_key_enable_rumble, false)
         LemuroidSettingsSwitch(
             state = rumbleEnabled,
@@ -181,22 +178,36 @@ private fun InputSettings(
 }
 
 @Composable
-private fun GeneralSettings(
-    cacheState: SettingsViewModel.CacheState?,
-    isTV: Boolean,
-    onResetAllSettings: () -> Unit,
-) {
-    val factoryResetDialogState = remember { mutableStateOf(false) }
+private fun SoundSettings() {
+    LemuroidCardSettingsGroup(
+        title = { Text(text = stringResource(id = R.string.settings_category_sound)) },
+    ) {
+        LemuroidSettingsSwitch(
+            state = booleanPreferenceState(R.string.pref_key_low_latency_audio, false),
+            title = { Text(text = stringResource(id = R.string.settings_title_low_latency_audio)) },
+            subtitle = { Text(text = stringResource(id = R.string.settings_description_low_latency_audio)) },
+        )
+    }
+}
+
+@Composable
+private fun DisplaySettings(isTV: Boolean) {
     val hdMode = booleanPreferenceState(R.string.pref_key_hd_mode, false)
     val immersiveMode = booleanPreferenceState(R.string.pref_key_enable_immersive_mode, false)
 
     LemuroidCardSettingsGroup(
-        title = { Text(text = stringResource(id = R.string.settings_category_general)) },
+        title = { Text(text = stringResource(id = R.string.settings_category_display)) },
     ) {
-        LemuroidSettingsSwitch(
-            state = booleanPreferenceState(R.string.pref_key_autosave, true),
-            title = { Text(text = stringResource(id = R.string.settings_title_enable_autosave)) },
-            subtitle = { Text(text = stringResource(id = R.string.settings_description_enable_autosave)) },
+        LemuroidSettingsList(
+            enabled = !hdMode.value,
+            state =
+                indexPreferenceState(
+                    R.string.pref_key_shader_filter,
+                    "auto",
+                    stringListResource(R.array.pref_key_shader_filter_values).toList(),
+                ),
+            title = { Text(text = stringResource(id = R.string.display_filter)) },
+            items = stringListResource(R.array.pref_key_shader_filter_display_names),
         )
         if (!isTV) {
             LemuroidSettingsSwitch(
@@ -222,61 +233,27 @@ private fun GeneralSettings(
             title = { Text(text = stringResource(R.string.settings_title_hd_quality)) },
             subtitle = { Text(text = stringResource(id = R.string.settings_description_hd_quality)) },
         )
-        LemuroidSettingsList(
-            enabled = !hdMode.value,
-            state =
-                indexPreferenceState(
-                    R.string.pref_key_shader_filter,
-                    "auto",
-                    stringListResource(R.array.pref_key_shader_filter_values).toList(),
-                ),
-            title = { Text(text = stringResource(id = R.string.display_filter)) },
-            items = stringListResource(R.array.pref_key_shader_filter_display_names),
-        )
         if (!isTV) {
+            val alignmentState =
+                indexPreferenceState(
+                    R.string.pref_key_viewport_alignment,
+                    "center",
+                    stringListResource(R.array.pref_key_viewport_alignment_values).toList(),
+                )
+            val alignmentNames = stringListResource(R.array.pref_key_viewport_alignment_display_names)
             LemuroidSettingsList(
-                state =
-                    indexPreferenceState(
-                        R.string.pref_key_viewport_alignment,
-                        "center",
-                        stringListResource(R.array.pref_key_viewport_alignment_values).toList(),
-                    ),
+                state = alignmentState,
                 title = { Text(text = stringResource(id = R.string.settings_title_viewport_alignment)) },
-                items = stringListResource(R.array.pref_key_viewport_alignment_display_names),
+                items = alignmentNames,
+                // Show the description together with the selected value.
+                useSelectedValueAsSubtitle = false,
+                subtitle = {
+                    val selected = alignmentNames.getOrNull(alignmentState.value)
+                    val description = stringResource(id = R.string.settings_description_viewport_alignment)
+                    Text(text = if (selected != null) "$selected\n$description" else description)
+                },
             )
         }
-        // Options that used to live in the "Advanced" screen.
-        LemuroidSettingsSwitch(
-            state = booleanPreferenceState(R.string.pref_key_low_latency_audio, false),
-            title = { Text(text = stringResource(id = R.string.settings_title_low_latency_audio)) },
-            subtitle = { Text(text = stringResource(id = R.string.settings_description_low_latency_audio)) },
-        )
-        if (cacheState != null) {
-            LemuroidSettingsList(
-                title = { Text(text = stringResource(R.string.settings_title_maximum_cache_usage)) },
-                items = cacheState.displayNames,
-                state =
-                    indexPreferenceState(
-                        R.string.pref_key_max_cache_size,
-                        cacheState.default,
-                        cacheState.values,
-                    ),
-            )
-        }
-        LemuroidSettingsSwitch(
-            state = booleanPreferenceState(R.string.pref_key_allow_direct_game_load, true),
-            title = { Text(text = stringResource(id = R.string.settings_title_direct_game_load)) },
-            subtitle = { Text(text = stringResource(id = R.string.settings_description_direct_game_load)) },
-        )
-        LemuroidSettingsMenuLink(
-            title = { Text(text = stringResource(id = R.string.settings_title_reset_settings)) },
-            subtitle = { Text(text = stringResource(id = R.string.settings_description_reset_settings)) },
-            onClick = { factoryResetDialogState.value = true },
-        )
-    }
-
-    if (factoryResetDialogState.value) {
-        FactoryResetDialog(factoryResetDialogState, onResetAllSettings)
     }
 }
 
@@ -313,9 +290,11 @@ private fun FactoryResetDialog(
 @Composable
 private fun RomsSettings(
     state: SettingsViewModel.State,
+    cacheState: SettingsViewModel.CacheState?,
     onChangeFolder: () -> Unit,
     indexingInProgress: Boolean,
     scanInProgress: Boolean,
+    navController: NavController,
 ) {
     val context = LocalContext.current
 
@@ -346,6 +325,38 @@ private fun RomsSettings(
                 title = { Text(text = stringResource(id = R.string.rescan)) },
                 onClick = { LibraryIndexScheduler.scheduleLibrarySync(context) },
                 enabled = !indexingInProgress,
+            )
+        }
+        LemuroidSettingsSwitch(
+            state = booleanPreferenceState(R.string.pref_key_autosave, true),
+            title = { Text(text = stringResource(id = R.string.settings_title_enable_autosave)) },
+            subtitle = { Text(text = stringResource(id = R.string.settings_description_enable_autosave)) },
+        )
+        if (cacheState != null) {
+            LemuroidSettingsList(
+                title = { Text(text = stringResource(R.string.settings_title_maximum_cache_usage)) },
+                items = cacheState.displayNames,
+                state =
+                    indexPreferenceState(
+                        R.string.pref_key_max_cache_size,
+                        cacheState.default,
+                        cacheState.values,
+                    ),
+            )
+        }
+        LemuroidSettingsSwitch(
+            state = booleanPreferenceState(R.string.pref_key_allow_direct_game_load, true),
+            title = { Text(text = stringResource(id = R.string.settings_title_direct_game_load)) },
+            subtitle = { Text(text = stringResource(id = R.string.settings_description_direct_game_load)) },
+        )
+        // Only available in the "play" flavor (Google Drive).
+        if (state.isSaveSyncSupported) {
+            LemuroidSettingsMenuLink(
+                title = { Text(text = stringResource(id = R.string.settings_title_save_sync)) },
+                subtitle = {
+                    Text(text = stringResource(id = R.string.settings_description_save_sync))
+                },
+                onClick = { navController.navigateToRoute(MainRoute.SETTINGS_SAVE_SYNC) },
             )
         }
     }

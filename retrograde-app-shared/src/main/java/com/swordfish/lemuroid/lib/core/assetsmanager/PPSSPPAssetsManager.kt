@@ -43,19 +43,22 @@ class PPSSPPAssetsManager : CoreID.AssetsManager {
         coreAssetsDirectory.deleteRecursively()
         coreAssetsDirectory.mkdirs()
 
+        val assetsDirectoryPath = coreAssetsDirectory.canonicalPath + File.separator
         response.body()?.use { zipInputStream ->
             while (true) {
                 val entry = zipInputStream.nextEntry ?: break
                 Timber.d("Writing file: ${entry.name}")
-                val destFile =
-                    File(
-                        coreAssetsDirectory,
-                        entry.name,
-                    )
+                val destFile = File(coreAssetsDirectory, entry.name)
+                // Entries like "../file" must not be written outside the assets folder ("Zip Slip").
+                if (!destFile.canonicalPath.startsWith(assetsDirectoryPath)) {
+                    throw SecurityException("Invalid entry in PPSSPP assets: ${entry.name}")
+                }
                 if (entry.isDirectory) {
                     destFile.mkdirs()
                 } else {
-                    zipInputStream.copyTo(destFile.outputStream())
+                    // Archives do not always contain an entry for every folder.
+                    destFile.parentFile?.mkdirs()
+                    destFile.outputStream().use { zipInputStream.copyTo(it) }
                 }
             }
         }
@@ -87,10 +90,14 @@ class PPSSPPAssetsManager : CoreID.AssetsManager {
     companion object {
         const val PPSSPP_ASSETS_VERSION = "1.15"
 
+        // Commit of the LemuroidCores "1.15" tag, kept in the history of our PlayRetroCores fork
+        // (forks do not copy tags), so the same assets are downloaded from our own repository.
+        private const val PPSSPP_ASSETS_COMMIT = "29566a989ea367bd95e44965c6c5d6fc55156174"
+
         val PPSSPP_ASSETS_URL: Uri =
-            Uri.parse("https://github.com/Swordfish90/LemuroidCores/")
+            Uri.parse("https://github.com/branches78/PlayRetroCores/")
                 .buildUpon()
-                .appendEncodedPath("raw/$PPSSPP_ASSETS_VERSION/assets/ppsspp.zip")
+                .appendEncodedPath("raw/$PPSSPP_ASSETS_COMMIT/assets/ppsspp.zip")
                 .build()
 
         const val PPSSPP_ASSETS_VERSION_KEY = "ppsspp_assets_version_key"

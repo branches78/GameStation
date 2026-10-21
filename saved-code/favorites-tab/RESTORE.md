@@ -1,55 +1,26 @@
-# Pestaña Favoritos (móvil) — código guardado
+# Pestaña Favoritos (móvil) — cómo volver a convertirla en pestaña
 
 La pestaña "Favoritos" de la barra inferior en teléfonos se quitó el 2026-10-20.
-Las filas "Favoritos" y "Recientes" de la pantalla de Inicio **no** dependen de este código y siguen funcionando.
-La sección de favoritos de Android TV tampoco se tocó.
 
-Esta carpeta está fuera de `src/`, así que Gradle no la compila.
+Desde el 2026-10-21 su pantalla vuelve a estar en la app, pero **no como pestaña**: se abre desde la tarjeta
+"Mostrar todo" al final de la fila Favoritos de Inicio (solo aparece con más de 10 favoritos).
+El código está en `lemuroid-app/src/main/java/com/swordfish/lemuroid/app/mobile/feature/favorites/`
+y la ruta es `MainRoute.FAVORITES` (con `parent = HOME`).
 
-## Cómo restaurarla
+## Cómo volver a tenerla como pestaña
 
-1. Mover los dos archivos de vuelta a
-   `lemuroid-app/src/main/java/com/swordfish/lemuroid/app/mobile/feature/favorites/`:
-   - `FavoritesScreen.kt`
-   - `FavoritesViewModel.kt`
-
-2. En `mobile/feature/main/MainNavigationRoutes.kt`:
+1. En `mobile/feature/main/MainNavigationRoutes.kt`:
 
    - Añadir a los imports:
      ```kotlin
      import androidx.compose.material.icons.filled.Favorite
      import androidx.compose.material.icons.filled.FavoriteBorder
      ```
-   - En `enum class MainRoute`, entre `HOME` y `SEARCH`:
-     ```kotlin
-     FAVORITES(
-         route = "favorites",
-         titleId = R.string.favorites,
-     ),
-     ```
+   - En `MainRoute.FAVORITES`, quitar `parent = HOME` (así se muestra como pantalla principal, sin flecha de volver).
    - En `enum class MainNavigationRoutes`, entre `HOME` y `SYSTEMS` (el orden define el orden de las pestañas):
      ```kotlin
      FAVORITES(MainRoute.FAVORITES, R.string.favorites, Icons.Filled.Favorite, Icons.Filled.FavoriteBorder),
      ```
 
-3. En `mobile/feature/main/MainActivity.kt`:
-
-   - Añadir a los imports:
-     ```kotlin
-     import com.swordfish.lemuroid.app.mobile.feature.favorites.FavoritesScreen
-     import com.swordfish.lemuroid.app.mobile.feature.favorites.FavoritesViewModel
-     ```
-   - Dentro del `NavHost`, después de `composable(MainRoute.HOME) { ... }`:
-     ```kotlin
-     composable(MainRoute.FAVORITES) {
-         FavoritesScreen(
-             modifier = Modifier.padding(padding),
-             viewModel =
-                 viewModel(
-                     factory = FavoritesViewModel.Factory(retrogradeDb),
-                 ),
-             onGameClick = onGameClick,
-             onGameLongClick = onGameLongClick,
-         )
-     }
-     ```
+2. Opcional: quitar la tarjeta "Mostrar todo" de la fila Favoritos en `mobile/feature/home/HomeScreen.kt`
+   (parámetro `onShowAll`), ya que la pestaña cumpliría la misma función.

@@ -31,12 +31,9 @@ class CoresSelection(
     )
 
     fun getSelectedCores(): Flow<List<SelectedCore>> {
-        val configurableSystems =
-            GameSystem.all()
-                .filter { it.systemCoreConfigs.size > 1 }
-
+        // Every system is listed, including the ones with a single core.
         val configurationFlows =
-            configurableSystems.map { system ->
+            GameSystem.all().map { system ->
                 getSelectedCoreConfigForSystem(system)
                     .map { SelectedCore(system, it) }
             }

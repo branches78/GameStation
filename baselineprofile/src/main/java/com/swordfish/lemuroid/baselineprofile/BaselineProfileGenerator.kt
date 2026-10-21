@@ -38,9 +38,9 @@ class BaselineProfileGenerator {
 
     @Test
     fun generate() {
-        // This example works only with the variant with application id `com.gamestation.tv`."
+        // This example works only with the variant with application id `com.playretro.tv`."
         rule.collect(
-            packageName = "com.gamestation.tv",
+            packageName = "com.playretro.tv",
             // See: https://d.android.com/topic/performance/baselineprofiles/dex-layout-optimizations
             includeInStartupProfile = true,
         ) {

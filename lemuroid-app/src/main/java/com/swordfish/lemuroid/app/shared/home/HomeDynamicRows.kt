@@ -33,10 +33,12 @@ class HomeDynamicRows(
     )
 
     fun getRows(): Flow<List<Row>> {
+        // Rows are shown in this order. "Recently added" always comes first, right after recents and favorites,
+        // and it is never empty while the library has games.
         val rows =
             listOf(
-                becauseYouPlayedRow(),
                 recentlyAddedRow(),
+                becauseYouPlayedRow(),
                 playAgainRow(),
                 systemClassicsRow(),
                 moreFromDeveloperRow(),

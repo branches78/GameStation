@@ -28,7 +28,7 @@ class MainViewModel(appContext: Context, private val saveSyncManager: SaveSyncMa
         val saveSyncEnabled: Boolean = false,
         val displaySearch: Boolean = false,
         val searchQuery: String = "",
-        val gamesGridMode: Boolean = false,
+        val gamesGridMode: Boolean = true,
     )
 
     private val sharedPreferences = SharedPreferencesHelper.getSharedPreferences(appContext)
@@ -37,7 +37,7 @@ class MainViewModel(appContext: Context, private val saveSyncManager: SaveSyncMa
     private val saveSyncEnabledFlow = MutableStateFlow(false)
     private val operationInProgressFlow = PendingOperationsMonitor(appContext).anyOperationInProgress()
     private val searchQueryFlow = MutableStateFlow("")
-    private val gamesGridModeFlow = MutableStateFlow(sharedPreferences.getBoolean(PREF_KEY_GAMES_GRID_MODE, false))
+    private val gamesGridModeFlow = MutableStateFlow(sharedPreferences.getBoolean(PREF_KEY_GAMES_GRID_MODE, true))
 
     val state = buildStateFlow()
 

@@ -11,8 +11,6 @@
     <string name="controller_landscape">Na šířku</string>
     <string name="controller_portrait">Na výšku</string>
     <string name="controller_dos_auto">Automatické</string>
-    <string name="controller_dos_mouse_left">Myš pomocí levé páky</string>
-    <string name="controller_dos_mouse_right">Myš pomocí pravé páky</string>
     <!-- Core settings titles -->
     <string name="setting_stella_filter">Televizní efekt</string>
     <string name="setting_stella_crop_hoverscan">Oříznout horizontální přeskenování</string>
@@ -40,12 +38,9 @@
     <string name="setting_pcsx_rearmed_frameskip">Frameskip</string>
     <string name="setting_pcsx_rearmed_drc">Dynamický rekompilátor</string>
     <string name="setting_ppsspp_auto_frameskip">Automatický frameskip</string>
-    <string name="setting_ppsspp_frameskip">Frameskip</string>
     <string name="setting_ppsspp_cpu_core">Dynamický rekompilátor</string>
     <string name="setting_ppsspp_internal_resolution">Rozlišení</string>
     <string name="setting_ppsspp_texture_scaling_level">Úroveň škálování textur</string>
-    <string name="setting_ppsspp_texture_scaling_type">Typ škálování textur</string>
-    <string name="setting_ppsspp_texture_filtering">Filtrování textur</string>
     <string name="setting_fbneo_frameskip">Frameskip</string>
     <string name="setting_fbneo_cpu_speed_adjust">Rychlost CPU</string>
     <string name="setting_melonds_screen_layout">Rozložení obrazovky</string>
@@ -100,8 +95,6 @@
     <string name="value_mupen64plus_mupen64plus_pak2_rumble">Vibrace</string>
     <string name="value_melonds_screen_layout_topbottom">Vrch - Spodek</string>
     <string name="value_melonds_screen_layout_leftright">Levá - Pravá</string>
-    <string name="value_melonds_screen_layout_hybridtop">Hybridní vrch</string>
-    <string name="value_melonds_screen_layout_hybridbottom">Hybridní spodek</string>
     <string name="value_melonds_mic_input_microphone">Skutečný mikrofon</string>
     <string name="value_melonds_mic_input_blow">Simulovat zvuky úderů</string>
     <string name="value_citra_layout_option_topbottom">Vrch - Spodek</string>
@@ -114,4 +107,15 @@
     <string name="value_handy_rot_none">0</string>
     <string name="value_handy_rot_90">90</string>
     <string name="value_handy_rot_270">270</string>
+    <string name="setting_description_pcsx_rearmed_drc">Rychlejší emulace a stabilní zvuk</string>
+    <string name="setting_description_melonds_jit_enable">Funguje pouze v 64bitovém Androidu</string>
+    <string name="setting_swanstation_resolution_scale">Vnitřní rozlišení</string>
+    <string name="setting_swanstation_pgxp">Korekce geometrie (PGXP)</string>
+    <string name="setting_swanstation_widescreen">Širokoúhlý hack</string>
+    <string name="setting_swanstation_cpu_mode">Režim CPU</string>
+    <string name="value_swanstation_cpu_interpreter">Interpret</string>
+    <string name="value_swanstation_cpu_cached_interpreter">Interpret s mezipamětí</string>
+    <string name="value_swanstation_cpu_recompiler">Rekompilátor</string>
+    <string name="value_swanstation_enabled">Zapnuto</string>
+    <string name="value_swanstation_disabled">Vypnuto</string>
 </resources>

@@ -4,39 +4,47 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import com.alorma.compose.settings.storage.memory.rememberMemoryIntSettingState
+import androidx.navigation.NavController
 import com.swordfish.lemuroid.R
+import com.swordfish.lemuroid.app.mobile.feature.main.navigateToCoreOptions
 import com.swordfish.lemuroid.app.utils.android.settings.LemuroidCardSettingsGroup
-import com.swordfish.lemuroid.app.utils.android.settings.LemuroidSettingsList
+import com.swordfish.lemuroid.app.utils.android.settings.LemuroidSettingsMenuLink
 import com.swordfish.lemuroid.app.utils.android.settings.LemuroidSettingsPage
 
+/** Every system with its core; each one opens the options of that core. */
 @Composable
 fun CoresSelectionScreen(
     modifier: Modifier = Modifier,
     viewModel: CoresSelectionViewModel,
+    navController: NavController,
 ) {
-    val applicationContext = LocalContext.current.applicationContext
-
     val cores = viewModel.getSelectedCores().collectAsState(emptyList()).value
-
-    val indexingInProgress = viewModel.indexingInProgress.collectAsState(false).value
 
     LemuroidSettingsPage(modifier = modifier.fillMaxWidth()) {
         LemuroidCardSettingsGroup {
             cores.forEach { (system, core) ->
-                val state = rememberMemoryIntSettingState(system.systemCoreConfigs.indexOf(core))
+                val definitions = remember(core.coreID) { viewModel.getCachedOptions(core) }
+                val coreName = core.coreID.coreDisplayName
+                val summary =
+                    when {
+                        definitions == null -> stringResource(R.string.core_options_summary_unused, coreName)
+                        else -> {
+                            val count = viewModel.countExposedOptions(core, definitions)
+                            if (count == 0) {
+                                stringResource(R.string.core_options_summary_none, coreName)
+                            } else {
+                                stringResource(R.string.core_options_summary_count, coreName, count)
+                            }
+                        }
+                    }
 
-                LemuroidSettingsList(
-                    state = state,
+                LemuroidSettingsMenuLink(
                     title = { Text(text = stringResource(system.titleResId)) },
-                    items = system.systemCoreConfigs.map { it.coreID.coreDisplayName },
-                    enabled = !indexingInProgress,
-                    onItemSelected = { index, _ ->
-                        viewModel.changeCore(system, system.systemCoreConfigs[index], applicationContext)
-                    },
+                    subtitle = { Text(text = summary) },
+                    onClick = { navController.navigateToCoreOptions(system.id.dbname) },
                 )
             }
         }

@@ -87,6 +87,8 @@ private fun GamesGrid(
             LemuroidGameCard(
                 modifier = Modifier.animateItem(),
                 game = game,
+                // Same size for every cell so the grid rows stay aligned.
+                matchCoverShape = false,
                 onClick = { onGameClick(game) },
                 onLongClick = { onGameLongClick(game) },
             )

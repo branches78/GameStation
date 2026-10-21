@@ -9,12 +9,14 @@ import androidx.lifecycle.LifecycleOwner
 import com.swordfish.lemuroid.BuildConfig
 import com.swordfish.lemuroid.R
 import com.swordfish.lemuroid.app.mobile.feature.settings.SettingsManager
+import com.swordfish.lemuroid.app.shared.coreoptions.CoreOption
 import com.swordfish.lemuroid.app.shared.game.ShaderChooser
 import com.swordfish.lemuroid.app.shared.rumble.RumbleManager
 import com.swordfish.lemuroid.app.shared.settings.HDModeQuality
 import com.swordfish.lemuroid.common.coroutines.MutableStateProperty
 import com.swordfish.lemuroid.common.coroutines.launchOnState
 import com.swordfish.lemuroid.common.view.disableTouchEvents
+import com.swordfish.lemuroid.lib.core.CoreOptionsCache
 import com.swordfish.lemuroid.lib.core.CoreVariable
 import com.swordfish.lemuroid.lib.core.CoreVariablesManager
 import com.swordfish.lemuroid.lib.game.GameLoader
@@ -182,6 +184,8 @@ class GameViewModelRetroGameView(
             }
         }
 
+        cacheCoreOptions(result)
+
         retroGameViewFlow.value = result
         gameState.value = GameState.Ready
 
@@ -275,6 +279,24 @@ class GameViewModelRetroGameView(
             }
 
             else -> ""
+        }
+    }
+
+    /** Saves the options reported by the core, so they can also be edited from the app settings. */
+    private fun cacheCoreOptions(retroGameView: GLRetroView) {
+        scope.launch {
+            // Options are only known once the game is running; some cores also set them a little later.
+            retroGameView.getGLRetroEvents()
+                .filterIsInstance<GLRetroView.GLRetroEvents.FrameRendered>()
+                .first()
+            delay(2.seconds)
+            runCatching {
+                val definitions =
+                    retroGameView.getVariables()
+                        .mapNotNull { runCatching { CoreOption.fromLibretroDroidVariable(it) }.getOrNull() }
+                        .map { it.toCacheDefinition() }
+                CoreOptionsCache(appContext).store(systemCoreConfig.coreID, definitions)
+            }.onFailure { Timber.e(it, "Unable to cache core options") }
         }
     }
 

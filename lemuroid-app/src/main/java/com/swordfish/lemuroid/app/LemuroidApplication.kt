@@ -7,6 +7,7 @@ import androidx.work.ListenableWorker
 import coil.ImageLoader
 import coil.ImageLoaderFactory
 import com.google.android.material.color.DynamicColors
+import com.swordfish.lemuroid.app.shared.covers.CoverRatioCache
 import com.swordfish.lemuroid.app.shared.covers.CoverUtils
 import com.swordfish.lemuroid.app.shared.startup.GameProcessInitializer
 import com.swordfish.lemuroid.app.shared.startup.MainProcessInitializer
@@ -34,6 +35,10 @@ class LemuroidApplication : DaggerApplication(), HasWorkerInjector, ImageLoaderF
             }
 
         AppInitializer.getInstance(this).initializeComponent(initializeComponent)
+
+        if (isMainProcess()) {
+            CoverRatioCache.init(this)
+        }
 
         DynamicColors.applyToActivitiesIfAvailable(this)
     }

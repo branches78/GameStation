@@ -11,8 +11,6 @@
     <string name="controller_landscape">Querformat</string>
     <string name="controller_portrait">Hochformat</string>
     <string name="controller_dos_auto">Automatisch</string>
-    <string name="controller_dos_mouse_left">Maus mit linkem Joystick</string>
-    <string name="controller_dos_mouse_right">Maus mit rechtem Joystick</string>
     <!-- Core settings titles -->
     <string name="setting_stella_filter">TV-Effekt</string>
     <string name="setting_stella_crop_hoverscan">Horizontalen Overscan abschneiden</string>
@@ -40,12 +38,9 @@
     <string name="setting_pcsx_rearmed_frameskip">Frameskip</string>
     <string name="setting_pcsx_rearmed_drc">Dynamischer Neukompilierer</string>
     <string name="setting_ppsspp_auto_frameskip">Auto frameskip</string>
-    <string name="setting_ppsspp_frameskip">Frameskip</string>
     <string name="setting_ppsspp_cpu_core">Dynamischer Neukompilierer</string>
     <string name="setting_ppsspp_internal_resolution">Auflösung</string>
     <string name="setting_ppsspp_texture_scaling_level">Texturskalierungslevel</string>
-    <string name="setting_ppsspp_texture_scaling_type">Texturskalierungstyp</string>
-    <string name="setting_ppsspp_texture_filtering">Texturfilterung</string>
     <string name="setting_fbneo_frameskip">Frameskip</string>
     <string name="setting_fbneo_cpu_speed_adjust">CPU Geschwindigkeit</string>
     <string name="setting_melonds_screen_layout">Bildschirmlayout</string>
@@ -100,8 +95,6 @@
     <string name="value_mupen64plus_mupen64plus_pak2_rumble">Rumble</string>
     <string name="value_melonds_screen_layout_topbottom">Oben - Unten</string>
     <string name="value_melonds_screen_layout_leftright">Links - Rechts</string>
-    <string name="value_melonds_screen_layout_hybridtop">Hybrid oben</string>
-    <string name="value_melonds_screen_layout_hybridbottom">Hybrid unten</string>
     <string name="value_melonds_mic_input_microphone">Echtes Mikrofon</string>
     <string name="value_melonds_mic_input_blow">Schlag simulieren</string>
     <string name="value_citra_layout_option_topbottom">Oben - Unten</string>
@@ -114,4 +107,15 @@
     <string name="value_handy_rot_none">0</string>
     <string name="value_handy_rot_90">90</string>
     <string name="value_handy_rot_270">270</string>
+    <string name="setting_description_pcsx_rearmed_drc">Schnellere Emulation und stabiler Ton</string>
+    <string name="setting_description_melonds_jit_enable">Funktioniert nur unter 64-Bit-Android</string>
+    <string name="setting_swanstation_resolution_scale">Interne Auflösung</string>
+    <string name="setting_swanstation_pgxp">Geometriekorrektur (PGXP)</string>
+    <string name="setting_swanstation_widescreen">Breitbild-Hack</string>
+    <string name="setting_swanstation_cpu_mode">CPU-Modus</string>
+    <string name="value_swanstation_cpu_interpreter">Interpreter</string>
+    <string name="value_swanstation_cpu_cached_interpreter">Interpreter mit Cache</string>
+    <string name="value_swanstation_cpu_recompiler">Recompiler</string>
+    <string name="value_swanstation_enabled">Aktiviert</string>
+    <string name="value_swanstation_disabled">Deaktiviert</string>
 </resources>

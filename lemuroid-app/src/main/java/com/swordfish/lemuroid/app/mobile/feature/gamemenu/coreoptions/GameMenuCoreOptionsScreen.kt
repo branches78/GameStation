@@ -14,15 +14,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import com.swordfish.lemuroid.R
 import com.swordfish.lemuroid.app.mobile.feature.gamemenu.GameMenuActivity
-import com.swordfish.lemuroid.app.shared.coreoptions.CoreOptionsPreferenceHelper
-import com.swordfish.lemuroid.app.shared.coreoptions.LemuroidCoreOption
+import com.swordfish.lemuroid.app.shared.coreoptions.CoreOptionsItems
 import com.swordfish.lemuroid.app.shared.settings.ControllerConfigsManager
 import com.swordfish.lemuroid.app.utils.android.settings.LemuroidSettingsGroup
 import com.swordfish.lemuroid.app.utils.android.settings.LemuroidSettingsList
-import com.swordfish.lemuroid.app.utils.android.settings.LemuroidSettingsSwitch
-import com.swordfish.lemuroid.app.utils.android.settings.booleanPreferenceState
 import com.swordfish.lemuroid.app.utils.android.settings.indexPreferenceState
-import com.swordfish.lemuroid.lib.core.CoreVariablesManager
 
 @Composable
 fun GameMenuCoreOptionsScreen(
@@ -39,43 +35,8 @@ fun GameMenuCoreOptionsScreen(
         }
 
     Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
-        CoreOptions(gameMenuRequest.game.systemId, allOptions, context)
+        CoreOptionsItems(gameMenuRequest.game.systemId, allOptions)
         ControllersOptions(gameMenuRequest, maxOf(1, connectedGamePads), context)
-    }
-}
-
-@Composable
-private fun CoreOptions(
-    systemID: String,
-    coreOptions: List<LemuroidCoreOption>,
-    context: Context,
-) {
-    if (coreOptions.isEmpty()) {
-        return
-    }
-
-    for (coreOption in coreOptions) {
-        if (coreOption.getEntriesValues().toSet() == CoreOptionsPreferenceHelper.BOOLEAN_SET) {
-            LemuroidSettingsSwitch(
-                state =
-                    booleanPreferenceState(
-                        CoreVariablesManager.computeSharedPreferenceKey(coreOption.getKey(), systemID),
-                        coreOption.getCurrentValue() == "enabled",
-                    ),
-                title = { Text(text = coreOption.getDisplayName(context)) },
-            )
-        } else {
-            LemuroidSettingsList(
-                title = { Text(text = coreOption.getDisplayName(context)) },
-                items = coreOption.getEntries(context),
-                state =
-                    indexPreferenceState(
-                        CoreVariablesManager.computeSharedPreferenceKey(coreOption.getKey(), systemID),
-                        coreOption.getEntriesValues().first(),
-                        coreOption.getEntriesValues(),
-                    ),
-            )
-        }
     }
 }
 

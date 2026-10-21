@@ -5,7 +5,8 @@
     <string name="title_systems">Konzolok</string>
     <string name="title_games">Játékok</string>
     <string name="title_settings">Beállítások</string>
-    <string name="recent">Legutóbbiak</string>
+    <string name="recent">Játék folytatása</string>
+    <string name="tv_home_section_recents">Játék folytatása</string>
     <string name="favorites">Kedvencek</string>
     <string name="discover">Felfedezés</string>
     <string name="rescan">Beolvasás</string>
@@ -19,7 +20,6 @@
     <string name="settings">Beállítások</string>
     <string name="save_sync">Mentés szinkronizáció</string>
     <string name="show_all">Összes</string>
-    <string name="settings_category_general">Általános</string>
     <string name="settings_category_input">Bemenet</string>
     <string name="settings_category_misc">Egyéb</string>
     <string name="settings_title_enable_autosave">Automatikus mentés</string>
@@ -32,10 +32,26 @@
     <string name="settings_gamepad_category_enabled">Eszközök engedélyezése</string>
     <string name="settings_gamepad_category_general">Általános</string>
     <string name="settings_gamepad_title_reset_bindings">Alaphelyzetbe állítás</string>
-    <string name="settings_gamepad_title_game_menu">Menü</string>
-    <string name="settings_title_open_cores_selection">Váltás a Core-ok között</string>
-    <string name="settings_description_open_cores_selection">Core társítása egyes konzolokhoz</string>
+    <string name="settings_title_open_cores_selection">Magok</string>
+    <string name="settings_description_open_cores_selection">Válaszd ki és állítsd be az egyes rendszerek magját</string>
     <string name="settings_title_display_bios_info">BIOS</string>
     <string name="haptic_feedback_mode_names_none">Semmi</string>
     <string name="haptic_feedback_mode_names_press">Nyomd</string>
+    <string name="settings_category_display">Kijelző</string>
+    <string name="settings_category_sound">Hang</string>
+    <string name="settings_title_viewport_alignment">Kép igazítása</string>
+    <string name="settings_description_viewport_alignment">A játék képének helyzete a képernyőn, ha marad szabad hely, hogy jusson hely az érintéses vezérlőknek.</string>
+    <string name="viewport_alignment_names_top">Fent</string>
+    <string name="viewport_alignment_names_center">Középen</string>
+    <string name="viewport_alignment_names_bottom">Lent</string>
+    <string name="core_options_category_core">Mag</string>
+    <string name="core_options_category_options">Beállítások</string>
+    <string name="core_options_category_advanced">Speciális</string>
+    <string name="core_options_single_core">%1$s (az egyetlen elérhető)</string>
+    <string name="core_options_not_used_yet">Játssz egyszer egy %1$s játékkal, hogy itt lásd a magja beállításait.</string>
+    <string name="core_options_none">Ennek a magnak nincsenek beállítható opciói.</string>
+    <string name="core_options_reset">A mag beállításainak visszaállítása</string>
+    <string name="core_options_summary_count">%1$s · Beállítások: %2$d</string>
+    <string name="core_options_summary_none">%1$s · Nincs beállítás</string>
+    <string name="core_options_summary_unused">%1$s · Még nem használt</string>
 </resources>

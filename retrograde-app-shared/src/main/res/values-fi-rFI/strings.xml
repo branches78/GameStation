@@ -11,8 +11,6 @@
     <string name="controller_landscape">Vaaka</string>
     <string name="controller_portrait">Pysty</string>
     <string name="controller_dos_auto">Automaattinen</string>
-    <string name="controller_dos_mouse_left">Hiiri vasen kiinnikkeellä</string>
-    <string name="controller_dos_mouse_right">Hiiri oikealla kiinnikkeellä</string>
     <!-- Core settings titles -->
     <string name="setting_stella_filter">TV efekti</string>
     <string name="setting_stella_crop_hoverscan">Rajaa vaakasuuntainen yliviivaus</string>
@@ -40,12 +38,9 @@
     <string name="setting_pcsx_rearmed_frameskip">Frameskip</string>
     <string name="setting_pcsx_rearmed_drc">Dynaaminen kääntäjä</string>
     <string name="setting_ppsspp_auto_frameskip">Auto frameskip</string>
-    <string name="setting_ppsspp_frameskip">Frameskip</string>
     <string name="setting_ppsspp_cpu_core">Dynaaminen kääntäjä</string>
     <string name="setting_ppsspp_internal_resolution">Resoluutio</string>
     <string name="setting_ppsspp_texture_scaling_level">Tekstuurin skaalaus taso</string>
-    <string name="setting_ppsspp_texture_scaling_type">Tekstuurin skaalaus tyyppi</string>
-    <string name="setting_ppsspp_texture_filtering">Tekstuurin suodatus</string>
     <string name="setting_fbneo_frameskip">Frameskip</string>
     <string name="setting_fbneo_cpu_speed_adjust">Suorittimen nopeus</string>
     <string name="setting_melonds_screen_layout">Näytön asettelu</string>
@@ -100,8 +95,6 @@
     <string name="value_mupen64plus_mupen64plus_pak2_rumble">Kelaa</string>
     <string name="value_melonds_screen_layout_topbottom">Ylhäällä - Alhaalla</string>
     <string name="value_melonds_screen_layout_leftright">Vasen - Oikea</string>
-    <string name="value_melonds_screen_layout_hybridtop">Hybridi Yläosa</string>
-    <string name="value_melonds_screen_layout_hybridbottom">Hybridi Alaosa</string>
     <string name="value_melonds_mic_input_microphone">Todellinen mikrofoni</string>
     <string name="value_melonds_mic_input_blow">Simuloi puhallusäänet</string>
     <string name="value_citra_layout_option_topbottom">Ylhäällä - Alhaalla</string>
@@ -114,4 +107,15 @@
     <string name="value_handy_rot_none">0</string>
     <string name="value_handy_rot_90">90</string>
     <string name="value_handy_rot_270">270</string>
+    <string name="setting_description_pcsx_rearmed_drc">Nopeampi emulointi ja vakaa ääni</string>
+    <string name="setting_description_melonds_jit_enable">Toimii vain 64-bittisessä Androidissa</string>
+    <string name="setting_swanstation_resolution_scale">Sisäinen resoluutio</string>
+    <string name="setting_swanstation_pgxp">Geometrian korjaus (PGXP)</string>
+    <string name="setting_swanstation_widescreen">Laajakuvahakkerointi</string>
+    <string name="setting_swanstation_cpu_mode">Suoritintila</string>
+    <string name="value_swanstation_cpu_interpreter">Tulkki</string>
+    <string name="value_swanstation_cpu_cached_interpreter">Välimuistitulkki</string>
+    <string name="value_swanstation_cpu_recompiler">Uudelleenkääntäjä</string>
+    <string name="value_swanstation_enabled">Käytössä</string>
+    <string name="value_swanstation_disabled">Pois käytöstä</string>
 </resources>

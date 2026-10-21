@@ -16,6 +16,14 @@ data class LemuroidCoreOption(
         return context.getString(exposedSetting.titleId)
     }
 
+    fun getDescription(context: Context): String? {
+        return exposedSetting.descriptionId?.let { context.getString(it) }
+    }
+
+    fun isBoolean(): Boolean {
+        return getEntriesValues().toSet() == CoreOptionsPreferenceHelper.BOOLEAN_SET
+    }
+
     fun getEntries(context: Context): List<String> {
         if (exposedSetting.values.isEmpty()) {
             return coreOption.optionValues.map { it.capitalize() }

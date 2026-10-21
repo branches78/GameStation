@@ -62,6 +62,8 @@ class HomeViewModel(
         val showNoNotificationPermissionCard: Boolean = false,
         val showNoMicrophonePermissionCard: Boolean = false,
         val showNoGamesCard: Boolean = false,
+        // More favorites than the ones shown in the row: a "Show all" card is added at its end.
+        val hasMoreFavorites: Boolean = false,
     )
 
     private val microphonePermissionEnabledState = MutableStateFlow(true)
@@ -117,7 +119,7 @@ class HomeViewModel(
         val noGames = recentGames.isEmpty() && favoritesGames.isEmpty() && discoveryGames.isEmpty()
 
         return UIState(
-            favoritesGames = favoritesGames,
+            favoritesGames = favoritesGames.take(CAROUSEL_MAX_ITEMS),
             recentGames = recentGames,
             discoveryGames = discoveryGames,
             indexInProgress = indexInProgress,
@@ -125,6 +127,7 @@ class HomeViewModel(
             showNoMicrophonePermissionCard = showMicrophoneCard,
             showNoGamesCard = noGames,
             dynamicRows = dynamicRows,
+            hasMoreFavorites = favoritesGames.size > CAROUSEL_MAX_ITEMS,
         )
     }
 
@@ -159,7 +162,8 @@ class HomeViewModel(
         retrogradeDb.gameDao().selectFirstUnfavoriteRecents(CAROUSEL_MAX_ITEMS)
 
     private fun favoritesGames(retrogradeDb: RetrogradeDatabase) =
-        retrogradeDb.gameDao().selectFirstFavorites(CAROUSEL_MAX_ITEMS)
+        // One more than shown, to know if the "Show all" card is needed.
+        retrogradeDb.gameDao().selectFirstFavorites(CAROUSEL_MAX_ITEMS + 1)
 
     private fun dsGamesCount(retrogradeDb: RetrogradeDatabase): Flow<Int> {
         return retrogradeDb.gameDao().selectSystemsWithCount()

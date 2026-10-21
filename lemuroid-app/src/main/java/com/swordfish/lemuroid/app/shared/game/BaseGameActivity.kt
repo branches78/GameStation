@@ -30,6 +30,7 @@ import com.swordfish.lemuroid.common.coroutines.launchOnState
 import com.swordfish.lemuroid.common.displayToast
 import com.swordfish.lemuroid.common.dump
 import com.swordfish.lemuroid.common.kotlin.serializable
+import com.swordfish.lemuroid.lib.core.CoreOptionsCache
 import com.swordfish.lemuroid.lib.core.CoreVariablesManager
 import com.swordfish.lemuroid.lib.game.GameLoader
 import com.swordfish.lemuroid.lib.library.ExposedSetting
@@ -182,6 +183,13 @@ abstract class BaseGameActivity : ImmersiveActivity() {
         }
 
         val coreOptions = getCoreOptions()
+        // Also saved here, in case the game was closed before the options were saved when it started.
+        if (coreOptions.isNotEmpty()) {
+            runCatching {
+                val definitions = coreOptions.map { it.toCacheDefinition() }
+                CoreOptionsCache(applicationContext).store(systemCoreConfig.coreID, definitions)
+            }
+        }
 
         val options =
             systemCoreConfig.exposedSettings

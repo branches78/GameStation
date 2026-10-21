@@ -11,8 +11,6 @@
     <string name="controller_landscape">Οριζόντια</string>
     <string name="controller_portrait">Κατακόρυφα</string>
     <string name="controller_dos_auto">Αυτόματο</string>
-    <string name="controller_dos_mouse_left">Ποντίκι με αριστερό stick</string>
-    <string name="controller_dos_mouse_right">Ποντίκι με αριστερό stick</string>
     <!-- Core settings titles -->
     <string name="setting_stella_filter">Εφέ τηλεόρασης</string>
     <string name="setting_stella_crop_hoverscan">Περικοπή οριζόντιου overscan</string>
@@ -40,12 +38,9 @@
     <string name="setting_pcsx_rearmed_frameskip">Frameskip</string>
     <string name="setting_pcsx_rearmed_drc">Δυναμικός αναμεταγλωττιστής</string>
     <string name="setting_ppsspp_auto_frameskip">Auto frameskip</string>
-    <string name="setting_ppsspp_frameskip">Frameskip</string>
     <string name="setting_ppsspp_cpu_core">Δυναμικός αναμεταγλωττιστής</string>
     <string name="setting_ppsspp_internal_resolution">Ανάλυση</string>
     <string name="setting_ppsspp_texture_scaling_level">Επίπεδο Texture scaling</string>
-    <string name="setting_ppsspp_texture_scaling_type">Τύπος Texture scaling</string>
-    <string name="setting_ppsspp_texture_filtering">Φιλτράρισμα texture</string>
     <string name="setting_fbneo_frameskip">Frameskip</string>
     <string name="setting_fbneo_cpu_speed_adjust">Ταχύτητα CPU</string>
     <string name="setting_melonds_screen_layout">Διάταξη οθόνης</string>
@@ -100,8 +95,6 @@
     <string name="value_mupen64plus_mupen64plus_pak2_rumble">Δόνηση</string>
     <string name="value_melonds_screen_layout_topbottom">Πάνω-κάτω</string>
     <string name="value_melonds_screen_layout_leftright">Αριστερά - Δεξιά</string>
-    <string name="value_melonds_screen_layout_hybridtop">Υβριδικό Πάνω</string>
-    <string name="value_melonds_screen_layout_hybridbottom">Υβριδικό Κάτω</string>
     <string name="value_melonds_mic_input_microphone">Πραγματικό μικρόφωνο</string>
     <string name="value_melonds_mic_input_blow">Προσομοίωση ήχων πλήγματος</string>
     <string name="value_citra_layout_option_topbottom">Πάνω-κάτω</string>
@@ -114,4 +107,15 @@
     <string name="value_handy_rot_none">0</string>
     <string name="value_handy_rot_90">90</string>
     <string name="value_handy_rot_270">270</string>
+    <string name="setting_description_pcsx_rearmed_drc">Ταχύτερη εξομοίωση και σταθερός ήχος</string>
+    <string name="setting_description_melonds_jit_enable">Λειτουργεί μόνο σε Android 64 bit</string>
+    <string name="setting_swanstation_resolution_scale">Εσωτερική ανάλυση</string>
+    <string name="setting_swanstation_pgxp">Διόρθωση γεωμετρίας (PGXP)</string>
+    <string name="setting_swanstation_widescreen">Hack ευρείας οθόνης</string>
+    <string name="setting_swanstation_cpu_mode">Λειτουργία CPU</string>
+    <string name="value_swanstation_cpu_interpreter">Διερμηνέας</string>
+    <string name="value_swanstation_cpu_cached_interpreter">Διερμηνέας με κρυφή μνήμη</string>
+    <string name="value_swanstation_cpu_recompiler">Επαναμεταγλωττιστής</string>
+    <string name="value_swanstation_enabled">Ενεργό</string>
+    <string name="value_swanstation_disabled">Ανενεργό</string>
 </resources>

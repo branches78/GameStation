@@ -37,6 +37,8 @@ import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import timber.log.Timber
 import java.io.File
+import java.io.IOException
+import java.security.MessageDigest
 
 class CoreUpdaterImpl(
     private val directoriesManager: DirectoriesManager,
@@ -44,10 +46,12 @@ class CoreUpdaterImpl(
 ) : CoreUpdater {
     // This is the last tagged versions of cores.
     companion object {
-        private const val CORES_VERSION = "1.17.0"
+        private const val CORES_VERSION = CoreChecksums.CORES_VERSION
+        private const val TEMP_SUFFIX = ".part"
     }
 
-    private val baseUri = Uri.parse("https://github.com/Swordfish90/LemuroidCores/")
+    // Own fork of LemuroidCores (1.17.0 cores plus SwanStation), so the cores can be extended.
+    private val baseUri = Uri.parse("https://github.com/branches78/PlayRetroCores/")
 
     private val api = retrofit.create(CoreUpdater.CoreManagerApi::class.java)
 
@@ -97,17 +101,27 @@ class CoreUpdaterImpl(
             deleteOutdatedCores(mainCoresDirectory, CORES_VERSION)
         }
 
+        val abi = Build.SUPPORTED_ABIS.first()
         val uri =
             baseUri.buildUpon()
                 .appendEncodedPath("raw/$CORES_VERSION/lemuroid_core_${coreID.coreName}/src/main/jniLibs/")
-                .appendPath(Build.SUPPORTED_ABIS.first())
+                .appendPath(abi)
                 .appendPath(libFileName)
                 .build()
 
+        // Downloaded to a temporary file first: an interrupted download must never leave a broken core behind,
+        // because an existing core file is never downloaded again.
+        val tempFile = File(coresDirectory, "$libFileName$TEMP_SUFFIX")
         try {
-            downloadFile(uri, destFile)
+            tempFile.safeDelete()
+            downloadFile(uri, tempFile)
+            verifyCore(abi, libFileName, tempFile)
+            if (!tempFile.renameTo(destFile)) {
+                throw IOException("Unable to move downloaded core to ${destFile.name}")
+            }
             return destFile
         } catch (e: Throwable) {
+            tempFile.safeDelete()
             destFile.safeDelete()
             throw e
         }
@@ -124,7 +138,37 @@ class CoreUpdaterImpl(
             throw Exception(response.errorBody()?.string() ?: "Download error")
         }
 
-        response.body()?.writeToFile(destFile)
+        val body = response.body() ?: throw IOException("Empty core download")
+        body.writeToFile(destFile)
+    }
+
+    /** Cores are native code: only files identical to the ones published for this version are accepted. */
+    private fun verifyCore(
+        abi: String,
+        libFileName: String,
+        file: File,
+    ) {
+        val expected =
+            CoreChecksums.BLOB_IDS["$abi/$libFileName"]
+                ?: throw IOException("Unknown core $abi/$libFileName for version $CORES_VERSION")
+        if (computeGitBlobId(file) != expected) {
+            throw IOException("Checksum mismatch for core $abi/$libFileName")
+        }
+    }
+
+    /** Same id git uses for files: SHA-1 of "blob <size>\u0000" followed by the content. */
+    private fun computeGitBlobId(file: File): String {
+        val digest = MessageDigest.getInstance("SHA-1")
+        digest.update("blob ${file.length()}\u0000".toByteArray())
+        file.inputStream().use { input ->
+            val buffer = ByteArray(DEFAULT_BUFFER_SIZE)
+            while (true) {
+                val read = input.read(buffer)
+                if (read < 0) break
+                digest.update(buffer, 0, read)
+            }
+        }
+        return digest.digest().joinToString("") { "%02x".format(it) }
     }
 
     private suspend fun findBundledLibrary(

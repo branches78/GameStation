@@ -15,8 +15,6 @@
     <string name="controller_portrait">Portrait</string>
 
     <string name="controller_dos_auto">Auto</string>
-    <string name="controller_dos_mouse_left">Mouse with Left Stick</string>
-    <string name="controller_dos_mouse_right">Mouse with Right Stick</string>
 
     <!-- Core settings titles -->
     <string name="setting_stella_filter">TV effect</string>
@@ -45,12 +43,9 @@
     <string name="setting_pcsx_rearmed_frameskip">Frameskip</string>
     <string name="setting_pcsx_rearmed_drc">Dynamic recompiler</string>
     <string name="setting_ppsspp_auto_frameskip">Auto frameskip</string>
-    <string name="setting_ppsspp_frameskip">Frameskip</string>
     <string name="setting_ppsspp_cpu_core">Dynamic recompiler</string>
     <string name="setting_ppsspp_internal_resolution">Resolution</string>
     <string name="setting_ppsspp_texture_scaling_level">Texture scaling level</string>
-    <string name="setting_ppsspp_texture_scaling_type">Texture scaling type</string>
-    <string name="setting_ppsspp_texture_filtering">Texture filtering</string>
     <string name="setting_fbneo_frameskip">Frameskip</string>
     <string name="setting_fbneo_cpu_speed_adjust">CPU speed</string>
     <string name="setting_melonds_screen_layout">Screens layout</string>
@@ -117,8 +112,6 @@
 
     <string name="value_melonds_screen_layout_topbottom">Top - Bottom</string>
     <string name="value_melonds_screen_layout_leftright">Left - Right</string>
-    <string name="value_melonds_screen_layout_hybridtop">Hybrid Top</string>
-    <string name="value_melonds_screen_layout_hybridbottom">Hybrid Bottom</string>
     <string name="value_melonds_mic_input_microphone">Real microphone</string>
     <string name="value_melonds_mic_input_blow">Simulate blow sounds</string>
 
@@ -137,4 +130,15 @@
     <string name="value_handy_rot_90">90</string>
     <string name="value_handy_rot_270">270</string>
 
+    <string name="setting_description_pcsx_rearmed_drc">Faster emulation and stable audio</string>
+    <string name="setting_description_melonds_jit_enable">Only works on 64-bit Android</string>
+    <string name="setting_swanstation_resolution_scale">Internal resolution</string>
+    <string name="setting_swanstation_pgxp">Geometry correction (PGXP)</string>
+    <string name="setting_swanstation_widescreen">Widescreen hack</string>
+    <string name="setting_swanstation_cpu_mode">CPU mode</string>
+    <string name="value_swanstation_cpu_interpreter">Interpreter</string>
+    <string name="value_swanstation_cpu_cached_interpreter">Cached interpreter</string>
+    <string name="value_swanstation_cpu_recompiler">Recompiler</string>
+    <string name="value_swanstation_enabled">Enabled</string>
+    <string name="value_swanstation_disabled">Disabled</string>
 </resources>

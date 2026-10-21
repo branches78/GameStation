@@ -14,6 +14,10 @@ No se sincroniza con Lemuroid: el código es propio y va por su cuenta.
 4. **Revisiones de código muerto, bugs o seguridad:** empieza siempre por un **resumen de hallazgos**
    (cantidad por tipo y gravedad) y después el detalle. No corrijas nada hasta que el usuario lo apruebe.
 5. **Diseño:** antes de cambios visuales grandes, ofrece un mockup.
+6. **Commits:** no hagas commit ni push de nada hasta que el usuario lo diga, aunque un hook lo pida.
+7. **Textos en todos los idiomas:** cualquier cambio de texto visible se aplica al español, al inglés por
+   defecto (`values/`) y a **todos** los idiomas de `res/values-*/strings.xml`, con traducción propia.
+   Si a un idioma le falta la cadena, se añade.
 
 ## Trabajo en la nube vs. local
 
@@ -31,7 +35,12 @@ No se sincroniza con Lemuroid: el código es propio y va por su cuenta.
 
 ## Datos del proyecto
 
-- `applicationId`: `com.gamestation.tv` (debug: `com.gamestation.tv.debug`), versión `1.0.0` (`versionCode` 1).
+- **Nombre visible:** **PlayRetro** ("GameStation" ya existía en Play Store y "RetroDeck" es un proyecto de PC conocido). Se define en
+  `lemuroid-app/build.gradle.kts` (`lemuroid_name`), en los textos de `strings.xml` y en el banner de TV
+  (`res/mipmap-xhdpi/ic_banner.png`). El repositorio, las carpetas y los nombres internos siguen como GameStation.
+- `applicationId`: `com.playretro.tv` (debug: `com.playretro.tv.debug`), versión `1.0.0` (`versionCode` 1).
+  Antes era `com.gamestation.tv`: es una app distinta para Android, así que la antigua hay que desinstalarla aparte
+  y sus datos (partidas, ajustes, biblioteca) no pasan a la nueva.
 - Variante que se compila: **freeDynamicDebug** (sin librerías de Google; los cores se descargan al usarlos).
   La sincronización con Google Drive solo existe en la variante `play` y requiere credenciales propias en Google Cloud.
 - Tema: verde GameStation fijo en teléfono y TV (sin Material You). Colores en
@@ -42,18 +51,46 @@ No se sincroniza con Lemuroid: el código es propio y va por su cuenta.
 
 - **Inicio (filas):** `app/shared/home/HomeDynamicRows.kt` (filas dinámicas compartidas por móvil y TV),
   `mobile/feature/home/HomeScreen.kt`, `tv/home/TVHomeFragment.kt`.
-  Orden: Recientes, Favoritos, filas dinámicas, Descubrir, más filas dinámicas.
-  Recientes y Favoritos se ocultan si están vacías; Descubrir se oculta con la biblioteca vacía.
+  Orden: Continuar jugando, Favoritos, Añadidos recientemente, Porque jugaste, Vuelve a jugar, Descubrir,
+  Clásicos de…, Más de…. Las filas sin juegos se ocultan (Añadidos recientemente siempre tiene juegos);
+  con la biblioteca vacía no hay filas.
 - **TV:** pantalla de inicio con pestañas en `tv/main/TVMainTabsFragment.kt`; Ajustes de TV reutilizan las
   pantallas Compose del móvil (`tv/settings/TVSettingsTabFragment.kt`); estilo de tarjetas en `tv/shared/TVCardStyle.kt`.
-- **Carátulas:** forma por sistema en `app/shared/covers/CoverAspectRatio.kt`; alternativas de nombre y caché de
+- **Carátulas:** forma por sistema en `app/shared/covers/CoverAspectRatio.kt`, sustituida por la forma real de cada
+  carátula una vez cargada (`CoverRatioCache.kt`). En filas la tarjeta toma la forma real; en rejillas mantiene la del
+  sistema y las carátulas de otra forma se muestran enteras dentro (`matchCoverShape = false`). Alternativas de nombre y caché de
   resultados en `ThumbnailFallbackInterceptor.kt`. Reconocimiento de juegos (CRC, TOSEC → No-Intro, búsqueda por título)
   en `lemuroid-metadata-libretro-db/.../LibretroDBMetadataProvider.kt`.
-- **Código guardado:** la pestaña Favoritos del móvil se quitó; su código está en `saved-code/favorites-tab/` con instrucciones.
+- **Iconos de sistemas:** PNG del tema "FlatUI" de RetroArch (`retroarch-assets`, CC BY 4.0, crédito en `README.md`)
+  en `retrograde-app-shared/src/main/res/drawable-nodpi/game_system_*.png`, sobre fondo oscuro de tarjeta.
+- **Opciones de cores:** Ajustes → Otros → Cores lista todos los sistemas (`CoresSelectionScreen.kt`) y cada uno abre
+  `CoreOptionsSettingsScreen.kt` (ruta `settings/cores/{systemId}`, también en la TV). Las opciones y sus valores los
+  envía el core al jugar y se guardan en `lib/core/CoreOptionsCache.kt` (Harmony, el juego corre en el proceso `:game`).
+  Las filas son las mismas que en el menú del juego (`shared/coreoptions/CoreOptionsItems.kt`) y comparten los valores.
+  Valores por defecto de la app en `GameSystem.kt` (`defaultSettings`): Dynarec de PlayStation y JIT de DS activados.
+- **Cores (descarga):** la app los baja de `github.com/branches78/PlayRetroCores` (fork de LemuroidCores), etiqueta
+  `pr-1.0.0`, ruta `lemuroid_core_<core>/src/main/jniLibs/<abi>/lib<core>_libretro_android.so`
+  (`baseUri` en `lemuroid-app-ext-free/.../CoreUpdaterImpl.kt`; `CORES_VERSION` y las huellas de cada core en
+  `CoreChecksums.kt`, junto a él). Para añadir o actualizar un core: subirlo a `master` de PlayRetroCores, crear una
+  etiqueta nueva, cambiar `CORES_VERSION` y regenerar las huellas (si no coinciden, la app rechaza el core).
+  PlayStation tiene dos cores: PCSX ReARMed (por defecto) y SwanStation (necesita BIOS scph5500/5501/5502).
+  Los archivos extra de PSP (`assets/ppsspp.zip`, versión 1.15) también se bajan de PlayRetroCores, por el commit
+  de esa versión (`PPSSPPAssetsManager.kt`). Las descargas de cores se hacen a un `.part` y se renombran al terminar.
+- **Favoritos (móvil):** ya no es pestaña. Con más de 10 favoritos, la fila de Inicio termina en una tarjeta
+  "Mostrar todo" que abre `mobile/feature/favorites/FavoritesScreen.kt` (ruta `MainRoute.FAVORITES`), igual que en la TV.
+  Cómo volver a hacerla pestaña: `saved-code/favorites-tab/RESTORE.md`.
+
+## Revisiones
+
+- Ronda 1 (2026-10-21): corregidos todos los hallazgos (código muerto de Ajustes y asignación de mandos de TV,
+  textos sin uso, descargas de cores atómicas y verificadas con `CoreChecksums.kt`, Zip Slip en ROM y en archivos
+  de PSP, enlaces externos inválidos, BIOS de SwanStation, carátulas por HTTPS, firma fuera del código en
+  `keystore.properties`). Al cambiar `CORES_VERSION` hay que regenerar `CoreChecksums.kt` con `git ls-tree -r <tag>`.
 
 ## Pendientes conocidos
 
 - Correcciones de navegación con el mando en TV (el usuario las irá indicando).
-- Código muerto: `TVSettingsActivity`, `TVSettingsFragment`, `res/xml/tv_settings.xml` y ayudantes de preferencias de TV
-  ya no se abren desde ningún sitio.
 - Sincronización con Google Drive (variante `play` + configuración en Google Cloud).
+- Actualización automática de cores en `PlayRetroCores`: acción de GitHub que descargue periódicamente del buildbot
+  de libretro los cores que usa la app y los suba a una rama aparte (`updates`) para probarlos antes de pasarlos
+  a `master` y crear una etiqueta nueva. Acordado implementarlo más adelante.

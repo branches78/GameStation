@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -17,7 +18,10 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
@@ -45,6 +49,7 @@ fun HomeScreen(
     viewModel: HomeViewModel,
     onGameClick: (Game) -> Unit,
     onGameLongClick: (Game) -> Unit,
+    onShowAllFavorites: () -> Unit,
 ) {
     val context = LocalContext.current
     val applicationContext = context.applicationContext
@@ -73,6 +78,7 @@ fun HomeScreen(
         state.value,
         onGameClick,
         onGameLongClick,
+        onShowAllFavorites,
         {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
                 return@HomeScreen
@@ -91,6 +97,7 @@ private fun HomeScreen(
     state: HomeViewModel.UIState,
     onGameClicked: (Game) -> Unit,
     onGameLongClick: (Game) -> Unit,
+    onShowAllFavorites: () -> Unit,
     onEnableNotificationsClicked: () -> Unit,
     onEnableMicrophoneClicked: () -> Unit,
     onSetDirectoryClicked: () -> Unit,
@@ -140,6 +147,7 @@ private fun HomeScreen(
             null,
             onGameClicked,
             onGameLongClick,
+            onShowAll = onShowAllFavorites.takeIf { state.hasMoreFavorites },
         )
         DynamicHomeRows(state.dynamicRows, HomeDynamicRows.Placement.BEFORE_DISCOVER, onGameClicked, onGameLongClick)
         HomeRow(
@@ -175,6 +183,8 @@ private fun HomeRow(
     emptyMessage: String?,
     onGameClicked: (Game) -> Unit,
     onGameLongClick: (Game) -> Unit,
+    // When set, a "Show all" card closes the row.
+    onShowAll: (() -> Unit)? = null,
 ) {
     // Rows without an empty message (recents, favorites) stay hidden until they have games.
     if (games.isEmpty() && emptyMessage == null) {
@@ -190,7 +200,7 @@ private fun HomeRow(
         if (games.isEmpty() && emptyMessage != null) {
             HomeRowEmptyMessage(emptyMessage)
         } else {
-            HomeRowGames(games, onGameClicked, onGameLongClick)
+            HomeRowGames(games, onGameClicked, onGameLongClick, onShowAll)
         }
     }
 }
@@ -221,6 +231,7 @@ private fun HomeRowGames(
     games: List<Game>,
     onGameClicked: (Game) -> Unit,
     onGameLongClick: (Game) -> Unit,
+    onShowAll: (() -> Unit)?,
 ) {
     LazyRow(
         modifier =
@@ -243,8 +254,45 @@ private fun HomeRowGames(
                 onLongClick = { onGameLongClick(game) },
             )
         }
+        if (onShowAll != null) {
+            item(key = SHOW_ALL_KEY) {
+                HomeShowAllCard(modifier = Modifier.animateItem(), onClick = onShowAll)
+            }
+        }
     }
 }
+
+/** Last card of a row with more games than the ones shown, like the one of the TV home. */
+@Composable
+private fun HomeShowAllCard(
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit,
+) {
+    ElevatedCard(
+        modifier = modifier.width(HOME_ROW_COVER_HEIGHT).height(HOME_ROW_EMPTY_HEIGHT),
+        onClick = onClick,
+    ) {
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            Icon(
+                imageVector = Icons.AutoMirrored.Filled.ArrowForward,
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.primary,
+            )
+            Text(
+                modifier = Modifier.padding(top = 8.dp, start = 8.dp, end = 8.dp),
+                text = stringResource(id = R.string.show_all),
+                style = MaterialTheme.typography.labelMedium,
+                textAlign = TextAlign.Center,
+            )
+        }
+    }
+}
+
+private const val SHOW_ALL_KEY = "show_all"
 
 private val HOME_ROW_PADDING = 16.dp
 private val HOME_ROW_SPACING = 12.dp

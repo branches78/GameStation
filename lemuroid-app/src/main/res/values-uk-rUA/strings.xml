@@ -5,7 +5,7 @@
     <string name="title_systems">Системи</string>
     <string name="title_games">Ігри</string>
     <string name="title_settings">Налаштування</string>
-    <string name="recent">Останні</string>
+    <string name="recent">Продовжити гру</string>
     <string name="favorites">Обране</string>
     <string name="discover">Огляд</string>
     <string name="rescan">Сканувати знову</string>
@@ -22,7 +22,6 @@
     <string name="back">Назад</string>
     <string name="close">Закрити</string>
     <string name="game_page_search_suggestion">Пошук ігор</string>
-    <string name="settings_category_general">Загальне</string>
     <string name="settings_category_input">Введення</string>
     <string name="settings_category_misc">Інші налаштування</string>
     <string name="settings_title_enable_autosave">Стан автозбереження</string>
@@ -42,17 +41,14 @@
     <string name="settings_gamepad_category_enabled">Активні пристрої</string>
     <string name="settings_gamepad_category_general">Загальні</string>
     <string name="settings_gamepad_title_reset_bindings">Скинути прив\'язки клавіш</string>
-    <string name="settings_gamepad_title_game_menu">Меню</string>
-    <string name="settings_title_open_cores_selection">Змінити ядра</string>
-    <string name="settings_description_open_cores_selection">Виберіть, яке ядро пов’язане з системою</string>
+    <string name="settings_title_open_cores_selection">Ядра</string>
+    <string name="settings_description_open_cores_selection">Виберіть і налаштуйте ядро кожної системи</string>
     <string name="settings_title_display_bios_info">БІОС</string>
     <string name="settings_description_display_bios_info">Відображати знайдені та підтримувані файли BIOS</string>
     <string name="settings_bios_category_detected">Знайдено</string>
     <string name="settings_bios_category_not_detected">Підтримується</string>
     <string name="settings_title_reset_settings">Відновлення заводських налаштувань</string>
     <string name="settings_description_reset_settings">Скинути Лемуроїд до заводських налаштувань</string>
-    <string name="settings_title_advanced_settings">Додаткові параметри</string>
-    <string name="settings_description_advanced_settings">Показати додаткові налаштування</string>
     <string name="settings_title_low_latency_audio">Надавати перевагу звуку з низькою затримкою</string>
     <string name="settings_description_low_latency_audio">Зменшення затримки аудіо на підтримуваних пристроях. Може збільшити збої аудіо.</string>
     <string name="settings_title_direct_game_load">Пряме завантаження гри</string>
@@ -80,7 +76,7 @@
     <string name="game_context_menu_restart">Перезапуск</string>
     <string name="game_context_menu_create_shortcut">Закріпити у лаунчері</string>
     <string name="home_notification_title">Увімкнути сповіщення</string>
-    <string name="home_notification_message">GameStation використовує сповіщення, щоб повідомити, коли гра або операція працює у фоновому режимі.</string>
+    <string name="home_notification_message">PlayRetro використовує сповіщення, щоб повідомити, коли гра або операція працює у фоновому режимі.</string>
     <string name="home_notification_action">Увімкнути</string>
     <string name="home_microphone_title">Увімкнути мікрофон</string>
     <string name="home_microphone_message">Ігри для Nintendo DS можуть використовувати мікрофон для надання деяких функцій.</string>
@@ -106,7 +102,6 @@
     <string name="game_toast_quick_save_loaded">Швидко завантажити</string>
     <string name="game_toast_quick_save_saved">Швидке збереження</string>
     <string name="empty_view_default">Немає елементів</string>
-    <string name="core_settings_title">Налаштування ядра</string>
     <string name="core_settings_category_preferences">Налаштування</string>
     <string name="core_settings_category_controllers">Контролери</string>
     <string name="core_settings_controller">Контролер %1$s</string>
@@ -129,7 +124,6 @@
         \n\nЯкщо нічого з переліченого не допомогло, може бути що ця гра/ядро не підтримується на вашому приладі.
     </string>
     <string name="game_loader_error_missing_bios">Схоже, що у вас відсутній необхідний BIOS, помістіть його у папку з вашими ROM-ами і повторно проскануйте. Необхідні файли: %1$s</string>
-    <string name="game_shortcut_error">Щось пішло не так під час завантаження вашої гри. Переконайтеся, що ця гра все ще існує у вашій бібліотеці.</string>
     <string name="dialog_saf_not_found">Цей пристрій не підтримує вікно вибору файлів StorageAccessFramework. Будь ласка, скопіюйте розпаковані файли ROM в %1$s і натисніть \"Повторити сканування\".</string>
     <string name="system_grid_details">%1$s ігор</string>
     <string name="tv_folder_picker_title">Вибрати директорію з ROM</string>
@@ -139,22 +133,18 @@
     <string name="tv_folder_storage_secondary">Вторинне сховище %1$s</string>
     <string name="tv_folder_storage_title">Обрати сховище</string>
     <string name="tv_home_section_favorites">Обране</string>
-    <string name="tv_home_section_recents">Нещодавні</string>
-    <string name="tv_home_section_systems">Системи</string>
-    <string name="tv_home_section_settings">Налаштування</string>
+    <string name="tv_home_section_recents">Продовжити гру</string>
     <string name="gamepad_binding_update_title">Пов\'язати \"RetroPad %1$s\"</string>
     <string name="gamepad_binding_update_description">Натисніть кнопку на \"%1$s\"</string>
     <string name="shortcut_binding_update_title">Пов\'язати \"Shortcut %1$s\"</string>
     <string name="shortcut_binding_update_description">Натисніть першою, а потім другу кнопку, щоб пов\'язати комбо на вашому \"%1$s\"</string>
     <string name="tv_search_results">Ігри</string>
     <string name="tv_game_message_missing_gamepad">Для гри потрібен ґеймпад. Будь ласка, під\'єднайте його.</string>
-    <string name="game_edit_touch_controls_error_not_visible">Від\'єднайте ґеймпад для редагування сенсорних кнопок</string>
     <string name="game_interactory_busy">Дочекайтеся завершення операції</string>
     <string name="game_interactor_notification_permission_required">Будь ласка, увімкніть сповіщення з Головної, щоб продовжити</string>
     <string name="mobile_settings_help">Допомога</string>
-    <string name="mobile_settings_support">Підтримка</string>
     <string name="lemuroid_help_content"><![CDATA[        <b>&#8226;Як я використовую Лемуроїд?</b><br/>
-        Скопіюйте всі файли ROM в каталог на вашому пристрої і виберіть його в GameStation. Цей каталог може містити підкаталоги. Після того, як сканування завершиться, ви повинні побачити свої ігри.<br/><br/>,        <b>&#8226;Чому не виявлено моїх ігор?</b><br/>
+        Скопіюйте всі файли ROM в каталог на вашому пристрої і виберіть його в PlayRetro. Цей каталог може містити підкаталоги. Після того, як сканування завершиться, ви повинні побачити свої ігри.<br/><br/>,        <b>&#8226;Чому не виявлено моїх ігор?</b><br/>
         Якщо ваші ігри стиснуті, спробуйте розпакувати їх. Якщо це не спрацює, спробуйте покласти прошивки в окремі каталоги, одну для кожної системи з такими іменами: $SYSTEMS.
     ]]></string>
     <string name="lemuroid_crash_disclamer">Схоже що ядро Libretro отримала неочікувану помилку. Якщо помилка залишається, спробуйте зробити наступне:\n
@@ -179,4 +169,21 @@
     <string name="tilt_configuration_buttons_l_r">Л - R</string>
     <string name="tilt_configuration_buttons_l1_r1">L1 - Р1</string>
     <string name="tilt_configuration_buttons_l2_r2">L2 - Р2</string>
+    <string name="settings_category_display">Екран</string>
+    <string name="settings_category_sound">Звук</string>
+    <string name="settings_title_viewport_alignment">Вирівнювання зображення</string>
+    <string name="settings_description_viewport_alignment">Положення зображення гри на екрані, коли залишається вільне місце, щоб залишити місце для сенсорного керування.</string>
+    <string name="viewport_alignment_names_top">Угорі</string>
+    <string name="viewport_alignment_names_center">По центру</string>
+    <string name="viewport_alignment_names_bottom">Унизу</string>
+    <string name="core_options_category_core">Ядро</string>
+    <string name="core_options_category_options">Параметри</string>
+    <string name="core_options_category_advanced">Додатково</string>
+    <string name="core_options_single_core">%1$s (єдине доступне)</string>
+    <string name="core_options_not_used_yet">Запустіть один раз гру для %1$s, щоб побачити тут параметри її ядра.</string>
+    <string name="core_options_none">Це ядро не має параметрів для налаштування.</string>
+    <string name="core_options_reset">Скинути параметри цього ядра</string>
+    <string name="core_options_summary_count">%1$s · Параметрів: %2$d</string>
+    <string name="core_options_summary_none">%1$s · Без параметрів</string>
+    <string name="core_options_summary_unused">%1$s · Ще не використовувалося</string>
 </resources>

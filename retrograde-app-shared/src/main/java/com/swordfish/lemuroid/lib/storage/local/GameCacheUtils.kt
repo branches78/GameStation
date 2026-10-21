@@ -13,7 +13,7 @@ object GameCacheUtils {
         dataFile: DataFile,
     ): File {
         val gamesCacheDir = getCacheDirForGame(folderName, game, context)
-        return File(gamesCacheDir, dataFile.fileName)
+        return safeChildFile(gamesCacheDir, dataFile.fileName)
     }
 
     fun getCacheFileForGame(
@@ -22,7 +22,7 @@ object GameCacheUtils {
         game: Game,
     ): File {
         val gamesCacheDir = getCacheDirForGame(folderName, game, context)
-        return File(gamesCacheDir, game.fileName)
+        return safeChildFile(gamesCacheDir, game.fileName)
     }
 
     private fun getCacheDirForGame(
@@ -34,6 +34,21 @@ object GameCacheUtils {
         val gamesCacheDir = File(context.cacheDir, gamesCachePath)
         gamesCacheDir.mkdirs()
         return gamesCacheDir
+    }
+
+    /**
+     * File names may come from entries inside zip files, which can contain paths like "../../file" ("Zip Slip").
+     * Only the last name is kept and the result must stay inside [directory].
+     */
+    private fun safeChildFile(
+        directory: File,
+        fileName: String,
+    ): File {
+        val file = File(directory, File(fileName).name)
+        if (!file.canonicalPath.startsWith(directory.canonicalPath + File.separator)) {
+            throw SecurityException("Invalid file name: $fileName")
+        }
+        return file
     }
 
     private fun buildPath(vararg chunks: String): String {

@@ -5,7 +5,7 @@
     <string name="title_systems">Systemer</string>
     <string name="title_games">Spill</string>
     <string name="title_settings">Innstillinger</string>
-    <string name="recent">Nylig</string>
+    <string name="recent">Fortsett å spille</string>
     <string name="favorites">Favoritter</string>
     <string name="discover">Utforsk</string>
     <string name="rescan">Skann</string>
@@ -22,7 +22,6 @@
     <string name="back">Tilbake</string>
     <string name="close">Lukk</string>
     <string name="game_page_search_suggestion">Søk etter spill</string>
-    <string name="settings_category_general">Generelt</string>
     <string name="settings_category_input">Inndata</string>
     <string name="settings_category_misc">Diverse</string>
     <string name="settings_title_enable_autosave">Automatisk lagring av tilstand</string>
@@ -42,17 +41,14 @@
     <string name="settings_gamepad_category_enabled">Aktiverte enheter</string>
     <string name="settings_gamepad_category_general">Generelt</string>
     <string name="settings_gamepad_title_reset_bindings">Tilbakestill knappetildelinger</string>
-    <string name="settings_gamepad_title_game_menu">Meny</string>
-    <string name="settings_title_open_cores_selection">Endre kjerner</string>
-    <string name="settings_description_open_cores_selection">Velg hvilken kjerne som er tilknyttet et system</string>
+    <string name="settings_title_open_cores_selection">Kjerner</string>
+    <string name="settings_description_open_cores_selection">Velg og konfigurer kjernen for hvert system</string>
     <string name="settings_title_display_bios_info">BIOS</string>
     <string name="settings_description_display_bios_info">Vis oppdagede og støttede BIOS-filer</string>
     <string name="settings_bios_category_detected">Oppdaget</string>
     <string name="settings_bios_category_not_detected">Supportert</string>
     <string name="settings_title_reset_settings">Fabrikkgjennoppretting</string>
-    <string name="settings_description_reset_settings">Tilbakestill GameStation til fabrikkinnstillinger</string>
-    <string name="settings_title_advanced_settings">Avanserte innstillinger</string>
-    <string name="settings_description_advanced_settings">Vis avanserte innstillinger</string>
+    <string name="settings_description_reset_settings">Tilbakestill PlayRetro til fabrikkinnstillinger</string>
     <string name="settings_title_low_latency_audio">Foretrekk lyd med lav forsinkelse</string>
     <string name="settings_description_low_latency_audio">Reduser lydforsinkelse på støttede enheter. Kan øke lydfeil.</string>
     <string name="settings_title_direct_game_load">Direkte spillinnlasting</string>
@@ -62,7 +58,7 @@
     <string name="settings_title_enable_device_rumble">Enhets vibrasjon</string>
     <string name="settings_description_enable_device_rumble">Bruk vibrasjon på enheten når ingen kontroller er koblet til</string>
     <string name="reset_settings_warning_message_title">Er du sikker?</string>
-    <string name="reset_settings_warning_message_description">Dette vil tilbakestille GameStation til fabrikkinnstillingene. Lagrede filer og hurtiglagring vil bli bevart.</string>
+    <string name="reset_settings_warning_message_description">Dette vil tilbakestille PlayRetro til fabrikkinnstillingene. Lagrede filer og hurtiglagring vil bli bevart.</string>
     <string name="settings_title_save_sync">Sky lagring</string>
     <string name="settings_description_save_sync">Sikkerhetskopier og synkroniser lagringer i skyen</string>
     <string name="settings_save_sync_refresh">Manuell synkronisering</string>
@@ -80,13 +76,13 @@
     <string name="game_context_menu_restart">Start på nytt</string>
     <string name="game_context_menu_create_shortcut">Fest til hjemskjermen</string>
     <string name="home_notification_title">Aktiver varsler</string>
-    <string name="home_notification_message">GameStation bruker varsler for å fortelle deg når et spill eller en operasjon kjører i bakgrunnen.</string>
+    <string name="home_notification_message">PlayRetro bruker varsler for å fortelle deg når et spill eller en operasjon kjører i bakgrunnen.</string>
     <string name="home_notification_action">Aktiver</string>
     <string name="home_microphone_title">Aktiver mikrofon</string>
     <string name="home_microphone_message">Nintendo DS spill kan bruke mikrofonen til å gi funksjonalitet.</string>
     <string name="home_microphone_action">Aktiver</string>
     <string name="home_empty_title">Velg ROM-katalog</string>
-    <string name="home_empty_message">GameStation trenger å skanne en mappe som inneholder ROM-filer.\nDette kan ta opptil noen få minutter.</string>
+    <string name="home_empty_message">PlayRetro trenger å skanne en mappe som inneholder ROM-filer.\nDette kan ta opptil noen få minutter.</string>
     <string name="home_empty_action">Velg mappe</string>
     <string name="game_menu_save">Lagre</string>
     <string name="game_menu_load">Last inn</string>
@@ -106,7 +102,6 @@
     <string name="game_toast_quick_save_loaded">Hurtig lastet</string>
     <string name="game_toast_quick_save_saved">Rask lagret</string>
     <string name="empty_view_default">Ingen elementer</string>
-    <string name="core_settings_title">Kjerne innstillinger</string>
     <string name="core_settings_category_preferences">Preferanser</string>
     <string name="core_settings_category_controllers">Kontrollere</string>
     <string name="core_settings_controller">Kontroller %1$s</string>
@@ -119,17 +114,16 @@
     <string name="game_running_notification_title_alternative">Spillet kjører</string>
     <string name="game_running_notification_message">Husk å lagre fremgangen din</string>
     <string name="game_loader_error_gl_incompatible">Denne kjernen krever en OpenGL ES-versjon som ikke støttes av enheten din.</string>
-    <string name="game_loader_error_load_game">Noe gikk galt under innlasting av spillet ditt. Sørg for at ROMen støttes av GameStation og skann spillene dine på nytt.</string>
+    <string name="game_loader_error_load_game">Noe gikk galt under innlasting av spillet ditt. Sørg for at ROMen støttes av PlayRetro og skann spillene dine på nytt.</string>
     <string name="game_loader_error_save">Noe gikk galt med lagringsfilen din. Hvis problemet vedvarer, kan du prøve å deaktivere automatisk lagring.</string>
     <string name="game_loader_error_unsupported_architecture">Denne kjernen støttes ikke av enheten din.</string>
     <string name="game_loader_error_generic">Noe gikk galt. Prøv følgende:\n
         \n\u2022 Deaktiver automatisk lagring og start spillet på nytt
         \n\u2022 Gå inn i Android-innstillinger og tøm appbufferen
-        \n\u2022 Gå inn i GameStation-innstillinger og utfør en fabrikkgjenoppretting
+        \n\u2022 Gå inn i PlayRetro-innstillinger og utfør en fabrikkgjenoppretting
         \n\n Hvis ingen av de ovennevnte alternativene fungerer, kan det være mulig at dette spillet / kjernen ikke støttes av denne enheten.
     </string>
     <string name="game_loader_error_missing_bios">Det ser ut som om du mangler nødvendig BIOS. Legg dem i ROM-katalogen din og skann på nytt. Påkrevde filer: %1$s</string>
-    <string name="game_shortcut_error">Noe gikk galt mens spillet ble lastet inn. Sørg for at spillet fortsatt eksisterer i biblioteket ditt.</string>
     <string name="dialog_saf_not_found">Denne enheten støtter ikke filvelgeren for tilgangsrammeverk for lagring. Kopier ukomprimerte ROM-filer manuelt til %1$s og trykk Skann på nytt.</string>
     <string name="system_grid_details">%1$s spill</string>
     <string name="tv_folder_picker_title">Velg ROM katalog</string>
@@ -139,31 +133,27 @@
     <string name="tv_folder_storage_secondary">Sekundærlagring %1$s</string>
     <string name="tv_folder_storage_title">Velg lagring</string>
     <string name="tv_home_section_favorites">Favoritter</string>
-    <string name="tv_home_section_recents">Nylig</string>
-    <string name="tv_home_section_systems">Systemer</string>
-    <string name="tv_home_section_settings">Innstillinger</string>
+    <string name="tv_home_section_recents">Fortsett å spille</string>
     <string name="gamepad_binding_update_title">Tilknytt \"RetroPad %1$s\"</string>
     <string name="gamepad_binding_update_description">Trykk en knapp på din \"%1$s\"</string>
     <string name="shortcut_binding_update_title">Assosiert \"Snarvei %1$s\"</string>
     <string name="shortcut_binding_update_description">Trykk først og så andre-knappen for å binde en combo på din \"%1$s\"</string>
     <string name="tv_search_results">Spill</string>
     <string name="tv_game_message_missing_gamepad">Spillkontroller er påkrevd for å spille. Vennligst koble til en.</string>
-    <string name="game_edit_touch_controls_error_not_visible">Koble fra kontrolleren for å redigere berøringsskjerm-kontrollene dine</string>
     <string name="game_interactory_busy">Vent på at pågående operasjoner fullføres</string>
     <string name="mobile_settings_help">Hjelp</string>
-    <string name="mobile_settings_support">Brukerstøtte</string>
-    <string name="lemuroid_help_content"><![CDATA[        <b>&#8226;Hvordan bruker jeg GameStation?</b><br/>
-        Kopier alle ROM-filene dine til en mappe på enheten din og velg denne mappen i GameStation. Undermapper i denne mappen støttes også. Etter at skanningen er fullført, skal du se spillene dine.<br/><br/>
+    <string name="lemuroid_help_content"><![CDATA[        <b>&#8226;Hvordan bruker jeg PlayRetro?</b><br/>
+        Kopier alle ROM-filene dine til en mappe på enheten din og velg denne mappen i PlayRetro. Undermapper i denne mappen støttes også. Etter at skanningen er fullført, skal du se spillene dine.<br/><br/>
         <b>&#8226;Hvorfor blir ikke spillene mine oppdaget?</b><br/>
         Hvis spillene dine er komprimerte, kan du prøve å pakke de ut. Hvis dette ikke fungerer, kan du prøve å legge ROM-filene i separate mapper, en for hvert system, med følgende navn: $SYSTEMS.
     ]]></string>
     <string name="lemuroid_crash_disclamer">Det ser ut til at Libretro-kjernen har støtt på et uventet problem. Hvis dette vedvarer, kan du prøve følgende:\n
         \n\u2022 Deaktiver automatisk lagring og start spillet på nytt
         \n\u2022 Gå til Android-innstillinger og tøm appbufferen
-        \n\u2022 Gå til GameStation-innstillinger og utfør en fabrikkgjenoppretting
+        \n\u2022 Gå til PlayRetro-innstillinger og utfør en fabrikkgjenoppretting
         \n\n Hvis ingen av disse fungerer, kan det hende at denne spillkjernen ikke støttes av enheten din.
     </string>
-    <string name="error_message_incompatible_state">Denne lagrede tilstand er ikke kompatibel med gjeldende kjerneversjon. Vennligst last inn den nyeste lagringen inne i spillet, eller bruk en tidligere versjon av GameStation.</string>
+    <string name="error_message_incompatible_state">Denne lagrede tilstand er ikke kompatibel med gjeldende kjerneversjon. Vennligst last inn den nyeste lagringen inne i spillet, eller bruk en tidligere versjon av PlayRetro.</string>
     <string name="shader_filter_names_auto">Auto</string>
     <string name="shader_filter_names_sharp">Skarp</string>
     <string name="shader_filter_names_smooth">Jevn</string>
@@ -179,4 +169,21 @@
     <string name="tilt_configuration_buttons_l_r">L - R</string>
     <string name="tilt_configuration_buttons_l1_r1">L1 - R1</string>
     <string name="tilt_configuration_buttons_l2_r2">L2 - R2</string>
+    <string name="settings_category_display">Skjerm</string>
+    <string name="settings_category_sound">Lyd</string>
+    <string name="settings_title_viewport_alignment">Bildejustering</string>
+    <string name="settings_description_viewport_alignment">Plassering av spillbildet på skjermen når det er ledig plass, slik at det blir plass til berøringskontrollene.</string>
+    <string name="viewport_alignment_names_top">Øverst</string>
+    <string name="viewport_alignment_names_center">Midten</string>
+    <string name="viewport_alignment_names_bottom">Nederst</string>
+    <string name="core_options_category_core">Kjerne</string>
+    <string name="core_options_category_options">Alternativer</string>
+    <string name="core_options_category_advanced">Avansert</string>
+    <string name="core_options_single_core">%1$s (den eneste tilgjengelige)</string>
+    <string name="core_options_not_used_yet">Spill et %1$s-spill én gang for å se kjernens alternativer her.</string>
+    <string name="core_options_none">Denne kjernen har ingen innstillbare alternativer.</string>
+    <string name="core_options_reset">Tilbakestill denne kjernens alternativer</string>
+    <string name="core_options_summary_count">%1$s · Alternativer: %2$d</string>
+    <string name="core_options_summary_none">%1$s · Ingen alternativer</string>
+    <string name="core_options_summary_unused">%1$s · Ikke brukt ennå</string>
 </resources>

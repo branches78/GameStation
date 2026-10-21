@@ -5,7 +5,7 @@
     <string name="title_systems">Sistemas</string>
     <string name="title_games">Juegos</string>
     <string name="title_settings">Ajustes</string>
-    <string name="recent">Recientes</string>
+    <string name="recent">Continuar jugando</string>
     <string name="favorites">Favoritos</string>
     <string name="discover">Descubrir</string>
     <string name="rescan">Re-escanear</string>
@@ -22,7 +22,6 @@
     <string name="back">Volver</string>
     <string name="close">Cerrar</string>
     <string name="game_page_search_suggestion">Buscar juegos</string>
-    <string name="settings_category_general">General</string>
     <string name="settings_category_input">Entrada</string>
     <string name="settings_category_misc">Otros</string>
     <string name="settings_title_enable_autosave">Autoguardar estado</string>
@@ -42,17 +41,14 @@
     <string name="settings_gamepad_category_enabled">Dispositivos habilitados</string>
     <string name="settings_gamepad_category_general">General</string>
     <string name="settings_gamepad_title_reset_bindings">Restablecer asociaciones</string>
-    <string name="settings_gamepad_title_game_menu">Menú</string>
-    <string name="settings_title_open_cores_selection">Cambiar Núcleos</string>
-    <string name="settings_description_open_cores_selection">Selecciona qué núcleo está asociado a un sistema</string>
+    <string name="settings_title_open_cores_selection">Cores</string>
+    <string name="settings_description_open_cores_selection">Elige y configura el core de cada sistema</string>
     <string name="settings_title_display_bios_info">BIOS</string>
     <string name="settings_description_display_bios_info">Mostrar archivos de BIOS detectados y admitidos</string>
     <string name="settings_bios_category_detected">Detectados</string>
     <string name="settings_bios_category_not_detected">Admitidos</string>
     <string name="settings_title_reset_settings">Restablecimiento de fábrica</string>
-    <string name="settings_description_reset_settings">Restablecer GameStation a su configuración de fábrica</string>
-    <string name="settings_title_advanced_settings">Configuración avanzada</string>
-    <string name="settings_description_advanced_settings">Mostrar la configuración avanzada</string>
+    <string name="settings_description_reset_settings">Restablecer PlayRetro a su configuración de fábrica</string>
     <string name="settings_title_low_latency_audio">Preferir audio de baja latencia</string>
     <string name="settings_description_low_latency_audio">Reduce la latencia de audio en los dispositivos compatibles. Puede aumentar los fallos de audio.</string>
     <string name="settings_title_direct_game_load">Carga directa del juego</string>
@@ -62,7 +58,7 @@
     <string name="settings_title_enable_device_rumble">Vibración del dispositivo</string>
     <string name="settings_description_enable_device_rumble">Cuando ningún controlador esté conectado vibrar el dispositivo en su lugar</string>
     <string name="reset_settings_warning_message_title">¿Estás seguro?</string>
-    <string name="reset_settings_warning_message_description">Esto restablecerá GameStation a su configuración de fábrica. Se conservarán los estados y las partidas guardadas.</string>
+    <string name="reset_settings_warning_message_description">Esto restablecerá PlayRetro a su configuración de fábrica. Se conservarán los estados y las partidas guardadas.</string>
     <string name="settings_title_save_sync">Guardados en la nube</string>
     <string name="settings_description_save_sync">Respaldar y sincronizar tus partidas en la nube</string>
     <string name="settings_save_sync_refresh">Sincronización manual</string>
@@ -80,13 +76,13 @@
     <string name="game_context_menu_restart">Reiniciar</string>
     <string name="game_context_menu_create_shortcut">Fijar al lanzador</string>
     <string name="home_notification_title">Habilitar notificaciones</string>
-    <string name="home_notification_message">GameStation utiliza notificaciones para informarte cuando un juego u operación se está ejecutando en segundo plano.</string>
+    <string name="home_notification_message">PlayRetro utiliza notificaciones para informarte cuando un juego u operación se está ejecutando en segundo plano.</string>
     <string name="home_notification_action">Habilitar</string>
     <string name="home_microphone_title">Habilitar micrófono</string>
     <string name="home_microphone_message">Los juegos de Nintendo DS pueden usar el micrófono para proporcionar algunas funcionalidades.</string>
     <string name="home_microphone_action">Habilitar</string>
     <string name="home_empty_title">Seleccionar directorio de ROMs</string>
-    <string name="home_empty_message">GameStation necesita escanear un directorio que contiene archivos ROM.\nEsto puede tardar unos minutos.</string>
+    <string name="home_empty_message">PlayRetro necesita escanear un directorio que contiene archivos ROM.\nEsto puede tardar unos minutos.</string>
     <string name="home_empty_action">Seleccionar directorio</string>
     <string name="game_menu_save">Guardar</string>
     <string name="game_menu_load">Cargar</string>
@@ -106,7 +102,6 @@
     <string name="game_toast_quick_save_loaded">Cargado rápido</string>
     <string name="game_toast_quick_save_saved">Guardado rápido</string>
     <string name="empty_view_default">Sin objetos</string>
-    <string name="core_settings_title">Ajustes del núcleo</string>
     <string name="core_settings_category_preferences">Preferencias</string>
     <string name="core_settings_category_controllers">Mandos</string>
     <string name="core_settings_controller">Mando %1$s</string>
@@ -119,17 +114,16 @@
     <string name="game_running_notification_title_alternative">El juego se está ejecutando</string>
     <string name="game_running_notification_message">Asegúrate de guardar tu progreso</string>
     <string name="game_loader_error_gl_incompatible">Este núcleo requiere una versión de OpenGL ES que no es compatible con tu dispositivo.</string>
-    <string name="game_loader_error_load_game">Ha ocurrido un error al cargar el juego. Asegúrate de que la ROM sea compatible con GameStation y vuelve a escanear tus juegos.</string>
+    <string name="game_loader_error_load_game">Ha ocurrido un error al cargar el juego. Asegúrate de que la ROM sea compatible con PlayRetro y vuelve a escanear tus juegos.</string>
     <string name="game_loader_error_save">Ha ocurrido algo malo con tu archivo guardado. Si el problema persiste, intenta deshabilitar el guardado automático.</string>
     <string name="game_loader_error_unsupported_architecture">Este núcleo no es compatible con tu dispositivo.</string>
     <string name="game_loader_error_generic">Se produjo un error. Intenta lo siguiente:\n
         \n\u2022 Desactiva el autoguardado y reinicia el juego
         \n\u2022 Ve a las opciones de Android y limpia la caché de la aplicación
-        \n\u2022 Ve a las opciones de GameStation y realiza un restablecimiento de fábrica
+        \n\u2022 Ve a las opciones de PlayRetro y realiza un restablecimiento de fábrica
         \n\nSi nada de esto funciona, es posible que este juego/núcleo no sea compatible con este dispositivo.
     </string>
     <string name="game_loader_error_missing_bios">Parece que te faltan las BIOS requeridas, colócalas en tu directorio de ROMs y vuelve a escanear. Archivos requeridos: %1$s</string>
-    <string name="game_shortcut_error">Ha ocurrido algo malo mientras cargabas tu juego. Por favor, asegúrate de que el juego que intentas cargar existe y está en tu librería.</string>
     <string name="dialog_saf_not_found">Este dispositivo no es compatible con el selector de archivos StorageAccessFramework. Por favor, copia manualmente los archivos ROM sin comprimir en %1$s y pulsa Reescanear.</string>
     <string name="system_grid_details">%1$s juegos</string>
     <string name="tv_folder_picker_title">Selecciona un directorio de ROMs</string>
@@ -139,22 +133,18 @@
     <string name="tv_folder_storage_secondary">Almacenamiento secundario %1$s</string>
     <string name="tv_folder_storage_title">Seleccionar almacenamiento</string>
     <string name="tv_home_section_favorites">Favoritos</string>
-    <string name="tv_home_section_recents">Recientes</string>
-    <string name="tv_home_section_systems">Sistemas</string>
-    <string name="tv_home_section_settings">Configuración</string>
+    <string name="tv_home_section_recents">Continuar jugando</string>
     <string name="gamepad_binding_update_title">Asociar «RetroPad %1$s»</string>
     <string name="gamepad_binding_update_description">Presiona un botón en tu «%1$s»</string>
     <string name="shortcut_binding_update_title">Asociar \"Atajo %1$s\"</string>
     <string name="shortcut_binding_update_description">Presiona el primero y luego el segundo botón para unir un combo en tú \"%1$s\"</string>
     <string name="tv_search_results">Juegos</string>
     <string name="tv_game_message_missing_gamepad">Se requiere un mando para jugar. Por favor, conecta uno.</string>
-    <string name="game_edit_touch_controls_error_not_visible">Desconecta el mando para editar los controles táctiles</string>
     <string name="game_interactory_busy">Espera a que se completen las operaciones pendientes</string>
     <string name="game_interactor_notification_permission_required">Por favor, activa las notificaciones de Inicio para continuar</string>
     <string name="mobile_settings_help">Ayuda</string>
-    <string name="mobile_settings_support">Soporte</string>
-    <string name="lemuroid_help_content"><![CDATA[        <b>&#8226;¿Cómo usar GameStation?</b><br/>
-        Copia todas tus ROM en un directorio de tu dispositivo y selecciónalo en GameStation. Este directorio puede tener subdirectorios. Después de que se complete el escaneo deberías ver tus juegos.<br/><br/>
+    <string name="lemuroid_help_content"><![CDATA[        <b>&#8226;¿Cómo usar PlayRetro?</b><br/>
+        Copia todas tus ROM en un directorio de tu dispositivo y selecciónalo en PlayRetro. Este directorio puede tener subdirectorios. Después de que se complete el escaneo deberías ver tus juegos.<br/><br/>
         <b>&#8226;¿Por qué no se detectan mis juegos?</b><br/>
         Si tus juegos están comprimidos, prueba a descomprimirlos. Si esto no funciona, prueba poniendo las ROM en directorios separados, uno por cada sistema con los siguientes nombres: $SYSTEMS.<br/><br/>
         <b>&#8226;¿Por qué falta una carátula o el nombre no es correcto?</b><br/>
@@ -163,10 +153,10 @@
     <string name="lemuroid_crash_disclamer">Parece que el núcleo de Libretro ha experimentado un problema inesperado. Si esto persiste, por favor, intenta lo siguiente:\n
         \n\u2022 Desactiva el guardado automático y reinicia el juego
         \n\u2022 Ve a los ajustes de Android y limpia el caché de la aplicación
-        \n\u2022 Ve a los ajustes de GameStation y realiza un restablecimiento de fábrica
+        \n\u2022 Ve a los ajustes de PlayRetro y realiza un restablecimiento de fábrica
         \n\n Si nada de lo anterior funciona, es posible que este juego/núcleo no sea compatible con este dispositivo.
     </string>
-    <string name="error_message_incompatible_state">Este estado guardado no es compatible con la versión actual del núcleo. Por favor carga el último guardado hecho en el juego o usa una versión anterior de GameStation.</string>
+    <string name="error_message_incompatible_state">Este estado guardado no es compatible con la versión actual del núcleo. Por favor carga el último guardado hecho en el juego o usa una versión anterior de PlayRetro.</string>
     <string name="shader_filter_names_auto">Automático</string>
     <string name="shader_filter_names_sharp">Nítido</string>
     <string name="shader_filter_names_smooth">Suave</string>
@@ -184,11 +174,27 @@
     <string name="tilt_configuration_buttons_l2_r2">L2 - R2</string>
     <string name="games_view_mode_grid">Vista de rejilla</string>
     <string name="games_view_mode_list">Vista de lista</string>
-    <string name="tv_settings_category_library">Biblioteca</string>
     <string name="home_row_empty_discover">No hay juegos sin jugar. Añade ROMs a tu directorio y vuelve a escanear.</string>
     <string name="home_row_because_you_played">Porque jugaste %1$s</string>
     <string name="home_row_recently_added">Añadidos recientemente</string>
     <string name="home_row_play_again">Vuelve a jugar</string>
     <string name="home_row_system_classics">Clásicos de %1$s</string>
     <string name="home_row_more_from_developer">Más de %1$s</string>
+    <string name="settings_category_display">Pantalla</string>
+    <string name="settings_category_sound">Sonido</string>
+    <string name="settings_title_viewport_alignment">Alineación de la imagen</string>
+    <string name="settings_description_viewport_alignment">Posición de la imagen del juego en la pantalla cuando sobra espacio, para dejar sitio a los controles táctiles.</string>
+    <string name="viewport_alignment_names_top">Arriba</string>
+    <string name="viewport_alignment_names_center">Centro</string>
+    <string name="viewport_alignment_names_bottom">Abajo</string>
+    <string name="core_options_category_core">Core</string>
+    <string name="core_options_category_options">Opciones</string>
+    <string name="core_options_category_advanced">Avanzadas</string>
+    <string name="core_options_single_core">%1$s (único disponible)</string>
+    <string name="core_options_not_used_yet">Juega una vez a un juego de %1$s para ver aquí las opciones de su core.</string>
+    <string name="core_options_none">Este core no tiene opciones configurables.</string>
+    <string name="core_options_reset">Restablecer opciones de este core</string>
+    <string name="core_options_summary_count">%1$s · Opciones: %2$d</string>
+    <string name="core_options_summary_none">%1$s · Sin opciones</string>
+    <string name="core_options_summary_unused">%1$s · Aún no usado</string>
 </resources>

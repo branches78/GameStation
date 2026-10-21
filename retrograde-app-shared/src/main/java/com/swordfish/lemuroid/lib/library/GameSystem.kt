@@ -773,14 +773,95 @@ data class GameSystem(
                                     ExposedSetting(
                                         "pcsx_rearmed_drc",
                                         R.string.setting_pcsx_rearmed_drc,
+                                        descriptionId = R.string.setting_description_pcsx_rearmed_drc,
                                     ),
                                 ),
                             defaultSettings =
                                 listOf(
-                                    CoreVariable("pcsx_rearmed_drc", "disabled"),
+                                    // The dynamic recompiler keeps full speed (and stable audio) on slow devices.
+                                    // It can still be turned off from the core advanced options.
+                                    CoreVariable("pcsx_rearmed_drc", "enabled"),
                                 ),
                             rumbleSupported = true,
                             supportsLibretroVFS = true,
+                            skipDuplicateFrames = false,
+                        ),
+                        // More accurate than PCSX ReARMed but heavier; it needs a real BIOS (scph5500/5501/5502).
+                        SystemCoreConfig(
+                            CoreID.SWANSTATION,
+                            controllerConfigs =
+                                hashMapOf(
+                                    0 to
+                                        arrayListOf(
+                                            ControllerConfigs.SWANSTATION_STANDARD,
+                                            ControllerConfigs.SWANSTATION_DUALSHOCK,
+                                        ),
+                                    1 to
+                                        arrayListOf(
+                                            ControllerConfigs.SWANSTATION_STANDARD,
+                                            ControllerConfigs.SWANSTATION_DUALSHOCK,
+                                        ),
+                                    2 to
+                                        arrayListOf(
+                                            ControllerConfigs.SWANSTATION_STANDARD,
+                                            ControllerConfigs.SWANSTATION_DUALSHOCK,
+                                        ),
+                                    3 to
+                                        arrayListOf(
+                                            ControllerConfigs.SWANSTATION_STANDARD,
+                                            ControllerConfigs.SWANSTATION_DUALSHOCK,
+                                        ),
+                                ),
+                            exposedSettings =
+                                listOf(
+                                    ExposedSetting(
+                                        "swanstation_GPU_ResolutionScale",
+                                        R.string.setting_swanstation_resolution_scale,
+                                    ),
+                                    ExposedSetting(
+                                        "swanstation_GPU_PGXPEnable",
+                                        R.string.setting_swanstation_pgxp,
+                                        arrayListOf(
+                                            ExposedSetting.Value("true", R.string.value_swanstation_enabled),
+                                            ExposedSetting.Value("false", R.string.value_swanstation_disabled),
+                                        ),
+                                    ),
+                                    ExposedSetting(
+                                        "swanstation_GPU_WidescreenHack",
+                                        R.string.setting_swanstation_widescreen,
+                                        arrayListOf(
+                                            ExposedSetting.Value("true", R.string.value_swanstation_enabled),
+                                            ExposedSetting.Value("false", R.string.value_swanstation_disabled),
+                                        ),
+                                    ),
+                                ),
+                            exposedAdvancedSettings =
+                                listOf(
+                                    ExposedSetting(
+                                        "swanstation_CPU_ExecutionMode",
+                                        R.string.setting_swanstation_cpu_mode,
+                                        arrayListOf(
+                                            ExposedSetting.Value("Recompiler", R.string.value_swanstation_cpu_recompiler),
+                                            ExposedSetting.Value(
+                                                "CachedInterpreter",
+                                                R.string.value_swanstation_cpu_cached_interpreter,
+                                            ),
+                                            ExposedSetting.Value("Interpreter", R.string.value_swanstation_cpu_interpreter),
+                                        ),
+                                    ),
+                                ),
+                            defaultSettings =
+                                listOf(
+                                    CoreVariable("swanstation_CPU_ExecutionMode", "Recompiler"),
+                                ),
+                            // Checked before launching, so a missing BIOS shows the usual "missing BIOS" message.
+                            regionalBIOSFiles =
+                                mapOf(
+                                    "Europe" to "scph5502.bin",
+                                    "Japan" to "scph5500.bin",
+                                    "USA" to "scph5501.bin",
+                                ),
+                            rumbleSupported = true,
                             skipDuplicateFrames = false,
                         ),
                     ),
@@ -971,6 +1052,7 @@ data class GameSystem(
                                     ExposedSetting(
                                         "melonds_jit_enable",
                                         R.string.setting_melonds_jit_enable,
+                                        descriptionId = R.string.setting_description_melonds_jit_enable,
                                     ),
                                 ),
                             defaultSettings =
@@ -978,6 +1060,8 @@ data class GameSystem(
                                     CoreVariable("melonds_number_of_screen_layouts", "1"),
                                     CoreVariable("melonds_touch_mode", "Touch"),
                                     CoreVariable("melonds_threaded_renderer", "enabled"),
+                                    // Without JIT the DS emulation is too slow on TV boxes and the audio stutters.
+                                    CoreVariable("melonds_jit_enable", "enabled"),
                                 ),
                             controllerConfigs =
                                 hashMapOf(

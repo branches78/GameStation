@@ -1,5 +1,6 @@
 package com.swordfish.lemuroid.app.shared.coreoptions
 
+import com.swordfish.lemuroid.lib.core.CoreOptionsCache
 import com.swordfish.lemuroid.lib.core.CoreVariable
 import com.swordfish.libretrodroid.Variable
 import java.io.Serializable
@@ -9,6 +10,8 @@ data class CoreOption(
     val name: String,
     val optionValues: List<String>,
 ) : Serializable {
+    fun toCacheDefinition() = CoreOptionsCache.Definition(variable.key, name, optionValues, variable.value)
+
     companion object {
         fun fromLibretroDroidVariable(variable: Variable): CoreOption {
             val name = variable.description?.split(";")?.get(0)!!

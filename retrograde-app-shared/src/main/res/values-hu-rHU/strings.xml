@@ -2,4 +2,15 @@
 <resources>
     <!-- Core settings titles -->
     <!-- Core settings values. Duplicated here to ease the translation process. -->
+    <string name="setting_description_pcsx_rearmed_drc">Gyorsabb emuláció és stabil hang</string>
+    <string name="setting_description_melonds_jit_enable">Csak 64 bites Androidon működik</string>
+    <string name="setting_swanstation_resolution_scale">Belső felbontás</string>
+    <string name="setting_swanstation_pgxp">Geometriajavítás (PGXP)</string>
+    <string name="setting_swanstation_widescreen">Szélesvásznú hack</string>
+    <string name="setting_swanstation_cpu_mode">CPU mód</string>
+    <string name="value_swanstation_cpu_interpreter">Értelmező</string>
+    <string name="value_swanstation_cpu_cached_interpreter">Gyorsítótáras értelmező</string>
+    <string name="value_swanstation_cpu_recompiler">Újrafordító</string>
+    <string name="value_swanstation_enabled">Bekapcsolva</string>
+    <string name="value_swanstation_disabled">Kikapcsolva</string>
 </resources>

@@ -23,6 +23,7 @@ import com.swordfish.lemuroid.app.mobile.feature.main.MainRoute
 import com.swordfish.lemuroid.app.mobile.feature.main.composable
 import com.swordfish.lemuroid.app.mobile.feature.settings.bios.BiosScreen
 import com.swordfish.lemuroid.app.mobile.feature.settings.bios.BiosSettingsViewModel
+import com.swordfish.lemuroid.app.mobile.feature.settings.coreselection.CoreOptionsSettingsScreen
 import com.swordfish.lemuroid.app.mobile.feature.settings.coreselection.CoresSelectionScreen
 import com.swordfish.lemuroid.app.mobile.feature.settings.coreselection.CoresSelectionViewModel
 import com.swordfish.lemuroid.app.mobile.feature.settings.general.SettingsScreen
@@ -116,6 +117,17 @@ class TVSettingsTabFragment : Fragment() {
                                         viewModel(
                                             factory = CoresSelectionViewModel.Factory(appContext, coresSelection),
                                         ),
+                                    navController = navController,
+                                )
+                            }
+                            composable(MainRoute.SETTINGS_CORE_OPTIONS) { entry ->
+                                CoreOptionsSettingsScreen(
+                                    viewModel =
+                                        viewModel(
+                                            factory = CoresSelectionViewModel.Factory(appContext, coresSelection),
+                                        ),
+                                    systemId = entry.arguments?.getString("systemId")!!,
+                                    showTitle = true,
                                 )
                             }
                             composable(MainRoute.SETTINGS_INPUT_DEVICES) {

@@ -15,7 +15,13 @@ object CoverAspectRatio {
     private const val NEAR_SQUARE = 0.87f
     private const val SQUARE = 1.0f
 
+    /** Real shape of the game cover when it has already been loaded once, otherwise the usual one of its system. */
     fun forGame(game: Game): Float {
+        return CoverRatioCache.get(game.displayCoverUrl()) ?: forGameSystem(game)
+    }
+
+    /** Shape shared by every cover of the game system, used where all cards must be the same size (grids). */
+    fun forGameSystem(game: Game): Float {
         val systemId = SystemID.values().firstOrNull { it.dbname == game.systemId }
         return forSystem(systemId)
     }

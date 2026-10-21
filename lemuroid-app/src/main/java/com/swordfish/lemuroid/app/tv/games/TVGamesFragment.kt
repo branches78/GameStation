@@ -61,7 +61,8 @@ class TVGamesFragment : VerticalGridSupportFragment() {
         val cardSize = resources.getDimensionPixelSize(com.swordfish.lemuroid.lib.R.dimen.card_size)
         val pagingAdapter =
             PagingDataAdapter(
-                GamePresenter(cardSize, gameInteractor),
+                // Grid cells share the system cover shape so the rows stay aligned.
+                GamePresenter(cardSize, gameInteractor, matchCoverShape = false),
                 Game.DIFF_CALLBACK,
             )
 

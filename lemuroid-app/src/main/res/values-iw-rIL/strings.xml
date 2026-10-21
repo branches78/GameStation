@@ -5,7 +5,8 @@
     <string name="title_systems">קונסולות</string>
     <string name="title_games">משחקים</string>
     <string name="title_settings">הגדרות</string>
-    <string name="recent">אחרונים</string>
+    <string name="recent">המשך לשחק</string>
+    <string name="tv_home_section_recents">המשך לשחק</string>
     <string name="favorites">מועדפים</string>
     <string name="discover">גלה עוד</string>
     <string name="rescan">סריקה מחדש</string>
@@ -19,7 +20,6 @@
     <string name="settings">הגדרות</string>
     <string name="save_sync">שמור סנכרון</string>
     <string name="show_all">הראה הכל</string>
-    <string name="settings_category_general">כללי</string>
     <string name="settings_category_input">קלט</string>
     <string name="settings_category_misc">שונות</string>
     <string name="settings_title_enable_autosave">מצב שמירה אוטומטית</string>
@@ -33,17 +33,14 @@
     <string name="settings_gamepad_category_enabled">מכשירים מופעלים</string>
     <string name="settings_gamepad_category_general">כללי</string>
     <string name="settings_gamepad_title_reset_bindings">אפס את התאמת המקשים בבקר המשחק</string>
-    <string name="settings_gamepad_title_game_menu">תפריט</string>
-    <string name="settings_title_open_cores_selection">שנה ליבה</string>
-    <string name="settings_description_open_cores_selection">הגדר אילו ליבות יקושרו לקונסולות</string>
+    <string name="settings_title_open_cores_selection">ליבות</string>
+    <string name="settings_description_open_cores_selection">בחר והגדר את הליבה של כל מערכת</string>
     <string name="settings_title_display_bios_info">BIOS</string>
     <string name="settings_description_display_bios_info">הצג קבצי BIOS שזוהו ונמצאו מתאימים</string>
     <string name="settings_bios_category_detected">זוהה</string>
     <string name="settings_bios_category_not_detected">נתמך</string>
     <string name="settings_title_reset_settings">איפוס להגדרות היצרן</string>
-    <string name="settings_description_reset_settings">אפס את GameStation להגדרות היצרן</string>
-    <string name="settings_title_advanced_settings">הגדרות מתקדמות</string>
-    <string name="settings_description_advanced_settings">הצג הגדרות מתקדמות</string>
+    <string name="settings_description_reset_settings">אפס את PlayRetro להגדרות היצרן</string>
     <string name="settings_title_low_latency_audio">תעדף שמע מופחת השהייה (Low-latency)</string>
     <string name="settings_description_low_latency_audio">הפחת השהיית שמע במכשירים נתמכים. עשוי להגביר את השיבושים בשמע.</string>
     <string name="settings_title_direct_game_load">טעינת משחק ישירה</string>
@@ -53,7 +50,7 @@
     <string name="settings_title_enable_device_rumble">רטט מכשיר</string>
     <string name="settings_description_enable_device_rumble">הפעל רטט ישירות דרך הטלפון כאשר בקר חיצוני אינו מחובר</string>
     <string name="reset_settings_warning_message_title">האם אתה בטוח?</string>
-    <string name="reset_settings_warning_message_description">פעולה זו תאפס את GameStation אל הגדרות היצרן. שמירות ומצבי משחק יישמרו.</string>
+    <string name="reset_settings_warning_message_description">פעולה זו תאפס את PlayRetro אל הגדרות היצרן. שמירות ומצבי משחק יישמרו.</string>
     <string name="settings_title_save_sync">שמירות בענן</string>
     <string name="settings_description_save_sync">גבה וסנכרן את השמירות שלך אל הענן</string>
     <string name="settings_save_sync_refresh">סנכרון ידני</string>
@@ -71,7 +68,7 @@
     <string name="game_context_menu_restart">הפעל מחדש</string>
     <string name="game_context_menu_create_shortcut">הצמד למסך הבית</string>
     <string name="home_empty_title">בחר את תיקיית היעד בה נמצאים קבצי ה-ROM</string>
-    <string name="home_empty_message">GameStation צריך לסרוק תיקייה המכילה קבצי ROM. \nפעולה זו עשויה לארוך מספר דקות.</string>
+    <string name="home_empty_message">PlayRetro צריך לסרוק תיקייה המכילה קבצי ROM. \nפעולה זו עשויה לארוך מספר דקות.</string>
     <string name="home_empty_action">בחירת תיקייה</string>
     <string name="game_menu_save">שמור</string>
     <string name="game_menu_load">טען</string>
@@ -88,7 +85,6 @@
     <string name="game_toast_settings_button_using_gamepad">זוהה שלט חיצוני. גש למסך ההגדרות עם %1$s.</string>
     <string name="game_toast_load_state_failed">טעינת מצב משחק זו נכשלה</string>
     <string name="empty_view_default">אין שום דבר</string>
-    <string name="core_settings_title">הגדרות ליבה</string>
     <string name="core_settings_category_preferences">העדפות</string>
     <string name="core_settings_category_controllers">בקרי משחק</string>
     <string name="core_settings_controller">בקר %1$s</string>
@@ -101,7 +97,6 @@
     <string name="game_loader_error_gl_incompatible">ליבה זו דורשת גירסה של OpenGL ES שמכשירך אינו תומך בה.</string>
     <string name="game_loader_error_load_game">משהו רע התרחש בעת טעינת המשחק. אנא וודא שהקובץ נתמך על ידי למורואיד וסרוק מחדש את המשחקים שלך.</string>
     <string name="game_loader_error_save">משהו רע התרחש עם קובץ השמירה. אם הבעיה אינה מפסיקה, נסה לבטל את השמירה האוטומטית.</string>
-    <string name="game_shortcut_error">משהו רע התרחש בעת טעינת המשחק. אנא וודא שהמשחק עדיין קיים בספרייה שלך.</string>
     <string name="system_grid_details">%1$s משחקים</string>
     <string name="tv_folder_picker_action_choose">בחר</string>
     <string name="tv_folder_picker_action_cancel">בטל</string>
@@ -110,8 +105,7 @@
     <string name="tv_folder_storage_title">בחר מקום אחסון</string>
     <string name="tv_home_section_favorites">אהובים</string>
     <string name="mobile_settings_help">עזרה</string>
-    <string name="mobile_settings_support">תמיכה</string>
-    <string name="lemuroid_help_content"><![CDATA[&#8226;כיצד להשתמש ב-GameStation?</b><br/>
+    <string name="lemuroid_help_content"><![CDATA[&#8226;כיצד להשתמש ב-PlayRetro?</b><br/>
         העתק את כל קבצי ה-ROM שלך אל תיקייה לבחירתך במכשיר ובחר אותה מתוך הגדרות האפליקציה. ניתן ליצור תיקיות משנה (לקונסולות ספציפיות למשל) באותה תיקייה ראשית. לאחר השלמת הסריקה המשחקים אמורים להופיע.<br/><br/>
         <b>&#8226;למה המשחקים שלי לא מזוהים?</b><br/>
 אם המשחקים כווצו (Compressed), נסה להחזיר אותם למצבם המקורי. אם המשחקים עדיין לא מזוהים נסה לשים את קבצי ה-ROM בתיקיות נפרדות, אחת לכל קונסולה, ושנה את שמן בהתאם: $SYSTEMS.
@@ -122,5 +116,22 @@
         \n\u2022 כנס אל הגדרות האפליקציה ובצע איפוס להגדרות היצרן
         \n\n אם אף אחד מהפתרונות לא עזר, ייתכן שהמשחק/הליבה אינם נתמכים במכשיר זה.
     </string>
-    <string name="error_message_incompatible_state">מצב שמירה זה אינו נתמך על ידי גרסת הליבה הנוכחית. טען את השמירה האחרונה שבוצעה על ידי המשחק (in-game) או לחלופין, התקן גרסה ישנה יותר של GameStation.</string>
+    <string name="error_message_incompatible_state">מצב שמירה זה אינו נתמך על ידי גרסת הליבה הנוכחית. טען את השמירה האחרונה שבוצעה על ידי המשחק (in-game) או לחלופין, התקן גרסה ישנה יותר של PlayRetro.</string>
+    <string name="settings_category_display">תצוגה</string>
+    <string name="settings_category_sound">צליל</string>
+    <string name="settings_title_viewport_alignment">יישור התמונה</string>
+    <string name="settings_description_viewport_alignment">מיקום תמונת המשחק במסך כשיש מקום פנוי, כדי להשאיר מקום לפקדי המגע.</string>
+    <string name="viewport_alignment_names_top">למעלה</string>
+    <string name="viewport_alignment_names_center">מרכז</string>
+    <string name="viewport_alignment_names_bottom">למטה</string>
+    <string name="core_options_category_core">ליבה</string>
+    <string name="core_options_category_options">אפשרויות</string>
+    <string name="core_options_category_advanced">מתקדם</string>
+    <string name="core_options_single_core">%1$s (היחידה הזמינה)</string>
+    <string name="core_options_not_used_yet">שחק פעם אחת במשחק של %1$s כדי לראות כאן את האפשרויות של הליבה שלו.</string>
+    <string name="core_options_none">לליבה זו אין אפשרויות הגדרה.</string>
+    <string name="core_options_reset">אפס את האפשרויות של ליבה זו</string>
+    <string name="core_options_summary_count">%1$s · אפשרויות: %2$d</string>
+    <string name="core_options_summary_none">%1$s · ללא אפשרויות</string>
+    <string name="core_options_summary_unused">%1$s · עדיין לא בשימוש</string>
 </resources>

@@ -2,6 +2,7 @@ package com.swordfish.lemuroid.app.tv.home
 
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.core.content.ContextCompat
 import androidx.leanback.widget.ImageCardView
 import androidx.leanback.widget.Presenter
 import com.swordfish.lemuroid.R
@@ -22,7 +23,10 @@ class SystemPresenter(private val cardSize: Int, private val cardPadding: Int) :
         viewHolder.mCardView.mainImageView.setImageResource(systemInfo.metaSystem.imageResId)
         viewHolder.mCardView.mainImageView.setPadding(cardPadding, cardPadding, cardPadding, cardPadding)
         viewHolder.mCardView.setMainImageScaleType(ImageView.ScaleType.FIT_CENTER)
-        viewHolder.mCardView.mainImageView.setBackgroundColor(systemInfo.metaSystem.color())
+        // Colored RetroArch (FlatUI) icons stand out better on the dark card than on a colored background.
+        viewHolder.mCardView.mainImageView.setBackgroundColor(
+            ContextCompat.getColor(context, R.color.md_theme_dark_surfaceContainerHigh),
+        )
     }
 
     override fun onCreateViewHolder(parent: ViewGroup): Presenter.ViewHolder {

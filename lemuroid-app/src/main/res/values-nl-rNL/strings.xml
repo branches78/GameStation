@@ -5,7 +5,7 @@
     <string name="title_systems">Systemen</string>
     <string name="title_games">Spellen</string>
     <string name="title_settings">Instellingen</string>
-    <string name="recent">Recent</string>
+    <string name="recent">Verder spelen</string>
     <string name="favorites">Favorieten</string>
     <string name="discover">Ontdekken</string>
     <string name="rescan">Herscannen</string>
@@ -22,7 +22,6 @@
     <string name="back">Terug</string>
     <string name="close">Sluiten</string>
     <string name="game_page_search_suggestion">Spellen zoeken</string>
-    <string name="settings_category_general">Algemeen</string>
     <string name="settings_category_input">Besturing</string>
     <string name="settings_category_misc">Overig</string>
     <string name="settings_title_enable_autosave">Status automatisch opslaan</string>
@@ -42,17 +41,14 @@
     <string name="settings_gamepad_category_enabled">Ingeschakelde apparaten</string>
     <string name="settings_gamepad_category_general">Algemeen</string>
     <string name="settings_gamepad_title_reset_bindings">Toetsencombinaties herstellen</string>
-    <string name="settings_gamepad_title_game_menu">Menu</string>
-    <string name="settings_title_open_cores_selection">Cores wisselen</string>
-    <string name="settings_description_open_cores_selection">Selecteer welke core gekoppeld is aan een systeem</string>
+    <string name="settings_title_open_cores_selection">Cores</string>
+    <string name="settings_description_open_cores_selection">Kies en configureer de core van elk systeem</string>
     <string name="settings_title_display_bios_info">BIOS</string>
     <string name="settings_description_display_bios_info">Gedetecteerde en ondersteunde BIOS-bestanden</string>
     <string name="settings_bios_category_detected">Gedetecteerd</string>
     <string name="settings_bios_category_not_detected">Ondersteund</string>
     <string name="settings_title_reset_settings">Fabrieksinstellingen herstellen</string>
-    <string name="settings_description_reset_settings">GameStation terugzetten naar fabrieksinstellingen</string>
-    <string name="settings_title_advanced_settings">Geavanceerde instellingen</string>
-    <string name="settings_description_advanced_settings">Geavanceerde en experimentele instellingen</string>
+    <string name="settings_description_reset_settings">PlayRetro terugzetten naar fabrieksinstellingen</string>
     <string name="settings_title_low_latency_audio">Audio met lage latentie</string>
     <string name="settings_description_low_latency_audio">Vermindert audiovertraging op ondersteunde apparaten, maar kan zorgen voor audio-glitches</string>
     <string name="settings_title_direct_game_load">Spel direct laden</string>
@@ -62,7 +58,7 @@
     <string name="settings_title_enable_device_rumble">Trilling van apparaat</string>
     <string name="settings_description_enable_device_rumble">Gebruik apparaattrilling indien er geen controller is aangesloten</string>
     <string name="reset_settings_warning_message_title">Weet u het zeker?</string>
-    <string name="reset_settings_warning_message_description">Dit zal GameStation terugzetten naar de fabrieksinstellingen. Saves en states zullen behouden blijven.</string>
+    <string name="reset_settings_warning_message_description">Dit zal PlayRetro terugzetten naar de fabrieksinstellingen. Saves en states zullen behouden blijven.</string>
     <string name="settings_title_save_sync">Cloud-saves</string>
     <string name="settings_description_save_sync">Maak een back-up en synchroniseer uw saves in de cloud</string>
     <string name="settings_save_sync_refresh">Handmatig synchroniseren</string>
@@ -80,13 +76,13 @@
     <string name="game_context_menu_restart">Herstarten</string>
     <string name="game_context_menu_create_shortcut">Vastzetten aan launcher</string>
     <string name="home_notification_title">Meldingen inschakelen</string>
-    <string name="home_notification_message">GameStation gebruikt meldingen om je te laten weten wanneer een spel of bewerking op de achtergrond draait.</string>
+    <string name="home_notification_message">PlayRetro gebruikt meldingen om je te laten weten wanneer een spel of bewerking op de achtergrond draait.</string>
     <string name="home_notification_action">Inschakelen</string>
     <string name="home_microphone_title">Microfoon inschakelen</string>
     <string name="home_microphone_message">Nintendo DS spellen kunnen de microfoon gebruiken om enkele functies te bieden.</string>
     <string name="home_microphone_action">Inschakelen</string>
     <string name="home_empty_title">Selecteer ROM-map</string>
-    <string name="home_empty_message">GameStation moet een map met ROM-bestanden scannen.\nDit kan enkele minuten duren.</string>
+    <string name="home_empty_message">PlayRetro moet een map met ROM-bestanden scannen.\nDit kan enkele minuten duren.</string>
     <string name="home_empty_action">Selecteer map</string>
     <string name="game_menu_save">Opslaan</string>
     <string name="game_menu_load">Laden</string>
@@ -106,7 +102,6 @@
     <string name="game_toast_quick_save_loaded">Snel geladen</string>
     <string name="game_toast_quick_save_saved">Snel opgeslagen</string>
     <string name="empty_view_default">Geen Items</string>
-    <string name="core_settings_title">Core-instellingen</string>
     <string name="core_settings_category_preferences">Voorkeuren</string>
     <string name="core_settings_category_controllers">Controllers</string>
     <string name="core_settings_controller">Controller %1$s</string>
@@ -119,17 +114,16 @@
     <string name="game_running_notification_title_alternative">Game is actief</string>
     <string name="game_running_notification_message">Zorg ervoor dat je je voortgang opslaat</string>
     <string name="game_loader_error_gl_incompatible">Deze Core heeft een OpenGL ES versie nodig die je apparaat niet ondersteund.</string>
-    <string name="game_loader_error_load_game">Er is iets misgegaan tijdens het laden van je spel. Zorg ervoor dat de ROM wordt ondersteund door GameStation en rescan je games.</string>
+    <string name="game_loader_error_load_game">Er is iets misgegaan tijdens het laden van je spel. Zorg ervoor dat de ROM wordt ondersteund door PlayRetro en rescan je games.</string>
     <string name="game_loader_error_save">Er is iets misgegaan met je opslagbestand. Als het probleem zich blijft voordoen, probeer dan auto-save uit te schakelen.</string>
     <string name="game_loader_error_unsupported_architecture">Deze core wordt niet ondersteund door uw apparaat.</string>
     <string name="game_loader_error_generic">Er is iets misgegaan. Probeer het volgende:\n
         \n\u2022 Schakel automatisch opslaan uit en herstart het spel
         \n\u2022 Ga naar Android instellingen en wis de app cache
-        \n\u2022 Ga naar GameStation instellingen en voer een reset uit
+        \n\u2022 Ga naar PlayRetro instellingen en voer een reset uit
         \n\nals geen van de bovenstaande werkt kan het zijn dat dit Spel/Core niet wordt ondersteund door dit apparaat.
     </string>
     <string name="game_loader_error_missing_bios">Het lijkt erop dat u de vereiste BIOS mist, plaats deze in uw ROM-map en herscan. Vereiste bestanden: %1$s</string>
-    <string name="game_shortcut_error">Er is iets misgegaan tijdens het laden van het spel. Zorg ervoor dat dit spel zich nog steeds in uw bibliotheek bevindt.</string>
     <string name="dialog_saf_not_found">Dit apparaat ondersteunt de StorageAccessFramework bestandskiezer niet. Kopieer handmatig ongecomprimeerde ROM bestanden in %1$s en druk op Rescan.</string>
     <string name="system_grid_details">%1$s games</string>
     <string name="tv_folder_picker_title">Selecteer ROM-map</string>
@@ -139,33 +133,29 @@
     <string name="tv_folder_storage_secondary">Secundaire opslag %1$s</string>
     <string name="tv_folder_storage_title">Kies opslag</string>
     <string name="tv_home_section_favorites">Favorieten</string>
-    <string name="tv_home_section_recents">Recent</string>
-    <string name="tv_home_section_systems">Systemen</string>
-    <string name="tv_home_section_settings">Instellingen</string>
+    <string name="tv_home_section_recents">Verder spelen</string>
     <string name="gamepad_binding_update_title">‘RetroPad %1$s’ associëren</string>
     <string name="gamepad_binding_update_description">Druk op een knop op uw \"%1$s\"</string>
     <string name="shortcut_binding_update_title">‘RetroPad %1$s’ associëren</string>
     <string name="shortcut_binding_update_description">Druk op de eerste, dan de tweede knop om een combinatie te koppelen aan je \"%1$s\"</string>
     <string name="tv_search_results">Spellen</string>
     <string name="tv_game_message_missing_gamepad">Gamepads zijn vereist om te spelen. Gelieve er een te verbinden.</string>
-    <string name="game_edit_touch_controls_error_not_visible">Koppel je pad los om je aanraakbesturingselementen te bewerken</string>
     <string name="game_interactory_busy">Wacht tot de lopende opdrachten zijn voltooid</string>
     <string name="game_interactor_notification_permission_required">Schakel meldingen van Start in om door te gaan</string>
     <string name="game_process_another_game_running">Sluit het huidige spel voor je een andere begint</string>
     <string name="mobile_settings_help">Help</string>
-    <string name="mobile_settings_support">Ondersteuning</string>
-    <string name="lemuroid_help_content"><![CDATA[        <b>&#8226;Hoe gebruik ik GameStation?</b><br/>
-        Kopieer al je ROM-bestanden in een map op je apparaat en selecteer ze in GameStation. Deze map kan submappen hebben. Nadat de scan voltooid is zou je je spellen moeten zien.<br/><br/>
+    <string name="lemuroid_help_content"><![CDATA[        <b>&#8226;Hoe gebruik ik PlayRetro?</b><br/>
+        Kopieer al je ROM-bestanden in een map op je apparaat en selecteer ze in PlayRetro. Deze map kan submappen hebben. Nadat de scan voltooid is zou je je spellen moeten zien.<br/><br/>
         <b>&#8226;Waarom zijn mijn spellen niet gedetecteerd?</b><br/>
         Als je spellen zijn gecomprimeerd, probeer ze te decomprimeren. Als dit niet werkt, probeer dan ROMs in aparte mappen te plaatsen, één voor elk systeem met de volgende namen: $SYSTEMS.
     ]]></string>
     <string name="lemuroid_crash_disclamer">Er is iets misgegaan. Probeer het volgende:\n
         \n\u2022 Schakel automatisch opslaan uit en herstart het spel
         \n\u2022 Ga naar Android instellingen en wis de app cache
-        \n\u2022 Ga naar GameStation instellingen en voer een reset uit
+        \n\u2022 Ga naar PlayRetro instellingen en voer een reset uit
         \n\nals geen van de bovenstaande werkt kan het zijn dat dit Spel/Core niet wordt ondersteund door dit apparaat.
     </string>
-    <string name="error_message_incompatible_state">Deze save state is niet compatibel met de huidige core-versie. Laad de laatste versie van het spel of gebruik een eerdere versie van GameStation.</string>
+    <string name="error_message_incompatible_state">Deze save state is niet compatibel met de huidige core-versie. Laad de laatste versie van het spel of gebruik een eerdere versie van PlayRetro.</string>
     <string name="shader_filter_names_auto">Automatisch</string>
     <string name="shader_filter_names_sharp">Scherp</string>
     <string name="shader_filter_names_smooth">Vloeiend</string>
@@ -181,4 +171,21 @@
     <string name="tilt_configuration_buttons_l_r">L - R</string>
     <string name="tilt_configuration_buttons_l1_r1">L1 - R1</string>
     <string name="tilt_configuration_buttons_l2_r2">L2 - R2</string>
+    <string name="settings_category_display">Scherm</string>
+    <string name="settings_category_sound">Geluid</string>
+    <string name="settings_title_viewport_alignment">Beelduitlijning</string>
+    <string name="settings_description_viewport_alignment">Positie van het spelbeeld op het scherm wanneer er ruimte over is, zodat er plaats blijft voor de aanraakbediening.</string>
+    <string name="viewport_alignment_names_top">Boven</string>
+    <string name="viewport_alignment_names_center">Midden</string>
+    <string name="viewport_alignment_names_bottom">Onder</string>
+    <string name="core_options_category_core">Core</string>
+    <string name="core_options_category_options">Opties</string>
+    <string name="core_options_category_advanced">Geavanceerd</string>
+    <string name="core_options_single_core">%1$s (enige beschikbare)</string>
+    <string name="core_options_not_used_yet">Speel één keer een %1$s-spel om hier de opties van de core te zien.</string>
+    <string name="core_options_none">Deze core heeft geen instelbare opties.</string>
+    <string name="core_options_reset">Opties van deze core herstellen</string>
+    <string name="core_options_summary_count">%1$s · Opties: %2$d</string>
+    <string name="core_options_summary_none">%1$s · Geen opties</string>
+    <string name="core_options_summary_unused">%1$s · Nog niet gebruikt</string>
 </resources>

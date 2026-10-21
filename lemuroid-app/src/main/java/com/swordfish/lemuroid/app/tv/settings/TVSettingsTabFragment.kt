@@ -1,0 +1,150 @@
+package com.swordfish.lemuroid.app.tv.settings
+
+import android.content.Context
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.ViewCompositionStrategy
+import androidx.compose.ui.unit.dp
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.rememberNavController
+import com.fredporciuncula.flow.preferences.FlowSharedPreferences
+import com.swordfish.lemuroid.app.mobile.feature.main.MainRoute
+import com.swordfish.lemuroid.app.mobile.feature.main.composable
+import com.swordfish.lemuroid.app.mobile.feature.settings.bios.BiosScreen
+import com.swordfish.lemuroid.app.mobile.feature.settings.bios.BiosSettingsViewModel
+import com.swordfish.lemuroid.app.mobile.feature.settings.coreselection.CoresSelectionScreen
+import com.swordfish.lemuroid.app.mobile.feature.settings.coreselection.CoresSelectionViewModel
+import com.swordfish.lemuroid.app.mobile.feature.settings.general.SettingsScreen
+import com.swordfish.lemuroid.app.mobile.feature.settings.general.SettingsViewModel
+import com.swordfish.lemuroid.app.mobile.feature.settings.inputdevices.InputDevicesSettingsScreen
+import com.swordfish.lemuroid.app.mobile.feature.settings.inputdevices.InputDevicesSettingsViewModel
+import com.swordfish.lemuroid.app.mobile.feature.settings.savesync.SaveSyncSettingsScreen
+import com.swordfish.lemuroid.app.mobile.feature.settings.savesync.SaveSyncSettingsViewModel
+import com.swordfish.lemuroid.app.mobile.shared.compose.ui.AppTheme
+import com.swordfish.lemuroid.app.shared.input.InputDeviceManager
+import com.swordfish.lemuroid.app.shared.settings.SettingsInteractor
+import com.swordfish.lemuroid.lib.bios.BiosManager
+import com.swordfish.lemuroid.lib.core.CoresSelection
+import com.swordfish.lemuroid.lib.preferences.SharedPreferencesHelper
+import com.swordfish.lemuroid.lib.savesync.SaveSyncManager
+import dagger.android.support.AndroidSupportInjection
+import javax.inject.Inject
+
+/**
+ * Content of the "Settings" tab on TV. It reuses the mobile settings screens (same cards and options),
+ * hiding the ones that only make sense on phones.
+ */
+class TVSettingsTabFragment : Fragment() {
+    @Inject
+    lateinit var settingsInteractor: SettingsInteractor
+
+    @Inject
+    lateinit var saveSyncManager: SaveSyncManager
+
+    @Inject
+    lateinit var biosManager: BiosManager
+
+    @Inject
+    lateinit var coresSelection: CoresSelection
+
+    @Inject
+    lateinit var inputDeviceManager: InputDeviceManager
+
+    override fun onAttach(context: Context) {
+        AndroidSupportInjection.inject(this)
+        super.onAttach(context)
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
+    ): View {
+        val appContext = requireContext().applicationContext
+        val application = requireActivity().application
+
+        return ComposeView(requireContext()).apply {
+            setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+            setContent {
+                AppTheme {
+                    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.TopCenter) {
+                        val navController = rememberNavController()
+                        val contentModifier = Modifier.fillMaxWidth().widthIn(max = CONTENT_MAX_WIDTH)
+
+                        NavHost(
+                            modifier = contentModifier,
+                            navController = navController,
+                            startDestination = MainRoute.SETTINGS.route,
+                        ) {
+                            composable(MainRoute.SETTINGS) {
+                                SettingsScreen(
+                                    viewModel =
+                                        viewModel(
+                                            factory =
+                                                SettingsViewModel.Factory(
+                                                    appContext,
+                                                    settingsInteractor,
+                                                    saveSyncManager,
+                                                    FlowSharedPreferences(
+                                                        SharedPreferencesHelper.getLegacySharedPreferences(appContext),
+                                                    ),
+                                                ),
+                                        ),
+                                    navController = navController,
+                                    isTV = true,
+                                )
+                            }
+                            composable(MainRoute.SETTINGS_BIOS) {
+                                BiosScreen(
+                                    viewModel = viewModel(factory = BiosSettingsViewModel.Factory(biosManager)),
+                                )
+                            }
+                            composable(MainRoute.SETTINGS_CORES_SELECTION) {
+                                CoresSelectionScreen(
+                                    viewModel =
+                                        viewModel(
+                                            factory = CoresSelectionViewModel.Factory(appContext, coresSelection),
+                                        ),
+                                )
+                            }
+                            composable(MainRoute.SETTINGS_INPUT_DEVICES) {
+                                InputDevicesSettingsScreen(
+                                    viewModel =
+                                        viewModel(
+                                            factory = InputDevicesSettingsViewModel.Factory(appContext, inputDeviceManager),
+                                        ),
+                                )
+                            }
+                            composable(MainRoute.SETTINGS_SAVE_SYNC) {
+                                SaveSyncSettingsScreen(
+                                    viewModel =
+                                        viewModel(
+                                            factory = SaveSyncSettingsViewModel.Factory(application, saveSyncManager),
+                                        ),
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    companion object {
+        private val CONTENT_MAX_WIDTH = 720.dp
+    }
+
+    @dagger.Module
+    class Module
+}

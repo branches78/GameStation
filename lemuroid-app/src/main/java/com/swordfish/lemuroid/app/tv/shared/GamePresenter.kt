@@ -1,16 +1,15 @@
 package com.swordfish.lemuroid.app.tv.shared
 
-import android.graphics.Color
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.leanback.widget.ImageCardView
 import androidx.leanback.widget.Presenter
 import com.swordfish.lemuroid.app.shared.GameContextMenuListener
 import com.swordfish.lemuroid.app.shared.GameInteractor
+import com.swordfish.lemuroid.app.shared.covers.CoverAspectRatio
 import com.swordfish.lemuroid.app.shared.covers.CoverUtils
 import com.swordfish.lemuroid.app.utils.games.GameUtils
 import com.swordfish.lemuroid.lib.library.db.entity.Game
+import kotlin.math.roundToInt
 
 class GamePresenter(
     private val cardSize: Int,
@@ -24,7 +23,9 @@ class GamePresenter(
         val game = item as Game
         viewHolder.mCardView.titleText = game.displayName()
         viewHolder.mCardView.contentText = GameUtils.getGameSubtitle(viewHolder.mCardView.context, game)
-        viewHolder.mCardView.setMainImageDimensions(cardSize, cardSize)
+        // Same height for every card; the width follows the system box art ratio (like on mobile).
+        val cardWidth = (cardSize * CoverAspectRatio.forGame(game)).roundToInt()
+        viewHolder.mCardView.setMainImageDimensions(cardWidth, cardSize)
         viewHolder.updateCardViewImage(game)
         viewHolder.view.setOnCreateContextMenuListener(GameContextMenuListener(gameInteractor, game))
     }
@@ -33,7 +34,7 @@ class GamePresenter(
         val cardView = ImageCardView(parent.context)
         cardView.isFocusable = true
         cardView.isFocusableInTouchMode = true
-        (cardView.findViewById<View>(androidx.leanback.R.id.content_text) as TextView).setTextColor(Color.LTGRAY)
+        TVCardStyle.apply(cardView)
         return ViewHolder(cardView)
     }
 

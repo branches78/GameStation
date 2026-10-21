@@ -6,6 +6,7 @@ import com.swordfish.lemuroid.app.shared.GameMenuContract
 import com.swordfish.lemuroid.app.shared.coreoptions.LemuroidCoreOption
 import com.swordfish.lemuroid.app.shared.input.InputDeviceManager
 import com.swordfish.lemuroid.app.tv.shared.TVBaseSettingsActivity
+import com.swordfish.lemuroid.app.tv.shared.TVHelper
 import com.swordfish.lemuroid.lib.library.SystemCoreConfig
 import com.swordfish.lemuroid.lib.library.db.entity.Game
 import com.swordfish.lemuroid.lib.saves.StatesManager
@@ -24,6 +25,9 @@ class TVGameMenuActivity : TVBaseSettingsActivity() {
     lateinit var inputDeviceManager: InputDeviceManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Keep the TV in low latency mode while the in-game menu is on top of the game,
+        // otherwise some TVs blank the picture when switching modes back and forth.
+        TVHelper.requestLowLatencyMode(this)
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null) {
             val game =

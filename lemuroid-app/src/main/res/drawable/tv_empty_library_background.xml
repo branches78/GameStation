@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Same look as the mobile elevated card. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <corners android:radius="@dimen/tv_card_corner_radius" />
+    <solid android:color="@color/md_theme_dark_surfaceContainerLow" />
+</shape>

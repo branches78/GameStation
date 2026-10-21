@@ -37,8 +37,9 @@ object CoverUtils {
                     .build(),
             )
             .memoryCache {
+                // Larger than the default so covers of rows already seen stay in memory while browsing.
                 MemoryCache.Builder(applicationContext)
-                    .maxSizePercent(0.20)
+                    .maxSizePercent(0.30)
                     .build()
             }
             .okHttpClient {
@@ -46,7 +47,8 @@ object CoverUtils {
                     .addNetworkInterceptor(ThrottleFailedThumbnailsInterceptor)
                     .build()
             }
-            .crossfade(true)
+            .components { add(ThumbnailFallbackInterceptor(applicationContext)) }
+            .transitionFactory(NetworkOnlyCrossfadeFactory)
             .interceptorDispatcher(Dispatchers.IO)
             .diskCachePolicy(CachePolicy.ENABLED)
             .memoryCachePolicy(CachePolicy.ENABLED)

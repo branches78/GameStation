@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="tv_top_bar_height">80dp</dimen>
+    <dimen name="tv_top_bar_top_padding">0dp</dimen>
+    <dimen name="tv_top_bar_horizontal_padding">48dp</dimen>
+    <dimen name="tv_tab_horizontal_padding">20dp</dimen>
+    <dimen name="tv_tab_vertical_padding">8dp</dimen>
+    <dimen name="tv_tab_spacing">8dp</dimen>
+    <dimen name="tv_tab_corner_radius">20dp</dimen>
+    <dimen name="tv_systems_grid_top_padding">24dp</dimen>
+    <!-- Same corner radius as the mobile cards (Material 3 medium shape). -->
+    <dimen name="tv_card_corner_radius">12dp</dimen>
+    <dimen name="tv_card_focus_stroke">3dp</dimen>
+    <dimen name="tv_empty_library_width">520dp</dimen>
+    <dimen name="tv_empty_library_padding">24dp</dimen>
+    <dimen name="tv_empty_library_spacing">16dp</dimen>
+    <dimen name="tv_games_title_top_margin">32dp</dimen>
+    <dimen name="tv_games_grid_top_padding">96dp</dimen>
+    <!-- Focused cards grow a little, so some extra room is kept between columns. -->
+    <dimen name="tv_games_card_extra_spacing">16dp</dimen>
+
+    <string name="pref_key_tv_rescan" translatable="false">tv_rescan</string>
+    <string name="pref_key_tv_choose_directory" translatable="false">tv_choose_directory</string>
+
+    <!-- Like the mobile navigation bar: active tab uses the secondary container, focus the primary color. -->
+    <color name="tv_tab_focused_background">@color/md_theme_dark_primary</color>
+    <color name="tv_tab_selected_background">@color/md_theme_dark_secondaryContainer</color>
+    <color name="tv_tab_focused_text">@color/md_theme_dark_onPrimary</color>
+    <color name="tv_tab_selected_text">@color/md_theme_dark_onSecondaryContainer</color>
+    <color name="tv_tab_default_text">@color/md_theme_dark_onSurfaceVariant</color>
+
+    <style name="GameStationTVTab">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/tv_tab_spacing</item>
+        <item name="android:layout_marginEnd">@dimen/tv_tab_spacing</item>
+        <item name="android:paddingStart">@dimen/tv_tab_horizontal_padding</item>
+        <item name="android:paddingEnd">@dimen/tv_tab_horizontal_padding</item>
+        <item name="android:paddingTop">@dimen/tv_tab_vertical_padding</item>
+        <item name="android:paddingBottom">@dimen/tv_tab_vertical_padding</item>
+        <item name="android:background">@drawable/tv_tab_background</item>
+        <item name="android:textColor">@color/tv_tab_text</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:focusable">true</item>
+        <item name="android:focusableInTouchMode">true</item>
+        <item name="android:clickable">true</item>
+    </style>
+</resources>

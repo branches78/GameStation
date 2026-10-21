@@ -19,8 +19,15 @@
 
 package com.swordfish.lemuroid.lib.library.metadata
 
+import com.swordfish.lemuroid.lib.library.db.entity.Game
 import com.swordfish.lemuroid.lib.storage.StorageFile
 
 interface GameMetadataProvider {
     suspend fun retrieveMetadata(storageFile: StorageFile): GameMetadata?
+
+    /**
+     * Called on rescan for games that are already in the library, so metadata from older versions can be fixed.
+     * Returns the updated game, or null when nothing changes.
+     */
+    suspend fun refreshMetadata(game: Game): Game? = null
 }

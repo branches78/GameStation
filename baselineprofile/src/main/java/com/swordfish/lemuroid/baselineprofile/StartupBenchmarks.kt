@@ -44,9 +44,9 @@ class StartupBenchmarks {
     fun startupCompilationBaselineProfiles() = benchmark(CompilationMode.Partial(BaselineProfileMode.Require))
 
     private fun benchmark(compilationMode: CompilationMode) {
-        // This example works only with the variant with application id `com.swordfish.lemuroid`."
+        // This example works only with the variant with application id `com.gamestation.tv`."
         rule.measureRepeated(
-            packageName = "com.swordfish.lemuroid",
+            packageName = "com.gamestation.tv",
             metrics = listOf(StartupTimingMetric()),
             compilationMode = compilationMode,
             startupMode = StartupMode.COLD,

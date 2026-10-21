@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.swordfish.lemuroid.app.shared.library.PendingOperationsMonitor
+import com.swordfish.lemuroid.lib.preferences.SharedPreferencesHelper
 import com.swordfish.lemuroid.lib.savesync.SaveSyncManager
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -27,12 +28,16 @@ class MainViewModel(appContext: Context, private val saveSyncManager: SaveSyncMa
         val saveSyncEnabled: Boolean = false,
         val displaySearch: Boolean = false,
         val searchQuery: String = "",
+        val gamesGridMode: Boolean = false,
     )
+
+    private val sharedPreferences = SharedPreferencesHelper.getSharedPreferences(appContext)
 
     private val currentRouteFlow = MutableStateFlow(MainRoute.HOME)
     private val saveSyncEnabledFlow = MutableStateFlow(false)
     private val operationInProgressFlow = PendingOperationsMonitor(appContext).anyOperationInProgress()
     private val searchQueryFlow = MutableStateFlow("")
+    private val gamesGridModeFlow = MutableStateFlow(sharedPreferences.getBoolean(PREF_KEY_GAMES_GRID_MODE, false))
 
     val state = buildStateFlow()
 
@@ -43,12 +48,14 @@ class MainViewModel(appContext: Context, private val saveSyncManager: SaveSyncMa
                 saveSyncEnabledFlow,
                 operationInProgressFlow,
                 searchQueryFlow,
-            ) { currentRoute, saveSyncEnabled, operationInProgress, searchQuery ->
+                gamesGridModeFlow,
+            ) { currentRoute, saveSyncEnabled, operationInProgress, searchQuery, gamesGridMode ->
                 UiState(
                     operationInProgress = operationInProgress,
                     saveSyncEnabled = saveSyncEnabled,
                     displaySearch = currentRoute == MainRoute.SEARCH,
                     searchQuery = searchQuery,
+                    gamesGridMode = gamesGridMode,
                 )
             }
 
@@ -69,5 +76,15 @@ class MainViewModel(appContext: Context, private val saveSyncManager: SaveSyncMa
 
     fun changeQueryString(newSearchQuery: String) {
         searchQueryFlow.value = newSearchQuery
+    }
+
+    fun toggleGamesViewMode() {
+        val newValue = !gamesGridModeFlow.value
+        gamesGridModeFlow.value = newValue
+        sharedPreferences.edit().putBoolean(PREF_KEY_GAMES_GRID_MODE, newValue).apply()
+    }
+
+    companion object {
+        private const val PREF_KEY_GAMES_GRID_MODE = "games_grid_mode"
     }
 }

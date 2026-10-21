@@ -94,6 +94,7 @@ class StorageAccessFrameworkProvider(private val context: Context) : StorageProv
                 DocumentsContract.Document.COLUMN_DISPLAY_NAME,
                 DocumentsContract.Document.COLUMN_SIZE,
                 DocumentsContract.Document.COLUMN_MIME_TYPE,
+                DocumentsContract.Document.COLUMN_LAST_MODIFIED,
             )
         context.contentResolver.query(childrenUri, projection, null, null, null)?.use {
             while (it.moveToNext()) {
@@ -101,6 +102,7 @@ class StorageAccessFrameworkProvider(private val context: Context) : StorageProv
                 val documentName = it.getString(1)
                 val documentSize = it.getLong(2)
                 val mimeType = it.getString(3)
+                val lastModified = if (it.isNull(4)) 0L else it.getLong(4)
 
                 if (mimeType == DocumentsContract.Document.MIME_TYPE_DIR) {
                     resultDirectories.add(documentId)
@@ -116,6 +118,7 @@ class StorageAccessFrameworkProvider(private val context: Context) : StorageProv
                             size = documentSize,
                             uri = documentUri,
                             path = documentUri.path,
+                            lastModified = lastModified,
                         ),
                     )
                 }

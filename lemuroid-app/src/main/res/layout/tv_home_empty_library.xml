@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Shown in the TV "Home" tab when the library is empty. Same content as the mobile card. -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tv_empty_library"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/tv_top_bar_height"
+    android:visibility="gone">
+
+    <!-- The bottom padding compensates the tabs bar, so the card is centered on the whole screen. -->
+
+    <LinearLayout
+        android:layout_width="@dimen/tv_empty_library_width"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/tv_empty_library_background"
+        android:orientation="vertical"
+        android:padding="@dimen/tv_empty_library_padding">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/home_empty_title"
+            android:textColor="@color/md_theme_dark_onSurface"
+            android:textSize="22sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/tv_empty_library_spacing"
+            android:text="@string/home_empty_message"
+            android:textColor="@color/md_theme_dark_onSurfaceVariant"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_empty_library_action"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="@dimen/tv_empty_library_spacing"
+            android:background="@drawable/tv_outlined_button_background"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:paddingStart="@dimen/tv_tab_horizontal_padding"
+            android:paddingTop="@dimen/tv_tab_vertical_padding"
+            android:paddingEnd="@dimen/tv_tab_horizontal_padding"
+            android:paddingBottom="@dimen/tv_tab_vertical_padding"
+            android:text="@string/home_empty_action"
+            android:textColor="@color/tv_outlined_button_text"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+</FrameLayout>

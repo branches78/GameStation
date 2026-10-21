@@ -64,4 +64,11 @@ val md_theme_dark_surfaceTint = Color(0xFFDDDDDD)
 val md_theme_dark_outlineVariant = Color(0xFF424940)
 val md_theme_dark_scrim = Color(0xFF000000)
 
+// Surface containers (cards, bars). The same values are in res/values/material-colors.xml for the TV.
+val md_theme_dark_surfaceContainerLowest = Color(0xFF141613)
+val md_theme_dark_surfaceContainerLow = Color(0xFF1E201C)
+val md_theme_dark_surfaceContainer = Color(0xFF222420)
+val md_theme_dark_surfaceContainerHigh = Color(0xFF2C2F2A)
+val md_theme_dark_surfaceContainerHighest = Color(0xFF373A35)
+
 val seed = Color(0xFF00C64E)

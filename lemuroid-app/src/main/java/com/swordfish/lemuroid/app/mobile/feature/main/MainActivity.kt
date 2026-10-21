@@ -26,16 +26,12 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.fredporciuncula.flow.preferences.FlowSharedPreferences
 import com.swordfish.lemuroid.R
-import com.swordfish.lemuroid.app.mobile.feature.favorites.FavoritesScreen
-import com.swordfish.lemuroid.app.mobile.feature.favorites.FavoritesViewModel
 import com.swordfish.lemuroid.app.mobile.feature.games.GamesScreen
 import com.swordfish.lemuroid.app.mobile.feature.games.GamesViewModel
 import com.swordfish.lemuroid.app.mobile.feature.home.HomeScreen
 import com.swordfish.lemuroid.app.mobile.feature.home.HomeViewModel
 import com.swordfish.lemuroid.app.mobile.feature.search.SearchScreen
 import com.swordfish.lemuroid.app.mobile.feature.search.SearchViewModel
-import com.swordfish.lemuroid.app.mobile.feature.settings.advanced.AdvancedSettingsScreen
-import com.swordfish.lemuroid.app.mobile.feature.settings.advanced.AdvancedSettingsViewModel
 import com.swordfish.lemuroid.app.mobile.feature.settings.bios.BiosScreen
 import com.swordfish.lemuroid.app.mobile.feature.settings.bios.BiosSettingsViewModel
 import com.swordfish.lemuroid.app.mobile.feature.settings.coreselection.CoresSelectionScreen
@@ -137,6 +133,11 @@ class MainActivity : RetrogradeComponentActivity(), BusyActivity {
                     ?.let { MainRoute.findByRoute(it) }
                     ?: MainRoute.HOME
 
+            // Inside a system the top bar shows the system name instead of the generic "Games" title.
+            val currentSystemTitleId =
+                navBackStackEntry.value?.arguments?.getString("metaSystemId")
+                    ?.let { runCatching { MetaSystemID.valueOf(it).titleResId }.getOrNull() }
+
             val infoDialogDisplayed =
                 remember {
                     mutableStateOf(false)
@@ -176,10 +177,12 @@ class MainActivity : RetrogradeComponentActivity(), BusyActivity {
                 topBar = {
                     MainTopBar(
                         currentRoute = currentRoute,
+                        titleOverrideId = currentSystemTitleId,
                         navController = navController,
                         onHelpPressed = onHelpPressed,
                         mainUIState = mainUIState,
                         onUpdateQueryString = { mainViewModel.changeQueryString(it) },
+                        onToggleGamesViewMode = { mainViewModel.toggleGamesViewMode() },
                     )
                 },
                 bottomBar = { MainNavigationBar(currentRoute, navController) },
@@ -200,18 +203,6 @@ class MainActivity : RetrogradeComponentActivity(), BusyActivity {
                                             retrogradeDb,
                                             coresSelection,
                                         ),
-                                ),
-                            onGameClick = onGameClick,
-                            onGameLongClick = onGameLongClick,
-                            onOpenCoreSelection = { navController.navigateToRoute(MainRoute.SETTINGS_CORES_SELECTION) },
-                        )
-                    }
-                    composable(MainRoute.FAVORITES) {
-                        FavoritesScreen(
-                            modifier = Modifier.padding(padding),
-                            viewModel =
-                                viewModel(
-                                    factory = FavoritesViewModel.Factory(retrogradeDb),
                                 ),
                             onGameClick = onGameClick,
                             onGameLongClick = onGameLongClick,
@@ -257,6 +248,7 @@ class MainActivity : RetrogradeComponentActivity(), BusyActivity {
                                             MetaSystemID.valueOf(metaSystemId!!),
                                         ),
                                 ),
+                            gridMode = mainUIState.gamesGridMode,
                             onGameClick = onGameClick,
                             onGameLongClick = onGameLongClick,
                             onGameFavoriteToggle = onGameFavoriteToggle,
@@ -277,20 +269,6 @@ class MainActivity : RetrogradeComponentActivity(), BusyActivity {
                                                     applicationContext,
                                                 ),
                                             ),
-                                        ),
-                                ),
-                            navController = navController,
-                        )
-                    }
-                    composable(MainRoute.SETTINGS_ADVANCED) {
-                        AdvancedSettingsScreen(
-                            modifier = Modifier.padding(padding),
-                            viewModel =
-                                viewModel(
-                                    factory =
-                                        AdvancedSettingsViewModel.Factory(
-                                            applicationContext,
-                                            settingsInteractor,
                                         ),
                                 ),
                             navController = navController,

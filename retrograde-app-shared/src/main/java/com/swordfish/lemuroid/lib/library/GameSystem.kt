@@ -930,40 +930,6 @@ data class GameSystem(
                     R.string.game_system_abbr_nds,
                     listOf(
                         SystemCoreConfig(
-                            CoreID.DESMUME,
-                            exposedSettings =
-                                listOf(
-                                    ExposedSetting(
-                                        "desmume_screens_layout",
-                                        R.string.setting_desmume_screens_layout,
-                                        arrayListOf(
-                                            ExposedSetting.Value(
-                                                "top/bottom",
-                                                R.string.value_desmume_screens_layout_topbottom,
-                                            ),
-                                            ExposedSetting.Value(
-                                                "left/right",
-                                                R.string.value_desmume_screens_layout_leftright,
-                                            ),
-                                        ),
-                                    ),
-                                    ExposedSetting(
-                                        "desmume_frameskip",
-                                        R.string.setting_desmume_frameskip,
-                                    ),
-                                ),
-                            defaultSettings =
-                                listOf(
-                                    CoreVariable("desmume_pointer_type", "touch"),
-                                    CoreVariable("desmume_frameskip", "1"),
-                                ),
-                            controllerConfigs =
-                                hashMapOf(
-                                    0 to arrayListOf(ControllerConfigs.DESMUME),
-                                ),
-                            skipDuplicateFrames = false,
-                        ),
-                        SystemCoreConfig(
                             CoreID.MELONDS,
                             exposedSettings =
                                 listOf(

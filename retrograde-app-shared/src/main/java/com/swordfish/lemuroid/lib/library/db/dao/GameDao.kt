@@ -73,6 +73,62 @@ interface GameDao {
     @Query("SELECT count(*) count, systemId systemId FROM games GROUP BY systemId")
     fun selectSystemsWithCount(): Flow<List<SystemCount>>
 
+    @Query("SELECT * FROM games WHERE lastPlayedAt IS NOT NULL ORDER BY lastPlayedAt DESC LIMIT 1")
+    fun selectLastPlayed(): Flow<Game?>
+
+    // Unplayed games from the same developer first, then from the same system.
+    @Query(
+        """
+        SELECT * FROM games
+        WHERE lastPlayedAt IS NULL AND id != :gameId AND (developer = :developer OR systemId = :systemId)
+        ORDER BY CASE WHEN developer = :developer THEN 0 ELSE 1 END, COALESCE(customName, title) ASC
+        LIMIT :limit
+        """,
+    )
+    fun selectSimilarNotPlayed(
+        gameId: Int,
+        developer: String?,
+        systemId: String,
+        limit: Int,
+    ): Flow<List<Game>>
+
+    // Ids are auto-generated, so the highest ones belong to the games added last.
+    @Query("SELECT * FROM games ORDER BY id DESC LIMIT :limit")
+    fun selectRecentlyAdded(limit: Int): Flow<List<Game>>
+
+    @Query(
+        """
+        SELECT * FROM games WHERE lastPlayedAt IS NOT NULL AND lastPlayedAt < :playedBefore
+        ORDER BY lastPlayedAt DESC LIMIT :limit
+        """,
+    )
+    fun selectPlayedBefore(
+        playedBefore: Long,
+        limit: Int,
+    ): Flow<List<Game>>
+
+    // The seed changes the order every day while keeping it stable during the day.
+    @Query("SELECT * FROM games WHERE systemId = :systemId ORDER BY (id * :seed) % 7919 LIMIT :limit")
+    fun selectBySystemShuffled(
+        systemId: String,
+        seed: Int,
+        limit: Int,
+    ): Flow<List<Game>>
+
+    @Query(
+        """
+        SELECT count(*) count, developer developer FROM games
+        WHERE developer IS NOT NULL AND developer != '' GROUP BY developer ORDER BY count DESC LIMIT 1
+        """,
+    )
+    fun selectTopDeveloper(): Flow<DeveloperCount?>
+
+    @Query("SELECT * FROM games WHERE developer = :developer ORDER BY COALESCE(customName, title) ASC LIMIT :limit")
+    fun selectByDeveloper(
+        developer: String,
+        limit: Int,
+    ): Flow<List<Game>>
+
     @Insert
     fun insert(games: List<Game>): List<Long>
 
@@ -87,3 +143,5 @@ interface GameDao {
 }
 
 data class SystemCount(val systemId: String, val count: Int)
+
+data class DeveloperCount(val developer: String, val count: Int)

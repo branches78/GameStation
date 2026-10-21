@@ -4,6 +4,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory
+        android:title="@string/tv_settings_category_library"
+        app:iconSpaceReserved="false">
+
+        <Preference
+            android:key="@string/pref_key_tv_rescan"
+            android:title="@string/rescan"
+            app:iconSpaceReserved="false"/>
+
+        <Preference
+            android:key="@string/pref_key_tv_choose_directory"
+            android:title="@string/directory"
+            android:summary="@string/tv_folder_picker_title"
+            app:iconSpaceReserved="false"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
         android:title="@string/settings_category_general"
         app:iconSpaceReserved="false">
 

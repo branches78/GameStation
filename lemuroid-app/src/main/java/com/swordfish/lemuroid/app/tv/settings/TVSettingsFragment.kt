@@ -11,12 +11,15 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceScreen
 import com.swordfish.lemuroid.R
 import com.swordfish.lemuroid.app.shared.input.InputDeviceManager
+import com.swordfish.lemuroid.app.shared.library.LibraryIndexScheduler
 import com.swordfish.lemuroid.app.shared.library.PendingOperationsMonitor
 import com.swordfish.lemuroid.app.shared.settings.SaveSyncPreferences
 import com.swordfish.lemuroid.app.shared.settings.SettingsInteractor
+import com.swordfish.lemuroid.app.tv.shared.TVHelper
 import com.swordfish.lemuroid.common.coroutines.launchOnState
 import com.swordfish.lemuroid.common.coroutines.safeCollect
 import com.swordfish.lemuroid.common.kotlin.NTuple2
+import com.swordfish.lemuroid.lib.library.GameSystem
 import com.swordfish.lemuroid.lib.preferences.SharedPreferencesHelper
 import com.swordfish.lemuroid.lib.savesync.SaveSyncManager
 import dagger.android.support.AndroidSupportInjection
@@ -46,6 +49,8 @@ class TVSettingsFragment : LeanbackPreferenceFragmentCompat() {
     lateinit var saveSyncManager: SaveSyncManager
 
     lateinit var saveSyncPreferences: SaveSyncPreferences
+
+    private var directoryScanInProgress = false
 
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
@@ -81,6 +86,15 @@ class TVSettingsFragment : LeanbackPreferenceFragmentCompat() {
         }
 
         launchOnState(Lifecycle.State.RESUMED) {
+            PendingOperationsMonitor(requireContext())
+                .isDirectoryScanInProgress()
+                .safeCollect { inProgress ->
+                    directoryScanInProgress = inProgress
+                    getRescanPreference()?.setTitle(if (inProgress) R.string.stop else R.string.rescan)
+                }
+        }
+
+        launchOnState(Lifecycle.State.RESUMED) {
             getSaveSyncScreen()?.let { screen ->
                 PendingOperationsMonitor(requireContext())
                     .anySaveOperationInProgress()
@@ -101,6 +115,8 @@ class TVSettingsFragment : LeanbackPreferenceFragmentCompat() {
 
         getCoresSelectionScreen()?.let {
             coresSelectionPreferences.addCoresSelectionPreferences(it)
+            // Only shown when at least one system can choose between several cores.
+            it.isVisible = GameSystem.all().any { system -> system.systemCoreConfigs.size > 1 }
         }
 
         getBiosInfoPreferenceScreen()?.let {
@@ -122,6 +138,10 @@ class TVSettingsFragment : LeanbackPreferenceFragmentCompat() {
     override fun onResume() {
         super.onResume()
         refreshSaveSyncScreen()
+    }
+
+    private fun getRescanPreference(): Preference? {
+        return findPreference(resources.getString(R.string.pref_key_tv_rescan))
     }
 
     private fun getGamePadPreferenceScreen(): PreferenceScreen? {
@@ -186,6 +206,8 @@ class TVSettingsFragment : LeanbackPreferenceFragmentCompat() {
                     handleResetGamePadBindings()
                 }
             getString(R.string.pref_key_reset_settings) -> handleResetSettings()
+            getString(R.string.pref_key_tv_rescan) -> handleRescan()
+            getString(R.string.pref_key_tv_choose_directory) -> TVHelper.launchFolderPicker(requireContext())
         }
         return super.onPreferenceTreeClick(preference)
     }
@@ -197,7 +219,21 @@ class TVSettingsFragment : LeanbackPreferenceFragmentCompat() {
 
     private fun handleResetSettings() {
         settingsInteractor.resetAllSettings()
-        activity?.finish()
+        // When embedded in the main TV screen, finishing the activity would close the whole app.
+        if (activity is TVSettingsActivity) {
+            activity?.finish()
+        } else {
+            activity?.recreate()
+        }
+    }
+
+    private fun handleRescan() {
+        val appContext = requireContext().applicationContext
+        if (directoryScanInProgress) {
+            LibraryIndexScheduler.cancelLibrarySync(appContext)
+        } else {
+            LibraryIndexScheduler.scheduleLibrarySync(appContext)
+        }
     }
 
     @dagger.Module

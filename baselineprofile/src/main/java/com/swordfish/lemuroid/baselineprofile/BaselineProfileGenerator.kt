@@ -38,9 +38,9 @@ class BaselineProfileGenerator {
 
     @Test
     fun generate() {
-        // This example works only with the variant with application id `com.swordfish.lemuroid`."
+        // This example works only with the variant with application id `com.gamestation.tv`."
         rule.collect(
-            packageName = "com.swordfish.lemuroid",
+            packageName = "com.gamestation.tv",
             // See: https://d.android.com/topic/performance/baselineprofiles/dex-layout-optimizations
             includeInStartupProfile = true,
         ) {

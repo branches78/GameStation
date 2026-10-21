@@ -7,6 +7,8 @@ data class BaseStorageFile(
     val size: Long,
     val uri: Uri,
     val path: String? = null,
+    // Used on rescan to detect files that changed since they were indexed.
+    val lastModified: Long = 0,
 ) {
     val extension: String
         get() = name.substringAfterLast('.', "")

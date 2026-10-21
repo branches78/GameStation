@@ -4,8 +4,10 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.swordfish.lemuroid.app.shared.home.HomeDynamicRows
 import com.swordfish.lemuroid.app.shared.library.PendingOperationsMonitor
 import com.swordfish.lemuroid.app.shared.systems.MetaSystemInfo
+import com.swordfish.lemuroid.common.coroutines.combine
 import com.swordfish.lemuroid.lib.library.GameSystem
 import com.swordfish.lemuroid.lib.library.db.RetrogradeDatabase
 import com.swordfish.lemuroid.lib.library.db.entity.Game
@@ -14,8 +16,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -39,30 +41,37 @@ class TVHomeViewModel(retrogradeDb: RetrogradeDatabase, appContext: Context) : V
     data class HomeViewState(
         val favoritesGames: List<Game> = emptyList(),
         val recentGames: List<Game> = emptyList(),
+        val discoveryGames: List<Game> = emptyList(),
+        val dynamicRows: List<HomeDynamicRows.Row> = emptyList(),
         val metaSystems: List<MetaSystemInfo> = emptyList(),
         val indexInProgress: Boolean = false,
         val scanInProgress: Boolean = false,
     )
 
-    private val viewStates = MutableStateFlow(HomeViewState())
+    // Null until the library has been read, so the UI doesn't show the "empty library" state for a moment.
+    private val viewStates = MutableStateFlow<HomeViewState?>(null)
 
     fun getViewStates(): Flow<HomeViewState> {
-        return viewStates
+        return viewStates.filterNotNull()
     }
 
     private fun buildViewState(
         favoritesGames: List<Game>,
         recentGames: List<Game>,
+        discoveryGames: List<Game>,
         metaSystems: List<MetaSystemInfo>,
         indexInProgress: Boolean,
         scanInProgress: Boolean,
+        dynamicRows: List<HomeDynamicRows.Row>,
     ): HomeViewState {
         return HomeViewState(
-            favoritesGames,
-            recentGames,
-            metaSystems,
-            indexInProgress,
-            scanInProgress,
+            favoritesGames = favoritesGames,
+            recentGames = recentGames,
+            discoveryGames = discoveryGames,
+            dynamicRows = dynamicRows,
+            metaSystems = metaSystems,
+            indexInProgress = indexInProgress,
+            scanInProgress = scanInProgress,
         )
     }
 
@@ -72,9 +81,11 @@ class TVHomeViewModel(retrogradeDb: RetrogradeDatabase, appContext: Context) : V
                 combine(
                     favoriteGames(retrogradeDb),
                     recentGames(retrogradeDb),
+                    discoveryGames(retrogradeDb),
                     availableSystems(retrogradeDb, appContext),
                     indexingInProgress(appContext),
                     directoryScanInProgress(appContext),
+                    HomeDynamicRows(appContext, retrogradeDb).getRows(),
                     ::buildViewState,
                 )
 
@@ -113,4 +124,8 @@ class TVHomeViewModel(retrogradeDb: RetrogradeDatabase, appContext: Context) : V
     private fun recentGames(retrogradeDb: RetrogradeDatabase) =
         retrogradeDb.gameDao()
             .selectFirstUnfavoriteRecents(CAROUSEL_MAX_ITEMS)
+
+    private fun discoveryGames(retrogradeDb: RetrogradeDatabase) =
+        retrogradeDb.gameDao()
+            .selectFirstNotPlayed(CAROUSEL_MAX_ITEMS)
 }

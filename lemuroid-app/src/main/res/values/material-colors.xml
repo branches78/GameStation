@@ -53,6 +53,12 @@
     <color name="md_theme_dark_onSurface">#E2E3DD</color>
     <color name="md_theme_dark_surfaceVariant">#424840</color>
     <color name="md_theme_dark_onSurfaceVariant">#C1C9BD</color>
+    <!-- Surface containers, same values as Color.kt (used by the TV interface). -->
+    <color name="md_theme_dark_surfaceContainerLowest">#141613</color>
+    <color name="md_theme_dark_surfaceContainerLow">#1E201C</color>
+    <color name="md_theme_dark_surfaceContainer">#222420</color>
+    <color name="md_theme_dark_surfaceContainerHigh">#2C2F2A</color>
+    <color name="md_theme_dark_surfaceContainerHighest">#373A35</color>
     <color name="md_theme_dark_outline">#8B9388</color>
     <color name="md_theme_dark_inverseOnSurface">#1A1C19</color>
     <color name="md_theme_dark_inverseSurface">#E2E3DD</color>

@@ -250,20 +250,6 @@ object ControllerConfigs {
                 ),
         )
 
-    val DESMUME =
-        ControllerConfig(
-            "default",
-            R.string.controller_default,
-            TouchControllerID.DESMUME,
-            allowTouchOverlay = false,
-            tiltConfigurations =
-                listOf(
-                    TILT_CONFIGURATION_DISABLED,
-                    TILT_CONFIGURATION_CROSS,
-                    TILT_CONFIGURATION_L_R,
-                ),
-        )
-
     val MELONDS =
         ControllerConfig(
             "default",

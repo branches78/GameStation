@@ -16,7 +16,7 @@ class SavesCoherencyEngine(val savesManager: SavesManager, val statesManager: St
     suspend fun shouldDiscardAutoSaveState(
         game: Game,
         coreID: CoreID,
-        // TODO Get rid of it when desmume is removed
+        // Used when melonDS loads a save converted from a DeSmuME .dsv file.
         sramTimestampOverride: Long? = null,
     ): Boolean {
         val autoSRAM =

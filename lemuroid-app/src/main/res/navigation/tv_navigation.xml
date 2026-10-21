@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.swordfish.lemuroid.app.tv.home.TVHomeFragment"
+        android:name="com.swordfish.lemuroid.app.tv.main.TVMainTabsFragment"
         android:label="@string/title_home">
 
         <action

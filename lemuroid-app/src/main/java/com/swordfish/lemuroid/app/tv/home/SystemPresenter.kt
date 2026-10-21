@@ -1,14 +1,12 @@
 package com.swordfish.lemuroid.app.tv.home
 
-import android.graphics.Color
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.leanback.widget.ImageCardView
 import androidx.leanback.widget.Presenter
 import com.swordfish.lemuroid.R
 import com.swordfish.lemuroid.app.shared.systems.MetaSystemInfo
+import com.swordfish.lemuroid.app.tv.shared.TVCardStyle
 
 class SystemPresenter(private val cardSize: Int, private val cardPadding: Int) : Presenter() {
     override fun onBindViewHolder(
@@ -31,7 +29,7 @@ class SystemPresenter(private val cardSize: Int, private val cardPadding: Int) :
         val cardView = ImageCardView(parent.context)
         cardView.isFocusable = true
         cardView.isFocusableInTouchMode = true
-        (cardView.findViewById<View>(androidx.leanback.R.id.content_text) as TextView).setTextColor(Color.LTGRAY)
+        TVCardStyle.apply(cardView)
         return ViewHolder(cardView)
     }
 

@@ -17,3 +17,6 @@ project.properties
 .externalNativeBuild
 local.properties
 release.jks
+
+# Kotlin compiler daemon files
+.kotlin/

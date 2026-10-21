@@ -1,11 +1,6 @@
-# Lemuroid
+# GameStation
 
-[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
-     alt="Get it on F-Droid"
-     height="80">](https://f-droid.org/packages/com.swordfish.lemuroid/)
-[<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
-     alt="Get it on Google Play"
-     height="80">](https://play.google.com/store/apps/details?id=com.swordfish.lemuroid)
+GameStation is a fork of [Lemuroid](https://github.com/Swordfish90/Lemuroid) by Filippo Scognamiglio (Swordfish90), developed independently. Like the original project, it is distributed under the GNU General Public License v3.0 (see `COPYING`).
 
 ## Description
 

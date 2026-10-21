@@ -1,5 +1,6 @@
 <resources>
-    <color name="leanback_background">@color/surface_elevation_0dp</color>
-    <color name="leanback_foreground">@color/surface_elevation_3dp</color>
-    <color name="leanback_info">@color/surface_elevation_1dp</color>
+    <!-- Same colors as the mobile interface (Material 3 dark theme). -->
+    <color name="leanback_background">@color/md_theme_dark_background</color>
+    <color name="leanback_foreground">@color/md_theme_dark_surfaceContainer</color>
+    <color name="leanback_info">@color/md_theme_dark_surfaceContainerLow</color>
 </resources>

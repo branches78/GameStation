@@ -4,6 +4,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.leanback.widget.ImageCardView
 import androidx.leanback.widget.Presenter
+import com.swordfish.lemuroid.app.tv.shared.TVCardStyle
 
 class SettingPresenter(private val cardSize: Int, private val cardPadding: Int) : Presenter() {
     override fun onBindViewHolder(
@@ -25,6 +26,7 @@ class SettingPresenter(private val cardSize: Int, private val cardPadding: Int) 
         val cardView = ImageCardView(parent.context)
         cardView.isFocusable = true
         cardView.isFocusableInTouchMode = true
+        TVCardStyle.apply(cardView)
         return ViewHolder(cardView)
     }
 

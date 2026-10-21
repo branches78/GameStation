@@ -1,94 +1,84 @@
 package com.swordfish.lemuroid.app.tv.home
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.leanback.app.BrowseSupportFragment
+import android.widget.FrameLayout
+import androidx.core.view.isVisible
+import androidx.leanback.app.RowsSupportFragment
 import androidx.leanback.widget.ArrayObjectAdapter
 import androidx.leanback.widget.ClassPresenterSelector
 import androidx.leanback.widget.DiffCallback
 import androidx.leanback.widget.HeaderItem
 import androidx.leanback.widget.ListRow
 import androidx.leanback.widget.ListRowPresenter
-import androidx.leanback.widget.ObjectAdapter
 import androidx.leanback.widget.OnItemViewClickedListener
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.swordfish.lemuroid.R
 import com.swordfish.lemuroid.app.shared.GameInteractor
-import com.swordfish.lemuroid.app.shared.library.LibraryIndexScheduler
-import com.swordfish.lemuroid.app.shared.savesync.SaveSyncWork
-import com.swordfish.lemuroid.app.shared.settings.StorageFrameworkPickerLauncher
+import com.swordfish.lemuroid.app.shared.home.HomeDynamicRows
 import com.swordfish.lemuroid.app.shared.systems.MetaSystemInfo
-import com.swordfish.lemuroid.app.tv.folderpicker.TVFolderPickerLauncher
-import com.swordfish.lemuroid.app.tv.settings.TVSettingsActivity
 import com.swordfish.lemuroid.app.tv.shared.GamePresenter
 import com.swordfish.lemuroid.app.tv.shared.TVHelper
 import com.swordfish.lemuroid.common.coroutines.launchOnState
 import com.swordfish.lemuroid.lib.library.db.RetrogradeDatabase
 import com.swordfish.lemuroid.lib.library.db.entity.Game
-import com.swordfish.lemuroid.lib.savesync.SaveSyncManager
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
-class TVHomeFragment : BrowseSupportFragment() {
+/**
+ * Content of the "Home" tab on TV. Like on mobile, the rows follow the same order
+ * (recents, favorites, discover). Recents and favorites are hidden while empty,
+ * while an empty discover row shows a hint in its middle. With an empty library
+ * only the directory selection is shown.
+ */
+class TVHomeFragment : RowsSupportFragment() {
     @Inject
     lateinit var retrogradeDb: RetrogradeDatabase
 
     @Inject
     lateinit var gameInteractor: GameInteractor
 
-    @Inject
-    lateinit var saveSyncManager: SaveSyncManager
-
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
         super.onAttach(context)
     }
+
+    private var emptyLibraryView: View? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        onItemViewClickedListener =
-            OnItemViewClickedListener { _, item, _, _ ->
-                when (item) {
-                    is Game -> gameInteractor.onGamePlay(item)
-                    is MetaSystemInfo -> {
-                        val action =
-                            TVHomeFragmentDirections.actionNavigationSystemsToNavigationGames(
-                                item.metaSystem.name,
-                            )
-                        findNavController().navigate(action)
-                    }
-                    is TVSetting -> {
-                        when (item.type) {
-                            TVSettingType.STOP_RESCAN ->
-                                LibraryIndexScheduler.cancelLibrarySync(
-                                    requireContext().applicationContext,
-                                )
-                            TVSettingType.RESCAN ->
-                                LibraryIndexScheduler.scheduleLibrarySync(
-                                    requireContext().applicationContext,
-                                )
-                            TVSettingType.CHOOSE_DIRECTORY -> launchFolderPicker()
-                            TVSettingType.SETTINGS -> launchTVSettings()
-                            TVSettingType.SHOW_ALL_FAVORITES -> launchFavorites()
-                            TVSettingType.SAVE_SYNC ->
-                                SaveSyncWork.enqueueManualWork(
-                                    requireContext().applicationContext,
-                                )
-                        }
-                    }
-                }
-            }
+        val rowsView = super.onCreateView(inflater, container, savedInstanceState) ?: return null
 
-        return super.onCreateView(inflater, container, savedInstanceState)
+        // The rows are wrapped to add the card shown when the library is empty, like the mobile one.
+        val root = FrameLayout(requireContext())
+        root.addView(rowsView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+
+        val emptyView = inflater.inflate(R.layout.tv_home_empty_library, root, false)
+        emptyView.findViewById<View>(R.id.tv_empty_library_action)
+            .setOnClickListener { TVHelper.launchFolderPicker(requireContext()) }
+        root.addView(emptyView)
+        emptyLibraryView = emptyView
+
+        return root
+    }
+
+    override fun onDestroyView() {
+        emptyLibraryView = null
+        super.onDestroyView()
+    }
+
+    private fun updateEmptyLibraryCard(viewState: TVHomeViewModel.HomeViewState) {
+        val emptyView = emptyLibraryView ?: return
+        emptyView.isVisible = viewState.metaSystems.isEmpty()
+        emptyView.findViewById<View>(R.id.tv_empty_library_action).isEnabled = !viewState.indexInProgress
     }
 
     override fun onViewCreated(
@@ -97,14 +87,15 @@ class TVHomeFragment : BrowseSupportFragment() {
     ) {
         super.onViewCreated(view, savedInstanceState)
 
-        recreateAdapter(
-            includeFavorites = false,
-            includeRecentGames = false,
-            includeSystems = false,
-        )
-        setOnSearchClickedListener {
-            findNavController().navigate(R.id.navigation_search)
-        }
+        onItemViewClickedListener =
+            OnItemViewClickedListener { _, item, _, _ ->
+                when (item) {
+                    is Game -> gameInteractor.onGamePlay(item)
+                    is TVSetting -> onSettingClicked(item)
+                }
+            }
+
+        createAdapter(emptyList())
 
         val factory = TVHomeViewModel.Factory(retrogradeDb, requireContext().applicationContext)
         val homeViewModel = ViewModelProvider(this, factory)[TVHomeViewModel::class.java]
@@ -115,144 +106,106 @@ class TVHomeFragment : BrowseSupportFragment() {
         }
     }
 
+    private fun onSettingClicked(setting: TVSetting) {
+        when (setting.type) {
+            TVSettingType.SHOW_ALL_FAVORITES -> findNavController().navigate(R.id.navigation_favorites)
+            else -> Unit
+        }
+    }
+
+    /** A row of the home screen: [key] identifies it, [items] are games or placeholders. */
+    private data class HomeRow(val key: String, val title: String, val items: List<Any>)
+
+    private var currentRows: List<Pair<String, String>> = emptyList()
+
     private fun update(viewState: TVHomeViewModel.HomeViewState) {
-        val adapterHasFavorites = findAdapterById<ObjectAdapter>(FAVORITES_ADAPTER) != null
-        val adapterHasGames = findAdapterById<ObjectAdapter>(RECENTS_ADAPTER) != null
-        val adapterHasSystems = findAdapterById<ObjectAdapter>(SYSTEM_ADAPTER) != null
+        updateEmptyLibraryCard(viewState)
 
-        val favoritesChanged = adapterHasFavorites != viewState.favoritesGames.isNotEmpty()
-        val recentsChanged = adapterHasGames != viewState.recentGames.isNotEmpty()
-        val systemsChanged = adapterHasSystems != viewState.metaSystems.isNotEmpty()
+        val rows = buildRows(viewState)
 
-        if (favoritesChanged || recentsChanged || systemsChanged) {
-            recreateAdapter(
-                viewState.favoritesGames.isNotEmpty(),
-                viewState.recentGames.isNotEmpty(),
-                viewState.metaSystems.isNotEmpty(),
-            )
+        // Rows appear, disappear or get a new title (e.g. "Because you played..."): rebuild them.
+        val rowsStructure = rows.map { it.key to it.title }
+        if (rowsStructure != currentRows) {
+            createAdapter(rows)
         }
 
-        findAdapterById<ArrayObjectAdapter>(FAVORITES_ADAPTER)?.apply {
-            if (viewState.favoritesGames.size <= TVHomeViewModel.CAROUSEL_MAX_ITEMS) {
-                setItems(viewState.favoritesGames, LEANBACK_MULTI_DIFF_CALLBACK)
-            } else {
-                val allItems =
+        val rowsAdapter = adapter ?: return
+        rows.forEachIndexed { index, row ->
+            val listRow = rowsAdapter.get(index) as ListRow
+            (listRow.adapter as ArrayObjectAdapter).setItems(row.items, LEANBACK_MULTI_DIFF_CALLBACK)
+        }
+    }
+
+    private fun buildRows(viewState: TVHomeViewModel.HomeViewState): List<HomeRow> {
+        val rows = mutableListOf<HomeRow>()
+
+        // Empty library (e.g. first launch): no rows, the centered directory card is shown instead.
+        if (viewState.metaSystems.isEmpty()) {
+            return rows
+        }
+
+        // Recents and favorites stay hidden until they have games.
+        if (viewState.recentGames.isNotEmpty()) {
+            rows += HomeRow(KEY_RECENTS, getString(R.string.tv_home_section_recents), viewState.recentGames)
+        }
+
+        if (viewState.favoritesGames.isNotEmpty()) {
+            val favoritesItems =
+                if (viewState.favoritesGames.size <= TVHomeViewModel.CAROUSEL_MAX_ITEMS) {
+                    viewState.favoritesGames
+                } else {
                     viewState.favoritesGames.subList(0, TVHomeViewModel.CAROUSEL_MAX_ITEMS) +
                         listOf(TVSetting(TVSettingType.SHOW_ALL_FAVORITES))
-                setItems(allItems, LEANBACK_MULTI_DIFF_CALLBACK)
-            }
+                }
+            rows += HomeRow(KEY_FAVORITES, getString(R.string.tv_home_section_favorites), favoritesItems)
         }
 
-        findAdapterById<ArrayObjectAdapter>(RECENTS_ADAPTER)
-            ?.setItems(viewState.recentGames, LEANBACK_GAME_DIFF_CALLBACK)
+        rows += dynamicRows(viewState, HomeDynamicRows.Placement.BEFORE_DISCOVER)
 
-        findAdapterById<ArrayObjectAdapter>(SYSTEM_ADAPTER)
-            ?.setItems(viewState.metaSystems, LEANBACK_SYSTEM_DIFF_CALLBACK)
+        val discoverItems = viewState.discoveryGames.ifEmpty { listOf(EmptyRowMessage(R.string.home_row_empty_discover)) }
+        rows += HomeRow(KEY_DISCOVER, getString(R.string.discover), discoverItems)
 
-        findAdapterById<ArrayObjectAdapter>(SETTINGS_ADAPTER)?.setItems(
-            buildSettingsRowItems(viewState.indexInProgress, viewState.scanInProgress),
-            LEANBACK_SETTING_DIFF_CALLBACK,
-        )
+        rows += dynamicRows(viewState, HomeDynamicRows.Placement.AFTER_DISCOVER)
+
+        return rows
     }
 
-    private fun <T> findAdapterById(id: Long): T? {
-        for (i: Int in 0 until adapter.size()) {
-            val listRow = adapter.get(i) as ListRow
-            if (listRow.headerItem.id == id) {
-                return listRow.adapter as T
-            }
-        }
-        return null
+    private fun dynamicRows(
+        viewState: TVHomeViewModel.HomeViewState,
+        placement: HomeDynamicRows.Placement,
+    ): List<HomeRow> {
+        return viewState.dynamicRows
+            .filter { it.placement == placement }
+            .map { HomeRow(it.key, it.title, it.games) }
     }
 
-    private fun recreateAdapter(
-        includeFavorites: Boolean,
-        includeRecentGames: Boolean,
-        includeSystems: Boolean,
-    ) {
+    private fun createAdapter(rows: List<HomeRow>) {
         val result = ArrayObjectAdapter(ListRowPresenter())
         val cardSize = resources.getDimensionPixelSize(com.swordfish.lemuroid.lib.R.dimen.card_size)
-        val systemsCardPadding =
-            resources.getDimensionPixelSize(
-                com.swordfish.lemuroid.lib.R.dimen.systems_card_padding,
-            )
         val settingsCardPadding =
             resources.getDimensionPixelSize(
                 com.swordfish.lemuroid.lib.R.dimen.settings_card_padding,
             )
 
-        if (includeFavorites) {
-            val presenter = ClassPresenterSelector()
-            presenter.addClassPresenter(Game::class.java, GamePresenter(cardSize, gameInteractor))
-            presenter.addClassPresenter(TVSetting::class.java, SettingPresenter(cardSize, settingsCardPadding))
-            val favouritesItems = ArrayObjectAdapter(presenter)
-            val title = resources.getString(R.string.tv_home_section_favorites)
-            result.add(ListRow(HeaderItem(FAVORITES_ADAPTER, title), favouritesItems))
-        }
+        val presenter =
+            ClassPresenterSelector().apply {
+                addClassPresenter(Game::class.java, GamePresenter(cardSize, gameInteractor))
+                addClassPresenter(TVSetting::class.java, SettingPresenter(cardSize, settingsCardPadding))
+                addClassPresenter(EmptyRowMessage::class.java, EmptyRowMessagePresenter(cardSize))
+            }
 
-        if (includeRecentGames) {
-            val recentItems = ArrayObjectAdapter(GamePresenter(cardSize, gameInteractor))
-            val title = resources.getString(R.string.tv_home_section_recents)
-            result.add(ListRow(HeaderItem(RECENTS_ADAPTER, title), recentItems))
+        rows.forEachIndexed { index, row ->
+            result.add(ListRow(HeaderItem(index.toLong(), row.title), ArrayObjectAdapter(presenter)))
         }
-
-        if (includeSystems) {
-            val systemItems = ArrayObjectAdapter(SystemPresenter(cardSize, systemsCardPadding))
-            val title = resources.getString(R.string.tv_home_section_systems)
-            result.add(ListRow(HeaderItem(SYSTEM_ADAPTER, title), systemItems))
-        }
-
-        val settingsItems = ArrayObjectAdapter(SettingPresenter(cardSize, settingsCardPadding))
-        settingsItems.setItems(
-            buildSettingsRowItems(indexInProgress = false, scanInProgress = false),
-            LEANBACK_SETTING_DIFF_CALLBACK,
-        )
-        val settingsTitle = resources.getString(R.string.tv_home_section_settings)
-        result.add(ListRow(HeaderItem(SETTINGS_ADAPTER, settingsTitle), settingsItems))
 
         adapter = result
-    }
-
-    private fun buildSettingsRowItems(
-        indexInProgress: Boolean,
-        scanInProgress: Boolean,
-    ): List<TVSetting> {
-        return mutableListOf<TVSetting>().apply {
-            if (saveSyncManager.isSupported() && saveSyncManager.isConfigured()) {
-                add(TVSetting(TVSettingType.SAVE_SYNC, !indexInProgress))
-            }
-            if (scanInProgress) {
-                add(TVSetting(TVSettingType.STOP_RESCAN, true))
-            } else {
-                add(TVSetting(TVSettingType.RESCAN, !indexInProgress))
-            }
-
-            add(TVSetting(TVSettingType.CHOOSE_DIRECTORY, !indexInProgress))
-            add(TVSetting(TVSettingType.SETTINGS, !indexInProgress))
-        }
-    }
-
-    private fun launchFolderPicker() {
-        if (TVHelper.isSAFSupported(requireContext())) {
-            StorageFrameworkPickerLauncher.pickFolder(requireContext())
-        } else {
-            TVFolderPickerLauncher.pickFolder(requireContext())
-        }
-    }
-
-    private fun launchTVSettings() {
-        startActivity(Intent(requireContext(), TVSettingsActivity::class.java))
-    }
-
-    private fun launchFavorites() {
-        findNavController().navigate(R.id.navigation_favorites)
+        currentRows = rows.map { it.key to it.title }
     }
 
     companion object {
-        const val RECENTS_ADAPTER = 1L
-        const val SYSTEM_ADAPTER = 2L
-        const val SETTINGS_ADAPTER = 3L
-        const val FAVORITES_ADAPTER = 4L
+        private const val KEY_RECENTS = "recents"
+        private const val KEY_FAVORITES = "favorites"
+        private const val KEY_DISCOVER = "discover"
 
         val LEANBACK_MULTI_DIFF_CALLBACK =
             object : DiffCallback<Any>() {
@@ -267,7 +220,7 @@ class TVHomeFragment : BrowseSupportFragment() {
                         (oldItem is TVSetting && newItem is TVSetting) -> {
                             LEANBACK_SETTING_DIFF_CALLBACK.areContentsTheSame(oldItem, newItem)
                         }
-                        else -> false
+                        else -> oldItem == newItem
                     }
                 }
 
@@ -282,7 +235,7 @@ class TVHomeFragment : BrowseSupportFragment() {
                         (oldItem is TVSetting && newItem is TVSetting) -> {
                             LEANBACK_SETTING_DIFF_CALLBACK.areItemsTheSame(oldItem, newItem)
                         }
-                        else -> false
+                        else -> oldItem == newItem
                     }
                 }
             }

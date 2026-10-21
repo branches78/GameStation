@@ -1,6 +1,7 @@
 package com.swordfish.lemuroid.app.mobile.feature.settings.general
 
 import android.content.Context
+import android.text.format.Formatter
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -9,8 +10,10 @@ import com.swordfish.lemuroid.R
 import com.swordfish.lemuroid.app.shared.library.PendingOperationsMonitor
 import com.swordfish.lemuroid.app.shared.settings.SettingsInteractor
 import com.swordfish.lemuroid.lib.savesync.SaveSyncManager
+import com.swordfish.lemuroid.lib.storage.cache.CacheCleaner
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
@@ -42,6 +45,16 @@ class SettingsViewModel(
         val isSaveSyncSupported: Boolean = false,
     )
 
+    data class CacheState(
+        val default: String,
+        val values: List<String>,
+        val displayNames: List<String>,
+    )
+
+    val cacheState =
+        flow { emit(buildCacheState(context)) }
+            .stateIn(viewModelScope, SharingStarted.Lazily, null)
+
     val indexingInProgress = PendingOperationsMonitor(context).anyLibraryOperationInProgress()
 
     val directoryScanInProgress = PendingOperationsMonitor(context).isDirectoryScanInProgress()
@@ -55,5 +68,18 @@ class SettingsViewModel(
 
     fun changeLocalStorageFolder() {
         settingsInteractor.changeLocalStorageFolder()
+    }
+
+    fun resetAllSettings() {
+        settingsInteractor.resetAllSettings()
+    }
+
+    private fun buildCacheState(context: Context): CacheState {
+        val supportedCacheValues = CacheCleaner.getSupportedCacheLimits()
+        return CacheState(
+            default = CacheCleaner.getDefaultCacheLimit().toString(),
+            values = supportedCacheValues.map { it.toString() },
+            displayNames = supportedCacheValues.map { Formatter.formatShortFileSize(context, it) },
+        )
     }
 }

@@ -54,6 +54,14 @@ object Migrations {
             }
         }
 
+    val VERSION_10_11: Migration =
+        object : Migration(10, 11) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("ALTER TABLE games ADD COLUMN fileSize INTEGER DEFAULT NULL")
+                database.execSQL("ALTER TABLE games ADD COLUMN fileLastModified INTEGER DEFAULT NULL")
+            }
+        }
+
     private fun migrateGamesTableToVersion10(
         database: SupportSQLiteDatabase,
     ) {

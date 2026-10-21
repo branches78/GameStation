@@ -17,4 +17,17 @@ interface GameDao {
 
     @Query("SELECT * FROM games WHERE serial = :serial LIMIT 1")
     suspend fun findBySerial(serial: String): LibretroRom?
+
+    @Query("SELECT * FROM games WHERE romName LIKE :romNamePattern AND system = :system")
+    suspend fun findByRomNameLikeAndSystem(
+        romNamePattern: String,
+        system: String,
+    ): List<LibretroRom>
+
+    // Not indexed: only used to fix games already in the library.
+    @Query("SELECT * FROM games WHERE name = :name AND system = :system")
+    suspend fun findByNameAndSystem(
+        name: String,
+        system: String,
+    ): List<LibretroRom>
 }

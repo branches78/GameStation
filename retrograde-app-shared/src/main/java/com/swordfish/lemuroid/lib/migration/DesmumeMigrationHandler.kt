@@ -6,7 +6,9 @@ import com.swordfish.lemuroid.lib.storage.DirectoriesManager
 import timber.log.Timber
 import java.io.File
 
-// TODO Get rid of this as soon as Desmume is gone
+/**
+ * DeSmuME has been removed. This only remains to let melonDS load saves made with DeSmuME (.dsv files).
+ */
 class DesmumeMigrationHandler(
     private val directoriesManager: DirectoriesManager,
 ) {
@@ -15,7 +17,7 @@ class DesmumeMigrationHandler(
         coreID: CoreID,
         defaultData: ByteArray?,
     ): SaveDataResult {
-        if (coreID != CoreID.DESMUME && coreID != CoreID.MELONDS) {
+        if (coreID != CoreID.MELONDS) {
             return SaveDataResult(defaultData, null)
         }
 
@@ -26,18 +28,10 @@ class DesmumeMigrationHandler(
         val srmInfo = SaveCandidate(srmFile, defaultData ?: srmFile.readBytesIfValid())
         val dsvInfo = SaveCandidate(dsvFile, dsvFile.readBytesIfValid())
 
-        return when (coreID) {
-            CoreID.MELONDS -> selectRawSave(baseFileName, srmInfo, dsvInfo)
-            CoreID.DESMUME -> SaveDataResult(dsvInfo.data, dsvInfo.timestamp.takeIf { dsvInfo.isValid })
-            else -> SaveDataResult(srmInfo.data, srmInfo.timestamp.takeIf { srmInfo.isValid })
-        }
+        return selectRawSave(baseFileName, srmInfo, dsvInfo)
     }
 
     data class SaveDataResult(val data: ByteArray?, val timestampOverride: Long?)
-
-    fun hasPendingDesmumeSaves(): Boolean {
-        return directoriesManager.getSavesDirectory().hasAnyFileWithExtension(DSV_EXTENSION)
-    }
 
     private data class SaveCandidate(
         val file: File,
@@ -105,11 +99,6 @@ class DesmumeMigrationHandler(
             return i
         }
         return -1
-    }
-
-    private fun File.hasAnyFileWithExtension(extension: String): Boolean {
-        val files = listFiles { _, name -> name.endsWith(".$extension", ignoreCase = true) }
-        return files?.any { it.length() > 0 } == true
     }
 
     companion object {

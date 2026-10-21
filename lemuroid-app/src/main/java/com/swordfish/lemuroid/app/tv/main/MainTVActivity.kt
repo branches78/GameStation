@@ -18,12 +18,15 @@ import com.swordfish.lemuroid.app.shared.game.BaseGameActivity
 import com.swordfish.lemuroid.app.shared.game.GameLauncher
 import com.swordfish.lemuroid.app.shared.main.BusyActivity
 import com.swordfish.lemuroid.app.shared.main.GameLaunchTaskHandler
+import com.swordfish.lemuroid.app.shared.settings.SettingsInteractor
 import com.swordfish.lemuroid.app.tv.channel.ChannelUpdateWork
 import com.swordfish.lemuroid.app.tv.favorites.TVFavoritesFragment
 import com.swordfish.lemuroid.app.tv.games.TVGamesFragment
 import com.swordfish.lemuroid.app.tv.home.TVHomeFragment
 import com.swordfish.lemuroid.app.tv.search.TVSearchFragment
+import com.swordfish.lemuroid.app.tv.settings.TVSettingsTabFragment
 import com.swordfish.lemuroid.app.tv.shared.BaseTVActivity
+import com.swordfish.lemuroid.app.tv.systems.TVSystemsFragment
 import com.swordfish.lemuroid.app.tv.shared.TVHelper
 import com.swordfish.lemuroid.common.coroutines.launchOnState
 import com.swordfish.lemuroid.common.coroutines.safeCollect
@@ -32,6 +35,7 @@ import com.swordfish.lemuroid.lib.injection.PerActivity
 import com.swordfish.lemuroid.lib.injection.PerFragment
 import com.swordfish.lemuroid.lib.library.covers.CustomCoverManager
 import com.swordfish.lemuroid.lib.library.db.RetrogradeDatabase
+import com.swordfish.lemuroid.lib.storage.DirectoriesManager
 import dagger.Provides
 import dagger.android.ContributesAndroidInjector
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -120,8 +124,24 @@ class MainTVActivity : BaseTVActivity(), BusyActivity {
         @ContributesAndroidInjector(modules = [TVFavoritesFragment.Module::class])
         abstract fun tvFavoritesFragment(): TVFavoritesFragment
 
+        @PerFragment
+        @ContributesAndroidInjector(modules = [TVSystemsFragment.Module::class])
+        abstract fun tvSystemsFragment(): TVSystemsFragment
+
+        @PerFragment
+        @ContributesAndroidInjector(modules = [TVSettingsTabFragment.Module::class])
+        abstract fun tvSettingsTabFragment(): TVSettingsTabFragment
+
         @dagger.Module
         companion object {
+            @Provides
+            @PerActivity
+            @JvmStatic
+            fun settingsInteractor(
+                activity: MainTVActivity,
+                directoriesManager: DirectoriesManager,
+            ) = SettingsInteractor(activity, directoriesManager)
+
             @Provides
             @PerActivity
             @JvmStatic

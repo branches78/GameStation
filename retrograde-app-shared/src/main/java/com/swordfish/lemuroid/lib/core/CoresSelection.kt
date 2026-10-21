@@ -7,7 +7,6 @@ import com.swordfish.lemuroid.lib.library.CoreID
 import com.swordfish.lemuroid.lib.library.GameSystem
 import com.swordfish.lemuroid.lib.library.SystemCoreConfig
 import com.swordfish.lemuroid.lib.library.SystemID
-import com.swordfish.lemuroid.lib.migration.DesmumeMigrationHandler
 import dagger.Lazy
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -21,7 +20,6 @@ import kotlinx.coroutines.withContext
 
 class CoresSelection(
     private val sharedPreferencesFactory: Lazy<SharedPreferences>,
-    private val desmumeMigrationHandler: DesmumeMigrationHandler,
 ) {
     private val sharedPreferences by lazy { sharedPreferencesFactory.get() }
 
@@ -62,7 +60,9 @@ class CoresSelection(
     private fun getSelectedCoreConfigForSystem(system: GameSystem): Flow<SystemCoreConfig> {
         return getSelectedCoreNameForSystem(system)
             .map { coreName ->
-                system.systemCoreConfigs.first { it.coreID.coreName == coreName }
+                // Fall back to the default core if the stored one is no longer available (e.g. DeSmuME).
+                system.systemCoreConfigs.firstOrNull { it.coreID.coreName == coreName }
+                    ?: system.systemCoreConfigs.first()
             }
     }
 
@@ -88,15 +88,7 @@ class CoresSelection(
         }.flowOn(Dispatchers.IO)
     }
 
-    // TODO Also get rid of this when desmume is gone
     private fun getDefaultCoreForSystem(system: GameSystem): String {
-        if (system.id == SystemID.NDS) {
-            return if (desmumeMigrationHandler.hasPendingDesmumeSaves()) {
-                CoreID.DESMUME.coreName
-            } else {
-                CoreID.MELONDS.coreName
-            }
-        }
         return system.systemCoreConfigs.first().coreID.coreName
     }
 

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.leanback.widget.BrowseFrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tv_tabs_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/leanback_background"
+    android:clipChildren="false">
+
+    <!-- Clipping is disabled so the search orb is not cut when it grows on focus. -->
+    <FrameLayout
+        android:id="@+id/tv_top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tv_top_bar_height"
+        android:background="@color/md_theme_dark_surfaceContainer"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:paddingStart="@dimen/tv_top_bar_horizontal_padding"
+        android:paddingTop="@dimen/tv_top_bar_top_padding"
+        android:paddingEnd="@dimen/tv_top_bar_horizontal_padding">
+
+        <androidx.leanback.widget.SearchOrbView
+            android:id="@+id/tv_search_orb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center_vertical"
+            android:clipChildren="false" />
+
+        <LinearLayout
+            android:id="@+id/tv_tabs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_tab_home"
+                style="@style/GameStationTVTab"
+                android:text="@string/title_home" />
+
+            <TextView
+                android:id="@+id/tv_tab_systems"
+                style="@style/GameStationTVTab"
+                android:text="@string/title_systems" />
+
+            <TextView
+                android:id="@+id/tv_tab_settings"
+                style="@style/GameStationTVTab"
+                android:text="@string/title_settings" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_app_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:text="@string/lemuroid_name"
+            android:textColor="@color/md_theme_dark_onSurface"
+            android:textSize="22sp" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/tv_tab_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/tv_top_bar_height" />
+
+</androidx.leanback.widget.BrowseFrameLayout>

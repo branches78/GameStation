@@ -1,22 +1,30 @@
 <resources>
 
-    <!-- Here we override the defualt Leanback colors to make them look Lemuroidish -->
-    <color name="lb_basic_card_bg_color">@color/leanback_foreground</color>
+    <!-- Cards use the same color as the mobile cards (Material 3 surfaceContainerLow). -->
+    <color name="lb_basic_card_bg_color">@color/md_theme_dark_surfaceContainerLow</color>
     <color name="lb_basic_card_info_bg_color">@color/leanback_info</color>
 
     <style name="LemuroidLeanbackTheme" parent="Theme.Leanback">
         <item name="defaultBrandColor">@color/leanback_foreground</item>
         <item name="defaultBrandColorDark">@color/leanback_foreground</item>
-        <item name="defaultSearchColor">@color/main_color</item>
-        <item name="colorAccent">@color/main_color</item>
-        <item name="android:colorAccent">@color/main_color</item>
+        <item name="defaultSearchColor">@color/md_theme_dark_primary</item>
+        <item name="colorAccent">@color/md_theme_dark_primary</item>
+        <item name="android:colorAccent">@color/md_theme_dark_primary</item>
         <item name="android:colorPrimary">@color/leanback_foreground</item>
         <item name="android:windowBackground">@color/leanback_background</item>
         <item name="imageCardViewStyle">@style/LemuroidLeanbackTheme.ImageCardViewStyle</item>
+        <item name="rowHeaderStyle">@style/LemuroidLeanbackTheme.RowHeader</item>
+        <!-- Required by the settings list embedded in the TV "Settings" tab. -->
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Leanback</item>
     </style>
 
     <style name="LemuroidLeanbackTheme.ImageCardViewStyle" parent="Widget.Leanback.ImageCardViewStyle">
         <item name="infoVisibility">always</item>
+    </style>
+
+    <!-- Row titles with the same text color as on mobile. -->
+    <style name="LemuroidLeanbackTheme.RowHeader" parent="Widget.Leanback.Row.Header">
+        <item name="android:textColor">@color/md_theme_dark_onBackground</item>
     </style>
 
     <style name="LemuroidLeanbackPreferencesTheme" parent="Theme.Leanback">

@@ -10,6 +10,7 @@ import androidx.compose.ui.platform.LocalContext
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
+import com.swordfish.lemuroid.app.shared.covers.CoverAspectRatio
 import com.swordfish.lemuroid.app.shared.covers.CoverUtils
 import com.swordfish.lemuroid.lib.library.db.entity.Game
 
@@ -34,7 +35,7 @@ fun LemuroidGameImage(
         modifier =
             modifier
                 .fillMaxWidth()
-                .aspectRatio(1.0f),
+                .aspectRatio(CoverAspectRatio.forGame(game)),
         fallback = fallbackPainter,
         error = fallbackPainter,
         contentScale = ContentScale.Crop,

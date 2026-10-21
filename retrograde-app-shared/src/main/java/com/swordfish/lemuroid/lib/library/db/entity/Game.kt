@@ -51,6 +51,9 @@ data class Game(
     val isFavorite: Boolean = false,
     val customName: String? = null,
     val customCoverUri: String? = null,
+    // Size and modification date of the file when it was last identified, to detect replaced files on rescan.
+    val fileSize: Long? = null,
+    val fileLastModified: Long? = null,
 ) : Serializable {
 
     fun displayName(): String = customName ?: title

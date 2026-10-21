@@ -1,9 +1,13 @@
 package com.swordfish.lemuroid.app.mobile.feature.settings.general
 
 import android.net.Uri
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -23,14 +27,19 @@ import com.swordfish.lemuroid.app.utils.android.settings.LemuroidSettingsSwitch
 import com.swordfish.lemuroid.app.utils.android.settings.booleanPreferenceState
 import com.swordfish.lemuroid.app.utils.android.settings.indexPreferenceState
 import com.swordfish.lemuroid.app.utils.android.settings.intPreferenceState
+import com.swordfish.lemuroid.app.tv.shared.TVHelper
 import com.swordfish.lemuroid.app.utils.android.stringListResource
+import com.swordfish.lemuroid.lib.library.GameSystem
 
 @Composable
 fun SettingsScreen(
     modifier: Modifier = Modifier,
     viewModel: SettingsViewModel,
     navController: NavController,
+    // On TV, touch and phone only options are hidden and the TV folder picker is used.
+    isTV: Boolean = false,
 ) {
+    val context = LocalContext.current
     val state =
         viewModel.uiState
             .collectAsState(SettingsViewModel.State())
@@ -46,15 +55,26 @@ fun SettingsScreen(
             .collectAsState(false)
             .value
 
+    val cacheState =
+        viewModel.cacheState
+            .collectAsState()
+            .value
+
     LemuroidSettingsPage(modifier = modifier) {
         RomsSettings(
             state = state,
-            onChangeFolder = { viewModel.changeLocalStorageFolder() },
+            onChangeFolder = {
+                if (isTV) TVHelper.launchFolderPicker(context) else viewModel.changeLocalStorageFolder()
+            },
             indexingInProgress = indexingInProgress,
             scanInProgress = scanInProgress,
         )
-        GeneralSettings()
-        InputSettings(navController = navController)
+        GeneralSettings(
+            cacheState = cacheState,
+            isTV = isTV,
+            onResetAllSettings = { viewModel.resetAllSettings() },
+        )
+        InputSettings(navController = navController, isTV = isTV)
         MiscSettings(
             indexingInProgress = indexingInProgress,
             isSaveSyncSupported = state.isSaveSyncSupported,
@@ -81,13 +101,16 @@ private fun MiscSettings(
                 onClick = { navController.navigateToRoute(MainRoute.SETTINGS_SAVE_SYNC) },
             )
         }
-        LemuroidSettingsMenuLink(
-            title = { Text(text = stringResource(id = R.string.settings_title_open_cores_selection)) },
-            subtitle = {
-                Text(text = stringResource(id = R.string.settings_description_open_cores_selection))
-            },
-            onClick = { navController.navigateToRoute(MainRoute.SETTINGS_CORES_SELECTION) },
-        )
+        // Only shown when at least one system can choose between several cores.
+        if (GameSystem.all().any { it.systemCoreConfigs.size > 1 }) {
+            LemuroidSettingsMenuLink(
+                title = { Text(text = stringResource(id = R.string.settings_title_open_cores_selection)) },
+                subtitle = {
+                    Text(text = stringResource(id = R.string.settings_description_open_cores_selection))
+                },
+                onClick = { navController.navigateToRoute(MainRoute.SETTINGS_CORES_SELECTION) },
+            )
+        }
         LemuroidSettingsMenuLink(
             title = { Text(text = stringResource(id = R.string.settings_title_display_bios_info)) },
             subtitle = {
@@ -96,33 +119,31 @@ private fun MiscSettings(
             enabled = !indexingInProgress,
             onClick = { navController.navigateToRoute(MainRoute.SETTINGS_BIOS) },
         )
-        LemuroidSettingsMenuLink(
-            title = { Text(text = stringResource(id = R.string.settings_title_advanced_settings)) },
-            subtitle = {
-                Text(text = stringResource(id = R.string.settings_description_advanced_settings))
-            },
-            onClick = { navController.navigateToRoute(MainRoute.SETTINGS_ADVANCED) },
-        )
     }
 }
 
 @Composable
-private fun InputSettings(navController: NavController) {
+private fun InputSettings(
+    navController: NavController,
+    isTV: Boolean,
+) {
     LemuroidCardSettingsGroup(
         title = { Text(text = stringResource(id = R.string.settings_category_input)) },
     ) {
-        LemuroidSettingsList(
-            state =
-                indexPreferenceState(
-                    R.string.pref_key_haptic_feedback_mode,
-                    "press",
-                    stringListResource(R.array.pref_key_haptic_feedback_mode_values),
-                ),
-            title = {
-                Text(text = stringResource(id = R.string.settings_title_enable_touch_feedback))
-            },
-            items = stringListResource(R.array.pref_key_haptic_feedback_mode_display_names),
-        )
+        if (!isTV) {
+            LemuroidSettingsList(
+                state =
+                    indexPreferenceState(
+                        R.string.pref_key_haptic_feedback_mode,
+                        "press",
+                        stringListResource(R.array.pref_key_haptic_feedback_mode_values),
+                    ),
+                title = {
+                    Text(text = stringResource(id = R.string.settings_title_enable_touch_feedback))
+                },
+                items = stringListResource(R.array.pref_key_haptic_feedback_mode_display_names),
+            )
+        }
         LemuroidSettingsMenuLink(
             title = { Text(text = stringResource(id = R.string.settings_title_gamepad_settings)) },
             subtitle = {
@@ -130,11 +151,42 @@ private fun InputSettings(navController: NavController) {
             },
             onClick = { navController.navigateToRoute(MainRoute.SETTINGS_INPUT_DEVICES) },
         )
+        // Options that used to live in the "Advanced" screen.
+        val rumbleEnabled = booleanPreferenceState(R.string.pref_key_enable_rumble, false)
+        LemuroidSettingsSwitch(
+            state = rumbleEnabled,
+            title = { Text(text = stringResource(id = R.string.settings_title_enable_rumble)) },
+            subtitle = { Text(text = stringResource(id = R.string.settings_description_enable_rumble)) },
+        )
+        if (!isTV) {
+            LemuroidSettingsSwitch(
+                enabled = rumbleEnabled.value,
+                state = booleanPreferenceState(R.string.pref_key_enable_device_rumble, false),
+                title = { Text(text = stringResource(id = R.string.settings_title_enable_device_rumble)) },
+                subtitle = { Text(text = stringResource(id = R.string.settings_description_enable_device_rumble)) },
+            )
+            LemuroidSettingsSlider(
+                state =
+                    intPreferenceState(
+                        key = stringResource(id = R.string.pref_key_tilt_sensitivity_index),
+                        default = 6,
+                    ),
+                steps = 10,
+                valueRange = 0f..10f,
+                enabled = true,
+                title = { Text(text = stringResource(R.string.settings_title_tilt_sensitivity)) },
+            )
+        }
     }
 }
 
 @Composable
-private fun GeneralSettings() {
+private fun GeneralSettings(
+    cacheState: SettingsViewModel.CacheState?,
+    isTV: Boolean,
+    onResetAllSettings: () -> Unit,
+) {
+    val factoryResetDialogState = remember { mutableStateOf(false) }
     val hdMode = booleanPreferenceState(R.string.pref_key_hd_mode, false)
     val immersiveMode = booleanPreferenceState(R.string.pref_key_enable_immersive_mode, false)
 
@@ -146,11 +198,13 @@ private fun GeneralSettings() {
             title = { Text(text = stringResource(id = R.string.settings_title_enable_autosave)) },
             subtitle = { Text(text = stringResource(id = R.string.settings_description_enable_autosave)) },
         )
-        LemuroidSettingsSwitch(
-            state = immersiveMode,
-            title = { Text(text = stringResource(id = R.string.settings_title_immersive_mode)) },
-            subtitle = { Text(text = stringResource(id = R.string.settings_description_immersive_mode)) },
-        )
+        if (!isTV) {
+            LemuroidSettingsSwitch(
+                state = immersiveMode,
+                title = { Text(text = stringResource(id = R.string.settings_title_immersive_mode)) },
+                subtitle = { Text(text = stringResource(id = R.string.settings_description_immersive_mode)) },
+            )
+        }
         LemuroidSettingsSwitch(
             state = hdMode,
             title = { Text(text = stringResource(id = R.string.settings_title_hd_mode)) },
@@ -179,17 +233,81 @@ private fun GeneralSettings() {
             title = { Text(text = stringResource(id = R.string.display_filter)) },
             items = stringListResource(R.array.pref_key_shader_filter_display_names),
         )
-        LemuroidSettingsList(
-            state =
-                indexPreferenceState(
-                    R.string.pref_key_viewport_alignment,
-                    "center",
-                    stringListResource(R.array.pref_key_viewport_alignment_values).toList(),
-                ),
-            title = { Text(text = stringResource(id = R.string.settings_title_viewport_alignment)) },
-            items = stringListResource(R.array.pref_key_viewport_alignment_display_names),
+        if (!isTV) {
+            LemuroidSettingsList(
+                state =
+                    indexPreferenceState(
+                        R.string.pref_key_viewport_alignment,
+                        "center",
+                        stringListResource(R.array.pref_key_viewport_alignment_values).toList(),
+                    ),
+                title = { Text(text = stringResource(id = R.string.settings_title_viewport_alignment)) },
+                items = stringListResource(R.array.pref_key_viewport_alignment_display_names),
+            )
+        }
+        // Options that used to live in the "Advanced" screen.
+        LemuroidSettingsSwitch(
+            state = booleanPreferenceState(R.string.pref_key_low_latency_audio, false),
+            title = { Text(text = stringResource(id = R.string.settings_title_low_latency_audio)) },
+            subtitle = { Text(text = stringResource(id = R.string.settings_description_low_latency_audio)) },
+        )
+        if (cacheState != null) {
+            LemuroidSettingsList(
+                title = { Text(text = stringResource(R.string.settings_title_maximum_cache_usage)) },
+                items = cacheState.displayNames,
+                state =
+                    indexPreferenceState(
+                        R.string.pref_key_max_cache_size,
+                        cacheState.default,
+                        cacheState.values,
+                    ),
+            )
+        }
+        LemuroidSettingsSwitch(
+            state = booleanPreferenceState(R.string.pref_key_allow_direct_game_load, true),
+            title = { Text(text = stringResource(id = R.string.settings_title_direct_game_load)) },
+            subtitle = { Text(text = stringResource(id = R.string.settings_description_direct_game_load)) },
+        )
+        LemuroidSettingsMenuLink(
+            title = { Text(text = stringResource(id = R.string.settings_title_reset_settings)) },
+            subtitle = { Text(text = stringResource(id = R.string.settings_description_reset_settings)) },
+            onClick = { factoryResetDialogState.value = true },
         )
     }
+
+    if (factoryResetDialogState.value) {
+        FactoryResetDialog(factoryResetDialogState, onResetAllSettings)
+    }
+}
+
+@Composable
+private fun FactoryResetDialog(
+    factoryResetDialogState: MutableState<Boolean>,
+    onResetAllSettings: () -> Unit,
+) {
+    val onDismiss = {
+        factoryResetDialogState.value = false
+    }
+    AlertDialog(
+        title = { Text(stringResource(id = R.string.reset_settings_warning_message_title)) },
+        text = { Text(stringResource(id = R.string.reset_settings_warning_message_description)) },
+        onDismissRequest = onDismiss,
+        confirmButton = {
+            TextButton(
+                onClick = {
+                    onResetAllSettings()
+                    onDismiss()
+                },
+            ) {
+                Text(text = stringResource(id = R.string.ok))
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss) {
+                Text(text = stringResource(id = R.string.cancel))
+            }
+        },
+    )
 }
 
 @Composable

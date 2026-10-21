@@ -82,7 +82,7 @@ class LocalStorageProvider(
                 val newFiles = groups[false] ?: listOf()
 
                 directories.addAll(newDirectories)
-                emit((newFiles.map { BaseStorageFile(it.name, it.length(), it.toUri(), it.path) }))
+                emit((newFiles.map { BaseStorageFile(it.name, it.length(), it.toUri(), it.path, it.lastModified()) }))
             }
         }
 

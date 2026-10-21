@@ -10,9 +10,10 @@ plugins {
 
 android {
     defaultConfig {
-        versionCode = 252
-        versionName = "1.17.0" // Always remember to update Cores Tag!
-        applicationId = "com.swordfish.lemuroid"
+        versionCode = 1
+        // App version is independent from CORES_VERSION in CoreUpdaterImpl (LemuroidCores tag).
+        versionName = "1.0.0"
+        applicationId = "com.gamestation.tv"
     }
     flavorDimensions += listOf("opensource", "cores")
 
@@ -20,7 +21,6 @@ android {
         println("Building Google Play version. Bundling dynamic features.")
         dynamicFeatures.addAll(
             setOf(
-                ":lemuroid_core_desmume",
                 ":lemuroid_core_dosbox_pure",
                 ":lemuroid_core_fbneo",
                 ":lemuroid_core_fceumm",
@@ -96,12 +96,12 @@ android {
             isMinifyEnabled = true
             signingConfig = signingConfigs["release"]
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
-            resValue("string", "lemuroid_name", "Lemuroid")
+            resValue("string", "lemuroid_name", "GameStation")
         }
         getByName("debug") {
             applicationIdSuffix = ".debug"
             versionNameSuffix = "-DEBUG"
-            resValue("string", "lemuroid_name", "LemuroiDebug")
+            resValue("string", "lemuroid_name", "GameStation Debug")
         }
     }
 

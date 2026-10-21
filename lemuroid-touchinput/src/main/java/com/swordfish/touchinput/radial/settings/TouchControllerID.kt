@@ -12,8 +12,6 @@ import com.swordfish.touchinput.radial.layouts.Atari7800Left
 import com.swordfish.touchinput.radial.layouts.Atari7800Right
 import com.swordfish.touchinput.radial.layouts.DOSLeft
 import com.swordfish.touchinput.radial.layouts.DOSRight
-import com.swordfish.touchinput.radial.layouts.DesmumeLeft
-import com.swordfish.touchinput.radial.layouts.DesmumeRight
 import com.swordfish.touchinput.radial.layouts.GBALeft
 import com.swordfish.touchinput.radial.layouts.GBARight
 import com.swordfish.touchinput.radial.layouts.GBLeft
@@ -57,7 +55,6 @@ import gg.padkit.PadKitScope
 enum class TouchControllerID {
     GB,
     NES,
-    DESMUME,
     MELONDS,
     PSX,
     PSX_DUALSHOCK,
@@ -106,12 +103,6 @@ enum class TouchControllerID {
                     Config(
                         { modifier, settings -> NESLeft(modifier, settings) },
                         { modifier, settings -> NESRight(modifier, settings) },
-                    )
-
-                DESMUME ->
-                    Config(
-                        { modifier, settings -> DesmumeLeft(modifier, settings) },
-                        { modifier, settings -> DesmumeRight(modifier, settings) },
                     )
 
                 MELONDS ->

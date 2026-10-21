@@ -143,7 +143,7 @@ abstract class LemuroidApplicationModule {
         fun retrogradeDb(app: LemuroidApplication) =
             Room.databaseBuilder(app, RetrogradeDatabase::class.java, RetrogradeDatabase.DB_NAME)
                 .addCallback(GameSearchDao.CALLBACK)
-                .addMigrations(GameSearchDao.MIGRATION, Migrations.VERSION_8_9, Migrations.VERSION_9_10)
+                .addMigrations(GameSearchDao.MIGRATION, Migrations.VERSION_8_9, Migrations.VERSION_9_10, Migrations.VERSION_10_11)
                 .fallbackToDestructiveMigration()
                 .build()
 
@@ -306,8 +306,7 @@ abstract class LemuroidApplicationModule {
         @JvmStatic
         fun coresSelection(
             sharedPreferences: Lazy<SharedPreferences>,
-            desmumeMigrationHandler: DesmumeMigrationHandler,
-        ) = CoresSelection(sharedPreferences, desmumeMigrationHandler)
+        ) = CoresSelection(sharedPreferences)
 
         @Provides
         @PerApp

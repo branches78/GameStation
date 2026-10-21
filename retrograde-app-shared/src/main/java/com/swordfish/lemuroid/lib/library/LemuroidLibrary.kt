@@ -97,7 +97,7 @@ class LemuroidLibrary(
         val entries = batch.map { fetchEntriesFromDatabase(it) }
 
         val existingEntries = entries.filterIsInstance<ScanEntry.GameFile>()
-        handleExistingEntries(existingEntries, startedAtMs)
+        handleExistingEntries(existingEntries, startedAtMs, gameMetadata, provider)
 
         val newEntries =
             entries.filterIsInstance<ScanEntry.File>()
@@ -123,26 +123,76 @@ class LemuroidLibrary(
         }
     }
 
-    private fun handleExistingEntries(
+    private suspend fun handleExistingEntries(
         entries: List<ScanEntry.GameFile>,
         startedAtMs: Long,
+        gameMetadata: GameMetadataProvider,
+        provider: StorageProvider,
     ) {
-        updateGames(entries, startedAtMs)
+        updateGames(entries, startedAtMs, gameMetadata, provider)
         updateDataFiles(entries, startedAtMs)
     }
 
-    private fun updateGames(
+    private suspend fun updateGames(
         entries: List<ScanEntry.GameFile>,
         startedAtMs: Long,
+        gameMetadata: GameMetadataProvider,
+        provider: StorageProvider,
     ) {
         val updatedGames =
             entries
-                .map { it.game.copy(lastIndexedAt = startedAtMs) }
+                .map { entry ->
+                    val primaryFile = entry.file.primaryFile
+                    val fileChanged =
+                        entry.game.fileSize != primaryFile.size ||
+                            entry.game.fileLastModified != primaryFile.lastModified
+
+                    val refreshedGame =
+                        if (fileChanged) {
+                            reidentifyGame(entry, provider, gameMetadata, startedAtMs)
+                        } else {
+                            runCatching { gameMetadata.refreshMetadata(entry.game) }.getOrNull() ?: entry.game
+                        }
+
+                    refreshedGame.copy(
+                        lastIndexedAt = startedAtMs,
+                        fileSize = primaryFile.size,
+                        fileLastModified = primaryFile.lastModified,
+                    )
+                }
 
         updatedGames
             .forEach { Timber.d("Updating game: $it") }
 
         retrogradedb.gameDao().update(updatedGames)
+    }
+
+    /**
+     * The file changed since it was indexed (e.g. it was replaced or completed), so it is identified again
+     * from its content. User data (favorites, play history, custom name and cover) is kept.
+     */
+    private suspend fun reidentifyGame(
+        entry: ScanEntry.GameFile,
+        provider: StorageProvider,
+        gameMetadata: GameMetadataProvider,
+        startedAtMs: Long,
+    ): Game {
+        Timber.d("File changed since last scan, identifying it again: ${entry.file.primaryFile}")
+
+        val identified =
+            runCatching { buildEntryFromMetadata(entry.file, provider, gameMetadata, startedAtMs) }
+                .getOrNull()
+                .let { it as? ScanEntry.GameFile }
+                ?.game
+                ?: return entry.game
+
+        return entry.game.copy(
+            fileName = identified.fileName,
+            title = identified.title,
+            systemId = identified.systemId,
+            developer = identified.developer,
+            coverFrontUrl = identified.coverFrontUrl,
+        )
     }
 
     private fun updateDataFiles(
@@ -305,6 +355,8 @@ class LemuroidLibrary(
             developer = gameMetadata.developer,
             coverFrontUrl = gameMetadata.thumbnail,
             lastIndexedAt = lastIndexedAt,
+            fileSize = groupedStorageFile.primaryFile.size,
+            fileLastModified = groupedStorageFile.primaryFile.lastModified,
         )
     }
 

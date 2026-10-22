@@ -135,7 +135,6 @@
     <string name="tv_search_results">Jocuri</string>
     <string name="tv_game_message_missing_gamepad">Jocurile sunt necesare pentru a juca. Vă rugăm să conectați unul.</string>
     <string name="game_interactory_busy">Așteptați ca operațiunile în așteptare să se finalizeze</string>
-    <string name="mobile_settings_help">Ajutor</string>
     <string name="lemuroid_help_content"><![CDATA[        <b>&#8226;Cum folosesc PlayRetro?</b><br/>
         Copiază toate fișierele ROM-uri într-un director de pe dispozitivul tău și selectează-le în PlayRetro. Acest director are permisiunea de a avea subdirectoare. După ce scanarea se finalizează ar trebui să vezi jocurile tale.<br/><br/>
         <b>&#8226;De ce nu sunt detectate jocurile mele?</b><br/>
@@ -210,4 +209,5 @@ A pornit ca o versiune independentă a Lemuroid, emulatorul open source al lui F
     <string name="core_options_clear_game">Elimină setările proprii ale acestui joc</string>
     <string name="core_options_clear_game_description">Folosește din nou setările %1$s</string>
     <string name="core_options_aspect_ratio_unavailable">%1$s nu poate schimba raportul de aspect. Pentru 16:9 alege %2$s ca nucleu (poate avea nevoie de BIOS-ul consolei).</string>
+    <string name="game_toast_applying_options">Jocul se repornește pentru a aplica modificările…</string>
 </resources>

@@ -141,7 +141,6 @@
     <string name="tv_search_results">Hry</string>
     <string name="tv_game_message_missing_gamepad">Gamepad je zapotřebí k hraní. Prosím připojte nějaký.</string>
     <string name="game_interactory_busy">Vyčkejte pro dokončení zbývajících operací</string>
-    <string name="mobile_settings_help">Nápověda</string>
     <string name="lemuroid_help_content"><![CDATA[        <b>&#8226;Jak se používá PlayRetro</b><br/>
         Zkopírujte veškeré vaše ROM soubory do složky na vašem zařízení a vyberte ji v PlayRetrou. Tahle složka může mít podsložky. Až sken zkončí, měli by jste vidět vaše hry.<br/><br/>
         <b>&#8226;Proč to nenašlo žádné hry?</b><br/>
@@ -221,4 +220,5 @@ Vznikl jako nezávislá verze emulátoru Lemuroid s otevřeným zdrojovým kóde
     <string name="core_options_clear_game">Odstranit vlastní nastavení této hry</string>
     <string name="core_options_clear_game_description">Znovu použít nastavení %1$s</string>
     <string name="core_options_aspect_ratio_unavailable">%1$s neumí změnit poměr stran. Pro 16:9 zvol jádro %2$s (může potřebovat BIOS konzole).</string>
+    <string name="game_toast_applying_options">Restartování hry kvůli použití změn…</string>
 </resources>

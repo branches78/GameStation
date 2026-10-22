@@ -62,23 +62,29 @@ object TVTabGrids {
     /**
      * Leanback does not let the focus leave a grid from its first row (it tries to reach its own title area,
      * hidden here), so pressing up there moves the focus to the selected tab of the tabs bar instead.
+     * [onOtherKey] gets the keys this does not handle (the grid has a single key intercept listener).
      */
     fun allowFocusUpToTabs(
         fragment: Fragment,
         grid: VerticalGridView,
         columns: Int,
+        onOtherKey: (KeyEvent) -> Boolean = { false },
     ) {
         grid.setOnKeyInterceptListener { event ->
             val isUpOnFirstRow =
                 event.action == KeyEvent.ACTION_DOWN &&
                     event.keyCode == KeyEvent.KEYCODE_DPAD_UP &&
                     grid.selectedPosition < columns
-            isUpOnFirstRow && (fragment.parentFragment as? TVMainTabsFragment)?.focusSelectedTab() == true
+            if (isUpOnFirstRow && (fragment.parentFragment as? TVMainTabsFragment)?.focusSelectedTab() == true) {
+                true
+            } else {
+                onOtherKey(event)
+            }
         }
     }
 
     /**
-     * Grid with the square cards of the home rows, 4 per row (games of a system, favorites). It is as wide as the
+     * Grid with the square cards of the home rows, 5 per row (games of a system, favorites). It is as wide as the
      * other tabs content and its cards start from the left, also when a row is not full.
      */
     fun setUpHomeCardsGrid(grid: VerticalGridView) {

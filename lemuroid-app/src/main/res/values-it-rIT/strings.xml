@@ -143,7 +143,6 @@
     <string name="tv_game_message_missing_gamepad">I controller sono necessari per giocare. Si prega di collegarne uno.</string>
     <string name="game_interactory_busy">Attendere che le operazioni in sospeso siano completate</string>
     <string name="game_interactor_notification_permission_required">Abilita le notifiche da Home per continuare</string>
-    <string name="mobile_settings_help">Aiuto</string>
     <string name="lemuroid_help_content"><![CDATA[        <b>&#8226;Come si usa PlayRetro?</b><br/>
         Copia tutte le ROM in una cartella sul dispositivo e selezionala all\'interno di PlayRetro. Questa cartella può avere sotto-cartelle. Una volta completata la scansione, dovresti vedere i tuoi giochi.<br/><br/>
         <b>&#8226;Perché non vedo i miei giochi?</b><br/>
@@ -223,4 +222,5 @@
     <string name="core_options_clear_game">Rimuovi le impostazioni di questo gioco</string>
     <string name="core_options_clear_game_description">Torna a usare quelle di %1$s</string>
     <string name="core_options_aspect_ratio_unavailable">%1$s non può cambiare le proporzioni. Per usare 16:9 scegli %2$s come core (potrebbe servire il BIOS della console).</string>
+    <string name="game_toast_applying_options">Riavvio del gioco per applicare le modifiche…</string>
 </resources>

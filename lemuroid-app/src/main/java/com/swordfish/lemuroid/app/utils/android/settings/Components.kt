@@ -51,14 +51,17 @@ fun LemuroidSettingsSwitch(
     subtitle: @Composable (() -> Unit)? = null,
     onCheckedChange: (Boolean) -> Unit = {},
 ) {
+    val focusItem = rememberSettingsFocusItem()
     DarkGreenFills {
         SettingsSwitch(
+            modifier = focusItem?.modifier ?: Modifier,
             enabled = enabled,
             state = state.value,
             icon = icon,
             title = title,
             subtitle = subtitle,
             onCheckedChange = {
+                focusItem?.onClicked?.invoke()
                 state.value = it
                 onCheckedChange(it)
             },
@@ -76,13 +79,18 @@ fun LemuroidSettingsMenuLink(
     action: (@Composable () -> Unit)? = null,
     onClick: () -> Unit,
 ) {
+    val focusItem = rememberSettingsFocusItem()
     SettingsMenuLink(
+        modifier = focusItem?.modifier ?: Modifier,
         enabled = enabled,
         icon = icon,
         title = title,
         subtitle = subtitle,
         action = action,
-        onClick = onClick,
+        onClick = {
+            focusItem?.onClicked?.invoke()
+            onClick()
+        },
         colors = lemuroidSettingsColor(enabled),
     )
 }
@@ -147,8 +155,9 @@ fun LemuroidSettingsSlider(
             supportingColor = defaultColors.supportingTextColor.copy(alpha = 0.3f),
         )
 
+    val focusItem = rememberSettingsFocusItem()
     SettingsSlider(
-        modifier = modifier,
+        modifier = focusItem?.modifier?.let { modifier.then(it) } ?: modifier,
         steps = steps,
         value = state.value.toFloat(),
         onValueChange = { state.value = it.roundToInt() },

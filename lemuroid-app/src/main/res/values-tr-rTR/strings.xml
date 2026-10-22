@@ -141,7 +141,6 @@
     <string name="tv_search_results">Oyunlar</string>
     <string name="tv_game_message_missing_gamepad">Gamepad\'ler oynamak için gerekli. Lütfen birini bağlayın.</string>
     <string name="game_interactory_busy">çalışmakta olan işlemlerin bitmesini bekleyin!</string>
-    <string name="mobile_settings_help">Yardım</string>
     <string name="lemuroid_help_content"><![CDATA[        <b>&#8226;PlayRetro\'i nasıl kullanırım?</b><br/>
         Tüm ROMları bir klasör içinde kopyalayın ve PlayRetro içerisinden seçin. Bu klasörün, yalnızca alt klasör olmasına izin verilir. Tarama tamamlandıktan sonra oyunlarınızı görmelisiniz.<br/><br/>
         <b>&#8226; Neden oyunlarım tespit edilmedi?</b><br/>
@@ -223,4 +222,5 @@ Filippo Scognamiglio\'nun açık kaynak emülatörü Lemuroid\'in bağımsız bi
     <string name="core_options_clear_game">Bu oyunun kendi ayarlarını kaldır</string>
     <string name="core_options_clear_game_description">Yeniden %1$s ayarlarını kullan</string>
     <string name="core_options_aspect_ratio_unavailable">%1$s en boy oranını değiştiremez. 16:9 için çekirdek olarak %2$s seçin (konsol BIOS\'u gerekebilir).</string>
+    <string name="game_toast_applying_options">Değişiklikleri uygulamak için oyun yeniden başlatılıyor…</string>
 </resources>

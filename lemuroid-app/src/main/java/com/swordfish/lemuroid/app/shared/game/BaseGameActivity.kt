@@ -137,6 +137,7 @@ abstract class BaseGameActivity : ImmersiveActivity() {
                 systemCoreConfig,
                 gameLoader,
                 intent.getBooleanExtra(EXTRA_LOAD_SAVE, false),
+                intent.getBooleanExtra(EXTRA_RELOAD, false),
             )
         }
 
@@ -272,6 +273,7 @@ abstract class BaseGameActivity : ImmersiveActivity() {
                         )
                     is GameViewModelSideEffects.UiEffect.ShowToast -> displayToast(it.message)
                     is GameViewModelSideEffects.UiEffect.SuccessfulFinish -> performSuccessfulActivityFinish()
+                    is GameViewModelSideEffects.UiEffect.ReloadFinish -> performReloadActivityFinish()
                     is GameViewModelSideEffects.UiEffect.FailureFinish -> performErrorFinish(it.message)
                     is GameViewModelSideEffects.UiEffect.SaveQuickSave -> performSaveQuickSave()
                     is GameViewModelSideEffects.UiEffect.LoadQuickSave -> performLoadQuickSave()
@@ -331,6 +333,20 @@ abstract class BaseGameActivity : ImmersiveActivity() {
             }
 
         setResult(RESULT_OK, resultIntent)
+        finishAndExitProcess()
+    }
+
+    /** The caller starts the game again from the state just saved (see GameLaunchTaskHandler). */
+    private fun performReloadActivityFinish() {
+        val resultIntent =
+            Intent().apply {
+                putExtra(PLAY_GAME_RESULT_SESSION_DURATION, System.currentTimeMillis() - startGameTime)
+                putExtra(PLAY_GAME_RESULT_GAME, intent.getSerializableExtra(EXTRA_GAME))
+                putExtra(PLAY_GAME_RESULT_LEANBACK, intent.getBooleanExtra(EXTRA_LEANBACK, false))
+                putExtra(PLAY_GAME_RESULT_SYSTEM_CORE_CONFIG, systemCoreConfig)
+            }
+
+        setResult(RESULT_RELOAD, resultIntent)
         finishAndExitProcess()
     }
 
@@ -449,15 +465,18 @@ abstract class BaseGameActivity : ImmersiveActivity() {
         private const val EXTRA_LOAD_SAVE = "LOAD_SAVE"
         private const val EXTRA_LEANBACK = "LEANBACK"
         private const val EXTRA_SYSTEM_CORE_CONFIG = "EXTRA_SYSTEM_CORE_CONFIG"
+        private const val EXTRA_RELOAD = "RELOAD"
 
         const val REQUEST_PLAY_GAME = 1001
         const val PLAY_GAME_RESULT_SESSION_DURATION = "PLAY_GAME_RESULT_SESSION_DURATION"
         const val PLAY_GAME_RESULT_GAME = "PLAY_GAME_RESULT_GAME"
         const val PLAY_GAME_RESULT_LEANBACK = "PLAY_GAME_RESULT_LEANBACK"
         const val PLAY_GAME_RESULT_ERROR = "PLAY_GAME_RESULT_ERROR"
+        const val PLAY_GAME_RESULT_SYSTEM_CORE_CONFIG = "PLAY_GAME_RESULT_SYSTEM_CORE_CONFIG"
 
         const val RESULT_ERROR = Activity.RESULT_FIRST_USER + 2
         const val RESULT_UNEXPECTED_ERROR = Activity.RESULT_FIRST_USER + 3
+        const val RESULT_RELOAD = Activity.RESULT_FIRST_USER + 4
 
         fun launchGame(
             activity: Activity,
@@ -465,6 +484,8 @@ abstract class BaseGameActivity : ImmersiveActivity() {
             game: Game,
             loadSave: Boolean,
             useLeanback: Boolean,
+            // Started again to apply an option: the state just saved is restored even without auto-save.
+            reload: Boolean = false,
         ) {
             val gameActivity =
                 if (useLeanback) {
@@ -478,6 +499,7 @@ abstract class BaseGameActivity : ImmersiveActivity() {
                     putExtra(EXTRA_LOAD_SAVE, loadSave)
                     putExtra(EXTRA_LEANBACK, useLeanback)
                     putExtra(EXTRA_SYSTEM_CORE_CONFIG, systemCoreConfig)
+                    putExtra(EXTRA_RELOAD, reload)
                 },
                 REQUEST_PLAY_GAME,
             )

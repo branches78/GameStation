@@ -23,11 +23,24 @@
     <dimen name="tv_games_grid_top_padding">72dp</dimen>
     <!-- Width of the tabs content: the "Consoles" grid (5 cards of 128dp + 4 spacings of 8dp) and the "About" cards. -->
     <dimen name="tv_content_width">672dp</dimen>
-    <!-- Home rows: 4 square cards fill the content width. -->
-    <integer name="tv_home_cards_per_row">4</integer>
+    <!-- Home rows: 5 square cards fill the content width. -->
+    <integer name="tv_home_cards_per_row">5</integer>
     <dimen name="tv_home_card_spacing">12dp</dimen>
     <!-- Room on both sides of the rows for the zoom of the focused card; nothing else is drawn there. -->
     <dimen name="tv_home_row_edge">12dp</dimen>
+    <!-- Alphabet bar on the right of the games of a console, outside the content width. -->
+    <integer name="tv_alphabet_min_games">13</integer>
+    <dimen name="tv_alphabet_width">40dp</dimen>
+    <dimen name="tv_alphabet_end_margin">56dp</dimen>
+    <dimen name="tv_alphabet_top_margin">56dp</dimen>
+    <dimen name="tv_alphabet_bottom_margin">16dp</dimen>
+    <dimen name="tv_alphabet_vertical_padding">8dp</dimen>
+    <dimen name="tv_alphabet_highlight_width">26dp</dimen>
+    <dimen name="tv_alphabet_text_size">12sp</dimen>
+    <dimen name="tv_alphabet_letter_size">110dp</dimen>
+    <dimen name="tv_alphabet_letter_corner_radius">20dp</dimen>
+    <dimen name="tv_alphabet_letter_text_size">64sp</dimen>
+    <dimen name="tv_alphabet_target_stroke">2dp</dimen>
 
     <style name="TVHomeRowsOverlay" parent="">
         <item name="browsePaddingStart">@dimen/tv_home_row_edge</item>
@@ -38,6 +51,8 @@
     <!-- Like Google TV: the focused tab is a white pill with dark text, the rest of the tabs use white text. -->
     <color name="tv_tab_focused_background">@android:color/white</color>
     <!-- Accent of the TV buttons and search: the soft green of the selected tab instead of the bright primary. -->
+    <color name="tv_alphabet_unavailable">#4C5249</color>
+    <color name="tv_alphabet_letter_background">#EB3A4B39</color>
     <color name="tv_accent">@color/md_theme_dark_secondaryContainer</color>
     <color name="tv_tab_selected_background">@color/md_theme_dark_secondaryContainer</color>
     <color name="tv_tab_focused_text">@color/md_theme_dark_background</color>

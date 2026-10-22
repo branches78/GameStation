@@ -142,7 +142,6 @@
     <string name="tv_search_results">ゲーム</string>
     <string name="tv_game_message_missing_gamepad">ゲームパッドが必要です。接続してください。</string>
     <string name="game_interactory_busy">保留中の操作が完了するまで待ちます</string>
-    <string name="mobile_settings_help">ヘルプ</string>
     <string name="lemuroid_help_content"><![CDATA[        <b>&#8226;PlayRetroの使い方は？</b><br/>
         すべてのROMファイルをお使いのデバイス内のディレクトリにコピーし、PlayRetroでそのディレクトリを選択してください。このディレクトリ内にサブディレクトリがあっても問題ありません。スキャンが完了すると、ゲームが表示されるはずです。<br/><br/>
         <b>&#8226;・ゲームが認識されないのはなぜ？</b><br/>
@@ -223,4 +222,5 @@ Filippo Scognamiglio氏によるオープンソースのエミュレーター、
     <string name="core_options_clear_game">このゲーム専用の設定を削除</string>
     <string name="core_options_clear_game_description">%1$s の設定に戻す</string>
     <string name="core_options_aspect_ratio_unavailable">%1$s はアスペクト比を変更できません。16:9 を使うにはコアとして %2$s を選んでください（本体の BIOS が必要な場合があります）。</string>
+    <string name="game_toast_applying_options">変更を適用するためにゲームを再起動しています…</string>
 </resources>

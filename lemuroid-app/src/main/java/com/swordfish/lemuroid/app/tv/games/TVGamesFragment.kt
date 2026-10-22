@@ -1,18 +1,28 @@
 package com.swordfish.lemuroid.app.tv.games
 
 import android.content.Context
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
+import android.util.TypedValue
+import android.view.Gravity
+import android.view.KeyEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
+import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.leanback.app.VerticalGridSupportFragment
 import androidx.leanback.paging.PagingDataAdapter
 import androidx.leanback.widget.FocusHighlight
+import androidx.leanback.widget.OnChildViewHolderSelectedListener
 import androidx.leanback.widget.OnItemViewClickedListener
 import androidx.leanback.widget.VerticalGridPresenter
 import androidx.leanback.widget.VerticalGridView
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.RecyclerView
 import com.swordfish.lemuroid.R
 import com.swordfish.lemuroid.app.shared.GameInteractor
 import com.swordfish.lemuroid.app.tv.home.TVHomeFragment
@@ -37,6 +47,15 @@ class TVGamesFragment : VerticalGridSupportFragment() {
         MetaSystemID.valueOf(requireArguments().getString(ARG_META_SYSTEM_ID)!!)
     }
 
+    private var alphabetBar: TVAlphabetBar? = null
+    private var bigLetterView: TextView? = null
+    private var gameLetters: List<Char> = emptyList()
+    private var letterPositions: Map<Char, Int> = emptyMap()
+
+    // Card the grid goes back to while the alphabet bar has the focus.
+    private var markedCard: View? = null
+    private val hideBigLetter = Runnable { bigLetterView?.animate()?.alpha(0f) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Without the focus dimmer the covers always keep their colors; the focused card is already zoomed.
@@ -54,12 +73,14 @@ class TVGamesFragment : VerticalGridSupportFragment() {
         // The default leanback title is replaced by a centered title with the system name.
         showTitle(false)
         TVTabGrids.addTitle(view as ViewGroup, getString(metaSystemId.titleResId))
-        placeGridBelowTitle(view)
+        val grid = view.findViewById<VerticalGridView>(androidx.leanback.R.id.browse_grid)
+        placeGridBelowTitle(grid)
+        setUpAlphabet(view, grid)
 
         val factory = TVGamesViewModel.Factory(retrogradeDb)
         val gamesViewModel = ViewModelProvider(this, factory)[TVGamesViewModel::class.java]
 
-        // The same square cards of the home rows and the favorites, 4 per row for every system.
+        // The same square cards of the home rows and the favorites, 5 per row for every system.
         val cardSize = TVHomeFragment.homeCardSize(resources)
         val pagingAdapter =
             PagingDataAdapter(
@@ -74,6 +95,11 @@ class TVGamesFragment : VerticalGridSupportFragment() {
                 .collect { pagingAdapter.submitData(lifecycle, it) }
         }
 
+        launchOnState(Lifecycle.State.RESUMED) {
+            gamesViewModel.gameLetters
+                .collect { updateLetters(it, grid) }
+        }
+
         gamesViewModel.metaSystemId.value = metaSystemId
 
         onItemViewClickedListener =
@@ -86,14 +112,150 @@ class TVGamesFragment : VerticalGridSupportFragment() {
 
     /**
      * The grid has the width of the other tabs content, its first row starts below the title and pressing up on it
-     * moves the focus to the tabs bar.
+     * moves the focus to the tabs bar. Pressing right on its last column moves it to the alphabet bar.
      */
-    private fun placeGridBelowTitle(root: View) {
-        val grid = root.findViewById<VerticalGridView>(androidx.leanback.R.id.browse_grid) ?: return
+    private fun placeGridBelowTitle(grid: VerticalGridView) {
         val topPadding = resources.getDimensionPixelSize(R.dimen.tv_games_grid_top_padding)
         grid.setPadding(grid.paddingLeft, topPadding, grid.paddingRight, grid.paddingBottom)
         TVTabGrids.setUpHomeCardsGrid(grid)
-        TVTabGrids.allowFocusUpToTabs(this, grid, TVHomeFragment.cardsPerRow(resources))
+        TVTabGrids.allowFocusUpToTabs(this, grid, TVHomeFragment.cardsPerRow(resources)) { event ->
+            event.action == KeyEvent.ACTION_DOWN &&
+                event.keyCode == KeyEvent.KEYCODE_DPAD_RIGHT &&
+                focusAlphabetFromGrid(grid)
+        }
+    }
+
+    /** Alphabet bar on the right, outside the content width, and the big letter shown when it changes. */
+    private fun setUpAlphabet(
+        root: ViewGroup,
+        grid: VerticalGridView,
+    ) {
+        val bar =
+            TVAlphabetBar(requireContext()).apply {
+                isVisible = false
+                onLetterSelected = { letter -> jumpToLetter(grid, letter) }
+                onExit = {
+                    clearMarkedCard()
+                    grid.requestFocus()
+                }
+                setOnFocusChangeListener { _, hasFocus -> if (!hasFocus) clearMarkedCard() }
+            }
+        root.addView(
+            bar,
+            FrameLayout.LayoutParams(
+                resources.getDimensionPixelSize(R.dimen.tv_alphabet_width),
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                Gravity.END,
+            ).apply {
+                topMargin = resources.getDimensionPixelSize(R.dimen.tv_alphabet_top_margin)
+                bottomMargin = resources.getDimensionPixelSize(R.dimen.tv_alphabet_bottom_margin)
+                marginEnd = resources.getDimensionPixelSize(R.dimen.tv_alphabet_end_margin)
+            },
+        )
+        alphabetBar = bar
+
+        val letterSize = resources.getDimensionPixelSize(R.dimen.tv_alphabet_letter_size)
+        val letterView =
+            TextView(requireContext()).apply {
+                gravity = Gravity.CENTER
+                setTextColor(ContextCompat.getColor(context, R.color.md_theme_dark_primary))
+                setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimension(R.dimen.tv_alphabet_letter_text_size))
+                background =
+                    GradientDrawable().apply {
+                        setColor(ContextCompat.getColor(context, R.color.tv_alphabet_letter_background))
+                        cornerRadius = resources.getDimension(R.dimen.tv_alphabet_letter_corner_radius)
+                    }
+                // Above the cards, like the title band.
+                translationZ = resources.getDimension(R.dimen.tv_grid_title_elevation)
+                outlineProvider = null
+                alpha = 0f
+            }
+        root.addView(letterView, FrameLayout.LayoutParams(letterSize, letterSize, Gravity.CENTER))
+        bigLetterView = letterView
+
+        // After a jump the new card is only known once the grid has laid it out.
+        grid.addOnChildViewHolderSelectedListener(
+            object : OnChildViewHolderSelectedListener() {
+                override fun onChildViewHolderSelected(
+                    parent: RecyclerView,
+                    child: RecyclerView.ViewHolder?,
+                    position: Int,
+                    subposition: Int,
+                ) {
+                    if (alphabetBar?.hasFocus() == true) markCard(child?.itemView)
+                }
+            },
+        )
+    }
+
+    /** The bar appears only when the console has more games than fit comfortably on screen. */
+    private fun updateLetters(
+        letters: List<Char>,
+        grid: VerticalGridView,
+    ) {
+        gameLetters = letters
+        letterPositions =
+            buildMap {
+                letters.forEachIndexed { index, letter -> if (letter !in this) put(letter, index) }
+            }
+        val bar = alphabetBar ?: return
+        bar.setAvailableLetters(letterPositions.keys)
+        bar.isVisible = letters.size >= resources.getInteger(R.integer.tv_alphabet_min_games)
+        if (!bar.isVisible && bar.hasFocus()) grid.requestFocus()
+    }
+
+    private fun focusAlphabetFromGrid(grid: VerticalGridView): Boolean {
+        val bar = alphabetBar?.takeIf { it.isVisible } ?: return false
+        val columns = TVHomeFragment.cardsPerRow(resources)
+        val position = grid.selectedPosition
+        val isLastColumn = position % columns == columns - 1 || position == (adapter?.size() ?: 0) - 1
+        if (position < 0 || !isLastColumn) return false
+
+        bar.focusLetter(gameLetters.getOrNull(position) ?: TVAlphabetBar.LETTERS.first())
+        markCard(grid.findViewHolderForAdapterPosition(position)?.itemView)
+        return true
+    }
+
+    private fun jumpToLetter(
+        grid: VerticalGridView,
+        letter: Char,
+    ) {
+        val position = letterPositions[letter] ?: return
+        grid.selectedPosition = position
+
+        val letterView = bigLetterView ?: return
+        letterView.text = letter.toString()
+        letterView.animate().cancel()
+        letterView.alpha = 1f
+        letterView.removeCallbacks(hideBigLetter)
+        letterView.postDelayed(hideBigLetter, BIG_LETTER_DURATION_MS)
+    }
+
+    private fun markCard(card: View?) {
+        if (card == markedCard) return
+        clearMarkedCard()
+        card?.foreground =
+            GradientDrawable().apply {
+                setStroke(
+                    resources.getDimensionPixelSize(R.dimen.tv_alphabet_target_stroke),
+                    ContextCompat.getColor(requireContext(), R.color.md_theme_dark_primary),
+                )
+                cornerRadius = resources.getDimension(R.dimen.tv_card_corner_radius)
+            }
+        markedCard = card
+    }
+
+    private fun clearMarkedCard() {
+        markedCard?.foreground = null
+        markedCard = null
+    }
+
+    override fun onDestroyView() {
+        bigLetterView?.removeCallbacks(hideBigLetter)
+        clearMarkedCard()
+        alphabetBar = null
+        bigLetterView = null
+        super.onDestroyView()
     }
 
     override fun onAttach(context: Context) {
@@ -103,6 +265,7 @@ class TVGamesFragment : VerticalGridSupportFragment() {
 
     companion object {
         private const val ARG_META_SYSTEM_ID = "meta_system_id"
+        private const val BIG_LETTER_DURATION_MS = 700L
 
         fun newInstance(metaSystemId: String): TVGamesFragment {
             return TVGamesFragment().apply { arguments = bundleOf(ARG_META_SYSTEM_ID to metaSystemId) }

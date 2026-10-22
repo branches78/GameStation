@@ -141,7 +141,6 @@
     <string name="tv_search_results">Jeux</string>
     <string name="tv_game_message_missing_gamepad">Les manettes sont nécessaires pour jouer. Veuillez en connecter une.</string>
     <string name="game_interactory_busy">Attendez que l\'opération se termine</string>
-    <string name="mobile_settings_help">Aide</string>
     <string name="lemuroid_help_content"><![CDATA[        <b>&#8226;Comment utiliser PlayRetro?</b><br/>
         Copiez tous vos fichiers ROMs dans un dossier de votre appareil et sélectionnez-le dans l\'onglet \'paramètres\'. Ce dossier peut avoir des sous-dossiers. Une fois l\'analyse terminée, vous verrez vos jeux apparaître dans le menu.<br/><br/>
         <b>&#8226;Pourquoi mes jeux ne sont-ils pas détectés?</b><br/>
@@ -222,4 +221,5 @@ Il est né comme une version indépendante de Lemuroid, l\'émulateur open sourc
     <string name="core_options_clear_game">Supprimer les réglages propres à ce jeu</string>
     <string name="core_options_clear_game_description">Utiliser à nouveau ceux de %1$s</string>
     <string name="core_options_aspect_ratio_unavailable">%1$s ne permet pas de changer le format d\'image. Pour le 16:9, choisis %2$s comme cœur (il peut nécessiter le BIOS de la console).</string>
+    <string name="game_toast_applying_options">Redémarrage du jeu pour appliquer les modifications…</string>
 </resources>

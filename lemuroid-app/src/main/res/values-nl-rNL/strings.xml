@@ -143,7 +143,6 @@
     <string name="game_interactory_busy">Wacht tot de lopende opdrachten zijn voltooid</string>
     <string name="game_interactor_notification_permission_required">Schakel meldingen van Start in om door te gaan</string>
     <string name="game_process_another_game_running">Sluit het huidige spel voor je een andere begint</string>
-    <string name="mobile_settings_help">Help</string>
     <string name="lemuroid_help_content"><![CDATA[        <b>&#8226;Hoe gebruik ik PlayRetro?</b><br/>
         Kopieer al je ROM-bestanden in een map op je apparaat en selecteer ze in PlayRetro. Deze map kan submappen hebben. Nadat de scan voltooid is zou je je spellen moeten zien.<br/><br/>
         <b>&#8226;Waarom zijn mijn spellen niet gedetecteerd?</b><br/>
@@ -224,4 +223,5 @@ Het begon als een onafhankelijke versie van Lemuroid, de opensource-emulator van
     <string name="core_options_clear_game">Eigen instellingen van deze game verwijderen</string>
     <string name="core_options_clear_game_description">Weer de instellingen van %1$s gebruiken</string>
     <string name="core_options_aspect_ratio_unavailable">%1$s kan de beeldverhouding niet wijzigen. Kies %2$s als core voor 16:9 (mogelijk is de BIOS van de console nodig).</string>
+    <string name="game_toast_applying_options">Het spel wordt opnieuw gestart om de wijzigingen toe te passen…</string>
 </resources>

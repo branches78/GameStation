@@ -67,6 +67,13 @@ interface GameDao {
     @Query("SELECT * FROM games WHERE systemId IN (:systemIds) ORDER BY COALESCE(customName, title) ASC, id DESC")
     fun selectBySystems(systemIds: List<String>): PagingSource<Int, Game>
 
+    // Names in the order of selectBySystem/selectBySystems: the TV alphabet bar finds the position of each letter.
+    @Query(
+        "SELECT COALESCE(customName, title) FROM games WHERE systemId IN (:systemIds) " +
+            "ORDER BY COALESCE(customName, title) ASC, id DESC",
+    )
+    fun selectNamesBySystems(systemIds: List<String>): Flow<List<String>>
+
     @Query("SELECT DISTINCT systemId FROM games ORDER BY systemId ASC")
     suspend fun selectSystems(): List<String>
 

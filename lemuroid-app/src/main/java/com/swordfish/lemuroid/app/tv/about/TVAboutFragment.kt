@@ -18,7 +18,7 @@ import androidx.fragment.app.Fragment
 import com.swordfish.lemuroid.app.mobile.shared.compose.ui.AppTheme
 import com.swordfish.lemuroid.app.shared.about.AboutContent
 
-/** Content of the "About" tab on TV: the same information as the mobile help dialog. */
+/** Content of the "About" tab on TV: the same information as the mobile "About" tab. */
 class TVAboutFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,

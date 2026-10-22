@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 
 class TVGamesViewModel(retrogradeDb: RetrogradeDatabase) : ViewModel() {
@@ -36,4 +37,18 @@ class TVGamesViewModel(retrogradeDb: RetrogradeDatabase) : ViewModel() {
                     else -> buildFlowPaging(20, viewModelScope) { retrogradeDb.gameDao().selectBySystems(it) }
                 }
             }
+
+    /** Letter of each game, in the order of [games] (see [TVAlphabetBar.letterOf]). */
+    @OptIn(ExperimentalCoroutinesApi::class)
+    val gameLetters: Flow<List<Char>> =
+        metaSystemId
+            .flatMapLatest { metaSystem ->
+                val systems = metaSystem?.systemIDs?.map { it.dbname } ?: emptyList()
+                if (systems.isEmpty()) {
+                    flowOf(emptyList())
+                } else {
+                    retrogradeDb.gameDao().selectNamesBySystems(systems)
+                }
+            }
+            .map { names -> names.map { TVAlphabetBar.letterOf(it) } }
 }

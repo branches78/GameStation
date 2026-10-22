@@ -141,7 +141,6 @@
     <string name="tv_search_results">Игре</string>
     <string name="tv_game_message_missing_gamepad">Гејмпадови су неопходни за игру. Молимо Вас да их повежете.</string>
     <string name="game_interactory_busy">Сачекајте за текуће операције да се заврше</string>
-    <string name="mobile_settings_help">Помоћ</string>
     <string name="lemuroid_help_content"><![CDATA[<b>&#8226;Како да користим PlayRetro?</b><br/>
         Копирајте све Ваше ROM датотеке у директоријум на Вашем уређају и изаберите га унутар PlayRetro-а. Овај директоријум може имати поддиректоријуме. Када се скенирање заврши треба да видите Ваше игре.<br/><br/>
         <b>&#8226;Зашто моје игре нису детектоване?</b><br/>
@@ -222,4 +221,5 @@
     <string name="core_options_clear_game">Уклони посебна подешавања ове игре</string>
     <string name="core_options_clear_game_description">Поново користи подешавања за %1$s</string>
     <string name="core_options_aspect_ratio_unavailable">%1$s не може да промени однос ширине и висине. За 16:9 изабери језгро %2$s (можда ће требати BIOS конзоле).</string>
+    <string name="game_toast_applying_options">Поновно покретање игре ради примене измена…</string>
 </resources>

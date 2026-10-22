@@ -130,7 +130,6 @@
     <string name="tv_search_results">Trò chơi</string>
     <string name="tv_game_message_missing_gamepad">Yêu cầu có gamepad để chơi. Vui lòng kết nối một cái.</string>
     <string name="game_interactory_busy">Hãy đợi các hoạt động đang chờ được hoàn tất</string>
-    <string name="mobile_settings_help">Trợ giúp</string>
     <string name="lemuroid_help_content"><![CDATA[        <b>&#8226;Tôi sử dụng PlayRetro như thế nào?</b><br/>
         Sao chép tất cả tệp ROM vào một thư mục trên thiết bị và chọn nó từ trong PlayRetro. Thư mục này có thể có các thư mục con. Sau khi việc quét hoàn tất thì bạn sẽ thấy các trò chơi của bạn.<br/><br/>
         <b>&#8226;Tại sao các trò chơi của tôi không được phát hiện?</b><br/>
@@ -205,4 +204,5 @@
     <string name="core_options_clear_game">Xóa cài đặt riêng của trò chơi này</string>
     <string name="core_options_clear_game_description">Dùng lại cài đặt của %1$s</string>
     <string name="core_options_aspect_ratio_unavailable">%1$s không thể đổi tỷ lệ khung hình. Để dùng 16:9 hãy chọn lõi %2$s (có thể cần BIOS của máy).</string>
+    <string name="game_toast_applying_options">Đang khởi động lại trò chơi để áp dụng thay đổi…</string>
 </resources>

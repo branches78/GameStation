@@ -15,4 +15,5 @@
     <string name="core_options_clear_game">Remove this game\'s own settings</string>
     <string name="core_options_clear_game_description">Use the %1$s settings again</string>
     <string name="core_options_aspect_ratio_unavailable">%1$s can\'t change the aspect ratio. To use 16:9 choose %2$s as core (it may need the console BIOS).</string>
+    <string name="game_toast_applying_options">Restarting the game to apply the changes…</string>
 </resources>

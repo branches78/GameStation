@@ -141,7 +141,6 @@
     <string name="tv_search_results">الأعاب</string>
     <string name="tv_game_message_missing_gamepad">وحدة التحكم مطلوبة للعب. الرجاء توصيل واحدة منها.</string>
     <string name="game_interactory_busy">انتظر حتى تكتمل العمليات المعلقة</string>
-    <string name="mobile_settings_help">مساعدة</string>
     <string name="lemuroid_help_content"><![CDATA[        <b>&#8226;كيف أستخدم PlayRetro؟</b><br/>
         نسخ جميع ملفات الالعاب الخاصة بك في مجلد على جهازك واختيارها داخل تطبيق PlayRetro. يسمح لهذا المجلد بأن يحتوي على دلائل فرعية. بعد الانتهاء من الفحص، لابد ان ترى ألعابك.<br/><br/>
         <b>&#8226;لماذا لم يتم اكتشاف ألعابي؟</b><br/>
@@ -221,4 +220,5 @@
     <string name="core_options_clear_game">إزالة إعدادات هذه اللعبة الخاصة</string>
     <string name="core_options_clear_game_description">العودة إلى إعدادات %1$s</string>
     <string name="core_options_aspect_ratio_unavailable">لا يمكن لـ %1$s تغيير نسبة العرض إلى الارتفاع. لاستخدام 16:9 اختر %2$s كنواة (قد يحتاج إلى BIOS الجهاز).</string>
+    <string name="game_toast_applying_options">جارٍ إعادة تشغيل اللعبة لتطبيق التغييرات…</string>
 </resources>

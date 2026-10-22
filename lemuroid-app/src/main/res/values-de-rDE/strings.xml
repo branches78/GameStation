@@ -141,7 +141,6 @@
     <string name="tv_search_results">Spiele</string>
     <string name="tv_game_message_missing_gamepad">Controller sind zum Spielen erforderlich. Bitte eines verbinden.</string>
     <string name="game_interactory_busy">Warte, bis der Vorgang abgeschlossen ist</string>
-    <string name="mobile_settings_help">Hilfe</string>
     <string name="lemuroid_help_content"><![CDATA[        <b>&#8226;Wie verwende ich PlayRetro?</b><br/>
         Kopiere alle ROMs in ein Verzeichnis auf deinem Gerät und wähle es in PlayRetro aus. Dieses Verzeichnis darf Unterverzeichnisse haben. Nach dem Scan solltest du deine Spiele sehen.<br/><br/>
         <b>&#8226;Warum werden meine Spiele nicht erkannt?</b><br/>
@@ -222,4 +221,5 @@ Er entstand als unabhängige Version von Lemuroid, dem Open-Source-Emulator von 
     <string name="core_options_clear_game">Eigene Einstellungen dieses Spiels entfernen</string>
     <string name="core_options_clear_game_description">Wieder die Einstellungen von %1$s verwenden</string>
     <string name="core_options_aspect_ratio_unavailable">%1$s kann das Seitenverhältnis nicht ändern. Für 16:9 wähle %2$s als Kern (braucht eventuell das BIOS der Konsole).</string>
+    <string name="game_toast_applying_options">Spiel wird neu gestartet, um die Änderungen zu übernehmen…</string>
 </resources>

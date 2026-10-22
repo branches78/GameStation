@@ -29,6 +29,7 @@ class MainViewModel(appContext: Context, private val saveSyncManager: SaveSyncMa
         val displaySearch: Boolean = false,
         val searchQuery: String = "",
         val gamesGridMode: Boolean = true,
+        val systemsGridMode: Boolean = true,
     )
 
     private val sharedPreferences = SharedPreferencesHelper.getSharedPreferences(appContext)
@@ -38,6 +39,8 @@ class MainViewModel(appContext: Context, private val saveSyncManager: SaveSyncMa
     private val operationInProgressFlow = PendingOperationsMonitor(appContext).anyOperationInProgress()
     private val searchQueryFlow = MutableStateFlow("")
     private val gamesGridModeFlow = MutableStateFlow(sharedPreferences.getBoolean(PREF_KEY_GAMES_GRID_MODE, true))
+    private val systemsGridModeFlow =
+        MutableStateFlow(sharedPreferences.getBoolean(PREF_KEY_SYSTEMS_GRID_MODE, true))
 
     val state = buildStateFlow()
 
@@ -48,14 +51,16 @@ class MainViewModel(appContext: Context, private val saveSyncManager: SaveSyncMa
                 saveSyncEnabledFlow,
                 operationInProgressFlow,
                 searchQueryFlow,
-                gamesGridModeFlow,
-            ) { currentRoute, saveSyncEnabled, operationInProgress, searchQuery, gamesGridMode ->
+                // Both view modes in one flow: combine takes at most five typed flows.
+                combine(gamesGridModeFlow, systemsGridModeFlow) { games, systems -> games to systems },
+            ) { currentRoute, saveSyncEnabled, operationInProgress, searchQuery, (gamesGridMode, systemsGridMode) ->
                 UiState(
                     operationInProgress = operationInProgress,
                     saveSyncEnabled = saveSyncEnabled,
                     displaySearch = currentRoute == MainRoute.SEARCH,
                     searchQuery = searchQuery,
                     gamesGridMode = gamesGridMode,
+                    systemsGridMode = systemsGridMode,
                 )
             }
 
@@ -84,7 +89,14 @@ class MainViewModel(appContext: Context, private val saveSyncManager: SaveSyncMa
         sharedPreferences.edit().putBoolean(PREF_KEY_GAMES_GRID_MODE, newValue).apply()
     }
 
+    fun toggleSystemsViewMode() {
+        val newValue = !systemsGridModeFlow.value
+        systemsGridModeFlow.value = newValue
+        sharedPreferences.edit().putBoolean(PREF_KEY_SYSTEMS_GRID_MODE, newValue).apply()
+    }
+
     companion object {
         private const val PREF_KEY_GAMES_GRID_MODE = "games_grid_mode"
+        private const val PREF_KEY_SYSTEMS_GRID_MODE = "systems_grid_mode"
     }
 }

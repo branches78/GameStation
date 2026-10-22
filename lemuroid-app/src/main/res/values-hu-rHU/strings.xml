@@ -91,4 +91,5 @@ A Lemuroid, Filippo Scognamiglio nyílt forráskódú emulátorának független 
     <string name="core_options_clear_game">A játék saját beállításainak törlése</string>
     <string name="core_options_clear_game_description">Újra a(z) %1$s beállításai</string>
     <string name="core_options_aspect_ratio_unavailable">A(z) %1$s nem tudja módosítani a képarányt. 16:9-hez válaszd a(z) %2$s magot (szükség lehet a konzol BIOS-ára).</string>
+    <string name="game_toast_applying_options">A játék újraindul a változtatások alkalmazásához…</string>
 </resources>

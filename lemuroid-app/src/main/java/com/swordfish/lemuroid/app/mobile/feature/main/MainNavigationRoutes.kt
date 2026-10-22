@@ -4,11 +4,11 @@ import androidx.annotation.StringRes
 import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.VideogameAsset
 import androidx.compose.material.icons.outlined.Home
-import androidx.compose.material.icons.outlined.Search
+import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material.icons.outlined.VideogameAsset
 import androidx.compose.runtime.Composable
@@ -62,6 +62,7 @@ enum class MainRoute(
         titleId = R.string.favorites,
         parent = HOME,
     ),
+    // Not a tab: opened from the magnifier of the top bar.
     SEARCH(
         route = "search",
         titleId = R.string.title_search,
@@ -112,9 +113,17 @@ enum class MainRoute(
         titleId = R.string.settings_title_save_sync,
         parent = SETTINGS,
     ),
+    ABOUT(
+        route = "about",
+        titleId = R.string.title_about,
+    ),
     ;
 
     val root = root()
+
+    // Search has no tab of its own, so it goes back to the screen it was opened from.
+    val hasBackButton: Boolean
+        get() = parent != null || this == SEARCH
 
     private fun root(): MainRoute {
         return parent?.root() ?: this
@@ -135,6 +144,6 @@ enum class MainNavigationRoutes(
 ) {
     HOME(MainRoute.HOME, R.string.title_home, Icons.Filled.Home, Icons.Outlined.Home),
     SYSTEMS(MainRoute.SYSTEMS, R.string.title_consoles, Icons.Filled.VideogameAsset, Icons.Outlined.VideogameAsset),
-    SEARCH(MainRoute.SEARCH, R.string.title_search, Icons.Filled.Search, Icons.Outlined.Search),
     SETTINGS(MainRoute.SETTINGS, R.string.title_settings, Icons.Filled.Settings, Icons.Outlined.Settings),
+    ABOUT(MainRoute.ABOUT, R.string.title_about, Icons.Filled.Info, Icons.Outlined.Info),
 }

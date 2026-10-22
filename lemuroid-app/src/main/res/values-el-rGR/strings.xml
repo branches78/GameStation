@@ -141,7 +141,6 @@
     <string name="tv_search_results">Παιχνίδια</string>
     <string name="tv_game_message_missing_gamepad">Aπαιτείται σύνδεση με Gamepads απαιτείται για να παίξετε. Παρακαλώ συνδέστε ένα.</string>
     <string name="game_interactory_busy">Αναμονή για την ολοκλήρωση των εκκρεμών εργασιών</string>
-    <string name="mobile_settings_help">Βοήθεια</string>
     <string name="lemuroid_help_content"><![CDATA[        <b>&#8226;Πώς μπορώ να χρησιμοποιήσω το PlayRetro?</b><br/>
         Αντιγράψτε όλα τα αρχεία ROMs σας σε έναν φάκελο στη συσκευή σας και επιλέξτε τον μέσω του PlayRetro. Αυτός ο φάκελος επιτρέπεται να έχει υποφακέλους. Μετά την ολοκλήρωση της σάρωσης θα πρέπει να μποείτε να δείτε τα παιχνίδια σας.<br/><br/>
         <b>&#8226;Γιατί δεν έχουν εντοπιστεί τα παιχνίδια μου?</b><br/>
@@ -222,4 +221,5 @@
     <string name="core_options_clear_game">Κατάργηση των ρυθμίσεων αυτού του παιχνιδιού</string>
     <string name="core_options_clear_game_description">Επιστροφή στις ρυθμίσεις του %1$s</string>
     <string name="core_options_aspect_ratio_unavailable">Το %1$s δεν μπορεί να αλλάξει την αναλογία εικόνας. Για 16:9 επίλεξε το %2$s ως πυρήνα (ίσως χρειαστεί το BIOS της κονσόλας).</string>
+    <string name="game_toast_applying_options">Επανεκκίνηση του παιχνιδιού για εφαρμογή των αλλαγών…</string>
 </resources>

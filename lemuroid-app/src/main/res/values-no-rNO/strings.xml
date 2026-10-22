@@ -141,7 +141,6 @@
     <string name="tv_search_results">Spill</string>
     <string name="tv_game_message_missing_gamepad">Spillkontroller er påkrevd for å spille. Vennligst koble til en.</string>
     <string name="game_interactory_busy">Vent på at pågående operasjoner fullføres</string>
-    <string name="mobile_settings_help">Hjelp</string>
     <string name="lemuroid_help_content"><![CDATA[        <b>&#8226;Hvordan bruker jeg PlayRetro?</b><br/>
         Kopier alle ROM-filene dine til en mappe på enheten din og velg denne mappen i PlayRetro. Undermapper i denne mappen støttes også. Etter at skanningen er fullført, skal du se spillene dine.<br/><br/>
         <b>&#8226;Hvorfor blir ikke spillene mine oppdaget?</b><br/>
@@ -222,4 +221,5 @@ Den startet som en uavhengig versjon av Lemuroid, åpen kildekode-emulatoren av 
     <string name="core_options_clear_game">Fjern dette spillets egne innstillinger</string>
     <string name="core_options_clear_game_description">Bruk innstillingene for %1$s igjen</string>
     <string name="core_options_aspect_ratio_unavailable">%1$s kan ikke endre bildeformatet. Velg %2$s som kjerne for å bruke 16:9 (den kan trenge konsollens BIOS).</string>
+    <string name="game_toast_applying_options">Starter spillet på nytt for å bruke endringene…</string>
 </resources>

@@ -41,7 +41,7 @@ import com.swordfish.lemuroid.lib.library.SystemID
 import de.charlex.compose.material3.HtmlText
 
 /**
- * App information: what PlayRetro is, help and license. The same content is shown in the mobile help dialog
+ * App information: what PlayRetro is, help and license. The same content is shown in the mobile "About" tab
  * and in the TV "About" tab. With [focusableSections] each card can be focused, so a remote scrolls through them.
  */
 @Composable

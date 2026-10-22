@@ -141,7 +141,6 @@
     <string name="tv_search_results">游戏</string>
     <string name="tv_game_message_missing_gamepad">需要手柄才能玩。 请连接手柄。</string>
     <string name="game_interactory_busy">等待进行中的操作完成</string>
-    <string name="mobile_settings_help">帮助</string>
     <string name="lemuroid_help_content"><![CDATA[        <b>&#8226;我如何使用 PlayRetro？</b><br/>
         将您所有的 ROM 文件复制到您设备上的一个目录里，并在 PlayRetro 中选择它。这个目录允许具有子目录。扫描完成后，您应该会看到自己的游戏。<br/><br/>
         <b>&#8226;为什么检测不到我的游戏？</b><br/>
@@ -222,4 +221,5 @@
     <string name="core_options_clear_game">移除此游戏的专属设置</string>
     <string name="core_options_clear_game_description">重新使用 %1$s 的设置</string>
     <string name="core_options_aspect_ratio_unavailable">%1$s 无法更改宽高比。要使用 16:9，请选择 %2$s 作为核心（可能需要主机 BIOS）。</string>
+    <string name="game_toast_applying_options">正在重新启动游戏以应用更改…</string>
 </resources>

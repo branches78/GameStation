@@ -142,7 +142,6 @@
     <string name="tv_game_message_missing_gamepad">Для гри потрібен ґеймпад. Будь ласка, під\'єднайте його.</string>
     <string name="game_interactory_busy">Дочекайтеся завершення операції</string>
     <string name="game_interactor_notification_permission_required">Будь ласка, увімкніть сповіщення з Головної, щоб продовжити</string>
-    <string name="mobile_settings_help">Допомога</string>
     <string name="lemuroid_help_content"><![CDATA[        <b>&#8226;Як я використовую Лемуроїд?</b><br/>
         Скопіюйте всі файли ROM в каталог на вашому пристрої і виберіть його в PlayRetro. Цей каталог може містити підкаталоги. Після того, як сканування завершиться, ви повинні побачити свої ігри.<br/><br/>,        <b>&#8226;Чому не виявлено моїх ігор?</b><br/>
         Якщо ваші ігри стиснуті, спробуйте розпакувати їх. Якщо це не спрацює, спробуйте покласти прошивки в окремі каталоги, одну для кожної системи з такими іменами: $SYSTEMS.
@@ -222,4 +221,5 @@
     <string name="core_options_clear_game">Видалити власні налаштування цієї гри</string>
     <string name="core_options_clear_game_description">Знову використовувати налаштування %1$s</string>
     <string name="core_options_aspect_ratio_unavailable">%1$s не дозволяє змінювати співвідношення сторін. Для 16:9 виберіть ядро %2$s (може знадобитися BIOS консолі).</string>
+    <string name="game_toast_applying_options">Перезапуск гри для застосування змін…</string>
 </resources>

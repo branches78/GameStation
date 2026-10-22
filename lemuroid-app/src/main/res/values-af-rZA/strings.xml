@@ -14,4 +14,5 @@
     <string name="core_options_clear_game">Verwyder hierdie speletjie se eie instellings</string>
     <string name="core_options_clear_game_description">Gebruik weer die instellings van %1$s</string>
     <string name="core_options_aspect_ratio_unavailable">%1$s kan nie die beeldverhouding verander nie. Kies %2$s as kern om 16:9 te gebruik (dit kan die konsole se BIOS nodig hê).</string>
+    <string name="game_toast_applying_options">Die speletjie word herbegin om die veranderinge toe te pas…</string>
 </resources>

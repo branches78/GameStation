@@ -9,6 +9,15 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
@@ -35,12 +44,17 @@ import com.swordfish.lemuroid.app.mobile.feature.settings.savesync.SaveSyncSetti
 import com.swordfish.lemuroid.app.mobile.shared.compose.ui.AppTheme
 import com.swordfish.lemuroid.app.shared.input.InputDeviceManager
 import com.swordfish.lemuroid.app.shared.settings.SettingsInteractor
+import com.swordfish.lemuroid.app.utils.android.settings.LocalSettingsFocusMemory
+import com.swordfish.lemuroid.app.utils.android.settings.SettingsFocusMemory
 import com.swordfish.lemuroid.lib.bios.BiosManager
 import com.swordfish.lemuroid.lib.core.CoresSelection
 import com.swordfish.lemuroid.lib.preferences.SharedPreferencesHelper
 import com.swordfish.lemuroid.lib.savesync.SaveSyncManager
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.withTimeoutOrNull
 
 /**
  * Content of the "Settings" tab on TV. It reuses the mobile settings screens (same cards and options),
@@ -90,62 +104,75 @@ class TVSettingsTabFragment : Fragment() {
                             startDestination = MainRoute.SETTINGS.route,
                         ) {
                             composable(MainRoute.SETTINGS) {
-                                SettingsScreen(
-                                    viewModel =
-                                        viewModel(
-                                            factory =
-                                                SettingsViewModel.Factory(
-                                                    appContext,
-                                                    settingsInteractor,
-                                                    saveSyncManager,
-                                                    FlowSharedPreferences(
-                                                        SharedPreferencesHelper.getLegacySharedPreferences(appContext),
+                                // The first screen is shown with the tab: the focus stays on the tabs bar.
+                                TVSettingsDestination(focusFirstItem = false) {
+                                    SettingsScreen(
+                                        viewModel =
+                                            viewModel(
+                                                factory =
+                                                    SettingsViewModel.Factory(
+                                                        appContext,
+                                                        settingsInteractor,
+                                                        saveSyncManager,
+                                                        FlowSharedPreferences(
+                                                            SharedPreferencesHelper.getLegacySharedPreferences(appContext),
+                                                        ),
                                                     ),
-                                                ),
-                                        ),
-                                    navController = navController,
-                                    isTV = true,
-                                )
+                                            ),
+                                        navController = navController,
+                                        isTV = true,
+                                    )
+                                }
                             }
                             composable(MainRoute.SETTINGS_BIOS) {
-                                BiosScreen(
-                                    viewModel = viewModel(factory = BiosSettingsViewModel.Factory(biosManager)),
-                                )
+                                TVSettingsDestination {
+                                    BiosScreen(
+                                        viewModel = viewModel(factory = BiosSettingsViewModel.Factory(biosManager)),
+                                    )
+                                }
                             }
                             composable(MainRoute.SETTINGS_CORES_SELECTION) {
-                                CoresSelectionScreen(
-                                    viewModel =
-                                        viewModel(
-                                            factory = CoresSelectionViewModel.Factory(appContext, coresSelection),
-                                        ),
-                                    navController = navController,
-                                )
+                                TVSettingsDestination {
+                                    CoresSelectionScreen(
+                                        viewModel =
+                                            viewModel(
+                                                factory = CoresSelectionViewModel.Factory(appContext, coresSelection),
+                                            ),
+                                        navController = navController,
+                                    )
+                                }
                             }
                             composable(MainRoute.SETTINGS_CORE_OPTIONS) { entry ->
-                                CoreOptionsSettingsScreen(
-                                    viewModel =
-                                        viewModel(
-                                            factory = CoresSelectionViewModel.Factory(appContext, coresSelection),
-                                        ),
-                                    systemId = entry.arguments?.getString("systemId")!!,
-                                    showTitle = true,
-                                )
+                                TVSettingsDestination {
+                                    CoreOptionsSettingsScreen(
+                                        viewModel =
+                                            viewModel(
+                                                factory = CoresSelectionViewModel.Factory(appContext, coresSelection),
+                                            ),
+                                        systemId = entry.arguments?.getString("systemId")!!,
+                                        showTitle = true,
+                                    )
+                                }
                             }
                             composable(MainRoute.SETTINGS_INPUT_DEVICES) {
-                                InputDevicesSettingsScreen(
-                                    viewModel =
-                                        viewModel(
-                                            factory = InputDevicesSettingsViewModel.Factory(appContext, inputDeviceManager),
-                                        ),
-                                )
+                                TVSettingsDestination {
+                                    InputDevicesSettingsScreen(
+                                        viewModel =
+                                            viewModel(
+                                                factory = InputDevicesSettingsViewModel.Factory(appContext, inputDeviceManager),
+                                            ),
+                                    )
+                                }
                             }
                             composable(MainRoute.SETTINGS_SAVE_SYNC) {
-                                SaveSyncSettingsScreen(
-                                    viewModel =
-                                        viewModel(
-                                            factory = SaveSyncSettingsViewModel.Factory(application, saveSyncManager),
-                                        ),
-                                )
+                                TVSettingsDestination {
+                                    SaveSyncSettingsScreen(
+                                        viewModel =
+                                            viewModel(
+                                                factory = SaveSyncSettingsViewModel.Factory(application, saveSyncManager),
+                                            ),
+                                    )
+                                }
                             }
                         }
                     }
@@ -154,7 +181,42 @@ class TVSettingsTabFragment : Fragment() {
         }
     }
 
+    /**
+     * Screen of the settings navigation. When it opens it moves the focus to its first item ([focusFirstItem]),
+     * and when it is shown again with Back, to the item that opened the other screen. Otherwise the focus would
+     * jump to the search button, the first focusable view of the window.
+     */
+    @Composable
+    private fun TVSettingsDestination(
+        focusFirstItem: Boolean = true,
+        content: @Composable () -> Unit,
+    ) {
+        var clickedItemKey by rememberSaveable { mutableStateOf<Int?>(null) }
+        val focusMemory = remember { SettingsFocusMemory() }
+        focusMemory.onItemClicked = { clickedItemKey = it }
+
+        CompositionLocalProvider(LocalSettingsFocusMemory provides focusMemory) {
+            content()
+        }
+
+        LaunchedEffect(Unit) {
+            val restoreKey = clickedItemKey
+            if (restoreKey == null && !focusFirstItem) return@LaunchedEffect
+            // Wait for the items: some screens load them in the background.
+            val target =
+                withTimeoutOrNull(ITEMS_TIMEOUT_MS) {
+                    snapshotFlow {
+                        restoreKey?.let { focusMemory.item(it) } ?: focusMemory.firstItem()?.takeIf { restoreKey == null }
+                    }.filterNotNull().first()
+                } ?: focusMemory.firstItem()
+            clickedItemKey = null
+            target?.let { runCatching { it.requestFocus() } }
+        }
+    }
+
     companion object {
+        private const val ITEMS_TIMEOUT_MS = 1000L
+
         // The settings cards have 16dp of side padding: they end up 672dp wide, like the "Consoles" grid
         // (5 cards of 128dp + 4 spacings of 8dp) and the "About" cards.
         private val CONTENT_MAX_WIDTH = 704.dp

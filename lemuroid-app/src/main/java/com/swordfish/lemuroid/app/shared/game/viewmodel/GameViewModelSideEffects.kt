@@ -20,6 +20,9 @@ class GameViewModelSideEffects(private val scope: CoroutineScope) {
 
         data object SuccessfulFinish : UiEffect
 
+        // The game is closed and started again from the same point (see GameLaunchTaskHandler).
+        data object ReloadFinish : UiEffect
+
         data class FailureFinish(val message: String) : UiEffect
 
         data object LoadQuickSave : UiEffect
@@ -69,6 +72,14 @@ class GameViewModelSideEffects(private val scope: CoroutineScope) {
         scope.launch {
             withContext(Dispatchers.Main) {
                 uiEffects.emit(UiEffect.SuccessfulFinish)
+            }
+        }
+    }
+
+    fun requestReloadFinish() {
+        scope.launch {
+            withContext(Dispatchers.Main) {
+                uiEffects.emit(UiEffect.ReloadFinish)
             }
         }
     }

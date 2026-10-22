@@ -70,10 +70,15 @@ class GameViewModelSaves(
         }
     }
 
-    suspend fun captureSaveSnapshot(useEmulationThread: Boolean): SaveSnapshot? {
+    // With forceAutoSave the state is saved even when auto-save is disabled (the game is about to start again).
+    suspend fun captureSaveSnapshot(
+        useEmulationThread: Boolean,
+        forceAutoSave: Boolean = false,
+    ): SaveSnapshot? {
         val retroGameView = retroGameView.retroGameView ?: return null
         val sramState = retroGameView.serializeSRAM(useEmulationThread)
-        val autoSaveState = if (isAutoSaveEnabled()) getCurrentSaveState(useEmulationThread) else null
+        val saveState = systemCoreConfig.statesSupported && (forceAutoSave || isAutoSaveEnabled())
+        val autoSaveState = if (saveState) getCurrentSaveState(useEmulationThread) else null
         return SaveSnapshot(sramState, autoSaveState)
     }
 
@@ -91,10 +96,13 @@ class GameViewModelSaves(
     }
 
     // On some cores unserialize fails with no reason. So we need to try multiple times.
-    suspend fun restoreAutoSaveAsync(saveState: SaveState) {
+    suspend fun restoreAutoSaveAsync(
+        saveState: SaveState,
+        force: Boolean = false,
+    ) {
         // PPSSPP and Mupen64 initialize some state while rendering the first frame, so we have to wait before restoring
         // the autosave. Do not change thread here. Stick to the GL one to avoid issues with PPSSPP.
-        if (!isAutoSaveEnabled()) return
+        if (!force && !isAutoSaveEnabled()) return
 
         try {
             retroGameView.waitGLEvent<GLRetroView.GLRetroEvents.FrameRendered>()

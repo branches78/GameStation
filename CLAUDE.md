@@ -60,16 +60,22 @@ No se sincroniza con Lemuroid: el código es propio y va por su cuenta.
   en una con la enfocada en la primera posición y se recortan en ese ancho (`HomeListRowPresenter` en `TVHomeFragment.kt`).
   Los juegos de una consola (`tv/games/TVGamesFragment.kt`) y "Mostrar todo" de Favoritos (`tv/favorites/TVFavoritesFragment.kt`)
   se abren dentro de su pestaña, sin ocultar la barra (`showSystemGames` / `showFavorites`; Atrás vuelve a la pestaña),
-  con las mismas tarjetas cuadradas de Inicio, 4 por fila y alineadas a la izquierda (`TVTabGrids.setUpHomeCardsGrid`).
+  con las mismas tarjetas cuadradas de Inicio, 5 por fila y alineadas a la izquierda (`TVTabGrids.setUpHomeCardsGrid`).
+  Con más de 12 juegos (`tv_alphabet_min_games`), los de una consola tienen a la derecha un abecedario (`#`, A–Z;
+  `tv/games/TVAlphabetBar.kt`): → desde la última columna entra en él, ↑ ↓ saltan al primer juego de cada letra
+  (muestra la letra grande y marca con borde el juego de destino) y OK o ← vuelven a la rejilla. Las posiciones salen de
+  `GameDao.selectNamesBySystems`, con el mismo orden que la rejilla.
   "Configurar núcleo" del menú de un juego muestra las opciones dentro de la misma ventana (`TVGameContextMenu.kt`).
   El título de esas rejillas va alineado a la izquierda sobre una franja opaca, y las carátulas pasan por debajo al
-  hacer scroll (`TVTabGrids.addTitle`). La pestaña se llama "Consolas" también en el móvil (`title_consoles`).
+  hacer scroll (`TVTabGrids.addTitle`). La pestaña se llama "Consolas" también en el móvil (`title_consoles`). En el móvil, Consolas tiene el mismo botón de lista/cuadrícula que los juegos de una consola, con su propio modo guardado (`systems_grid_mode`, `MainViewModel`), y la cuadrícula es de 3 por fila (`MetaSystemScreen.kt`).
   Las rejillas de TV no oscurecen las tarjetas sin foco (`VerticalGridPresenter(..., useFocusDimmer = false)`); Ajustes de TV reutilizan las
-  pantallas Compose del móvil (`tv/settings/TVSettingsTabFragment.kt`); estilo de tarjetas en `tv/shared/TVCardStyle.kt`.
+  pantallas Compose del móvil (`tv/settings/TVSettingsTabFragment.kt`); al abrir una sub-opción el foco va a su primera
+  opción y al volver con Atrás a la que la abrió (`TVSettingsDestination` + `SettingsFocusMemory.kt`, que registra las
+  filas de `Components.kt`); estilo de tarjetas en `tv/shared/TVCardStyle.kt`.
 - **Carátulas:** forma por sistema en `app/shared/covers/CoverAspectRatio.kt`, sustituida por la forma real de cada
   carátula una vez cargada (`CoverRatioCache.kt`). En las rejillas la tarjeta mantiene la del sistema
   (`matchCoverShape = false`); en las filas de Inicio del móvil todas son verticales, del ancho de una casilla de la rejilla,
-  y en la TV (filas de Inicio, juegos de una consola y Favoritos) todas son cuadradas, 4 por fila (`fixedRatio`); las carátulas de otra forma se muestran enteras y
+  y en la TV (filas de Inicio, juegos de una consola y Favoritos) todas son cuadradas, 5 por fila (`fixedRatio`, `tv_home_cards_per_row`); las carátulas de otra forma se muestran enteras y
   centradas dentro. Alternativas de nombre y caché de
   resultados en `ThumbnailFallbackInterceptor.kt`. Reconocimiento de juegos (CRC, TOSEC → No-Intro, búsqueda por título)
   en `lemuroid-metadata-libretro-db/.../LibretroDBMetadataProvider.kt`.
@@ -85,8 +91,12 @@ No se sincroniza con Lemuroid: el código es propio y va por su cuenta.
   `CoreOptionsScopeSelector.kt`). Los valores de un juego se guardan como `cvg_<gameId>_<opción>` y el core propio como
   `pref_key_game_core_selection_<gameId>`; al jugar mandan sobre los de la consola (`CoreVariablesManager`,
   `CoresSelection.getCoreConfigForGame`). Las opciones cambiadas llevan la marca "Este juego".
-  **Relación de aspecto** (grupo "Pantalla"): Nintendo 64 (`mupen64plus-aspect`: 4:3, 16:9 estirado, 16:9 adjusted =
-  pantalla ancha) y SwanStation (`swanstation_Display_AspectRatio` + widescreen hack). PCSX ReARMed no la tiene:
+  **Relación de aspecto** (grupo "Pantalla"): Nintendo 64 (`mupen64plus-aspect`: 4:3 y 16:9 adjusted = pantalla ancha;
+  el 16:9 estirado se ocultó porque no se ve bien) y SwanStation (`swanstation_Display_AspectRatio` + widescreen hack).
+  mupen64plus-next solo lee el aspecto y la resolución al cargar el juego: si cambian en el menú del juego, la app guarda
+  el punto actual, cierra el juego y lo vuelve a abrir desde ahí (`STARTUP_ONLY_OPTIONS` en
+  `GameViewModelRetroGameView`, `RESULT_RELOAD` en `BaseGameActivity`, `GameLaunchTaskHandler.handleGameReload`).
+  SwanStation aplica el aspecto al momento. PCSX ReARMed no la tiene:
   se indica que hay que elegir SwanStation para ese juego. LibretroDroid no permite forzar la proporción desde la app.
 - **Cores (descarga):** la app los baja de `github.com/branches78/PlayRetroCores` (fork de LemuroidCores), etiqueta
   `pr-1.0.0`, ruta `lemuroid_core_<core>/src/main/jniLibs/<abi>/lib<core>_libretro_android.so`
@@ -103,8 +113,10 @@ No se sincroniza con Lemuroid: el código es propio y va por su cuenta.
   muestran "Cargando tus juegos" con barra y porcentaje en lugar del cuadro de la carpeta (`TVEmptyLibraryCard.kt`,
   `HomeLibraryLoading` en `HomeScreen.kt`); al re-escanear, la barra sale bajo "Directorio" en Ajustes
   (`LibraryScanProgress.kt`). Ya no hay línea de progreso en el móvil ni círculo de carga en la TV.
-- **Acerca de:** misma información en la pestaña "Acerca de" de la TV (`tv/about/TVAboutFragment.kt`) y en la ventana
-  del botón "?" del móvil: `shared/about/AboutContent.kt` (qué es PlayRetro, ayuda y licencia/créditos).
+- **Acerca de:** misma información en la pestaña "Acerca de" de la TV (`tv/about/TVAboutFragment.kt`) y en la del
+  móvil, junto a Ajustes (`MainRoute.ABOUT`): `shared/about/AboutContent.kt` (qué es PlayRetro, ayuda y licencia/créditos).
+- **Búsqueda (móvil):** ya no es pestaña; se abre con la lupa de la barra superior (donde estaba el botón de ayuda,
+  que se quitó) y tiene flecha para volver (`MainRoute.hasBackButton`).
 - **Favoritos (móvil):** ya no es pestaña. Con más de 10 favoritos, la fila de Inicio termina en una tarjeta
   "Mostrar todo" que abre `mobile/feature/favorites/FavoritesScreen.kt` (ruta `MainRoute.FAVORITES`), igual que en la TV.
   Cómo volver a hacerla pestaña: `saved-code/favorites-tab/RESTORE.md`.

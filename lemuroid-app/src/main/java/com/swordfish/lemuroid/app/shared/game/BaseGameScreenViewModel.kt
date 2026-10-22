@@ -11,6 +11,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.swordfish.lemuroid.R
 import com.swordfish.lemuroid.app.mobile.feature.game.GameService
 import com.swordfish.lemuroid.app.mobile.feature.settings.SettingsManager
 import com.swordfish.lemuroid.app.shared.game.viewmodel.GameViewModelInput
@@ -94,6 +95,9 @@ class BaseGameScreenViewModel(
     }
 
     private val sideEffects = GameViewModelSideEffects(viewModelScope)
+
+    // The game was started again to apply an option: its state is restored even without auto-save.
+    private var forceLoadSave = false
     val retroGameView =
         GameViewModelRetroGameView(
             appContext,
@@ -104,6 +108,7 @@ class BaseGameScreenViewModel(
             sideEffects,
             rumbleManager,
             viewModelScope,
+            onStartupOptionsChanged = { requestReload() },
         )
     private val tilt = GameViewModelTilt(appContext, settingsManager)
     private val inputs =
@@ -184,7 +189,7 @@ class BaseGameScreenViewModel(
         val (gameData, result) = retroGameView.createRetroView(context, lifecycle)
         viewModelScope.launch {
             gameData.quickSaveData?.let {
-                saves.restoreAutoSaveAsync(it)
+                saves.restoreAutoSaveAsync(it, force = forceLoadSave)
             }
         }
         return result
@@ -196,9 +201,11 @@ class BaseGameScreenViewModel(
         systemCoreConfig: SystemCoreConfig,
         gameLoader: GameLoader,
         requestLoadSave: Boolean,
+        forceLoadSave: Boolean,
     ) {
         Timber.i("Calling load game: $game")
-        retroGameView.initialize(applicationContext, game, systemCoreConfig, gameLoader, requestLoadSave)
+        this.forceLoadSave = forceLoadSave
+        retroGameView.initialize(applicationContext, game, systemCoreConfig, gameLoader, requestLoadSave, forceLoadSave)
     }
 
     fun showEditControls(show: Boolean) {
@@ -291,6 +298,22 @@ class BaseGameScreenViewModel(
                 val snapshot = saves.captureSaveSnapshot(true) ?: return@launch
                 saves.writeSaveSnapshot(snapshot)
                 sideEffects.requestSuccessfulFinish()
+            }
+        }
+    }
+
+    /**
+     * Saves the current point (also without auto-save) and closes the game, which is started again from it: some
+     * options of the core are only applied when the game starts.
+     */
+    private fun requestReload() {
+        viewModelScope.launch {
+            if (loadingState.value) return@launch
+            sideEffects.showToast(appContext.getString(R.string.game_toast_applying_options))
+            withLoading {
+                val snapshot = saves.captureSaveSnapshot(true, forceAutoSave = true) ?: return@launch
+                saves.writeSaveSnapshot(snapshot)
+                sideEffects.requestReloadFinish()
             }
         }
     }

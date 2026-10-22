@@ -5,13 +5,18 @@ import android.content.Context
 import android.content.Intent
 import com.swordfish.lemuroid.R
 import com.swordfish.lemuroid.app.shared.game.BaseGameActivity
+import com.swordfish.lemuroid.app.shared.game.GameProcessLock
 import com.swordfish.lemuroid.app.shared.gamecrash.GameCrashActivity
 import com.swordfish.lemuroid.app.shared.savesync.SaveSyncWork
 import com.swordfish.lemuroid.app.shared.storage.cache.CacheCleanerWork
 import com.swordfish.lemuroid.ext.feature.review.ReviewManager
 import com.swordfish.lemuroid.lib.library.db.RetrogradeDatabase
+import com.swordfish.lemuroid.lib.library.SystemCoreConfig
 import com.swordfish.lemuroid.lib.library.db.entity.Game
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.withContext
+import kotlinx.coroutines.withTimeoutOrNull
 
 class GameLaunchTaskHandler(
     private val reviewManager: ReviewManager,
@@ -30,6 +35,7 @@ class GameLaunchTaskHandler(
         rescheduleBackgroundWork(activity.applicationContext)
         when (resultCode) {
             Activity.RESULT_OK -> handleSuccessfulGameFinish(activity, enableRatingFlow, data)
+            BaseGameActivity.RESULT_RELOAD -> handleGameReload(activity, data)
             BaseGameActivity.RESULT_ERROR ->
                 handleUnsuccessfulGameFinish(
                     activity,
@@ -81,6 +87,33 @@ class GameLaunchTaskHandler(
         }
     }
 
+    /**
+     * The game was closed to apply an option that the core only reads at start: it is started again from the state
+     * it saved. The new game process can only start once the old one is gone (it holds GameProcessLock).
+     */
+    private suspend fun handleGameReload(
+        activity: Activity,
+        data: Intent?,
+    ) {
+        val extras = data?.extras ?: return
+        val game = extras.getSerializable(BaseGameActivity.PLAY_GAME_RESULT_GAME) as? Game ?: return
+        val systemCoreConfig =
+            extras.getSerializable(BaseGameActivity.PLAY_GAME_RESULT_SYSTEM_CORE_CONFIG) as? SystemCoreConfig
+                ?: return
+        val leanback = extras.getBoolean(BaseGameActivity.PLAY_GAME_RESULT_LEANBACK)
+
+        updateGamePlayedTimestamp(game)
+        withTimeoutOrNull(RELOAD_TIMEOUT_MS) {
+            while (GameProcessLock.isHeldByAnotherProcess(activity.applicationContext)) {
+                delay(RELOAD_POLL_MS)
+            }
+        }
+        handleGameStart(activity.applicationContext)
+        withContext(Dispatchers.Main) {
+            BaseGameActivity.launchGame(activity, systemCoreConfig, game, true, leanback, reload = true)
+        }
+    }
+
     private suspend fun displayReviewRequest(
         activity: Activity,
         durationMillis: Long,
@@ -91,5 +124,10 @@ class GameLaunchTaskHandler(
 
     private suspend fun updateGamePlayedTimestamp(game: Game) {
         retrogradeDb.gameDao().update(game.copy(lastPlayedAt = System.currentTimeMillis()))
+    }
+
+    companion object {
+        private const val RELOAD_TIMEOUT_MS = 5000L
+        private const val RELOAD_POLL_MS = 100L
     }
 }

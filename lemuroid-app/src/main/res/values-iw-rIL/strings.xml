@@ -104,7 +104,6 @@
     <string name="tv_folder_storage_secondary">מקום אחסון משני %1$s</string>
     <string name="tv_folder_storage_title">בחר מקום אחסון</string>
     <string name="tv_home_section_favorites">אהובים</string>
-    <string name="mobile_settings_help">עזרה</string>
     <string name="lemuroid_help_content"><![CDATA[&#8226;כיצד להשתמש ב-PlayRetro?</b><br/>
         העתק את כל קבצי ה-ROM שלך אל תיקייה לבחירתך במכשיר ובחר אותה מתוך הגדרות האפליקציה. ניתן ליצור תיקיות משנה (לקונסולות ספציפיות למשל) באותה תיקייה ראשית. לאחר השלמת הסריקה המשחקים אמורים להופיע.<br/><br/>
         <b>&#8226;למה המשחקים שלי לא מזוהים?</b><br/>
@@ -171,4 +170,5 @@
     <string name="core_options_clear_game">הסרת ההגדרות של המשחק הזה</string>
     <string name="core_options_clear_game_description">חזרה להגדרות של %1$s</string>
     <string name="core_options_aspect_ratio_unavailable">‏%1$s לא מאפשר לשנות את יחס הגובה-רוחב. כדי להשתמש ב-16:9 בחר את %2$s כליבה (ייתכן שיידרש ה-BIOS של הקונסולה).</string>
+    <string name="game_toast_applying_options">המשחק מופעל מחדש כדי להחיל את השינויים…</string>
 </resources>

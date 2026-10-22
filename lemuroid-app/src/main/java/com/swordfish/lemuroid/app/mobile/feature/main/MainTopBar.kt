@@ -14,7 +14,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.automirrored.outlined.HelpOutline
 import androidx.compose.material.icons.automirrored.outlined.ViewList
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.CloudSync
@@ -51,9 +50,9 @@ fun MainTopBar(
     // Optional title shown instead of the route title (e.g. the system name inside a system).
     titleOverrideId: Int?,
     navController: NavHostController,
-    onHelpPressed: () -> Unit,
     onUpdateQueryString: (String) -> Unit,
     onToggleGamesViewMode: () -> Unit,
+    onToggleSystemsViewMode: () -> Unit,
     mainUIState: MainViewModel.UiState,
 ) {
     LemuroidTopAppBar(
@@ -61,9 +60,9 @@ fun MainTopBar(
         titleOverrideId = titleOverrideId,
         navController = navController,
         mainUIState = mainUIState,
-        onHelpPressed = onHelpPressed,
         onUpdateQueryString = onUpdateQueryString,
         onToggleGamesViewMode = onToggleGamesViewMode,
+        onToggleSystemsViewMode = onToggleSystemsViewMode,
     )
 }
 
@@ -74,9 +73,9 @@ fun LemuroidTopAppBar(
     titleOverrideId: Int?,
     navController: NavController,
     mainUIState: MainViewModel.UiState,
-    onHelpPressed: () -> Unit,
     onUpdateQueryString: (String) -> Unit,
     onToggleGamesViewMode: () -> Unit,
+    onToggleSystemsViewMode: () -> Unit,
 ) {
     val context = LocalContext.current
     // Same color as the screen background: no visible edge between the bar and the content.
@@ -89,7 +88,7 @@ fun LemuroidTopAppBar(
                     mainUIState = mainUIState,
                     onUpdateQueryString = onUpdateQueryString,
                 )
-            } else if (route.parent == null) {
+            } else if (!route.hasBackButton) {
                 // Top-level tabs show the app name instead of the tab name.
                 Text(text = stringResource(R.string.lemuroid_name))
             } else {
@@ -103,7 +102,7 @@ fun LemuroidTopAppBar(
             ),
         navigationIcon = {
             AnimatedVisibility(
-                visible = route.parent != null,
+                visible = route.hasBackButton,
                 enter = fadeIn(),
                 exit = fadeOut(),
             ) {
@@ -120,10 +119,14 @@ fun LemuroidTopAppBar(
                 route = route,
                 context = context,
                 saveSyncEnabled = mainUIState.saveSyncEnabled,
-                onHelpPressed = onHelpPressed,
+                onSearchPressed = {
+                    navController.navigate(MainRoute.SEARCH.route) { launchSingleTop = true }
+                },
                 operationsInProgress = mainUIState.operationInProgress,
                 gamesGridMode = mainUIState.gamesGridMode,
                 onToggleGamesViewMode = onToggleGamesViewMode,
+                systemsGridMode = mainUIState.systemsGridMode,
+                onToggleSystemsViewMode = onToggleSystemsViewMode,
             )
         },
     )
@@ -135,36 +138,27 @@ fun LemuroidTopBarActions(
     context: Context,
     saveSyncEnabled: Boolean,
     operationsInProgress: Boolean,
-    onHelpPressed: () -> Unit,
+    onSearchPressed: () -> Unit,
     gamesGridMode: Boolean,
     onToggleGamesViewMode: () -> Unit,
+    systemsGridMode: Boolean,
+    onToggleSystemsViewMode: () -> Unit,
 ) {
     Row {
-        if (route == MainRoute.SYSTEM_GAMES) {
-            // The icon shows the mode the user will switch to.
-            IconButton(
-                onClick = { onToggleGamesViewMode() },
-            ) {
-                if (gamesGridMode) {
-                    Icon(
-                        Icons.AutoMirrored.Outlined.ViewList,
-                        stringResource(R.string.games_view_mode_list),
-                    )
-                } else {
-                    Icon(
-                        Icons.Outlined.GridView,
-                        stringResource(R.string.games_view_mode_grid),
-                    )
-                }
-            }
+        when (route) {
+            MainRoute.SYSTEMS -> ViewModeToggle(systemsGridMode, onToggleSystemsViewMode)
+            MainRoute.SYSTEM_GAMES -> ViewModeToggle(gamesGridMode, onToggleGamesViewMode)
+            else -> { }
         }
-        IconButton(
-            onClick = { onHelpPressed() },
-        ) {
-            Icon(
-                Icons.AutoMirrored.Outlined.HelpOutline,
-                stringResource(R.string.mobile_settings_help),
-            )
+        if (route != MainRoute.SEARCH) {
+            IconButton(
+                onClick = { onSearchPressed() },
+            ) {
+                Icon(
+                    Icons.Filled.Search,
+                    stringResource(R.string.title_search),
+                )
+            }
         }
         if (saveSyncEnabled) {
             IconButton(
@@ -229,5 +223,26 @@ private fun LemuroidSearchView(
                     unfocusedIndicatorColor = Color.Transparent,
                 ),
         )
+    }
+}
+
+/** Grid/list switch of the Consoles tab and of the games of a console. The icon shows the mode to switch to. */
+@Composable
+private fun ViewModeToggle(
+    gridMode: Boolean,
+    onToggle: () -> Unit,
+) {
+    IconButton(onClick = onToggle) {
+        if (gridMode) {
+            Icon(
+                Icons.AutoMirrored.Outlined.ViewList,
+                stringResource(R.string.games_view_mode_list),
+            )
+        } else {
+            Icon(
+                Icons.Outlined.GridView,
+                stringResource(R.string.games_view_mode_grid),
+            )
+        }
     }
 }

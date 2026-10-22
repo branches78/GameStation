@@ -9,12 +9,10 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -23,7 +21,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -149,11 +147,6 @@ class MainActivity : RetrogradeComponentActivity(), BusyActivity {
                     ?: navBackStackEntry.value?.arguments?.getString("systemId")
                         ?.let { runCatching { GameSystem.findById(it).titleResId }.getOrNull() }
 
-            val infoDialogDisplayed =
-                remember {
-                    mutableStateOf(false)
-                }
-
             LaunchedEffect(currentRoute) {
                 mainViewModel.changeRoute(currentRoute)
             }
@@ -175,10 +168,6 @@ class MainActivity : RetrogradeComponentActivity(), BusyActivity {
                 gameInteractor.onFavoriteToggle(game, isFavorite)
             }
 
-            val onHelpPressed = {
-                infoDialogDisplayed.value = true
-            }
-
             val mainUIState =
                 mainViewModel.state
                     .collectAsState(MainViewModel.UiState())
@@ -190,10 +179,10 @@ class MainActivity : RetrogradeComponentActivity(), BusyActivity {
                         currentRoute = currentRoute,
                         titleOverrideId = currentSystemTitleId,
                         navController = navController,
-                        onHelpPressed = onHelpPressed,
                         mainUIState = mainUIState,
                         onUpdateQueryString = { mainViewModel.changeQueryString(it) },
                         onToggleGamesViewMode = { mainViewModel.toggleGamesViewMode() },
+                        onToggleSystemsViewMode = { mainViewModel.toggleSystemsViewMode() },
                     )
                 },
                 bottomBar = { MainNavigationBar(currentRoute, navController) },
@@ -254,6 +243,7 @@ class MainActivity : RetrogradeComponentActivity(), BusyActivity {
                                             applicationContext,
                                         ),
                                 ),
+                            gridMode = mainUIState.systemsGridMode,
                         )
                     }
                     composable(MainRoute.SYSTEM_GAMES) { entry ->
@@ -351,6 +341,16 @@ class MainActivity : RetrogradeComponentActivity(), BusyActivity {
                                 ),
                         )
                     }
+                    composable(MainRoute.ABOUT) {
+                        // Same information as the TV "About" tab.
+                        AboutContent(
+                            modifier =
+                                Modifier
+                                    .padding(padding)
+                                    .fillMaxWidth()
+                                    .padding(horizontal = 16.dp, vertical = 8.dp),
+                        )
+                    }
                     composable(MainRoute.SETTINGS_SAVE_SYNC) {
                         SaveSyncSettingsScreen(
                             modifier = Modifier.padding(padding),
@@ -382,19 +382,6 @@ class MainActivity : RetrogradeComponentActivity(), BusyActivity {
                 onClearCustomCoverUri = { game -> gameInteractor.onClearCustomCoverUri(game) },
                 onOpenCoreOptions = { game -> navController.navigateToCoreOptions(game.systemId, game.id) },
             )
-
-            if (infoDialogDisplayed.value) {
-                // Same information as the TV "About" tab.
-                AlertDialog(
-                    text = { AboutContent() },
-                    onDismissRequest = { infoDialogDisplayed.value = false },
-                    confirmButton = {
-                        TextButton(onClick = { infoDialogDisplayed.value = false }) {
-                            Text(text = stringResource(R.string.ok))
-                        }
-                    },
-                )
-            }
         }
     }
 

@@ -646,14 +646,13 @@ data class GameSystem(
                             CoreID.MUPEN64_PLUS_NEXT,
                             exposedSettings =
                                 listOf(
-                                    // "16:9" stretches the image (games with their own widescreen mode),
-                                    // "16:9 adjusted" is the core widescreen hack.
+                                    // "16:9 adjusted" is the core widescreen hack. The plain "16:9" of the core (image
+                                    // stretched) is left out: it does not look good.
                                     ExposedSetting(
                                         "mupen64plus-aspect",
                                         R.string.setting_aspect_ratio,
                                         arrayListOf(
                                             ExposedSetting.Value("4:3", R.string.value_aspect_ratio_original),
-                                            ExposedSetting.Value("16:9", R.string.value_aspect_ratio_stretched),
                                             ExposedSetting.Value(
                                                 "16:9 adjusted",
                                                 R.string.value_aspect_ratio_widescreen,

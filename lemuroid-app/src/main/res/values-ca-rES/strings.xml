@@ -77,7 +77,6 @@
     <string name="tv_home_section_favorites">Preferits</string>
     <string name="tv_home_section_recents">Continua jugant</string>
     <string name="tv_search_results">Jocs</string>
-    <string name="mobile_settings_help">Ajuda</string>
     <string name="settings_category_display">Pantalla</string>
     <string name="settings_category_sound">So</string>
     <string name="settings_title_viewport_alignment">Alineació de la imatge</string>
@@ -133,4 +132,5 @@ Va néixer com una versió independent de Lemuroid, l\'emulador de codi obert de
     <string name="core_options_clear_game">Elimina la configuració pròpia d\'aquest joc</string>
     <string name="core_options_clear_game_description">Torna a fer servir la de %1$s</string>
     <string name="core_options_aspect_ratio_unavailable">%1$s no permet canviar la relació d\'aspecte. Per fer servir 16:9 tria %2$s com a nucli (pot necessitar les BIOS de la consola).</string>
+    <string name="game_toast_applying_options">Reiniciant el joc per aplicar els canvis…</string>
 </resources>

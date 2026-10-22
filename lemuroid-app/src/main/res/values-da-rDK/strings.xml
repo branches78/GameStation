@@ -141,7 +141,6 @@
     <string name="tv_search_results">Spil</string>
     <string name="tv_game_message_missing_gamepad">Gamepads er påkrævet for at spille. Tilslut venligst en.</string>
     <string name="game_interactory_busy">Vent til processen er afsluttet</string>
-    <string name="mobile_settings_help">Hjælp</string>
     <string name="lemuroid_help_content"><![CDATA[        <b>&#8226;Hvordan bruger jeg PlayRetro?</b><br/>
         Kopier alle dine ROMS-filer til en mappe på din enhed og vælg denne i PlayRetro. Denne mappe har tilladelse til at have undermapper. Efter scanningen er færdig, skulle du se dine spil.<br/><br/>
         <b>&#8226;Hvorfor blev mine spil ikke opdaget?</b><br/>
@@ -222,4 +221,5 @@ Den startede som en uafhængig version af Lemuroid, open source-emulatoren af Fi
     <string name="core_options_clear_game">Fjern dette spils egne indstillinger</string>
     <string name="core_options_clear_game_description">Brug indstillingerne for %1$s igen</string>
     <string name="core_options_aspect_ratio_unavailable">%1$s kan ikke ændre billedformatet. Vælg %2$s som kerne for at bruge 16:9 (den kan kræve konsollens BIOS).</string>
+    <string name="game_toast_applying_options">Genstarter spillet for at anvende ændringerne…</string>
 </resources>

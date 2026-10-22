@@ -25,7 +25,7 @@ import javax.inject.Inject
 
 /**
  * All the favorites ("Show all" card of the home row), shown inside the "Home" tab so the tabs bar stays on screen.
- * The cards are the same square cards of the home rows, 4 per row.
+ * The cards are the same square cards of the home rows, 5 per row.
  */
 class TVFavoritesFragment : VerticalGridSupportFragment() {
     @Inject

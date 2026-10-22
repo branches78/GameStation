@@ -59,6 +59,8 @@ class GameViewModelRetroGameView(
     private val sideEffects: GameViewModelSideEffects,
     private val rumbleManager: RumbleManager,
     private val scope: CoroutineScope,
+    // Called when an option that the core only reads when the game starts has changed (see STARTUP_ONLY_OPTIONS).
+    private val onStartupOptionsChanged: () -> Unit,
 ) : DefaultLifecycleObserver {
     sealed interface GameState {
         data object Uninitialized : GameState
@@ -85,16 +87,22 @@ class GameViewModelRetroGameView(
     // Game being played, for its own core options ("Only this game").
     private var gameId: Int? = null
 
+    // Values of STARTUP_ONLY_OPTIONS the game was started with.
+    private var startupOptions: Map<String, String>? = null
+
     suspend fun initialize(
         applicationContext: Context,
         game: Game,
         systemCoreConfig: SystemCoreConfig,
         gameLoader: GameLoader,
         requestLoadSave: Boolean,
+        // The game is started again to apply an option: its state is restored even without auto-save.
+        forceLoadSave: Boolean,
     ) {
         val currentState = gameState.value
         if (currentState != GameState.Uninitialized) return
         gameId = game.id
+        startupOptions = startupOptionsOf(coreVariablesManager.getOptionsForCore(system.id, systemCoreConfig, game.id))
 
         val autoSaveEnabled = settingsManager.autoSave()
         val filter = settingsManager.screenFilter()
@@ -118,7 +126,7 @@ class GameViewModelRetroGameView(
             gameLoader.load(
                 applicationContext,
                 game,
-                requestLoadSave && autoSaveEnabled,
+                (requestLoadSave && autoSaveEnabled) || forceLoadSave,
                 systemCoreConfig,
                 directLoad,
             )
@@ -337,6 +345,12 @@ class GameViewModelRetroGameView(
             waitRetroGameViewInitialized()
             val options = coreVariablesManager.getOptionsForCore(system.id, systemCoreConfig, gameId)
             updateCoreVariables(options)
+            val initialStartupOptions = startupOptions
+            if (initialStartupOptions != null && startupOptionsOf(options) != initialStartupOptions) {
+                Timber.i("Options read only at game start changed: starting the game again")
+                startupOptions = null
+                onStartupOptionsChanged()
+            }
         } catch (e: Exception) {
             Timber.e(e)
         }
@@ -352,6 +366,10 @@ class GameViewModelRetroGameView(
         retroGameViewFlow().getGLRetroErrors()
             .catch { Timber.e(it, "Exception in GLRetroErrors. Ironic.") }
             .collect { handleRetroViewError(it) }
+    }
+
+    private fun startupOptionsOf(options: List<CoreVariable>): Map<String, String> {
+        return options.filter { it.key in STARTUP_ONLY_OPTIONS }.associate { it.key to it.value }
     }
 
     private fun updateCoreVariables(options: List<CoreVariable>) {
@@ -407,5 +425,12 @@ class GameViewModelRetroGameView(
             }
 
         return message
+    }
+
+    companion object {
+        // Options that mupen64plus-next only reads when the game is loaded (aspect ratio and screen size): changing
+        // them during the game has no effect until it starts again.
+        private val STARTUP_ONLY_OPTIONS =
+            setOf("mupen64plus-aspect", "mupen64plus-43screensize", "mupen64plus-169screensize")
     }
 }

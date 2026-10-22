@@ -141,7 +141,6 @@
     <string name="tv_search_results">Jogos</string>
     <string name="tv_game_message_missing_gamepad">É necessário comandos para jogar. Por favor, conecte um.</string>
     <string name="game_interactory_busy">Aguarde pela conclusão das operações pendentes</string>
-    <string name="mobile_settings_help">Ajuda</string>
     <string name="lemuroid_help_content"><![CDATA[        <b>&#8226;Como usar o PlayRetro?</b><br/>
         Copie todas as suas ROMs para um directório no seu dispositivo e seleccione-o dentro do PlayRetro. Esse directório pode ter subdirectórios. Após a conclusão do scan, você deve ver os seus jogos.<br/><br/>
         <b>&#8226;Porque é que os meus jogos não são detectados?</b><br/>
@@ -222,4 +221,5 @@ Nasceu como uma versão independente do Lemuroid, o emulador de código aberto d
     <string name="core_options_clear_game">Remover as definições próprias deste jogo</string>
     <string name="core_options_clear_game_description">Voltar a usar as de %1$s</string>
     <string name="core_options_aspect_ratio_unavailable">%1$s não permite mudar a proporção do ecrã. Para usar 16:9 escolhe %2$s como núcleo (pode precisar da BIOS da consola).</string>
+    <string name="game_toast_applying_options">A reiniciar o jogo para aplicar as alterações…</string>
 </resources>

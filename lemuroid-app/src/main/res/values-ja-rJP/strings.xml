@@ -2,8 +2,7 @@
 <resources>
     <string name="title_home">ホーム</string>
     <string name="title_search">検索</string>
-    <string name="title_systems">システム</string>
-    <string name="tv_title_consoles">ゲーム機</string>
+    <string name="title_consoles">ゲーム機</string>
     <string name="title_games">ゲーム</string>
     <string name="title_settings">設定</string>
     <string name="recent">プレイを続ける</string>
@@ -216,4 +215,12 @@ Filippo Scognamiglio氏によるオープンソースのエミュレーター、
     <string name="library_loading_listing">ファイルを検索しています…</string>
     <string name="library_loading_files">%1$d / %2$d ファイル</string>
     <string name="library_loading_cores">エミュレーションコアを準備しています: %1$d / %2$d</string>
+    <string name="core_options_scope_game">このゲームのみ</string>
+    <string name="core_options_scope_system">%1$s のすべてのゲーム</string>
+    <string name="core_options_scope_title">変更の保存先</string>
+    <string name="core_options_game_value">このゲーム</string>
+    <string name="core_options_category_display">画面</string>
+    <string name="core_options_clear_game">このゲーム専用の設定を削除</string>
+    <string name="core_options_clear_game_description">%1$s の設定に戻す</string>
+    <string name="core_options_aspect_ratio_unavailable">%1$s はアスペクト比を変更できません。16:9 を使うにはコアとして %2$s を選んでください（本体の BIOS が必要な場合があります）。</string>
 </resources>

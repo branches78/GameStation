@@ -62,6 +62,8 @@ No se sincroniza con Lemuroid: el código es propio y va por su cuenta.
   se abren dentro de su pestaña, sin ocultar la barra (`showSystemGames` / `showFavorites`; Atrás vuelve a la pestaña),
   con las mismas tarjetas cuadradas de Inicio, 4 por fila y alineadas a la izquierda (`TVTabGrids.setUpHomeCardsGrid`).
   "Configurar núcleo" del menú de un juego muestra las opciones dentro de la misma ventana (`TVGameContextMenu.kt`).
+  El título de esas rejillas va alineado a la izquierda sobre una franja opaca, y las carátulas pasan por debajo al
+  hacer scroll (`TVTabGrids.addTitle`). La pestaña se llama "Consolas" también en el móvil (`title_consoles`).
   Las rejillas de TV no oscurecen las tarjetas sin foco (`VerticalGridPresenter(..., useFocusDimmer = false)`); Ajustes de TV reutilizan las
   pantallas Compose del móvil (`tv/settings/TVSettingsTabFragment.kt`); estilo de tarjetas en `tv/shared/TVCardStyle.kt`.
 - **Carátulas:** forma por sistema en `app/shared/covers/CoverAspectRatio.kt`, sustituida por la forma real de cada
@@ -78,6 +80,14 @@ No se sincroniza con Lemuroid: el código es propio y va por su cuenta.
   envía el core al jugar y se guardan en `lib/core/CoreOptionsCache.kt` (Harmony, el juego corre en el proceso `:game`).
   Las filas son las mismas que en el menú del juego (`shared/coreoptions/CoreOptionsItems.kt`) y comparten los valores.
   Valores por defecto de la app en `GameSystem.kt` (`defaultSettings`): Dynarec de PlayStation y JIT de DS activados.
+  **Por juego:** "Configurar núcleo" de un juego y el menú dentro del juego tienen las pestañas "Solo este juego"
+  (a la izquierda y elegida por defecto) y "Todos los juegos de [consola]" (`CoreOptionsScope`,
+  `CoreOptionsScopeSelector.kt`). Los valores de un juego se guardan como `cvg_<gameId>_<opción>` y el core propio como
+  `pref_key_game_core_selection_<gameId>`; al jugar mandan sobre los de la consola (`CoreVariablesManager`,
+  `CoresSelection.getCoreConfigForGame`). Las opciones cambiadas llevan la marca "Este juego".
+  **Relación de aspecto** (grupo "Pantalla"): Nintendo 64 (`mupen64plus-aspect`: 4:3, 16:9 estirado, 16:9 adjusted =
+  pantalla ancha) y SwanStation (`swanstation_Display_AspectRatio` + widescreen hack). PCSX ReARMed no la tiene:
+  se indica que hay que elegir SwanStation para ese juego. LibretroDroid no permite forzar la proporción desde la app.
 - **Cores (descarga):** la app los baja de `github.com/branches78/PlayRetroCores` (fork de LemuroidCores), etiqueta
   `pr-1.0.0`, ruta `lemuroid_core_<core>/src/main/jniLibs/<abi>/lib<core>_libretro_android.so`
   (`baseUri` en `lemuroid-app-ext-free/.../CoreUpdaterImpl.kt`; `CORES_VERSION` y las huellas de cada core en

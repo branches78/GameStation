@@ -2,8 +2,7 @@
 <resources>
     <string name="title_home">מסך הבית</string>
     <string name="title_search">חיפוש</string>
-    <string name="title_systems">קונסולות</string>
-    <string name="tv_title_consoles">קונסולות</string>
+    <string name="title_consoles">קונסולות</string>
     <string name="title_games">משחקים</string>
     <string name="title_settings">הגדרות</string>
     <string name="recent">המשך לשחק</string>
@@ -164,4 +163,12 @@
     <string name="library_loading_listing">מחפש קבצים…</string>
     <string name="library_loading_files">%1$d מתוך %2$d קבצים</string>
     <string name="library_loading_cores">מכין ליבות אמולציה: %1$d מתוך %2$d</string>
+    <string name="core_options_scope_game">רק המשחק הזה</string>
+    <string name="core_options_scope_system">כל משחקי %1$s</string>
+    <string name="core_options_scope_title">שמירת השינויים עבור</string>
+    <string name="core_options_game_value">המשחק הזה</string>
+    <string name="core_options_category_display">תצוגה</string>
+    <string name="core_options_clear_game">הסרת ההגדרות של המשחק הזה</string>
+    <string name="core_options_clear_game_description">חזרה להגדרות של %1$s</string>
+    <string name="core_options_aspect_ratio_unavailable">‏%1$s לא מאפשר לשנות את יחס הגובה-רוחב. כדי להשתמש ב-16:9 בחר את %2$s כליבה (ייתכן שיידרש ה-BIOS של הקונסולה).</string>
 </resources>

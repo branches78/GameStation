@@ -118,4 +118,8 @@
     <string name="value_swanstation_cpu_recompiler">Rekompilátor</string>
     <string name="value_swanstation_enabled">Zapnuto</string>
     <string name="value_swanstation_disabled">Vypnuto</string>
+    <string name="setting_aspect_ratio">Poměr stran</string>
+    <string name="value_aspect_ratio_original">Původní (4:3)</string>
+    <string name="value_aspect_ratio_stretched">Roztažený 16:9</string>
+    <string name="value_aspect_ratio_widescreen">Širokoúhlý</string>
 </resources>

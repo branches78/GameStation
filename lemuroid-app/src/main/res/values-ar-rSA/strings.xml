@@ -2,8 +2,7 @@
 <resources>
     <string name="title_home">الرئيسية</string>
     <string name="title_search">بحث</string>
-    <string name="title_systems">الأنظمة</string>
-    <string name="tv_title_consoles">أجهزة الألعاب</string>
+    <string name="title_consoles">أجهزة الألعاب</string>
     <string name="title_games">الألعاب</string>
     <string name="title_settings">الإعدادات</string>
     <string name="recent">متابعة اللعب</string>
@@ -214,4 +213,12 @@
     <string name="library_loading_listing">جارٍ البحث عن الملفات…</string>
     <string name="library_loading_files">%1$d من %2$d ملف</string>
     <string name="library_loading_cores">جارٍ تجهيز نوى المحاكاة: %1$d من %2$d</string>
+    <string name="core_options_scope_game">هذه اللعبة فقط</string>
+    <string name="core_options_scope_system">كل ألعاب %1$s</string>
+    <string name="core_options_scope_title">حفظ التغييرات لـ</string>
+    <string name="core_options_game_value">هذه اللعبة</string>
+    <string name="core_options_category_display">الشاشة</string>
+    <string name="core_options_clear_game">إزالة إعدادات هذه اللعبة الخاصة</string>
+    <string name="core_options_clear_game_description">العودة إلى إعدادات %1$s</string>
+    <string name="core_options_aspect_ratio_unavailable">لا يمكن لـ %1$s تغيير نسبة العرض إلى الارتفاع. لاستخدام 16:9 اختر %2$s كنواة (قد يحتاج إلى BIOS الجهاز).</string>
 </resources>

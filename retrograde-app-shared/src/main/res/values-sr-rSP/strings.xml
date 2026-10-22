@@ -118,4 +118,8 @@
     <string name="value_swanstation_cpu_recompiler">Рекомпајлер</string>
     <string name="value_swanstation_enabled">Укључено</string>
     <string name="value_swanstation_disabled">Искључено</string>
+    <string name="setting_aspect_ratio">Однос ширине и висине</string>
+    <string name="value_aspect_ratio_original">Оригинално (4:3)</string>
+    <string name="value_aspect_ratio_stretched">Развучено 16:9</string>
+    <string name="value_aspect_ratio_widescreen">Широки екран</string>
 </resources>

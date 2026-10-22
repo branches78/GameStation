@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.swordfish.lemuroid.app.shared.coreoptions.CoreOption
+import com.swordfish.lemuroid.app.shared.coreoptions.CoreOptionsScope
 import com.swordfish.lemuroid.app.shared.coreoptions.LemuroidCoreOption
 import com.swordfish.lemuroid.app.shared.library.LibraryIndexScheduler
 import com.swordfish.lemuroid.app.shared.library.PendingOperationsMonitor
@@ -47,6 +48,33 @@ class CoresSelectionViewModel(
         viewModelScope.launch {
             coresSelection.updateCoreConfigForSystem(system, coreConfig.coreID)
             LibraryIndexScheduler.scheduleCoreUpdate(context)
+        }
+    }
+
+    /** Core used by a game: its own one ("Only this game") or the one of its system. */
+    fun getSelectedCoreForGame(
+        system: GameSystem,
+        gameId: Int,
+    ) = coresSelection.getSelectedCoreConfigForGame(system, gameId)
+
+    fun hasGameCore(gameId: Int) = coresSelection.hasGameCore(gameId)
+
+    fun changeGameCore(
+        gameId: Int,
+        coreConfig: SystemCoreConfig,
+        context: Context,
+    ) {
+        viewModelScope.launch {
+            coresSelection.updateCoreConfigForGame(gameId, coreConfig.coreID)
+            LibraryIndexScheduler.scheduleCoreUpdate(context)
+        }
+    }
+
+    /** Removes the core and the option values chosen only for a game, so it follows its system again. */
+    fun clearGameConfiguration(gameId: Int) {
+        CoreOptionsScope.clearGameValues(appContext, gameId)
+        viewModelScope.launch {
+            coresSelection.updateCoreConfigForGame(gameId, null)
         }
     }
 

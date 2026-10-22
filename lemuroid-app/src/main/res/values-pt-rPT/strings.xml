@@ -2,8 +2,7 @@
 <resources>
     <string name="title_home">Início</string>
     <string name="title_search">Pesquisar</string>
-    <string name="title_systems">Sistemas</string>
-    <string name="tv_title_consoles">Consolas</string>
+    <string name="title_consoles">Consolas</string>
     <string name="title_games">Jogos</string>
     <string name="title_settings">Configurações</string>
     <string name="recent">Continuar a jogar</string>
@@ -215,4 +214,12 @@ Nasceu como uma versão independente do Lemuroid, o emulador de código aberto d
     <string name="library_loading_listing">A procurar ficheiros…</string>
     <string name="library_loading_files">%1$d de %2$d ficheiros</string>
     <string name="library_loading_cores">A preparar os núcleos de emulação: %1$d de %2$d</string>
+    <string name="core_options_scope_game">Só este jogo</string>
+    <string name="core_options_scope_system">Todos os jogos de %1$s</string>
+    <string name="core_options_scope_title">Guardar as alterações para</string>
+    <string name="core_options_game_value">Este jogo</string>
+    <string name="core_options_category_display">Ecrã</string>
+    <string name="core_options_clear_game">Remover as definições próprias deste jogo</string>
+    <string name="core_options_clear_game_description">Voltar a usar as de %1$s</string>
+    <string name="core_options_aspect_ratio_unavailable">%1$s não permite mudar a proporção do ecrã. Para usar 16:9 escolhe %2$s como núcleo (pode precisar da BIOS da consola).</string>
 </resources>

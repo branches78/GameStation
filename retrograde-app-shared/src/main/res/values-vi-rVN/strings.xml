@@ -20,4 +20,8 @@
     <string name="value_swanstation_cpu_recompiler">Trình biên dịch lại</string>
     <string name="value_swanstation_enabled">Bật</string>
     <string name="value_swanstation_disabled">Tắt</string>
+    <string name="setting_aspect_ratio">Tỷ lệ khung hình</string>
+    <string name="value_aspect_ratio_original">Gốc (4:3)</string>
+    <string name="value_aspect_ratio_stretched">Kéo giãn 16:9</string>
+    <string name="value_aspect_ratio_widescreen">Màn hình rộng</string>
 </resources>

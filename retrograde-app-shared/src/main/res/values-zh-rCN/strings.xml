@@ -118,4 +118,8 @@
     <string name="value_swanstation_cpu_recompiler">重编译器</string>
     <string name="value_swanstation_enabled">开启</string>
     <string name="value_swanstation_disabled">关闭</string>
+    <string name="setting_aspect_ratio">宽高比</string>
+    <string name="value_aspect_ratio_original">原始 (4:3)</string>
+    <string name="value_aspect_ratio_stretched">拉伸至 16:9</string>
+    <string name="value_aspect_ratio_widescreen">宽屏</string>
 </resources>

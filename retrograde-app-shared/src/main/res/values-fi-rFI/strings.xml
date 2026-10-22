@@ -118,4 +118,8 @@
     <string name="value_swanstation_cpu_recompiler">Uudelleenkääntäjä</string>
     <string name="value_swanstation_enabled">Käytössä</string>
     <string name="value_swanstation_disabled">Pois käytöstä</string>
+    <string name="setting_aspect_ratio">Kuvasuhde</string>
+    <string name="value_aspect_ratio_original">Alkuperäinen (4:3)</string>
+    <string name="value_aspect_ratio_stretched">Venytetty 16:9</string>
+    <string name="value_aspect_ratio_widescreen">Laajakuva</string>
 </resources>

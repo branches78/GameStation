@@ -78,8 +78,8 @@ object TVGameContextMenu {
         gameInteractor: GameInteractor,
         dismiss: () -> Unit,
     ) {
-        var coreOptionsSystemId by remember { mutableStateOf<String?>(null) }
-        val showingCoreOptions = coreOptionsSystemId != null
+        var coreOptionsGame by remember { mutableStateOf<Game?>(null) }
+        val showingCoreOptions = coreOptionsGame != null
 
         Surface(
             modifier =
@@ -89,16 +89,16 @@ object TVGameContextMenu {
             shape = RoundedCornerShape(DIALOG_CORNER_RADIUS.dp),
             color = MaterialTheme.colorScheme.surfaceContainer,
         ) {
-            val systemId = coreOptionsSystemId
-            if (systemId != null) {
-                BackHandler { coreOptionsSystemId = null }
-                TVCoreOptions(context, systemId)
+            val optionsGame = coreOptionsGame
+            if (optionsGame != null) {
+                BackHandler { coreOptionsGame = null }
+                TVCoreOptions(context, optionsGame)
             } else {
                 GameContextMenuContent(
                     selectedGame = game,
                     onGamePlay = { gameInteractor.onGamePlay(it) },
                     // The menu closes itself after "Configure core": the dialog stays open to show them.
-                    onDismiss = { if (coreOptionsSystemId == null) dismiss() },
+                    onDismiss = { if (coreOptionsGame == null) dismiss() },
                     onGameRestart = { gameInteractor.onGameRestart(it) },
                     onFavoriteToggle = { selected, isFavorite ->
                         gameInteractor.onFavoriteToggle(selected, isFavorite)
@@ -111,18 +111,18 @@ object TVGameContextMenu {
                         gameInteractor.onSetCustomCoverUri(selected, uri)
                     },
                     onClearCustomCoverUri = { gameInteractor.onClearCustomCoverUri(it) },
-                    onOpenCoreOptions = { coreOptionsSystemId = it.systemId },
+                    onOpenCoreOptions = { coreOptionsGame = it },
                     requestInitialFocus = true,
                 )
             }
         }
     }
 
-    /** Same screen as Settings > Cores > system, with the system name as title. */
+    /** Same screen as Settings > Cores > system, for this game ("Only this game" selected at first). */
     @Composable
     private fun TVCoreOptions(
         context: Context,
-        systemId: String,
+        game: Game,
     ) {
         val appContext = context.applicationContext
         val coresSelection = remember { CoresSelection { SharedPreferencesHelper.getSharedPreferences(appContext) } }
@@ -130,12 +130,12 @@ object TVGameContextMenu {
 
         CoreOptionsSettingsScreen(
             viewModel = viewModel(factory = CoresSelectionViewModel.Factory(appContext, coresSelection)),
-            systemId = systemId,
-            showTitle = true,
+            systemId = game.systemId,
+            game = game,
         )
 
         // The focused menu entry is gone: the focus goes to the first option once the options are shown.
-        LaunchedEffect(systemId) {
+        LaunchedEffect(game.id) {
             repeat(FOCUS_ATTEMPTS) {
                 delay(FOCUS_ATTEMPT_DELAY_MS)
                 if (focusManager.moveFocus(FocusDirection.Down)) return@LaunchedEffect

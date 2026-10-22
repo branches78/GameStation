@@ -2,8 +2,7 @@
 <resources>
     <string name="title_home">Hjem</string>
     <string name="title_search">Søk</string>
-    <string name="title_systems">Systemer</string>
-    <string name="tv_title_consoles">Konsoller</string>
+    <string name="title_consoles">Konsoller</string>
     <string name="title_games">Spill</string>
     <string name="title_settings">Innstillinger</string>
     <string name="recent">Fortsett å spille</string>
@@ -215,4 +214,12 @@ Den startet som en uavhengig versjon av Lemuroid, åpen kildekode-emulatoren av 
     <string name="library_loading_listing">Leter etter filer…</string>
     <string name="library_loading_files">%1$d av %2$d filer</string>
     <string name="library_loading_cores">Klargjør emuleringskjerner: %1$d av %2$d</string>
+    <string name="core_options_scope_game">Bare dette spillet</string>
+    <string name="core_options_scope_system">Alle %1$s-spill</string>
+    <string name="core_options_scope_title">Lagre endringer for</string>
+    <string name="core_options_game_value">Dette spillet</string>
+    <string name="core_options_category_display">Skjerm</string>
+    <string name="core_options_clear_game">Fjern dette spillets egne innstillinger</string>
+    <string name="core_options_clear_game_description">Bruk innstillingene for %1$s igjen</string>
+    <string name="core_options_aspect_ratio_unavailable">%1$s kan ikke endre bildeformatet. Velg %2$s som kjerne for å bruke 16:9 (den kan trenge konsollens BIOS).</string>
 </resources>

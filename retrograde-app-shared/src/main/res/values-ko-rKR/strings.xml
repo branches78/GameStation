@@ -118,4 +118,8 @@
     <string name="value_swanstation_cpu_recompiler">리컴파일러</string>
     <string name="value_swanstation_enabled">사용</string>
     <string name="value_swanstation_disabled">사용 안 함</string>
+    <string name="setting_aspect_ratio">화면 비율</string>
+    <string name="value_aspect_ratio_original">원본 (4:3)</string>
+    <string name="value_aspect_ratio_stretched">16:9 늘이기</string>
+    <string name="value_aspect_ratio_widescreen">와이드스크린</string>
 </resources>

@@ -118,4 +118,8 @@
     <string name="value_swanstation_cpu_recompiler">المُعيد للترجمة</string>
     <string name="value_swanstation_enabled">مفعّل</string>
     <string name="value_swanstation_disabled">معطّل</string>
+    <string name="setting_aspect_ratio">نسبة العرض إلى الارتفاع</string>
+    <string name="value_aspect_ratio_original">الأصلية (4:3)</string>
+    <string name="value_aspect_ratio_stretched">16:9 ممتدة</string>
+    <string name="value_aspect_ratio_widescreen">شاشة عريضة</string>
 </resources>

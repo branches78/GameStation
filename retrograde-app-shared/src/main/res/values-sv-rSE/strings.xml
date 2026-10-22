@@ -118,4 +118,8 @@
     <string name="value_swanstation_cpu_recompiler">Omkompilator</string>
     <string name="value_swanstation_enabled">På</string>
     <string name="value_swanstation_disabled">Av</string>
+    <string name="setting_aspect_ratio">Bildformat</string>
+    <string name="value_aspect_ratio_original">Original (4:3)</string>
+    <string name="value_aspect_ratio_stretched">Utsträckt 16:9</string>
+    <string name="value_aspect_ratio_widescreen">Bredbild</string>
 </resources>

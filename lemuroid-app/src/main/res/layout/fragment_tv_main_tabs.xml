@@ -41,7 +41,7 @@
             <TextView
                 android:id="@+id/tv_tab_systems"
                 style="@style/GameStationTVTab"
-                android:text="@string/tv_title_consoles" />
+                android:text="@string/title_consoles" />
 
             <TextView
                 android:id="@+id/tv_tab_settings"

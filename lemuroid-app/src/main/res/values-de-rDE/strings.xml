@@ -2,8 +2,7 @@
 <resources>
     <string name="title_home">Startseite</string>
     <string name="title_search">Suche</string>
-    <string name="title_systems">Systeme</string>
-    <string name="tv_title_consoles">Konsolen</string>
+    <string name="title_consoles">Konsolen</string>
     <string name="title_games">Spiele</string>
     <string name="title_settings">Einstellungen</string>
     <string name="recent">Weiterspielen</string>
@@ -215,4 +214,12 @@ Er entstand als unabhängige Version von Lemuroid, dem Open-Source-Emulator von 
     <string name="library_loading_listing">Dateien werden gesucht…</string>
     <string name="library_loading_files">%1$d von %2$d Dateien</string>
     <string name="library_loading_cores">Emulationskerne werden vorbereitet: %1$d von %2$d</string>
+    <string name="core_options_scope_game">Nur dieses Spiel</string>
+    <string name="core_options_scope_system">Alle %1$s-Spiele</string>
+    <string name="core_options_scope_title">Änderungen speichern für</string>
+    <string name="core_options_game_value">Dieses Spiel</string>
+    <string name="core_options_category_display">Bild</string>
+    <string name="core_options_clear_game">Eigene Einstellungen dieses Spiels entfernen</string>
+    <string name="core_options_clear_game_description">Wieder die Einstellungen von %1$s verwenden</string>
+    <string name="core_options_aspect_ratio_unavailable">%1$s kann das Seitenverhältnis nicht ändern. Für 16:9 wähle %2$s als Kern (braucht eventuell das BIOS der Konsole).</string>
 </resources>

@@ -2,8 +2,7 @@
 <resources>
     <string name="title_home">Hem</string>
     <string name="title_search">Sök</string>
-    <string name="title_systems">System</string>
-    <string name="tv_title_consoles">Konsoler</string>
+    <string name="title_consoles">Konsoler</string>
     <string name="title_games">Spel</string>
     <string name="title_settings">Inställningar</string>
     <string name="recent">Fortsätt spela</string>
@@ -216,4 +215,12 @@ Den började som en fristående version av Lemuroid, emulatorn med öppen källk
     <string name="library_loading_listing">Letar efter filer…</string>
     <string name="library_loading_files">%1$d av %2$d filer</string>
     <string name="library_loading_cores">Förbereder emuleringskärnor: %1$d av %2$d</string>
+    <string name="core_options_scope_game">Bara det här spelet</string>
+    <string name="core_options_scope_system">Alla %1$s-spel</string>
+    <string name="core_options_scope_title">Spara ändringar för</string>
+    <string name="core_options_game_value">Det här spelet</string>
+    <string name="core_options_category_display">Bild</string>
+    <string name="core_options_clear_game">Ta bort spelets egna inställningar</string>
+    <string name="core_options_clear_game_description">Använd inställningarna för %1$s igen</string>
+    <string name="core_options_aspect_ratio_unavailable">%1$s kan inte ändra bildformatet. Välj %2$s som kärna för 16:9 (den kan behöva konsolens BIOS).</string>
 </resources>

@@ -2,8 +2,7 @@
 <resources>
     <string name="title_home">首页</string>
     <string name="title_search">搜索</string>
-    <string name="title_systems">系统</string>
-    <string name="tv_title_consoles">游戏机</string>
+    <string name="title_consoles">游戏机</string>
     <string name="title_games">游戏</string>
     <string name="title_settings">设置</string>
     <string name="recent">继续游戏</string>
@@ -215,4 +214,12 @@
     <string name="library_loading_listing">正在查找文件…</string>
     <string name="library_loading_files">%1$d / %2$d 个文件</string>
     <string name="library_loading_cores">正在准备模拟核心：%1$d / %2$d</string>
+    <string name="core_options_scope_game">仅此游戏</string>
+    <string name="core_options_scope_system">所有 %1$s 游戏</string>
+    <string name="core_options_scope_title">更改保存到</string>
+    <string name="core_options_game_value">此游戏</string>
+    <string name="core_options_category_display">画面</string>
+    <string name="core_options_clear_game">移除此游戏的专属设置</string>
+    <string name="core_options_clear_game_description">重新使用 %1$s 的设置</string>
+    <string name="core_options_aspect_ratio_unavailable">%1$s 无法更改宽高比。要使用 16:9，请选择 %2$s 作为核心（可能需要主机 BIOS）。</string>
 </resources>

@@ -118,4 +118,8 @@
     <string name="value_swanstation_cpu_recompiler">Επαναμεταγλωττιστής</string>
     <string name="value_swanstation_enabled">Ενεργό</string>
     <string name="value_swanstation_disabled">Ανενεργό</string>
+    <string name="setting_aspect_ratio">Αναλογία εικόνας</string>
+    <string name="value_aspect_ratio_original">Αρχική (4:3)</string>
+    <string name="value_aspect_ratio_stretched">Τεντωμένη 16:9</string>
+    <string name="value_aspect_ratio_widescreen">Ευρεία οθόνη</string>
 </resources>

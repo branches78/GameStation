@@ -18,7 +18,9 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -316,6 +318,12 @@ class MainActivity : RetrogradeComponentActivity(), BusyActivity {
                         )
                     }
                     composable(MainRoute.SETTINGS_CORE_OPTIONS) { entry ->
+                        // Opened from "Configure core" of a game: its options can also be saved only for it.
+                        val gameId = entry.arguments?.getInt("gameId", -1) ?: -1
+                        val game by produceState<Game?>(null, gameId) {
+                            value = if (gameId >= 0) retrogradeDb.gameDao().selectById(gameId) else null
+                        }
+                        if (gameId >= 0 && game == null) return@composable
                         CoreOptionsSettingsScreen(
                             modifier = Modifier.padding(padding),
                             viewModel =
@@ -327,6 +335,7 @@ class MainActivity : RetrogradeComponentActivity(), BusyActivity {
                                         ),
                                 ),
                             systemId = entry.arguments?.getString("systemId")!!,
+                            game = game,
                         )
                     }
                     composable(MainRoute.SETTINGS_INPUT_DEVICES) {
@@ -371,7 +380,7 @@ class MainActivity : RetrogradeComponentActivity(), BusyActivity {
                 onClearCustomName = { game -> gameInteractor.onClearCustomName(game) },
                 onSetCustomCoverUri = { game, uri -> gameInteractor.onSetCustomCoverUri(game, uri) },
                 onClearCustomCoverUri = { game -> gameInteractor.onClearCustomCoverUri(game) },
-                onOpenCoreOptions = { game -> navController.navigateToCoreOptions(game.systemId) },
+                onOpenCoreOptions = { game -> navController.navigateToCoreOptions(game.systemId, game.id) },
             )
 
             if (infoDialogDisplayed.value) {

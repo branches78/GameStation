@@ -8,11 +8,13 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceScreen
 import com.swordfish.lemuroid.R
 import com.swordfish.lemuroid.app.shared.coreoptions.CoreOptionsPreferenceHelper
+import com.swordfish.lemuroid.app.shared.coreoptions.CoreOptionsScope
 import com.swordfish.lemuroid.app.shared.coreoptions.LemuroidCoreOption
 import com.swordfish.lemuroid.app.shared.gamemenu.GameMenuHelper
 import com.swordfish.lemuroid.app.shared.input.InputDeviceManager
 import com.swordfish.lemuroid.common.coroutines.launchOnState
 import com.swordfish.lemuroid.common.coroutines.safeCollect
+import com.swordfish.lemuroid.lib.library.GameSystem
 import com.swordfish.lemuroid.lib.library.SystemCoreConfig
 import com.swordfish.lemuroid.lib.library.db.entity.Game
 import com.swordfish.lemuroid.lib.preferences.SharedPreferencesHelper
@@ -70,16 +72,34 @@ class TVGameMenuFragment(
             .safeCollect { setupCoreOptions(it.size) }
     }
 
+    // Core options are saved only for this game unless "All the games of <system>" is chosen.
+    private var gameScope = true
+    private var connectedGamePads = 0
+
     private fun setupCoreOptions(connectedGamePads: Int) {
+        this.connectedGamePads = connectedGamePads
         val coreOptionsScreen =
             findPreference<PreferenceScreen>(GameMenuHelper.SECTION_CORE_OPTIONS)
                 ?: return
 
         coreOptionsScreen.removeAll()
 
+        val systemName = getString(GameSystem.findById(game.systemId).titleResId)
+        CoreOptionsPreferenceHelper.addScopeSelector(coreOptionsScreen, systemName, gameScope) {
+            gameScope = it
+            // Rebuilt after the selector has saved its new value.
+            view?.post { setupCoreOptions(this.connectedGamePads) }
+        }
+
+        val scope =
+            if (gameScope) {
+                CoreOptionsScope.Game(game.systemId, game.id)
+            } else {
+                CoreOptionsScope.System(game.systemId)
+            }
         CoreOptionsPreferenceHelper.addPreferences(
             coreOptionsScreen,
-            game.systemId,
+            scope,
             coreOptions.toList(),
             advancedCoreOptions.toList(),
         )

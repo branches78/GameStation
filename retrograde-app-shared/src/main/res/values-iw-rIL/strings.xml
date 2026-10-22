@@ -27,4 +27,8 @@
     <string name="value_swanstation_cpu_recompiler">מהדר מחדש</string>
     <string name="value_swanstation_enabled">מופעל</string>
     <string name="value_swanstation_disabled">כבוי</string>
+    <string name="setting_aspect_ratio">יחס גובה-רוחב</string>
+    <string name="value_aspect_ratio_original">מקורי (4:3)</string>
+    <string name="value_aspect_ratio_stretched">16:9 מתוח</string>
+    <string name="value_aspect_ratio_widescreen">מסך רחב</string>
 </resources>

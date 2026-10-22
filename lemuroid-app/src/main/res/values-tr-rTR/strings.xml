@@ -2,8 +2,7 @@
 <resources>
     <string name="title_home">Ana sayfa</string>
     <string name="title_search">Ara</string>
-    <string name="title_systems">Sistemler</string>
-    <string name="tv_title_consoles">Konsollar</string>
+    <string name="title_consoles">Konsollar</string>
     <string name="title_games">Oyunlar</string>
     <string name="title_settings">Ayarlar</string>
     <string name="recent">Oynamaya devam et</string>
@@ -216,4 +215,12 @@ Filippo Scognamiglio\'nun açık kaynak emülatörü Lemuroid\'in bağımsız bi
     <string name="library_loading_listing">Dosyalar aranıyor…</string>
     <string name="library_loading_files">%2$d dosyadan %1$d</string>
     <string name="library_loading_cores">Emülasyon çekirdekleri hazırlanıyor: %2$d çekirdekten %1$d</string>
+    <string name="core_options_scope_game">Yalnızca bu oyun</string>
+    <string name="core_options_scope_system">Tüm %1$s oyunları</string>
+    <string name="core_options_scope_title">Değişiklikleri kaydet:</string>
+    <string name="core_options_game_value">Bu oyun</string>
+    <string name="core_options_category_display">Ekran</string>
+    <string name="core_options_clear_game">Bu oyunun kendi ayarlarını kaldır</string>
+    <string name="core_options_clear_game_description">Yeniden %1$s ayarlarını kullan</string>
+    <string name="core_options_aspect_ratio_unavailable">%1$s en boy oranını değiştiremez. 16:9 için çekirdek olarak %2$s seçin (konsol BIOS\'u gerekebilir).</string>
 </resources>

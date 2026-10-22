@@ -2,8 +2,7 @@
 <resources>
     <string name="title_home">Koti</string>
     <string name="title_search">Etsi</string>
-    <string name="title_systems">Järjestelmät</string>
-    <string name="tv_title_consoles">Konsolit</string>
+    <string name="title_consoles">Konsolit</string>
     <string name="title_games">Pelit</string>
     <string name="title_settings">Asetukset</string>
     <string name="recent">Jatka pelaamista</string>
@@ -209,4 +208,12 @@ Se sai alkunsa itsenäisenä versiona Lemuroidista, Filippo Scognamiglion avoime
     <string name="library_loading_listing">Etsitään tiedostoja…</string>
     <string name="library_loading_files">%1$d / %2$d tiedostoa</string>
     <string name="library_loading_cores">Valmistellaan emulointiytimiä: %1$d / %2$d</string>
+    <string name="core_options_scope_game">Vain tämä peli</string>
+    <string name="core_options_scope_system">Kaikki %1$s-pelit</string>
+    <string name="core_options_scope_title">Tallenna muutokset kohteelle</string>
+    <string name="core_options_game_value">Tämä peli</string>
+    <string name="core_options_category_display">Näyttö</string>
+    <string name="core_options_clear_game">Poista tämän pelin omat asetukset</string>
+    <string name="core_options_clear_game_description">Käytä taas kohteen %1$s asetuksia</string>
+    <string name="core_options_aspect_ratio_unavailable">%1$s ei voi muuttaa kuvasuhdetta. Käytä 16:9-kuvaa valitsemalla ytimeksi %2$s (se voi tarvita konsolin BIOSin).</string>
 </resources>

@@ -59,17 +59,19 @@ class CoreUpdateWork(context: Context, workerParams: WorkerParameters) :
     }
 
     companion object {
-        /** Selected core of every system with games in the library. */
+        /** Selected core of every system with games in the library, plus the cores chosen for single games. */
         suspend fun libraryCores(
             retrogradeDatabase: RetrogradeDatabase,
             coresSelection: CoresSelection,
         ): List<CoreID> {
-            return retrogradeDatabase.gameDao().selectSystems()
-                .asFlow()
-                .map { GameSystem.findById(it) }
-                .map { coresSelection.getCoreConfigForSystem(it) }
-                .map { it.coreID }
-                .toList()
+            val systemCores =
+                retrogradeDatabase.gameDao().selectSystems()
+                    .asFlow()
+                    .map { GameSystem.findById(it) }
+                    .map { coresSelection.getCoreConfigForSystem(it) }
+                    .map { it.coreID }
+                    .toList()
+            return (systemCores + coresSelection.getGameSpecificCores()).distinct()
         }
     }
 

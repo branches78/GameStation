@@ -29,7 +29,8 @@ class GameLauncher(
 
         GlobalScope.launch {
             val system = GameSystem.findById(game.systemId)
-            val coreConfig = coresSelection.getCoreConfigForSystem(system)
+            // A game can have its own core ("Only this game" in its core options).
+            val coreConfig = coresSelection.getCoreConfigForGame(system, game.id)
             gameLaunchTaskHandler.handleGameStart(activity.applicationContext)
             BaseGameActivity.launchGame(activity, coreConfig, game, loadSave, leanback)
         }

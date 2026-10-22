@@ -1,5 +1,6 @@
 package com.swordfish.lemuroid.app.tv.shared
 
+import android.text.TextUtils
 import android.view.Gravity
 import android.view.KeyEvent
 import android.view.ViewGroup
@@ -14,26 +15,48 @@ import com.swordfish.lemuroid.app.tv.main.TVMainTabsFragment
 
 /** Helpers for the leanback grids shown inside the tabs of the TV start screen. */
 object TVTabGrids {
-    /** Centered title of a grid (e.g. the system name), right below the tabs bar. */
+    /**
+     * Title of a grid (e.g. the system name), right below the tabs bar and aligned with the first column of cards.
+     * It sits on an opaque band above the grid, so the cards scroll under it instead of over the text.
+     */
     fun addTitle(
         root: ViewGroup,
         text: String,
     ) {
         val context = root.context
+        val resources = context.resources
+        val band =
+            FrameLayout(context).apply {
+                setBackgroundColor(ContextCompat.getColor(context, R.color.leanback_background))
+                // Above the cards (also the zoomed ones), without a shadow.
+                translationZ = resources.getDimension(R.dimen.tv_grid_title_elevation)
+                outlineProvider = null
+            }
         val titleView =
             TextView(context).apply {
                 this.text = text
                 setTextColor(ContextCompat.getColor(context, R.color.md_theme_dark_onBackground))
                 textSize = TITLE_TEXT_SIZE_SP
-                gravity = Gravity.CENTER_HORIZONTAL
+                gravity = Gravity.START or Gravity.CENTER_VERTICAL
+                maxLines = 1
+                ellipsize = TextUtils.TruncateAt.END
             }
-        val layoutParams =
+        band.addView(
+            titleView,
+            FrameLayout.LayoutParams(
+                TVHomeFragment.rowsContentWidth(resources),
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                Gravity.CENTER_HORIZONTAL,
+            ),
+        )
+        root.addView(
+            band,
             FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                Gravity.TOP or Gravity.CENTER_HORIZONTAL,
-            ).apply { topMargin = context.resources.getDimensionPixelSize(R.dimen.tv_games_title_top_margin) }
-        root.addView(titleView, layoutParams)
+                resources.getDimensionPixelSize(R.dimen.tv_grid_title_height),
+                Gravity.TOP,
+            ),
+        )
     }
 
     /**

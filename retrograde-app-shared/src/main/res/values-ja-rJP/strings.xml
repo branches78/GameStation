@@ -118,4 +118,8 @@
     <string name="value_swanstation_cpu_recompiler">リコンパイラー</string>
     <string name="value_swanstation_enabled">有効</string>
     <string name="value_swanstation_disabled">無効</string>
+    <string name="setting_aspect_ratio">アスペクト比</string>
+    <string name="value_aspect_ratio_original">オリジナル (4:3)</string>
+    <string name="value_aspect_ratio_stretched">16:9 に引き伸ばし</string>
+    <string name="value_aspect_ratio_widescreen">ワイドスクリーン</string>
 </resources>

@@ -2,8 +2,7 @@
 <resources>
     <string name="title_home">Inici</string>
     <string name="title_search">Cerca</string>
-    <string name="title_systems">Sistemes</string>
-    <string name="tv_title_consoles">Consoles</string>
+    <string name="title_consoles">Consoles</string>
     <string name="title_games">Jocs</string>
     <string name="title_settings">Configuració</string>
     <string name="recent">Continua jugant</string>
@@ -126,4 +125,12 @@ Va néixer com una versió independent de Lemuroid, l\'emulador de codi obert de
     <string name="library_loading_listing">S\'estan buscant fitxers…</string>
     <string name="library_loading_files">%1$d de %2$d fitxers</string>
     <string name="library_loading_cores">Preparant els nuclis d\'emulació: %1$d de %2$d</string>
+    <string name="core_options_scope_game">Només aquest joc</string>
+    <string name="core_options_scope_system">Tots els jocs de %1$s</string>
+    <string name="core_options_scope_title">Desa els canvis per a</string>
+    <string name="core_options_game_value">Aquest joc</string>
+    <string name="core_options_category_display">Pantalla</string>
+    <string name="core_options_clear_game">Elimina la configuració pròpia d\'aquest joc</string>
+    <string name="core_options_clear_game_description">Torna a fer servir la de %1$s</string>
+    <string name="core_options_aspect_ratio_unavailable">%1$s no permet canviar la relació d\'aspecte. Per fer servir 16:9 tria %2$s com a nucli (pot necessitar les BIOS de la consola).</string>
 </resources>

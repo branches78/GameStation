@@ -2,8 +2,7 @@
 <resources>
     <string name="title_home">Kezdőlap</string>
     <string name="title_search">Keresés</string>
-    <string name="title_systems">Konzolok</string>
-    <string name="tv_title_consoles">Konzolok</string>
+    <string name="title_consoles">Konzolok</string>
     <string name="title_games">Játékok</string>
     <string name="title_settings">Beállítások</string>
     <string name="recent">Játék folytatása</string>
@@ -84,4 +83,12 @@ A Lemuroid, Filippo Scognamiglio nyílt forráskódú emulátorának független 
     <string name="library_loading_listing">Fájlok keresése…</string>
     <string name="library_loading_files">%1$d / %2$d fájl</string>
     <string name="library_loading_cores">Emulációs magok előkészítése: %1$d / %2$d</string>
+    <string name="core_options_scope_game">Csak ez a játék</string>
+    <string name="core_options_scope_system">Minden %1$s játék</string>
+    <string name="core_options_scope_title">Módosítások mentése ehhez:</string>
+    <string name="core_options_game_value">Ez a játék</string>
+    <string name="core_options_category_display">Kép</string>
+    <string name="core_options_clear_game">A játék saját beállításainak törlése</string>
+    <string name="core_options_clear_game_description">Újra a(z) %1$s beállításai</string>
+    <string name="core_options_aspect_ratio_unavailable">A(z) %1$s nem tudja módosítani a képarányt. 16:9-hez válaszd a(z) %2$s magot (szükség lehet a konzol BIOS-ára).</string>
 </resources>

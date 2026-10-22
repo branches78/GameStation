@@ -2,8 +2,7 @@
 <resources>
     <string name="title_home">Accueil</string>
     <string name="title_search">Rechercher</string>
-    <string name="title_systems">Consoles</string>
-    <string name="tv_title_consoles">Consoles</string>
+    <string name="title_consoles">Consoles</string>
     <string name="title_games">Jeux</string>
     <string name="title_settings">Paramètres</string>
     <string name="recent">Continuer à jouer</string>
@@ -215,4 +214,12 @@ Il est né comme une version indépendante de Lemuroid, l\'émulateur open sourc
     <string name="library_loading_listing">Recherche des fichiers…</string>
     <string name="library_loading_files">%1$d fichiers sur %2$d</string>
     <string name="library_loading_cores">Préparation des cœurs d\'émulation : %1$d sur %2$d</string>
+    <string name="core_options_scope_game">Ce jeu seulement</string>
+    <string name="core_options_scope_system">Tous les jeux %1$s</string>
+    <string name="core_options_scope_title">Enregistrer les modifications pour</string>
+    <string name="core_options_game_value">Ce jeu</string>
+    <string name="core_options_category_display">Affichage</string>
+    <string name="core_options_clear_game">Supprimer les réglages propres à ce jeu</string>
+    <string name="core_options_clear_game_description">Utiliser à nouveau ceux de %1$s</string>
+    <string name="core_options_aspect_ratio_unavailable">%1$s ne permet pas de changer le format d\'image. Pour le 16:9, choisis %2$s comme cœur (il peut nécessiter le BIOS de la console).</string>
 </resources>

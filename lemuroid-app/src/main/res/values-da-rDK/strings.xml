@@ -2,8 +2,7 @@
 <resources>
     <string name="title_home">Startside</string>
     <string name="title_search">Søg</string>
-    <string name="title_systems">Systemer</string>
-    <string name="tv_title_consoles">Konsoller</string>
+    <string name="title_consoles">Konsoller</string>
     <string name="title_games">Spil</string>
     <string name="title_settings">Indstillinger</string>
     <string name="recent">Fortsæt med at spille</string>
@@ -215,4 +214,12 @@ Den startede som en uafhængig version af Lemuroid, open source-emulatoren af Fi
     <string name="library_loading_listing">Leder efter filer…</string>
     <string name="library_loading_files">%1$d af %2$d filer</string>
     <string name="library_loading_cores">Klargør emuleringskerner: %1$d af %2$d</string>
+    <string name="core_options_scope_game">Kun dette spil</string>
+    <string name="core_options_scope_system">Alle %1$s-spil</string>
+    <string name="core_options_scope_title">Gem ændringer for</string>
+    <string name="core_options_game_value">Dette spil</string>
+    <string name="core_options_category_display">Skærm</string>
+    <string name="core_options_clear_game">Fjern dette spils egne indstillinger</string>
+    <string name="core_options_clear_game_description">Brug indstillingerne for %1$s igen</string>
+    <string name="core_options_aspect_ratio_unavailable">%1$s kan ikke ændre billedformatet. Vælg %2$s som kerne for at bruge 16:9 (den kan kræve konsollens BIOS).</string>
 </resources>

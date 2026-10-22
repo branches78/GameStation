@@ -646,6 +646,20 @@ data class GameSystem(
                             CoreID.MUPEN64_PLUS_NEXT,
                             exposedSettings =
                                 listOf(
+                                    // "16:9" stretches the image (games with their own widescreen mode),
+                                    // "16:9 adjusted" is the core widescreen hack.
+                                    ExposedSetting(
+                                        "mupen64plus-aspect",
+                                        R.string.setting_aspect_ratio,
+                                        arrayListOf(
+                                            ExposedSetting.Value("4:3", R.string.value_aspect_ratio_original),
+                                            ExposedSetting.Value("16:9", R.string.value_aspect_ratio_stretched),
+                                            ExposedSetting.Value(
+                                                "16:9 adjusted",
+                                                R.string.value_aspect_ratio_widescreen,
+                                            ),
+                                        ),
+                                    ),
                                     ExposedSetting(
                                         "mupen64plus-43screensize",
                                         R.string.setting_mupen64plus_43screensize,
@@ -814,6 +828,15 @@ data class GameSystem(
                                 ),
                             exposedSettings =
                                 listOf(
+                                    // The widescreen hack below is the "wide screen" choice of this core.
+                                    ExposedSetting(
+                                        "swanstation_Display_AspectRatio",
+                                        R.string.setting_aspect_ratio,
+                                        arrayListOf(
+                                            ExposedSetting.Value("4:3", R.string.value_aspect_ratio_original),
+                                            ExposedSetting.Value("16:9", R.string.value_aspect_ratio_stretched),
+                                        ),
+                                    ),
                                     ExposedSetting(
                                         "swanstation_GPU_ResolutionScale",
                                         R.string.setting_swanstation_resolution_scale,

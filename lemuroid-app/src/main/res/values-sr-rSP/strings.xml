@@ -2,8 +2,7 @@
 <resources>
     <string name="title_home">Почетак</string>
     <string name="title_search">Претрага</string>
-    <string name="title_systems">Системи</string>
-    <string name="tv_title_consoles">Конзоле</string>
+    <string name="title_consoles">Конзоле</string>
     <string name="title_games">Игре</string>
     <string name="title_settings">Подешавања</string>
     <string name="recent">Настави игру</string>
@@ -215,4 +214,12 @@
     <string name="library_loading_listing">Тражење датотека…</string>
     <string name="library_loading_files">%1$d од %2$d датотека</string>
     <string name="library_loading_cores">Припрема језгара за емулацију: %1$d од %2$d</string>
+    <string name="core_options_scope_game">Само ова игра</string>
+    <string name="core_options_scope_system">Све игре за %1$s</string>
+    <string name="core_options_scope_title">Сачувај измене за</string>
+    <string name="core_options_game_value">Ова игра</string>
+    <string name="core_options_category_display">Екран</string>
+    <string name="core_options_clear_game">Уклони посебна подешавања ове игре</string>
+    <string name="core_options_clear_game_description">Поново користи подешавања за %1$s</string>
+    <string name="core_options_aspect_ratio_unavailable">%1$s не може да промени однос ширине и висине. За 16:9 изабери језгро %2$s (можда ће требати BIOS конзоле).</string>
 </resources>

@@ -2,8 +2,7 @@
 <resources>
     <string name="title_home">首頁</string>
     <string name="title_search">搜尋</string>
-    <string name="title_systems">主機</string>
-    <string name="tv_title_consoles">遊戲機</string>
+    <string name="title_consoles">遊戲機</string>
     <string name="title_games">遊戲</string>
     <string name="title_settings">設定</string>
     <string name="recent">繼續遊戲</string>
@@ -200,4 +199,12 @@
     <string name="library_loading_listing">正在尋找檔案…</string>
     <string name="library_loading_files">%1$d / %2$d 個檔案</string>
     <string name="library_loading_cores">正在準備模擬核心：%1$d / %2$d</string>
+    <string name="core_options_scope_game">僅此遊戲</string>
+    <string name="core_options_scope_system">所有 %1$s 遊戲</string>
+    <string name="core_options_scope_title">變更儲存到</string>
+    <string name="core_options_game_value">此遊戲</string>
+    <string name="core_options_category_display">畫面</string>
+    <string name="core_options_clear_game">移除此遊戲的專屬設定</string>
+    <string name="core_options_clear_game_description">重新使用 %1$s 的設定</string>
+    <string name="core_options_aspect_ratio_unavailable">%1$s 無法變更長寬比。若要使用 16:9，請選擇 %2$s 作為核心（可能需要主機 BIOS）。</string>
 </resources>

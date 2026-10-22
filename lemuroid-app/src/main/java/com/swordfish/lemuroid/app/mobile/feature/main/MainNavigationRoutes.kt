@@ -33,9 +33,16 @@ fun NavController.navigateToRoute(route: MainRoute) {
     this.navigate(route.route)
 }
 
-/** Opens the options of the core used by a system ([systemId] is the database name of the system). */
-fun NavController.navigateToCoreOptions(systemId: String) {
-    this.navigate(MainRoute.SETTINGS_CORE_OPTIONS.route.replace("{systemId}", systemId))
+/**
+ * Opens the options of the core used by a system ([systemId] is the database name of the system). With a [gameId]
+ * ("Configure core" of a game) they can also be chosen only for that game.
+ */
+fun NavController.navigateToCoreOptions(
+    systemId: String,
+    gameId: Int? = null,
+) {
+    val route = MainRoute.SETTINGS_CORE_OPTIONS.route.substringBefore("?").replace("{systemId}", systemId)
+    this.navigate(if (gameId != null) "$route?gameId=$gameId" else route)
 }
 
 enum class MainRoute(
@@ -61,7 +68,7 @@ enum class MainRoute(
     ),
     SYSTEMS(
         route = "systems/home",
-        titleId = R.string.title_systems,
+        titleId = R.string.title_consoles,
     ),
     SYSTEM_GAMES(
         route = "systems/{metaSystemId}",
@@ -84,10 +91,16 @@ enum class MainRoute(
         parent = SETTINGS,
     ),
     SETTINGS_CORE_OPTIONS(
-        route = "settings/cores/{systemId}",
+        route = "settings/cores/{systemId}?gameId={gameId}",
         titleId = R.string.settings_title_open_cores_selection,
         parent = SETTINGS_CORES_SELECTION,
-        listOf(navArgument("systemId") { type = NavType.StringType }),
+        listOf(
+            navArgument("systemId") { type = NavType.StringType },
+            navArgument("gameId") {
+                type = NavType.IntType
+                defaultValue = -1
+            },
+        ),
     ),
     SETTINGS_INPUT_DEVICES(
         route = "settings/inputdevices",
@@ -121,7 +134,7 @@ enum class MainNavigationRoutes(
     val unselectedIcon: ImageVector,
 ) {
     HOME(MainRoute.HOME, R.string.title_home, Icons.Filled.Home, Icons.Outlined.Home),
-    SYSTEMS(MainRoute.SYSTEMS, R.string.title_systems, Icons.Filled.VideogameAsset, Icons.Outlined.VideogameAsset),
+    SYSTEMS(MainRoute.SYSTEMS, R.string.title_consoles, Icons.Filled.VideogameAsset, Icons.Outlined.VideogameAsset),
     SEARCH(MainRoute.SEARCH, R.string.title_search, Icons.Filled.Search, Icons.Outlined.Search),
     SETTINGS(MainRoute.SETTINGS, R.string.title_settings, Icons.Filled.Settings, Icons.Outlined.Settings),
 }

@@ -2,8 +2,7 @@
 <resources>
     <string name="title_home">Главная</string>
     <string name="title_search">Поиск</string>
-    <string name="title_systems">Системы</string>
-    <string name="tv_title_consoles">Консоли</string>
+    <string name="title_consoles">Консоли</string>
     <string name="title_games">Игры</string>
     <string name="title_settings">Настройки</string>
     <string name="recent">Продолжить игру</string>
@@ -217,4 +216,12 @@
     <string name="library_loading_listing">Поиск файлов…</string>
     <string name="library_loading_files">%1$d из %2$d файлов</string>
     <string name="library_loading_cores">Подготовка ядер эмуляции: %1$d из %2$d</string>
+    <string name="core_options_scope_game">Только эта игра</string>
+    <string name="core_options_scope_system">Все игры %1$s</string>
+    <string name="core_options_scope_title">Сохранять изменения для</string>
+    <string name="core_options_game_value">Эта игра</string>
+    <string name="core_options_category_display">Экран</string>
+    <string name="core_options_clear_game">Удалить собственные настройки этой игры</string>
+    <string name="core_options_clear_game_description">Снова использовать настройки %1$s</string>
+    <string name="core_options_aspect_ratio_unavailable">%1$s не позволяет менять соотношение сторон. Для 16:9 выберите ядро %2$s (может понадобиться BIOS консоли).</string>
 </resources>

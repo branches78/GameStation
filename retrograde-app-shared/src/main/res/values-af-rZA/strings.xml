@@ -13,4 +13,8 @@
     <string name="value_swanstation_cpu_recompiler">Herkompileerder</string>
     <string name="value_swanstation_enabled">Aan</string>
     <string name="value_swanstation_disabled">Af</string>
+    <string name="setting_aspect_ratio">Beeldverhouding</string>
+    <string name="value_aspect_ratio_original">Oorspronklik (4:3)</string>
+    <string name="value_aspect_ratio_stretched">Gestrek 16:9</string>
+    <string name="value_aspect_ratio_widescreen">Wyeskerm</string>
 </resources>

@@ -118,4 +118,8 @@
     <string name="value_swanstation_cpu_recompiler">Recompilador</string>
     <string name="value_swanstation_enabled">Ativado</string>
     <string name="value_swanstation_disabled">Desativado</string>
+    <string name="setting_aspect_ratio">Proporção da tela</string>
+    <string name="value_aspect_ratio_original">Original (4:3)</string>
+    <string name="value_aspect_ratio_stretched">16:9 esticado</string>
+    <string name="value_aspect_ratio_widescreen">Tela widescreen</string>
 </resources>

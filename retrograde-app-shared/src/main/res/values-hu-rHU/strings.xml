@@ -13,4 +13,8 @@
     <string name="value_swanstation_cpu_recompiler">Újrafordító</string>
     <string name="value_swanstation_enabled">Bekapcsolva</string>
     <string name="value_swanstation_disabled">Kikapcsolva</string>
+    <string name="setting_aspect_ratio">Képarány</string>
+    <string name="value_aspect_ratio_original">Eredeti (4:3)</string>
+    <string name="value_aspect_ratio_stretched">Nyújtott 16:9</string>
+    <string name="value_aspect_ratio_widescreen">Szélesvásznú</string>
 </resources>

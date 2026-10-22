@@ -2,8 +2,7 @@
 <resources>
     <string name="title_home">Start</string>
     <string name="title_search">Szukaj</string>
-    <string name="title_systems">Konsole</string>
-    <string name="tv_title_consoles">Konsole</string>
+    <string name="title_consoles">Konsole</string>
     <string name="title_games">Gry</string>
     <string name="title_settings">Ustawienia</string>
     <string name="recent">Kontynuuj grę</string>
@@ -215,4 +214,12 @@ Powstał jako niezależna wersja Lemuroid, emulatora open source autorstwa Filip
     <string name="library_loading_listing">Szukanie plików…</string>
     <string name="library_loading_files">%1$d z %2$d plików</string>
     <string name="library_loading_cores">Przygotowywanie rdzeni emulacji: %1$d z %2$d</string>
+    <string name="core_options_scope_game">Tylko ta gra</string>
+    <string name="core_options_scope_system">Wszystkie gry %1$s</string>
+    <string name="core_options_scope_title">Zapisz zmiany dla</string>
+    <string name="core_options_game_value">Ta gra</string>
+    <string name="core_options_category_display">Obraz</string>
+    <string name="core_options_clear_game">Usuń własne ustawienia tej gry</string>
+    <string name="core_options_clear_game_description">Wróć do ustawień %1$s</string>
+    <string name="core_options_aspect_ratio_unavailable">%1$s nie pozwala zmienić proporcji obrazu. Aby użyć 16:9, wybierz rdzeń %2$s (może wymagać BIOS-u konsoli).</string>
 </resources>

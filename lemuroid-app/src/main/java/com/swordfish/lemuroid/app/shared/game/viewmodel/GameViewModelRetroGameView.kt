@@ -81,6 +81,9 @@ class GameViewModelRetroGameView(
         return gameState.debounce(200)
     }
 
+    // Game being played, for its own core options ("Only this game").
+    private var gameId: Int? = null
+
     suspend fun initialize(
         applicationContext: Context,
         game: Game,
@@ -90,6 +93,7 @@ class GameViewModelRetroGameView(
     ) {
         val currentState = gameState.value
         if (currentState != GameState.Uninitialized) return
+        gameId = game.id
 
         val autoSaveEnabled = settingsManager.autoSave()
         val filter = settingsManager.screenFilter()
@@ -329,7 +333,7 @@ class GameViewModelRetroGameView(
     private suspend fun initializeCoreVariablesFlow() {
         try {
             waitRetroGameViewInitialized()
-            val options = coreVariablesManager.getOptionsForCore(system.id, systemCoreConfig)
+            val options = coreVariablesManager.getOptionsForCore(system.id, systemCoreConfig, gameId)
             updateCoreVariables(options)
         } catch (e: Exception) {
             Timber.e(e)

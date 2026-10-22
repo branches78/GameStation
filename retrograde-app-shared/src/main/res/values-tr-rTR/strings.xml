@@ -118,4 +118,8 @@
     <string name="value_swanstation_cpu_recompiler">Yeniden derleyici</string>
     <string name="value_swanstation_enabled">Açık</string>
     <string name="value_swanstation_disabled">Kapalı</string>
+    <string name="setting_aspect_ratio">En boy oranı</string>
+    <string name="value_aspect_ratio_original">Orijinal (4:3)</string>
+    <string name="value_aspect_ratio_stretched">Uzatılmış 16:9</string>
+    <string name="value_aspect_ratio_widescreen">Geniş ekran</string>
 </resources>

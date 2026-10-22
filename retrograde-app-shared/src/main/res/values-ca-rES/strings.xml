@@ -33,4 +33,8 @@
     <string name="value_swanstation_cpu_recompiler">Recompilador</string>
     <string name="value_swanstation_enabled">Activat</string>
     <string name="value_swanstation_disabled">Desactivat</string>
+    <string name="setting_aspect_ratio">Relació d\'aspecte</string>
+    <string name="value_aspect_ratio_original">Original (4:3)</string>
+    <string name="value_aspect_ratio_stretched">16:9 estirat</string>
+    <string name="value_aspect_ratio_widescreen">Pantalla panoràmica</string>
 </resources>

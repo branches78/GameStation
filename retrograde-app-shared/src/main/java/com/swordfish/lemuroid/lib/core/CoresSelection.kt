@@ -54,6 +54,54 @@ class CoresSelection(
         return getSelectedCoreConfigForSystem(system).first()
     }
 
+    /** Core used to play a game: the one chosen only for it ("Only this game") or else the one of its system. */
+    suspend fun getCoreConfigForGame(
+        system: GameSystem,
+        gameId: Int,
+    ): SystemCoreConfig {
+        return getSelectedCoreConfigForGame(system, gameId).first()
+    }
+
+    fun getSelectedCoreConfigForGame(
+        system: GameSystem,
+        gameId: Int,
+    ): Flow<SystemCoreConfig> {
+        val gameCoreName = flowSharedPreferences.getString(computeGamePreferenceKey(gameId), "").asFlow()
+        return combine(getSelectedCoreConfigForSystem(system), gameCoreName) { systemCore, coreName ->
+            system.systemCoreConfigs.firstOrNull { it.coreID.coreName == coreName } ?: systemCore
+        }.flowOn(Dispatchers.IO)
+    }
+
+    /** Whether the game has its own core instead of the one of its system. */
+    fun hasGameCore(gameId: Int): Flow<Boolean> {
+        return flowSharedPreferences.getString(computeGamePreferenceKey(gameId), "").asFlow()
+            .map { it.isNotEmpty() }
+            .flowOn(Dispatchers.IO)
+    }
+
+    /** Sets the core of a single game, or goes back to the core of its system when [coreID] is null. */
+    suspend fun updateCoreConfigForGame(
+        gameId: Int,
+        coreID: CoreID?,
+    ) = withContext(Dispatchers.IO) {
+        sharedPreferences.edit().apply {
+            if (coreID == null) {
+                remove(computeGamePreferenceKey(gameId))
+            } else {
+                putString(computeGamePreferenceKey(gameId), coreID.coreName)
+            }
+        }.commit()
+    }
+
+    /** Cores chosen for single games, so they are downloaded with the ones of the systems. */
+    fun getGameSpecificCores(): List<CoreID> {
+        return sharedPreferences.all
+            .filterKeys { it.startsWith(GAME_CORE_PREFERENCE_BASE_KEY) }
+            .values
+            .mapNotNull { value -> CoreID.values().firstOrNull { it.coreName == value } }
+            .distinct()
+    }
+
     private fun getSelectedCoreConfigForSystem(system: GameSystem): Flow<SystemCoreConfig> {
         return getSelectedCoreNameForSystem(system)
             .map { coreName ->
@@ -94,5 +142,9 @@ class CoresSelection(
 
         fun computeSystemPreferenceKey(systemID: SystemID) =
             "${CORE_SELECTION_BINDING_PREFERENCE_BASE_KEY}_${systemID.dbname}"
+
+        private const val GAME_CORE_PREFERENCE_BASE_KEY = "pref_key_game_core_selection_"
+
+        fun computeGamePreferenceKey(gameId: Int) = "$GAME_CORE_PREFERENCE_BASE_KEY$gameId"
     }
 }

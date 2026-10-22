@@ -25,7 +25,7 @@ data class LemuroidCoreOption(
     }
 
     fun getEntries(context: Context): List<String> {
-        if (exposedSetting.values.isEmpty()) {
+        if (getCorrectExposedSettings().isEmpty()) {
             return coreOption.optionValues.map { it.capitalize() }
         }
 
@@ -33,7 +33,7 @@ data class LemuroidCoreOption(
     }
 
     fun getEntriesValues(): List<String> {
-        if (exposedSetting.values.isEmpty()) {
+        if (getCorrectExposedSettings().isEmpty()) {
             return coreOption.optionValues.map { it }
         }
 
@@ -48,6 +48,8 @@ data class LemuroidCoreOption(
         return maxOf(getEntriesValues().indexOf(getCurrentValue()), 0)
     }
 
+    // When none of the values known by the app is reported by the core (e.g. another core version), the core
+    // values are shown as they are.
     private fun getCorrectExposedSettings(): List<ExposedSetting.Value> {
         return exposedSetting.values
             .filter { it.key in coreOption.optionValues }

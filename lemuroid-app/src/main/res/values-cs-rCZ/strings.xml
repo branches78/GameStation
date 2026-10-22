@@ -2,8 +2,7 @@
 <resources>
     <string name="title_home">Domovská stránka</string>
     <string name="title_search">Hledat</string>
-    <string name="title_systems">Systémy</string>
-    <string name="tv_title_consoles">Konzole</string>
+    <string name="title_consoles">Konzole</string>
     <string name="title_games">Hry</string>
     <string name="title_settings">Nastavení</string>
     <string name="recent">Pokračovat ve hraní</string>
@@ -214,4 +213,12 @@ Vznikl jako nezávislá verze emulátoru Lemuroid s otevřeným zdrojovým kóde
     <string name="library_loading_listing">Hledání souborů…</string>
     <string name="library_loading_files">%1$d z %2$d souborů</string>
     <string name="library_loading_cores">Příprava emulačních jader: %1$d z %2$d</string>
+    <string name="core_options_scope_game">Jen tato hra</string>
+    <string name="core_options_scope_system">Všechny hry pro %1$s</string>
+    <string name="core_options_scope_title">Uložit změny pro</string>
+    <string name="core_options_game_value">Tato hra</string>
+    <string name="core_options_category_display">Obraz</string>
+    <string name="core_options_clear_game">Odstranit vlastní nastavení této hry</string>
+    <string name="core_options_clear_game_description">Znovu použít nastavení %1$s</string>
+    <string name="core_options_aspect_ratio_unavailable">%1$s neumí změnit poměr stran. Pro 16:9 zvol jádro %2$s (může potřebovat BIOS konzole).</string>
 </resources>

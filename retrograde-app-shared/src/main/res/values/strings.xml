@@ -141,4 +141,8 @@
     <string name="value_swanstation_cpu_recompiler">Recompiler</string>
     <string name="value_swanstation_enabled">Enabled</string>
     <string name="value_swanstation_disabled">Disabled</string>
+    <string name="setting_aspect_ratio">Aspect ratio</string>
+    <string name="value_aspect_ratio_original">Original (4:3)</string>
+    <string name="value_aspect_ratio_stretched">Stretched 16:9</string>
+    <string name="value_aspect_ratio_widescreen">Widescreen</string>
 </resources>

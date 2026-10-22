@@ -118,4 +118,8 @@
     <string name="value_swanstation_cpu_recompiler">Рекомпілятор</string>
     <string name="value_swanstation_enabled">Увімк.</string>
     <string name="value_swanstation_disabled">Вимк.</string>
+    <string name="setting_aspect_ratio">Співвідношення сторін</string>
+    <string name="value_aspect_ratio_original">Оригінал (4:3)</string>
+    <string name="value_aspect_ratio_stretched">Розтягнути до 16:9</string>
+    <string name="value_aspect_ratio_widescreen">Широкоекранний</string>
 </resources>

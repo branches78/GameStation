@@ -1,10 +1,12 @@
 package com.swordfish.lemuroid.app.utils.android.settings
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.currentCompositeKeyHash
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
@@ -17,31 +19,46 @@ import androidx.compose.ui.focus.focusRequester
  * the same key rememberSaveable uses, so it is still valid when the screen is shown again.
  */
 class SettingsFocusMemory {
-    internal val items = mutableStateListOf<Pair<Int, FocusRequester>>()
+    internal class Item(val key: Int, val requester: FocusRequester, val isEnabled: () -> Boolean)
+
+    internal val items = mutableStateListOf<Item>()
 
     var onItemClicked: (Int) -> Unit = { }
 
-    fun firstItem(): FocusRequester? = items.firstOrNull()?.second
+    /** First item that can take the focus (disabled items can't). */
+    fun firstItem(): FocusRequester? = items.firstOrNull { it.isEnabled() }?.requester
 
-    fun item(key: Int): FocusRequester? = items.firstOrNull { it.first == key }?.second
+    fun item(key: Int): FocusRequester? = items.firstOrNull { it.key == key && it.isEnabled() }?.requester
 }
 
 /** Only provided on TV: on mobile the settings items don't track the focus. */
 val LocalSettingsFocusMemory = staticCompositionLocalOf<SettingsFocusMemory?> { null }
 
-internal class SettingsFocusItem(val modifier: Modifier, val onClicked: () -> Unit)
-
+/**
+ * Registers [content] (one settings item) in the [SettingsFocusMemory] of the screen, if any, and gives
+ * [content] the callback to call when the item is clicked. The focus requester goes on a box around the item:
+ * the settings library puts the modifier of its tiles after their clickable, where it would find nothing to focus.
+ */
 @Composable
-internal fun rememberSettingsFocusItem(): SettingsFocusItem? {
-    val memory = LocalSettingsFocusMemory.current ?: return null
+internal fun SettingsFocusItem(
+    enabled: Boolean,
+    content: @Composable (onClicked: () -> Unit) -> Unit,
+) {
+    val memory = LocalSettingsFocusMemory.current
+    if (memory == null) {
+        content { }
+        return
+    }
+
     val key = currentCompositeKeyHash
     val requester = remember { FocusRequester() }
+    val currentEnabled = rememberUpdatedState(enabled)
     DisposableEffect(memory, key) {
-        val entry = key to requester
-        memory.items.add(entry)
-        onDispose { memory.items.remove(entry) }
+        val item = SettingsFocusMemory.Item(key, requester) { currentEnabled.value }
+        memory.items.add(item)
+        onDispose { memory.items.remove(item) }
     }
-    return remember(memory, key) {
-        SettingsFocusItem(Modifier.focusRequester(requester)) { memory.onItemClicked(key) }
+    Box(modifier = Modifier.focusRequester(requester)) {
+        content { memory.onItemClicked(key) }
     }
 }

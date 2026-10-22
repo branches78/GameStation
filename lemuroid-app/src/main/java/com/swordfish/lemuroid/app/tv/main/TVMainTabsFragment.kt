@@ -99,13 +99,19 @@ class TVMainTabsFragment : Fragment(R.layout.fragment_tv_main_tabs) {
         direction: Int,
     ): View? {
         val content = getContentView() ?: return null
-        if (focused == null || direction != View.FOCUS_UP || !isDescendant(content, focused)) {
+        if (focused == null || !isDescendant(content, focused)) {
             return null
         }
 
-        // When moving up out of the content, always land on the selected tab.
         val nextInContent = FocusFinder.getInstance().findNextFocus(content, focused, direction)
-        return if (nextInContent == null) tabs[selectedTab] else null
+        return when {
+            nextInContent != null -> null
+            // When moving up out of the content, always land on the selected tab.
+            direction == View.FOCUS_UP -> tabs[selectedTab]
+            // Left, right or down out of the content (e.g. left on the first card of a row) keeps the focus where it
+            // is: otherwise Android would move it to the search button, the closest view on that side.
+            else -> focused
+        }
     }
 
     private fun isDescendant(

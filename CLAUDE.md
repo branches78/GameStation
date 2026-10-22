@@ -68,7 +68,8 @@ No se sincroniza con Lemuroid: el código es propio y va por su cuenta.
   "Configurar núcleo" del menú de un juego muestra las opciones dentro de la misma ventana (`TVGameContextMenu.kt`).
   El título de esas rejillas va alineado a la izquierda sobre una franja opaca, y las carátulas pasan por debajo al
   hacer scroll (`TVTabGrids.addTitle`). La pestaña se llama "Consolas" también en el móvil (`title_consoles`). En el móvil, Consolas tiene el mismo botón de lista/cuadrícula que los juegos de una consola, con su propio modo guardado (`systems_grid_mode`, `MainViewModel`), y la cuadrícula es de 3 por fila (`MetaSystemScreen.kt`).
-  Las rejillas de TV no oscurecen las tarjetas sin foco (`VerticalGridPresenter(..., useFocusDimmer = false)`); Ajustes de TV reutilizan las
+  El foco no sale del contenido de una pestaña con ←, → o ↓ (antes ← en la primera tarjeta saltaba a la lupa);
+  con ↑ va a la pestaña seleccionada (`TVMainTabsFragment.onFocusSearch`). Las rejillas de TV no oscurecen las tarjetas sin foco (`VerticalGridPresenter(..., useFocusDimmer = false)`); Ajustes de TV reutilizan las
   pantallas Compose del móvil (`tv/settings/TVSettingsTabFragment.kt`); al abrir una sub-opción el foco va a su primera
   opción y al volver con Atrás a la que la abrió (`TVSettingsDestination` + `SettingsFocusMemory.kt`, que registra las
   filas de `Components.kt`); estilo de tarjetas en `tv/shared/TVCardStyle.kt`.

@@ -51,22 +51,22 @@ fun LemuroidSettingsSwitch(
     subtitle: @Composable (() -> Unit)? = null,
     onCheckedChange: (Boolean) -> Unit = {},
 ) {
-    val focusItem = rememberSettingsFocusItem()
-    DarkGreenFills {
-        SettingsSwitch(
-            modifier = focusItem?.modifier ?: Modifier,
-            enabled = enabled,
-            state = state.value,
-            icon = icon,
-            title = title,
-            subtitle = subtitle,
-            onCheckedChange = {
-                focusItem?.onClicked?.invoke()
-                state.value = it
-                onCheckedChange(it)
-            },
-            colors = lemuroidSettingsColor(enabled),
-        )
+    SettingsFocusItem(enabled) { onFocusItemClicked ->
+        DarkGreenFills {
+            SettingsSwitch(
+                enabled = enabled,
+                state = state.value,
+                icon = icon,
+                title = title,
+                subtitle = subtitle,
+                onCheckedChange = {
+                    onFocusItemClicked()
+                    state.value = it
+                    onCheckedChange(it)
+                },
+                colors = lemuroidSettingsColor(enabled),
+            )
+        }
     }
 }
 
@@ -79,20 +79,20 @@ fun LemuroidSettingsMenuLink(
     action: (@Composable () -> Unit)? = null,
     onClick: () -> Unit,
 ) {
-    val focusItem = rememberSettingsFocusItem()
-    SettingsMenuLink(
-        modifier = focusItem?.modifier ?: Modifier,
-        enabled = enabled,
-        icon = icon,
-        title = title,
-        subtitle = subtitle,
-        action = action,
-        onClick = {
-            focusItem?.onClicked?.invoke()
-            onClick()
-        },
-        colors = lemuroidSettingsColor(enabled),
-    )
+    SettingsFocusItem(enabled) { onFocusItemClicked ->
+        SettingsMenuLink(
+            enabled = enabled,
+            icon = icon,
+            title = title,
+            subtitle = subtitle,
+            action = action,
+            onClick = {
+                onFocusItemClicked()
+                onClick()
+            },
+            colors = lemuroidSettingsColor(enabled),
+        )
+    }
 }
 
 @Composable
@@ -155,18 +155,19 @@ fun LemuroidSettingsSlider(
             supportingColor = defaultColors.supportingTextColor.copy(alpha = 0.3f),
         )
 
-    val focusItem = rememberSettingsFocusItem()
-    SettingsSlider(
-        modifier = focusItem?.modifier?.let { modifier.then(it) } ?: modifier,
-        steps = steps,
-        value = state.value.toFloat(),
-        onValueChange = { state.value = it.roundToInt() },
-        valueRange = valueRange,
-        title = title,
-        subtitle = subtitle,
-        enabled = enabled,
-        colors = if (enabled) defaultColors else disabledColors,
-    )
+    SettingsFocusItem(enabled) {
+        SettingsSlider(
+            modifier = modifier,
+            steps = steps,
+            value = state.value.toFloat(),
+            onValueChange = { state.value = it.roundToInt() },
+            valueRange = valueRange,
+            title = title,
+            subtitle = subtitle,
+            enabled = enabled,
+            colors = if (enabled) defaultColors else disabledColors,
+        )
+    }
 }
 
 // Switch tracks use the dark green fill (with the light green on top) instead of the primary color.

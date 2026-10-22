@@ -6,7 +6,6 @@ import android.graphics.Paint
 import android.graphics.Rect
 import android.graphics.RectF
 import android.graphics.Typeface
-import android.graphics.drawable.GradientDrawable
 import android.view.KeyEvent
 import android.view.View
 import androidx.core.content.ContextCompat
@@ -40,13 +39,9 @@ class TVAlphabetBar(context: Context) : View(context) {
     private val highlightRect = RectF()
     private val textBounds = Rect()
 
+    // No background: only the letters are drawn.
     init {
         isFocusable = true
-        background =
-            GradientDrawable().apply {
-                setColor(ContextCompat.getColor(context, R.color.md_theme_dark_surfaceContainer))
-                cornerRadius = resources.getDimension(R.dimen.tv_alphabet_width) / 2
-            }
     }
 
     fun setAvailableLetters(letters: Set<Char>) {

@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="ok">OK</string>
+    <string name="tv_title_consoles">Consoles</string>
+    <string name="library_loading_title">Loading your games</string>
+    <string name="library_loading_message">We are looking for the games in the folder you chose. It can take a few minutes if you have many.</string>
+    <string name="library_loading_listing">Looking for files…</string>
+    <string name="library_loading_files">%1$d of %2$d files</string>
 </resources>

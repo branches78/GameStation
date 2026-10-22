@@ -17,7 +17,8 @@ class MainTVViewModel(appContext: Context) : ViewModel() {
 
     val inProgress =
         PendingOperationsMonitor(appContext)
-            .anyOperationInProgress()
+            // The directory scan shows its own progress bar in the "Home" tab and in the settings.
+            .anyOperationInProgressExceptScan()
             .stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.Lazily,

@@ -3,6 +3,7 @@ package com.swordfish.lemuroid.app.tv.shared
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.view.KeyEvent
 import androidx.activity.ComponentDialog
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -24,7 +25,7 @@ object TVGameContextMenu {
         game: Game,
         gameInteractor: GameInteractor,
     ) {
-        val dialog = ComponentDialog(context)
+        val dialog = LongPressSafeDialog(context)
         val content =
             ComposeView(context).apply {
                 setContent {
@@ -63,6 +64,34 @@ object TVGameContextMenu {
         // The rounded surface draws the background, the window itself stays transparent.
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.show()
+    }
+
+    /**
+     * The menu opens with a long press of the confirm button, which is still held down: its repeated presses and its
+     * release would select the first entry. They are ignored until the button is pressed again inside the menu.
+     */
+    private class LongPressSafeDialog(context: Context) : ComponentDialog(context) {
+        private var confirmPressedInDialog = false
+
+        override fun dispatchKeyEvent(event: KeyEvent): Boolean {
+            if (!isConfirmKey(event.keyCode)) {
+                return super.dispatchKeyEvent(event)
+            }
+            if (event.action == KeyEvent.ACTION_DOWN && event.repeatCount == 0) {
+                confirmPressedInDialog = true
+            }
+            if (!confirmPressedInDialog) {
+                return true
+            }
+            return super.dispatchKeyEvent(event)
+        }
+
+        private fun isConfirmKey(keyCode: Int): Boolean {
+            return keyCode == KeyEvent.KEYCODE_DPAD_CENTER ||
+                keyCode == KeyEvent.KEYCODE_ENTER ||
+                keyCode == KeyEvent.KEYCODE_NUMPAD_ENTER ||
+                keyCode == KeyEvent.KEYCODE_BUTTON_A
+        }
     }
 
     private const val DIALOG_MAX_WIDTH = 460

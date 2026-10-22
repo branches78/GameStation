@@ -15,6 +15,7 @@ fun LemuroidGameCard(
     modifier: Modifier = Modifier,
     game: Game,
     matchCoverShape: Boolean = true,
+    fixedRatio: Float? = null,
     onClick: () -> Unit = { },
     onLongClick: () -> Unit = { },
 ) {
@@ -30,7 +31,7 @@ fun LemuroidGameCard(
                         onLongClick = onLongClick,
                     ),
         ) {
-            LemuroidGameImage(game = game, matchCoverShape = matchCoverShape)
+            LemuroidGameImage(game = game, matchCoverShape = matchCoverShape, fixedRatio = fixedRatio)
             LemuroidGameTexts(game = game, reserveTitleLines = true)
         }
     }

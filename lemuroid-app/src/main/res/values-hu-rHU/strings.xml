@@ -3,6 +3,7 @@
     <string name="title_home">Kezdőlap</string>
     <string name="title_search">Keresés</string>
     <string name="title_systems">Konzolok</string>
+    <string name="tv_title_consoles">Konzolok</string>
     <string name="title_games">Játékok</string>
     <string name="title_settings">Beállítások</string>
     <string name="recent">Játék folytatása</string>
@@ -78,4 +79,8 @@ A Lemuroid, Filippo Scognamiglio nyílt forráskódú emulátorának független 
 • Borítók: libretro-thumbnails.</string>
     <string name="help_covers_question">Miért hiányzik egy borító, vagy miért rossz a név?</string>
     <string name="help_covers_answer">A játékokat először a tartalmuk alapján ismeri fel. Ha ez nem sikerül, a fájlnevet használja: nevezd el a fájlokat így: \"Játéknév (USA).nes\", vagy csak \"Játéknév.nes\". Átnevezés után olvasd be újra a játékokat.</string>
+    <string name="library_loading_title">Játékaid betöltése</string>
+    <string name="library_loading_message">Keressük a játékokat a kiválasztott mappában. Ha sok van, ez néhány percig is eltarthat.</string>
+    <string name="library_loading_listing">Fájlok keresése…</string>
+    <string name="library_loading_files">%1$d / %2$d fájl</string>
 </resources>

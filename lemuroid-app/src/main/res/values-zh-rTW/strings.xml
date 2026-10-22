@@ -3,6 +3,7 @@
     <string name="title_home">首頁</string>
     <string name="title_search">搜尋</string>
     <string name="title_systems">主機</string>
+    <string name="tv_title_consoles">遊戲機</string>
     <string name="title_games">遊戲</string>
     <string name="title_settings">設定</string>
     <string name="recent">繼續遊戲</string>
@@ -194,4 +195,8 @@
 • 封面：libretro-thumbnails。</string>
     <string name="help_covers_question">為什麼缺少封面或名稱不正確？</string>
     <string name="help_covers_answer">遊戲首先依內容辨識。若辨識失敗，則使用檔案名稱：將檔案命名為「遊戲名稱 (USA).nes」，或僅命名為「遊戲名稱.nes」。重新命名後，請重新掃描遊戲。</string>
+    <string name="library_loading_title">正在載入你的遊戲</string>
+    <string name="library_loading_message">正在尋找你所選資料夾中的遊戲。如果遊戲很多，可能需要幾分鐘。</string>
+    <string name="library_loading_listing">正在尋找檔案…</string>
+    <string name="library_loading_files">%1$d / %2$d 個檔案</string>
 </resources>

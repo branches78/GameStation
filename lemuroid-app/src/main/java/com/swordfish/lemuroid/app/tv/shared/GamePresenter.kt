@@ -17,6 +17,8 @@ class GamePresenter(
     private val gameInteractor: GameInteractor,
     // When false (grids) every card keeps the shape of its system and other covers are shown whole inside it.
     private val matchCoverShape: Boolean = true,
+    // When set (home rows) every card has this shape (width / height) and other covers are shown whole inside it.
+    private val fixedRatio: Float? = null,
 ) : Presenter() {
     override fun onBindViewHolder(
         viewHolder: Presenter.ViewHolder?,
@@ -40,7 +42,12 @@ class GamePresenter(
         viewHolder: ViewHolder,
         game: Game,
     ) {
-        val cardRatio = if (matchCoverShape) CoverAspectRatio.forGame(game) else CoverAspectRatio.forGameSystem(game)
+        val cardRatio =
+            when {
+                fixedRatio != null -> fixedRatio
+                matchCoverShape -> CoverAspectRatio.forGame(game)
+                else -> CoverAspectRatio.forGameSystem(game)
+            }
         val cardWidth = (cardSize * cardRatio).roundToInt()
         val imageView = viewHolder.mCardView.mainImageView
         val layoutParams = imageView?.layoutParams

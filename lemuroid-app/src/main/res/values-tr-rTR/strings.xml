@@ -3,6 +3,7 @@
     <string name="title_home">Ana sayfa</string>
     <string name="title_search">Ara</string>
     <string name="title_systems">Sistemler</string>
+    <string name="tv_title_consoles">Konsollar</string>
     <string name="title_games">Oyunlar</string>
     <string name="title_settings">Ayarlar</string>
     <string name="recent">Oynamaya devam et</string>
@@ -210,4 +211,8 @@ Filippo Scognamiglio\'nun açık kaynak emülatörü Lemuroid\'in bağımsız bi
 • Kapaklar: libretro-thumbnails.</string>
     <string name="help_covers_question">Neden bir kapak eksik veya ad yanlış?</string>
     <string name="help_covers_answer">Oyunlar önce içeriklerine göre tanınır. Bu başarısız olursa dosya adı kullanılır: dosyalarını \"OyunAdı (USA).nes\" ya da yalnızca \"OyunAdı.nes\" şeklinde adlandır. Yeniden adlandırdıktan sonra oyunlarını yeniden tara.</string>
+    <string name="library_loading_title">Oyunların yükleniyor</string>
+    <string name="library_loading_message">Seçtiğin klasördeki oyunları arıyoruz. Çok oyunun varsa birkaç dakika sürebilir.</string>
+    <string name="library_loading_listing">Dosyalar aranıyor…</string>
+    <string name="library_loading_files">%2$d dosyadan %1$d</string>
 </resources>

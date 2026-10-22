@@ -3,6 +3,7 @@
     <string name="title_home">Acasă</string>
     <string name="title_search">Caută</string>
     <string name="title_systems">Sisteme</string>
+    <string name="tv_title_consoles">Console</string>
     <string name="title_games">Jocuri</string>
     <string name="title_settings">Setări</string>
     <string name="recent">Continuă jocul</string>
@@ -197,4 +198,8 @@ A pornit ca o versiune independentă a Lemuroid, emulatorul open source al lui F
 • Coperți: libretro-thumbnails.</string>
     <string name="help_covers_question">De ce lipsește o copertă sau numele este greșit?</string>
     <string name="help_covers_answer">Jocurile sunt recunoscute mai întâi după conținut. Dacă nu reușește, se folosește numele fișierului: denumește fișierele ca \"NumeleJocului (USA).nes\" sau doar \"NumeleJocului.nes\". După redenumire, scanează din nou jocurile.</string>
+    <string name="library_loading_title">Se încarcă jocurile tale</string>
+    <string name="library_loading_message">Căutăm jocurile din dosarul pe care l-ai ales. Poate dura câteva minute dacă ai multe.</string>
+    <string name="library_loading_listing">Se caută fișiere…</string>
+    <string name="library_loading_files">%1$d din %2$d fișiere</string>
 </resources>

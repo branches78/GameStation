@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Thin rounded progress bar of the library scan: light green over a dark track, like the mobile one. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@android:id/background">
+        <shape android:shape="rectangle">
+            <corners android:radius="@dimen/tv_progress_bar_corner_radius" />
+            <solid android:color="@color/md_theme_dark_surfaceContainerHighest" />
+        </shape>
+    </item>
+    <item android:id="@android:id/progress">
+        <clip>
+            <shape android:shape="rectangle">
+                <corners android:radius="@dimen/tv_progress_bar_corner_radius" />
+                <solid android:color="@color/md_theme_dark_primary" />
+            </shape>
+        </clip>
+    </item>
+</layer-list>

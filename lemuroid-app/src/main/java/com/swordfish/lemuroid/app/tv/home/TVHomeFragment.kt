@@ -1,30 +1,33 @@
 package com.swordfish.lemuroid.app.tv.home
 
 import android.content.Context
+import android.content.res.Resources
 import android.os.Bundle
+import android.view.ContextThemeWrapper
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import androidx.core.view.isInvisible
-import androidx.core.view.isVisible
 import androidx.leanback.app.RowsSupportFragment
 import androidx.leanback.widget.ArrayObjectAdapter
+import androidx.leanback.widget.BaseGridView
 import androidx.leanback.widget.ClassPresenterSelector
 import androidx.leanback.widget.DiffCallback
 import androidx.leanback.widget.HeaderItem
 import androidx.leanback.widget.ListRow
 import androidx.leanback.widget.ListRowPresenter
 import androidx.leanback.widget.OnItemViewClickedListener
+import androidx.leanback.widget.RowPresenter
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.swordfish.lemuroid.R
 import com.swordfish.lemuroid.app.shared.GameInteractor
 import com.swordfish.lemuroid.app.shared.home.HomeDynamicRows
 import com.swordfish.lemuroid.app.shared.systems.MetaSystemInfo
+import com.swordfish.lemuroid.app.tv.main.TVMainTabsFragment
 import com.swordfish.lemuroid.app.tv.shared.GamePresenter
-import com.swordfish.lemuroid.app.tv.shared.TVHelper
+import com.swordfish.lemuroid.app.tv.shared.TVEmptyLibraryCard
 import com.swordfish.lemuroid.common.coroutines.launchOnState
 import com.swordfish.lemuroid.lib.library.db.RetrogradeDatabase
 import com.swordfish.lemuroid.lib.library.db.entity.Game
@@ -49,43 +52,45 @@ class TVHomeFragment : RowsSupportFragment() {
         super.onAttach(context)
     }
 
-    private var emptyLibraryView: View? = null
-    private var rowsView: View? = null
+    private var emptyLibraryCard: TVEmptyLibraryCard? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        val rowsView = super.onCreateView(inflater, container, savedInstanceState) ?: return null
+        // The rows keep only a small side padding for the zoom of the focused card (see TVHomeRowsOverlay).
+        val rowsInflater = inflater.cloneInContext(ContextThemeWrapper(requireContext(), R.style.TVHomeRowsOverlay))
+        val rowsView = super.onCreateView(rowsInflater, container, savedInstanceState) ?: return null
 
         // The rows are wrapped to add the card shown when the library is empty, like the mobile one.
+        // They are centered with the width of the other tabs and clipped there, so no cover is ever cut
+        // by the screen sides, also while scrolling.
         val root = FrameLayout(requireContext())
-        root.addView(rowsView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+        val rowEdge = resources.getDimensionPixelSize(R.dimen.tv_home_row_edge)
+        val rowsLayoutParams =
+            FrameLayout.LayoutParams(rowsContentWidth() + 2 * rowEdge, ViewGroup.LayoutParams.MATCH_PARENT)
+        rowsLayoutParams.gravity = Gravity.CENTER_HORIZONTAL
+        root.addView(rowsView, rowsLayoutParams)
 
         val emptyView = inflater.inflate(R.layout.tv_home_empty_library, root, false)
-        emptyView.findViewById<View>(R.id.tv_empty_library_action)
-            .setOnClickListener { TVHelper.launchFolderPicker(requireContext()) }
         root.addView(emptyView)
-        emptyLibraryView = emptyView
-        this.rowsView = rowsView
+        emptyLibraryCard = TVEmptyLibraryCard(emptyView, rowsView)
 
         return root
     }
 
     override fun onDestroyView() {
-        emptyLibraryView = null
-        rowsView = null
+        emptyLibraryCard = null
         super.onDestroyView()
     }
 
     private fun updateEmptyLibraryCard(viewState: TVHomeViewModel.HomeViewState) {
-        val emptyView = emptyLibraryView ?: return
-        val isLibraryEmpty = viewState.metaSystems.isEmpty()
-        emptyView.isVisible = isLibraryEmpty
-        // The empty rows list is still focusable and would take the remote focus instead of the button.
-        rowsView?.isInvisible = isLibraryEmpty
-        emptyView.findViewById<View>(R.id.tv_empty_library_action).isEnabled = !viewState.indexInProgress
+        emptyLibraryCard?.update(
+            isLibraryEmpty = viewState.metaSystems.isEmpty(),
+            indexInProgress = viewState.indexInProgress,
+            scanProgress = viewState.scanProgress,
+        )
     }
 
     override fun onViewCreated(
@@ -115,7 +120,7 @@ class TVHomeFragment : RowsSupportFragment() {
 
     private fun onSettingClicked(setting: TVSetting) {
         when (setting.type) {
-            TVSettingType.SHOW_ALL_FAVORITES -> findNavController().navigate(R.id.navigation_favorites)
+            TVSettingType.SHOW_ALL_FAVORITES -> (parentFragment as? TVMainTabsFragment)?.showFavorites()
             else -> Unit
         }
     }
@@ -186,9 +191,16 @@ class TVHomeFragment : RowsSupportFragment() {
             .map { HomeRow(it.key, it.title, it.games) }
     }
 
+    private fun rowsContentWidth(): Int = rowsContentWidth(resources)
+
+    private fun homeCardSize(): Int = homeCardSize(resources)
+
+    private fun homeCardSpacing(): Int = homeCardSpacing(resources)
+
     private fun createAdapter(rows: List<HomeRow>) {
-        val result = ArrayObjectAdapter(ListRowPresenter())
-        val cardSize = resources.getDimensionPixelSize(com.swordfish.lemuroid.lib.R.dimen.card_size)
+        val rowEdge = resources.getDimensionPixelSize(R.dimen.tv_home_row_edge)
+        val result = ArrayObjectAdapter(HomeListRowPresenter(rowEdge, homeCardSpacing()))
+        val cardSize = homeCardSize()
         val settingsCardPadding =
             resources.getDimensionPixelSize(
                 com.swordfish.lemuroid.lib.R.dimen.settings_card_padding,
@@ -196,9 +208,9 @@ class TVHomeFragment : RowsSupportFragment() {
 
         val presenter =
             ClassPresenterSelector().apply {
-                addClassPresenter(Game::class.java, GamePresenter(cardSize, gameInteractor))
+                addClassPresenter(Game::class.java, GamePresenter(cardSize, gameInteractor, fixedRatio = 1f))
                 addClassPresenter(TVSetting::class.java, SettingPresenter(cardSize, settingsCardPadding))
-                addClassPresenter(EmptyRowMessage::class.java, EmptyRowMessagePresenter(cardSize))
+                addClassPresenter(EmptyRowMessage::class.java, EmptyRowMessagePresenter(cardSize, rowsContentWidth()))
             }
 
         rows.forEachIndexed { index, row ->
@@ -209,7 +221,45 @@ class TVHomeFragment : RowsSupportFragment() {
         currentRows = rows.map { it.key to it.title }
     }
 
+    /**
+     * Rows that move one card at a time: the focused card is aligned to the first position (like Google TV),
+     * and at the end of the row the last cards fill it. As all the cards have the same width, the visible
+     * cards are always whole.
+     */
+    private class HomeListRowPresenter(
+        private val rowEdge: Int,
+        private val cardSpacing: Int,
+    ) : ListRowPresenter() {
+        override fun initializeRowViewHolder(holder: RowPresenter.ViewHolder) {
+            super.initializeRowViewHolder(holder)
+            val gridView = (holder as ListRowPresenter.ViewHolder).gridView
+            gridView.horizontalSpacing = cardSpacing
+            gridView.windowAlignment = BaseGridView.WINDOW_ALIGN_BOTH_EDGE
+            gridView.windowAlignmentOffset = rowEdge
+            gridView.windowAlignmentOffsetPercent = BaseGridView.WINDOW_ALIGN_OFFSET_PERCENT_DISABLED
+            gridView.itemAlignmentOffset = 0
+            gridView.itemAlignmentOffsetPercent = 0f
+        }
+    }
+
     companion object {
+        /** Same width as the content of the other tabs, rounded down to whole cards. */
+        fun rowsContentWidth(resources: Resources): Int {
+            val cardsPerRow = cardsPerRow(resources)
+            return cardsPerRow * homeCardSize(resources) + (cardsPerRow - 1) * homeCardSpacing(resources)
+        }
+
+        /** Size of the square game cards of the home rows (also used by the favorites grid). */
+        fun homeCardSize(resources: Resources): Int {
+            val cardsPerRow = cardsPerRow(resources)
+            val contentWidth = resources.getDimensionPixelSize(R.dimen.tv_content_width)
+            return (contentWidth - (cardsPerRow - 1) * homeCardSpacing(resources)) / cardsPerRow
+        }
+
+        fun homeCardSpacing(resources: Resources): Int = resources.getDimensionPixelSize(R.dimen.tv_home_card_spacing)
+
+        fun cardsPerRow(resources: Resources): Int = resources.getInteger(R.integer.tv_home_cards_per_row)
+
         private const val KEY_RECENTS = "recents"
         private const val KEY_FAVORITES = "favorites"
         private const val KEY_DISCOVER = "discover"

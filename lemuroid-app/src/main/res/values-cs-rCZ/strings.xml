@@ -3,6 +3,7 @@
     <string name="title_home">Domovská stránka</string>
     <string name="title_search">Hledat</string>
     <string name="title_systems">Systémy</string>
+    <string name="tv_title_consoles">Konzole</string>
     <string name="title_games">Hry</string>
     <string name="title_settings">Nastavení</string>
     <string name="recent">Pokračovat ve hraní</string>
@@ -208,4 +209,8 @@ Vznikl jako nezávislá verze emulátoru Lemuroid s otevřeným zdrojovým kóde
 • Obaly: libretro-thumbnails.</string>
     <string name="help_covers_question">Proč chybí obal nebo je název špatně?</string>
     <string name="help_covers_answer">Hry se nejprve rozpoznávají podle obsahu. Pokud to selže, použije se název souboru: pojmenujte soubory jako \"NazevHry (USA).nes\" nebo jen \"NazevHry.nes\". Po přejmenování hry znovu prohledejte.</string>
+    <string name="library_loading_title">Načítání tvých her</string>
+    <string name="library_loading_message">Hledáme hry ve složce, kterou jsi vybral. Pokud jich máš hodně, může to trvat několik minut.</string>
+    <string name="library_loading_listing">Hledání souborů…</string>
+    <string name="library_loading_files">%1$d z %2$d souborů</string>
 </resources>

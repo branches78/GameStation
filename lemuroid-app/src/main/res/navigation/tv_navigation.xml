@@ -7,34 +7,11 @@
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.swordfish.lemuroid.app.tv.main.TVMainTabsFragment"
-        android:label="@string/title_home">
-
-        <action
-            android:id="@+id/action_navigation_systems_to_navigation_games"
-            app:destination="@id/navigation_games" />
-
-    </fragment>
+        android:label="@string/title_home" />
 
     <fragment
         android:id="@+id/navigation_search"
         android:name="com.swordfish.lemuroid.app.tv.search.TVSearchFragment"
         android:label="@string/title_search"/>
-
-    <fragment
-        android:id="@+id/navigation_games"
-        android:name="com.swordfish.lemuroid.app.tv.games.TVGamesFragment"
-        android:label="@string/title_games">
-
-        <argument
-            android:name="meta_system_id"
-            app:argType="string"
-            app:nullable="false" />
-
-    </fragment>
-
-    <fragment
-        android:id="@+id/navigation_favorites"
-        android:name="com.swordfish.lemuroid.app.tv.favorites.TVFavoritesFragment"
-        android:label="@string/favorites"/>
 
 </navigation>

@@ -154,7 +154,9 @@ class TVSettingsTabFragment : Fragment() {
     }
 
     companion object {
-        private val CONTENT_MAX_WIDTH = 720.dp
+        // The settings cards have 16dp of side padding: they end up 672dp wide, like the "Consoles" grid
+        // (5 cards of 128dp + 4 spacings of 8dp) and the "About" cards.
+        private val CONTENT_MAX_WIDTH = 704.dp
     }
 
     @dagger.Module

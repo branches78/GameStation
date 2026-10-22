@@ -3,6 +3,7 @@
     <string name="title_home">Inici</string>
     <string name="title_search">Cerca</string>
     <string name="title_systems">Sistemes</string>
+    <string name="tv_title_consoles">Consoles</string>
     <string name="title_games">Jocs</string>
     <string name="title_settings">Configuració</string>
     <string name="recent">Continua jugant</string>
@@ -120,4 +121,8 @@ Va néixer com una versió independent de Lemuroid, l\'emulador de codi obert de
 • Caràtules: libretro-thumbnails.</string>
     <string name="help_covers_question">Per què falta una caràtula o el nom no és correcte?</string>
     <string name="help_covers_answer">Els jocs es reconeixen primer pel seu contingut. Si això falla, es fa servir el nom del fitxer: anomena\'ls com \"Nomdeljoc (USA).nes\", o només com \"Nomdeljoc.nes\". Després de canviar-los el nom, torna a escanejar els jocs.</string>
+    <string name="library_loading_title">S\'estan carregant els teus jocs</string>
+    <string name="library_loading_message">Estem buscant els jocs de la carpeta que has triat. Pot trigar uns minuts si en tens molts.</string>
+    <string name="library_loading_listing">S\'estan buscant fitxers…</string>
+    <string name="library_loading_files">%1$d de %2$d fitxers</string>
 </resources>

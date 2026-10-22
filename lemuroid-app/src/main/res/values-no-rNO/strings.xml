@@ -3,6 +3,7 @@
     <string name="title_home">Hjem</string>
     <string name="title_search">Søk</string>
     <string name="title_systems">Systemer</string>
+    <string name="tv_title_consoles">Konsoller</string>
     <string name="title_games">Spill</string>
     <string name="title_settings">Innstillinger</string>
     <string name="recent">Fortsett å spille</string>
@@ -209,4 +210,8 @@ Den startet som en uavhengig versjon av Lemuroid, åpen kildekode-emulatoren av 
 • Omslag: libretro-thumbnails.</string>
     <string name="help_covers_question">Hvorfor mangler et omslag, eller hvorfor er navnet feil?</string>
     <string name="help_covers_answer">Spill gjenkjennes først etter innholdet. Hvis det mislykkes, brukes filnavnet: gi filene navn som \"Spillnavn (USA).nes\", eller bare \"Spillnavn.nes\". Skann spillene på nytt etter at du har endret navnene.</string>
+    <string name="library_loading_title">Laster inn spillene dine</string>
+    <string name="library_loading_message">Vi leter etter spillene i mappen du valgte. Det kan ta noen minutter hvis du har mange.</string>
+    <string name="library_loading_listing">Leter etter filer…</string>
+    <string name="library_loading_files">%1$d av %2$d filer</string>
 </resources>

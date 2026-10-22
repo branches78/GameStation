@@ -3,6 +3,7 @@
     <string name="title_home">Koti</string>
     <string name="title_search">Etsi</string>
     <string name="title_systems">Järjestelmät</string>
+    <string name="tv_title_consoles">Konsolit</string>
     <string name="title_games">Pelit</string>
     <string name="title_settings">Asetukset</string>
     <string name="recent">Jatka pelaamista</string>
@@ -203,4 +204,8 @@ Se sai alkunsa itsenäisenä versiona Lemuroidista, Filippo Scognamiglion avoime
 • Kansikuvat: libretro-thumbnails.</string>
     <string name="help_covers_question">Miksi kansikuva puuttuu tai nimi on väärä?</string>
     <string name="help_covers_answer">Pelit tunnistetaan ensin niiden sisällöstä. Jos se ei onnistu, käytetään tiedostonimeä: nimeä tiedostot kuten \"Pelinnimi (USA).nes\" tai pelkästään \"Pelinnimi.nes\". Nimeämisen jälkeen skannaa pelit uudelleen.</string>
+    <string name="library_loading_title">Ladataan pelejäsi</string>
+    <string name="library_loading_message">Etsimme pelejä valitsemastasi kansiosta. Tämä voi kestää muutaman minuutin, jos pelejä on paljon.</string>
+    <string name="library_loading_listing">Etsitään tiedostoja…</string>
+    <string name="library_loading_files">%1$d / %2$d tiedostoa</string>
 </resources>

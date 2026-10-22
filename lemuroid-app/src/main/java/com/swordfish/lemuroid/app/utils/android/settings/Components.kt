@@ -51,18 +51,20 @@ fun LemuroidSettingsSwitch(
     subtitle: @Composable (() -> Unit)? = null,
     onCheckedChange: (Boolean) -> Unit = {},
 ) {
-    SettingsSwitch(
-        enabled = enabled,
-        state = state.value,
-        icon = icon,
-        title = title,
-        subtitle = subtitle,
-        onCheckedChange = {
-            state.value = it
-            onCheckedChange(it)
-        },
-        colors = lemuroidSettingsColor(enabled),
-    )
+    DarkGreenFills {
+        SettingsSwitch(
+            enabled = enabled,
+            state = state.value,
+            icon = icon,
+            title = title,
+            subtitle = subtitle,
+            onCheckedChange = {
+                state.value = it
+                onCheckedChange(it)
+            },
+            colors = lemuroidSettingsColor(enabled),
+        )
+    }
 }
 
 @Composable
@@ -155,6 +157,20 @@ fun LemuroidSettingsSlider(
         subtitle = subtitle,
         enabled = enabled,
         colors = if (enabled) defaultColors else disabledColors,
+    )
+}
+
+// Switch tracks use the dark green fill (with the light green on top) instead of the primary color.
+@Composable
+private fun DarkGreenFills(content: @Composable () -> Unit) {
+    val colorScheme = MaterialTheme.colorScheme
+    MaterialTheme(
+        colorScheme =
+            colorScheme.copy(
+                primary = colorScheme.secondaryContainer,
+                onPrimary = colorScheme.onSecondaryContainer,
+            ),
+        content = content,
     )
 }
 

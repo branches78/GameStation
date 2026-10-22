@@ -14,10 +14,25 @@
     <dimen name="tv_empty_library_width">520dp</dimen>
     <dimen name="tv_empty_library_padding">24dp</dimen>
     <dimen name="tv_empty_library_spacing">16dp</dimen>
-    <dimen name="tv_games_title_top_margin">32dp</dimen>
-    <dimen name="tv_games_grid_top_padding">96dp</dimen>
+    <dimen name="tv_progress_bar_height">8dp</dimen>
+    <dimen name="tv_progress_bar_corner_radius">4dp</dimen>
+    <!-- The games of a system are shown below the tabs bar: title right below it, then the grid. -->
+    <dimen name="tv_games_title_top_margin">4dp</dimen>
+    <dimen name="tv_games_grid_top_padding">64dp</dimen>
     <!-- Focused cards grow a little, so some extra room is kept between columns. -->
     <dimen name="tv_games_card_extra_spacing">16dp</dimen>
+    <!-- Width of the tabs content: the "Consoles" grid (5 cards of 128dp + 4 spacings of 8dp) and the "About" cards. -->
+    <dimen name="tv_content_width">672dp</dimen>
+    <!-- Home rows: 4 square cards fill the content width. -->
+    <integer name="tv_home_cards_per_row">4</integer>
+    <dimen name="tv_home_card_spacing">12dp</dimen>
+    <!-- Room on both sides of the rows for the zoom of the focused card; nothing else is drawn there. -->
+    <dimen name="tv_home_row_edge">12dp</dimen>
+
+    <style name="TVHomeRowsOverlay" parent="">
+        <item name="browsePaddingStart">@dimen/tv_home_row_edge</item>
+        <item name="browsePaddingEnd">@dimen/tv_home_row_edge</item>
+    </style>
 
 
     <!-- Like Google TV: the focused tab is a white pill with dark text, the rest of the tabs use white text. -->

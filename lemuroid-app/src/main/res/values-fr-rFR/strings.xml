@@ -3,6 +3,7 @@
     <string name="title_home">Accueil</string>
     <string name="title_search">Rechercher</string>
     <string name="title_systems">Consoles</string>
+    <string name="tv_title_consoles">Consoles</string>
     <string name="title_games">Jeux</string>
     <string name="title_settings">Paramètres</string>
     <string name="recent">Continuer à jouer</string>
@@ -209,4 +210,8 @@ Il est né comme une version indépendante de Lemuroid, l\'émulateur open sourc
 • Jaquettes : libretro-thumbnails.</string>
     <string name="help_covers_question">Pourquoi une jaquette manque-t-elle ou le nom est-il incorrect ?</string>
     <string name="help_covers_answer">Les jeux sont d\'abord reconnus par leur contenu. Si cela échoue, le nom du fichier est utilisé : nomme tes fichiers comme \"NomDuJeu (USA).nes\", ou simplement \"NomDuJeu.nes\". Après les avoir renommés, analyse de nouveau tes jeux.</string>
+    <string name="library_loading_title">Chargement de tes jeux</string>
+    <string name="library_loading_message">Nous cherchons les jeux dans le dossier que tu as choisi. Cela peut prendre quelques minutes si tu en as beaucoup.</string>
+    <string name="library_loading_listing">Recherche des fichiers…</string>
+    <string name="library_loading_files">%1$d fichiers sur %2$d</string>
 </resources>

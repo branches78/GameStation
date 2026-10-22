@@ -3,6 +3,7 @@
     <string name="title_home">Start</string>
     <string name="title_search">Szukaj</string>
     <string name="title_systems">Konsole</string>
+    <string name="tv_title_consoles">Konsole</string>
     <string name="title_games">Gry</string>
     <string name="title_settings">Ustawienia</string>
     <string name="recent">Kontynuuj grę</string>
@@ -209,4 +210,8 @@ Powstał jako niezależna wersja Lemuroid, emulatora open source autorstwa Filip
 • Okładki: libretro-thumbnails.</string>
     <string name="help_covers_question">Dlaczego brakuje okładki lub nazwa jest błędna?</string>
     <string name="help_covers_answer">Gry są najpierw rozpoznawane po zawartości. Jeśli to się nie uda, używana jest nazwa pliku: nazwij pliki jak \"NazwaGry (USA).nes\" lub po prostu \"NazwaGry.nes\". Po zmianie nazw przeskanuj gry ponownie.</string>
+    <string name="library_loading_title">Wczytywanie twoich gier</string>
+    <string name="library_loading_message">Szukamy gier w wybranym folderze. Jeśli masz ich dużo, może to potrwać kilka minut.</string>
+    <string name="library_loading_listing">Szukanie plików…</string>
+    <string name="library_loading_files">%1$d z %2$d plików</string>
 </resources>

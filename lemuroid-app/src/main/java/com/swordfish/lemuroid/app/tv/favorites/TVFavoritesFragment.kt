@@ -3,21 +3,30 @@ package com.swordfish.lemuroid.app.tv.favorites
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import androidx.leanback.app.VerticalGridSupportFragment
 import androidx.leanback.paging.PagingDataAdapter
+import androidx.leanback.widget.FocusHighlight
 import androidx.leanback.widget.OnItemViewClickedListener
 import androidx.leanback.widget.VerticalGridPresenter
+import androidx.leanback.widget.VerticalGridView
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import com.swordfish.lemuroid.R
 import com.swordfish.lemuroid.app.shared.GameInteractor
+import com.swordfish.lemuroid.app.tv.home.TVHomeFragment
 import com.swordfish.lemuroid.app.tv.shared.GamePresenter
+import com.swordfish.lemuroid.app.tv.shared.TVTabGrids
 import com.swordfish.lemuroid.common.coroutines.launchOnState
 import com.swordfish.lemuroid.lib.library.db.RetrogradeDatabase
 import com.swordfish.lemuroid.lib.library.db.entity.Game
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
+/**
+ * All the favorites ("Show all" card of the home row), shown inside the "Home" tab so the tabs bar stays on screen.
+ * The cards are the same square cards of the home rows, 4 per row.
+ */
 class TVFavoritesFragment : VerticalGridSupportFragment() {
     @Inject
     lateinit var retrogradeDb: RetrogradeDatabase
@@ -25,9 +34,11 @@ class TVFavoritesFragment : VerticalGridSupportFragment() {
     @Inject
     lateinit var gameInteractor: GameInteractor
 
-    init {
-        val gridPresenter = VerticalGridPresenter()
-        gridPresenter.numberOfColumns = 4
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        // Without the focus dimmer the covers always keep their colors; the focused card is already zoomed.
+        val gridPresenter = VerticalGridPresenter(FocusHighlight.ZOOM_FACTOR_LARGE, false)
+        gridPresenter.numberOfColumns = TVHomeFragment.cardsPerRow(resources)
         setGridPresenter(gridPresenter)
     }
 
@@ -37,14 +48,22 @@ class TVFavoritesFragment : VerticalGridSupportFragment() {
     ) {
         super.onViewCreated(view, savedInstanceState)
 
+        showTitle(false)
+        TVTabGrids.addTitle(view as ViewGroup, getString(R.string.favorites))
+        view.findViewById<VerticalGridView>(androidx.leanback.R.id.browse_grid)?.let { grid ->
+            val topPadding = resources.getDimensionPixelSize(R.dimen.tv_games_grid_top_padding)
+            grid.setPadding(grid.paddingLeft, topPadding, grid.paddingRight, grid.paddingBottom)
+            grid.horizontalSpacing = TVHomeFragment.homeCardSpacing(resources)
+            TVTabGrids.allowFocusUpToTabs(this, grid, TVHomeFragment.cardsPerRow(resources))
+        }
+
         val factory = TVFavoritesViewModel.Factory(retrogradeDb)
         val favoritesViewModel = ViewModelProvider(this, factory)[TVFavoritesViewModel::class.java]
 
-        val cardSize = resources.getDimensionPixelSize(com.swordfish.lemuroid.lib.R.dimen.card_size)
+        val cardSize = TVHomeFragment.homeCardSize(resources)
         val pagingAdapter =
             PagingDataAdapter(
-                // Grid cells share the system cover shape so the rows stay aligned.
-                GamePresenter(cardSize, gameInteractor, matchCoverShape = false),
+                GamePresenter(cardSize, gameInteractor, fixedRatio = 1f),
                 Game.DIFF_CALLBACK,
             )
 

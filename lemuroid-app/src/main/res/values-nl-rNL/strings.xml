@@ -3,6 +3,7 @@
     <string name="title_home">Start</string>
     <string name="title_search">Zoeken</string>
     <string name="title_systems">Systemen</string>
+    <string name="tv_title_consoles">Consoles</string>
     <string name="title_games">Spellen</string>
     <string name="title_settings">Instellingen</string>
     <string name="recent">Verder spelen</string>
@@ -211,4 +212,8 @@ Het begon als een onafhankelijke versie van Lemuroid, de opensource-emulator van
 • Hoesjes: libretro-thumbnails.</string>
     <string name="help_covers_question">Waarom ontbreekt een hoesje of is de naam verkeerd?</string>
     <string name="help_covers_answer">Games worden eerst herkend aan hun inhoud. Als dat mislukt, wordt de bestandsnaam gebruikt: noem je bestanden zoals \"Gamenaam (USA).nes\", of gewoon \"Gamenaam.nes\". Scan je games opnieuw na het hernoemen.</string>
+    <string name="library_loading_title">Je games worden geladen</string>
+    <string name="library_loading_message">We zoeken de games in de map die je hebt gekozen. Dit kan een paar minuten duren als je er veel hebt.</string>
+    <string name="library_loading_listing">Bestanden zoeken…</string>
+    <string name="library_loading_files">%1$d van %2$d bestanden</string>
 </resources>

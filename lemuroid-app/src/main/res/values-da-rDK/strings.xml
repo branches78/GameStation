@@ -3,6 +3,7 @@
     <string name="title_home">Startside</string>
     <string name="title_search">Søg</string>
     <string name="title_systems">Systemer</string>
+    <string name="tv_title_consoles">Konsoller</string>
     <string name="title_games">Spil</string>
     <string name="title_settings">Indstillinger</string>
     <string name="recent">Fortsæt med at spille</string>
@@ -209,4 +210,8 @@ Den startede som en uafhængig version af Lemuroid, open source-emulatoren af Fi
 • Covers: libretro-thumbnails.</string>
     <string name="help_covers_question">Hvorfor mangler et cover, eller hvorfor er navnet forkert?</string>
     <string name="help_covers_answer">Spil genkendes først ud fra deres indhold. Hvis det mislykkes, bruges filnavnet: navngiv dine filer som \"Spilnavn (USA).nes\" eller bare \"Spilnavn.nes\". Scan dine spil igen efter omdøbning.</string>
+    <string name="library_loading_title">Indlæser dine spil</string>
+    <string name="library_loading_message">Vi leder efter spillene i den mappe, du valgte. Det kan tage et par minutter, hvis du har mange.</string>
+    <string name="library_loading_listing">Leder efter filer…</string>
+    <string name="library_loading_files">%1$d af %2$d filer</string>
 </resources>

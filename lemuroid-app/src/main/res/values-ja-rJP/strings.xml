@@ -3,6 +3,7 @@
     <string name="title_home">ホーム</string>
     <string name="title_search">検索</string>
     <string name="title_systems">システム</string>
+    <string name="tv_title_consoles">ゲーム機</string>
     <string name="title_games">ゲーム</string>
     <string name="title_settings">設定</string>
     <string name="recent">プレイを続ける</string>
@@ -210,4 +211,8 @@ Filippo Scognamiglio氏によるオープンソースのエミュレーター、
 • カバー画像：libretro-thumbnails。</string>
     <string name="help_covers_question">カバーがない、または名前が正しくないのはなぜですか？</string>
     <string name="help_covers_answer">ゲームはまず内容で認識されます。うまくいかない場合はファイル名が使われます。ファイル名を「ゲーム名 (USA).nes」または「ゲーム名.nes」のようにしてください。名前を変更したら、ゲームを再スキャンしてください。</string>
+    <string name="library_loading_title">ゲームを読み込んでいます</string>
+    <string name="library_loading_message">選択したフォルダ内のゲームを探しています。ゲームが多い場合は数分かかることがあります。</string>
+    <string name="library_loading_listing">ファイルを検索しています…</string>
+    <string name="library_loading_files">%1$d / %2$d ファイル</string>
 </resources>

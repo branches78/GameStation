@@ -2,25 +2,22 @@ package com.swordfish.lemuroid.app.tv.games
 
 import android.content.Context
 import android.os.Bundle
-import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
-import android.widget.TextView
-import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.leanback.app.VerticalGridSupportFragment
-import androidx.leanback.widget.BaseGridView
 import androidx.leanback.paging.PagingDataAdapter
+import androidx.leanback.widget.FocusHighlight
 import androidx.leanback.widget.OnItemViewClickedListener
 import androidx.leanback.widget.VerticalGridPresenter
 import androidx.leanback.widget.VerticalGridView
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.navArgs
 import com.swordfish.lemuroid.R
 import com.swordfish.lemuroid.app.shared.GameInteractor
 import com.swordfish.lemuroid.app.shared.covers.CoverAspectRatio
 import com.swordfish.lemuroid.app.tv.shared.GamePresenter
+import com.swordfish.lemuroid.app.tv.shared.TVTabGrids
 import com.swordfish.lemuroid.common.coroutines.launchOnState
 import com.swordfish.lemuroid.lib.library.MetaSystemID
 import com.swordfish.lemuroid.lib.library.db.RetrogradeDatabase
@@ -28,6 +25,7 @@ import com.swordfish.lemuroid.lib.library.db.entity.Game
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
+/** Games of a system, shown inside the "Consoles" tab so the tabs bar stays on screen. */
 class TVGamesFragment : VerticalGridSupportFragment() {
     @Inject
     lateinit var retrogradeDb: RetrogradeDatabase
@@ -35,12 +33,18 @@ class TVGamesFragment : VerticalGridSupportFragment() {
     @Inject
     lateinit var gameInteractor: GameInteractor
 
-    private val args: TVGamesFragmentArgs by navArgs()
+    private val metaSystemId: MetaSystemID by lazy {
+        MetaSystemID.valueOf(requireArguments().getString(ARG_META_SYSTEM_ID)!!)
+    }
+
+    private var numberOfColumns = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val gridPresenter = VerticalGridPresenter()
-        gridPresenter.numberOfColumns = computeNumberOfColumns()
+        // Without the focus dimmer the covers always keep their colors; the focused card is already zoomed.
+        val gridPresenter = VerticalGridPresenter(FocusHighlight.ZOOM_FACTOR_LARGE, false)
+        numberOfColumns = computeNumberOfColumns()
+        gridPresenter.numberOfColumns = numberOfColumns
         setGridPresenter(gridPresenter)
     }
 
@@ -52,8 +56,8 @@ class TVGamesFragment : VerticalGridSupportFragment() {
 
         // The default leanback title is replaced by a centered title with the system name.
         showTitle(false)
-        addSystemTitle(view as ViewGroup)
-        alignGridToTopStart(view)
+        TVTabGrids.addTitle(view as ViewGroup, getString(metaSystemId.titleResId))
+        placeGridBelowTitle(view)
 
         val factory = TVGamesViewModel.Factory(retrogradeDb)
         val gamesViewModel = ViewModelProvider(this, factory)[TVGamesViewModel::class.java]
@@ -73,9 +77,7 @@ class TVGamesFragment : VerticalGridSupportFragment() {
                 .collect { pagingAdapter.submitData(lifecycle, it) }
         }
 
-        args.metaSystemId.let {
-            gamesViewModel.metaSystemId.value = MetaSystemID.valueOf(it)
-        }
+        gamesViewModel.metaSystemId.value = metaSystemId
 
         onItemViewClickedListener =
             OnItemViewClickedListener { _, item, _, _ ->
@@ -85,53 +87,24 @@ class TVGamesFragment : VerticalGridSupportFragment() {
             }
     }
 
-    private fun addSystemTitle(root: ViewGroup) {
-        val titleView =
-            TextView(requireContext()).apply {
-                text = getString(MetaSystemID.valueOf(args.metaSystemId).titleResId)
-                setTextColor(ContextCompat.getColor(requireContext(), R.color.md_theme_dark_onBackground))
-                textSize = TITLE_TEXT_SIZE_SP
-                gravity = Gravity.CENTER_HORIZONTAL
-            }
-        val layoutParams =
-            FrameLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                Gravity.TOP or Gravity.CENTER_HORIZONTAL,
-            ).apply { topMargin = resources.getDimensionPixelSize(R.dimen.tv_games_title_top_margin) }
-        root.addView(titleView, layoutParams)
-    }
-
-    /** Leanback centers the grid on screen: covers start instead from the top left corner, below the title. */
-    private fun alignGridToTopStart(root: View) {
+    /**
+     * Like the "Consoles" grid, the games grid stays centered (leanback default) and the first row starts below the
+     * title. Pressing up on the first row moves the focus to the tabs bar.
+     */
+    private fun placeGridBelowTitle(root: View) {
         val grid = root.findViewById<VerticalGridView>(androidx.leanback.R.id.browse_grid) ?: return
-        (grid.layoutParams as? FrameLayout.LayoutParams)?.let {
-            it.width = ViewGroup.LayoutParams.MATCH_PARENT
-            it.gravity = Gravity.TOP or Gravity.START
-            grid.layoutParams = it
-        }
-        grid.setGravity(Gravity.START)
-        grid.windowAlignment = BaseGridView.WINDOW_ALIGN_LOW_EDGE
-        grid.windowAlignmentOffsetPercent = 0f
-        grid.setPadding(
-            resources.getDimensionPixelSize(androidx.leanback.R.dimen.lb_browse_padding_start),
-            resources.getDimensionPixelSize(R.dimen.tv_games_grid_top_padding),
-            resources.getDimensionPixelSize(androidx.leanback.R.dimen.lb_browse_padding_end),
-            grid.paddingBottom,
-        )
+        val topPadding = resources.getDimensionPixelSize(R.dimen.tv_games_grid_top_padding)
+        grid.setPadding(grid.paddingLeft, topPadding, grid.paddingRight, grid.paddingBottom)
+        TVTabGrids.allowFocusUpToTabs(this, grid, numberOfColumns)
     }
 
-    /** As many columns as fit on screen, based on the box art shape of the system. */
+    /** As many columns as fit in the width of the other tabs, based on the box art shape of the system. */
     private fun computeNumberOfColumns(): Int {
-        val metaSystem = MetaSystemID.valueOf(args.metaSystemId)
-        val ratio = CoverAspectRatio.forSystem(metaSystem.systemIDs.firstOrNull())
+        val ratio = CoverAspectRatio.forSystem(metaSystemId.systemIDs.firstOrNull())
         val cardSize = resources.getDimensionPixelSize(com.swordfish.lemuroid.lib.R.dimen.card_size)
         val cardWidth = (cardSize * ratio).toInt()
         val spacing = resources.getDimensionPixelSize(androidx.leanback.R.dimen.lb_browse_item_horizontal_spacing)
-        val horizontalPadding =
-            resources.getDimensionPixelSize(androidx.leanback.R.dimen.lb_browse_padding_start) +
-                resources.getDimensionPixelSize(androidx.leanback.R.dimen.lb_browse_padding_end)
-        val availableWidth = resources.displayMetrics.widthPixels - horizontalPadding
+        val availableWidth = resources.getDimensionPixelSize(R.dimen.tv_content_width)
         val extraSpacing = resources.getDimensionPixelSize(R.dimen.tv_games_card_extra_spacing)
         return ((availableWidth + spacing) / (cardWidth + spacing + extraSpacing)).coerceAtLeast(1)
     }
@@ -142,7 +115,11 @@ class TVGamesFragment : VerticalGridSupportFragment() {
     }
 
     companion object {
-        private const val TITLE_TEXT_SIZE_SP = 28f
+        private const val ARG_META_SYSTEM_ID = "meta_system_id"
+
+        fun newInstance(metaSystemId: String): TVGamesFragment {
+            return TVGamesFragment().apply { arguments = bundleOf(ARG_META_SYSTEM_ID to metaSystemId) }
+        }
     }
 
     @dagger.Module

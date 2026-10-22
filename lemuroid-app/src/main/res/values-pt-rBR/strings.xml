@@ -3,6 +3,7 @@
     <string name="title_home">Início</string>
     <string name="title_search">Buscar</string>
     <string name="title_systems">Sistemas</string>
+    <string name="tv_title_consoles">Consoles</string>
     <string name="title_games">Jogos</string>
     <string name="title_settings">Configurações</string>
     <string name="recent">Continuar jogando</string>
@@ -209,4 +210,8 @@ Ele nasceu como uma versão independente do Lemuroid, o emulador de código aber
 • Capas: libretro-thumbnails.</string>
     <string name="help_covers_question">Por que falta uma capa ou o nome está errado?</string>
     <string name="help_covers_answer">Os jogos são reconhecidos primeiro pelo conteúdo. Se isso falhar, o nome do arquivo é usado: nomeie seus arquivos como \"NomeDoJogo (USA).nes\", ou apenas \"NomeDoJogo.nes\". Depois de renomear, escaneie seus jogos novamente.</string>
+    <string name="library_loading_title">Carregando seus jogos</string>
+    <string name="library_loading_message">Estamos procurando os jogos na pasta que você escolheu. Pode levar alguns minutos se você tiver muitos.</string>
+    <string name="library_loading_listing">Procurando arquivos…</string>
+    <string name="library_loading_files">%1$d de %2$d arquivos</string>
 </resources>

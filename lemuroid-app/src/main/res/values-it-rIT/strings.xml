@@ -3,6 +3,7 @@
     <string name="title_home">Home</string>
     <string name="title_search">Cerca</string>
     <string name="title_systems">Sistemi</string>
+    <string name="tv_title_consoles">Console</string>
     <string name="title_games">Giochi</string>
     <string name="title_settings">Impostazioni</string>
     <string name="recent">Continua a giocare</string>
@@ -210,4 +211,8 @@
 • Copertine: libretro-thumbnails.</string>
     <string name="help_covers_question">Perché manca una copertina o il nome è sbagliato?</string>
     <string name="help_covers_answer">I giochi vengono riconosciuti prima dal contenuto. Se non funziona, si usa il nome del file: rinomina i file come \"NomeDelGioco (USA).nes\", o solo \"NomeDelGioco.nes\". Dopo averli rinominati, scansiona di nuovo i giochi.</string>
+    <string name="library_loading_title">Caricamento dei tuoi giochi</string>
+    <string name="library_loading_message">Stiamo cercando i giochi nella cartella che hai scelto. Può richiedere qualche minuto se ne hai molti.</string>
+    <string name="library_loading_listing">Ricerca dei file…</string>
+    <string name="library_loading_files">%1$d di %2$d file</string>
 </resources>

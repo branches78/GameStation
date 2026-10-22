@@ -1,22 +1,28 @@
 package com.swordfish.lemuroid.app.mobile.feature.settings.general
 
 import android.net.Uri
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.documentfile.provider.DocumentFile
 import androidx.navigation.NavController
 import com.swordfish.lemuroid.R
 import com.swordfish.lemuroid.app.mobile.feature.main.MainRoute
 import com.swordfish.lemuroid.app.mobile.feature.main.navigateToRoute
+import com.swordfish.lemuroid.app.mobile.shared.compose.ui.LibraryScanProgress
+import com.swordfish.lemuroid.app.mobile.shared.compose.ui.rememberLibraryScanProgress
 import com.swordfish.lemuroid.app.shared.library.LibraryIndexScheduler
 import com.swordfish.lemuroid.app.utils.android.settings.LemuroidCardSettingsGroup
 import com.swordfish.lemuroid.app.utils.android.settings.LemuroidSettingsList
@@ -309,9 +315,18 @@ private fun RomsSettings(
         }
 
     LemuroidCardSettingsGroup(title = { Text(text = stringResource(id = R.string.roms)) }) {
+        val scanProgress by rememberLibraryScanProgress()
         LemuroidSettingsMenuLink(
             title = { Text(text = stringResource(id = R.string.directory)) },
-            subtitle = { Text(text = currentDirectoryName) },
+            subtitle = {
+                Column {
+                    Text(text = currentDirectoryName)
+                    // While the directory is scanned (e.g. "Rescan"), its progress is shown below the folder.
+                    scanProgress?.let {
+                        LibraryScanProgress(progress = it, modifier = Modifier.padding(top = 8.dp))
+                    }
+                }
+            },
             onClick = { onChangeFolder() },
             enabled = !indexingInProgress,
         )

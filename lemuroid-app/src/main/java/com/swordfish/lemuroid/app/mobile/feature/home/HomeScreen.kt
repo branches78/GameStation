@@ -29,7 +29,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
@@ -41,9 +45,12 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import com.swordfish.lemuroid.R
 import com.swordfish.lemuroid.app.mobile.shared.compose.ui.LemuroidGameCard
+import com.swordfish.lemuroid.app.mobile.shared.compose.ui.LibraryScanProgress
+import com.swordfish.lemuroid.app.mobile.shared.compose.ui.rememberLibraryScanProgress
 import com.swordfish.lemuroid.app.shared.home.HomeDynamicRows
 import com.swordfish.lemuroid.app.utils.android.ComposableLifecycle
 import com.swordfish.lemuroid.common.displayDetailsSettingsScreen
+import com.swordfish.lemuroid.lib.library.LemuroidLibrary
 import com.swordfish.lemuroid.lib.library.db.entity.Game
 
 @Composable
@@ -76,9 +83,25 @@ fun HomeScreen(
         }
 
     val state = viewModel.getViewStates().collectAsState(HomeViewModel.UIState())
+
+    // A scan started with an empty library (e.g. after choosing the folder) shows its progress instead of the
+    // directory card, and the rows appear when it ends.
+    val scanProgress by rememberLibraryScanProgress()
+    var loadingEmptyLibrary by remember { mutableStateOf(false) }
+    val scanning = scanProgress != null
+    LaunchedEffect(scanning, state.value.showNoGamesCard) {
+        loadingEmptyLibrary =
+            when {
+                !scanning -> false
+                state.value.showNoGamesCard -> true
+                else -> loadingEmptyLibrary
+            }
+    }
+
     HomeScreen(
         modifier,
         state.value,
+        scanProgress.takeIf { loadingEmptyLibrary },
         onGameClick,
         onGameLongClick,
         onShowAllFavorites,
@@ -98,6 +121,7 @@ fun HomeScreen(
 private fun HomeScreen(
     modifier: Modifier = Modifier,
     state: HomeViewModel.UIState,
+    libraryLoadingProgress: LemuroidLibrary.IndexProgress?,
     onGameClicked: (Game) -> Unit,
     onGameLongClick: (Game) -> Unit,
     onShowAllFavorites: () -> Unit,
@@ -119,6 +143,10 @@ private fun HomeScreen(
                 actionId = R.string.home_notification_action,
                 onAction = onEnableNotificationsClicked,
             )
+        }
+        if (libraryLoadingProgress != null) {
+            HomeLibraryLoading(libraryLoadingProgress)
+            return@Column
         }
         AnimatedVisibility(state.showNoGamesCard) {
             HomeNotification(
@@ -247,8 +275,7 @@ private fun HomeRowGames(
         }
     }
 
-    // Same width as a cell of the games grid of a system, so covers have the same size in both screens;
-    // the height follows the shape of each cover.
+    // Same width as a cell of the games grid of a system, so covers have the same size in both screens.
     val cardWidth = homeCardWidth()
 
     LazyRow(
@@ -257,8 +284,6 @@ private fun HomeRowGames(
             Modifier
                 .fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(HOME_ROW_SPACING),
-        // Texts stay aligned when covers have different heights.
-        verticalAlignment = Alignment.Bottom,
         contentPadding = PaddingValues(HOME_ROW_PADDING),
     ) {
         items(games.size, key = { games[it].id }) { index ->
@@ -269,6 +294,9 @@ private fun HomeRowGames(
                         .width(cardWidth)
                         .animateItem(),
                 game = game,
+                // Same vertical shape for every card, like the NES grid: the row keeps its height while scrolling
+                // and covers of another shape are shown whole and centered.
+                fixedRatio = PORTRAIT_RATIO,
                 onClick = { onGameClicked(game) },
                 onLongClick = { onGameLongClick(game) },
             )
@@ -331,7 +359,7 @@ private const val GAMES_GRID_COLUMNS = 3
 private val HOME_ROW_PADDING = 16.dp
 private val HOME_ROW_SPACING = 12.dp
 
-// Shape of a vertical box art, used for the "Show all" card.
+// Shape of a vertical box art: the shape of every home card, also the "Show all" one.
 private const val PORTRAIT_RATIO = 0.71f
 
 // Padding, two title lines and the system name below each cover.
@@ -340,6 +368,34 @@ private val HOME_ROW_COVER_HEIGHT = 112.dp
 
 // Cover height plus the texts below it: padding, two title lines and the system name.
 private val HOME_ROW_EMPTY_HEIGHT = HOME_ROW_COVER_HEIGHT + TEXTS_HEIGHT
+
+@Composable
+private fun HomeLibraryLoading(progress: LemuroidLibrary.IndexProgress) {
+    ElevatedCard(
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(start = 16.dp, end = 16.dp),
+    ) {
+        Column(
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+        ) {
+            Text(
+                text = stringResource(R.string.library_loading_title),
+                style = MaterialTheme.typography.titleMedium,
+            )
+            Text(
+                text = stringResource(R.string.library_loading_message),
+                style = MaterialTheme.typography.bodyMedium,
+            )
+            LibraryScanProgress(progress = progress, modifier = Modifier.fillMaxWidth())
+        }
+    }
+}
 
 @Composable
 private fun HomeNotification(

@@ -9,6 +9,7 @@ import com.swordfish.lemuroid.app.shared.library.PendingOperationsMonitor
 import com.swordfish.lemuroid.app.shared.systems.MetaSystemInfo
 import com.swordfish.lemuroid.common.coroutines.combine
 import com.swordfish.lemuroid.lib.library.GameSystem
+import com.swordfish.lemuroid.lib.library.LemuroidLibrary
 import com.swordfish.lemuroid.lib.library.db.RetrogradeDatabase
 import com.swordfish.lemuroid.lib.library.db.entity.Game
 import com.swordfish.lemuroid.lib.library.metaSystemID
@@ -45,7 +46,8 @@ class TVHomeViewModel(retrogradeDb: RetrogradeDatabase, appContext: Context) : V
         val dynamicRows: List<HomeDynamicRows.Row> = emptyList(),
         val metaSystems: List<MetaSystemInfo> = emptyList(),
         val indexInProgress: Boolean = false,
-        val scanInProgress: Boolean = false,
+        // Progress of the directory scan, null when no scan is running.
+        val scanProgress: LemuroidLibrary.IndexProgress? = null,
     )
 
     // Null until the library has been read, so the UI doesn't show the "empty library" state for a moment.
@@ -61,7 +63,7 @@ class TVHomeViewModel(retrogradeDb: RetrogradeDatabase, appContext: Context) : V
         discoveryGames: List<Game>,
         metaSystems: List<MetaSystemInfo>,
         indexInProgress: Boolean,
-        scanInProgress: Boolean,
+        scanProgress: LemuroidLibrary.IndexProgress?,
         dynamicRows: List<HomeDynamicRows.Row>,
     ): HomeViewState {
         return HomeViewState(
@@ -71,7 +73,7 @@ class TVHomeViewModel(retrogradeDb: RetrogradeDatabase, appContext: Context) : V
             dynamicRows = dynamicRows,
             metaSystems = metaSystems,
             indexInProgress = indexInProgress,
-            scanInProgress = scanInProgress,
+            scanProgress = scanProgress,
         )
     }
 
@@ -84,7 +86,7 @@ class TVHomeViewModel(retrogradeDb: RetrogradeDatabase, appContext: Context) : V
                     discoveryGames(retrogradeDb),
                     availableSystems(retrogradeDb, appContext),
                     indexingInProgress(appContext),
-                    directoryScanInProgress(appContext),
+                    directoryScanProgress(appContext),
                     HomeDynamicRows(appContext, retrogradeDb).getRows(),
                     ::buildViewState,
                 )
@@ -96,8 +98,8 @@ class TVHomeViewModel(retrogradeDb: RetrogradeDatabase, appContext: Context) : V
         }
     }
 
-    private fun directoryScanInProgress(appContext: Context) =
-        PendingOperationsMonitor(appContext).isDirectoryScanInProgress()
+    private fun directoryScanProgress(appContext: Context) =
+        PendingOperationsMonitor(appContext).directoryScanProgress()
 
     private fun indexingInProgress(appContext: Context) =
         PendingOperationsMonitor(appContext).anyLibraryOperationInProgress()

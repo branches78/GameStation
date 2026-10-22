@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Shown in the TV "Home" tab when the library is empty. Same content as the mobile card. -->
+<!--
+    Shown in the TV "Home" and "Consoles" tabs when the library is empty. Same content as the mobile card.
+    While the first scan runs, the button is replaced by its progress (TVEmptyLibraryCard).
+-->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/tv_empty_library"
     android:layout_width="match_parent"
@@ -18,6 +21,7 @@
         android:padding="@dimen/tv_empty_library_padding">
 
         <TextView
+            android:id="@+id/tv_empty_library_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/home_empty_title"
@@ -25,6 +29,7 @@
             android:textSize="22sp" />
 
         <TextView
+            android:id="@+id/tv_empty_library_message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/tv_empty_library_spacing"
@@ -49,6 +54,54 @@
             android:text="@string/home_empty_action"
             android:textColor="@color/tv_outlined_button_text"
             android:textSize="16sp" />
+
+        <LinearLayout
+            android:id="@+id/tv_empty_library_progress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/tv_empty_library_spacing"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ProgressBar
+                    android:id="@+id/tv_empty_library_progress_bar"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/tv_progress_bar_height"
+                    android:layout_weight="1"
+                    android:indeterminateTint="@color/md_theme_dark_primary"
+                    android:max="1000"
+                    android:maxHeight="@dimen/tv_progress_bar_height"
+                    android:minHeight="@dimen/tv_progress_bar_height"
+                    android:progressDrawable="@drawable/tv_progress_bar" />
+
+                <TextView
+                    android:id="@+id/tv_empty_library_progress_percent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/tv_empty_library_spacing"
+                    android:minWidth="56dp"
+                    android:gravity="end"
+                    android:textColor="@color/md_theme_dark_primary"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_empty_library_progress_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/md_theme_dark_onSurfaceVariant"
+                android:textSize="14sp" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

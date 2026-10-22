@@ -21,6 +21,8 @@ fun LemuroidGameImage(
     game: Game,
     // When false the card keeps the shape of its system (grids) and other covers are shown whole inside it.
     matchCoverShape: Boolean = true,
+    // When set, every card has this shape (e.g. home rows) and covers of another shape are shown whole and centered.
+    fixedRatio: Float? = null,
 ) {
     val fallbackDrawable =
         remember(game) {
@@ -31,7 +33,12 @@ fun LemuroidGameImage(
 
     val coverUrl = game.displayCoverUrl()
     val coverRatio = CoverRatioCache.get(coverUrl)
-    val cardRatio = if (matchCoverShape) CoverAspectRatio.forGame(game) else CoverAspectRatio.forGameSystem(game)
+    val cardRatio =
+        when {
+            fixedRatio != null -> fixedRatio
+            matchCoverShape -> CoverAspectRatio.forGame(game)
+            else -> CoverAspectRatio.forGameSystem(game)
+        }
     val contentScale =
         if (CoverRatioCache.needsLetterbox(coverRatio, cardRatio)) ContentScale.Fit else ContentScale.Crop
 

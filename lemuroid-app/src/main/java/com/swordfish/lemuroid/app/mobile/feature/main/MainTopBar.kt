@@ -69,7 +69,7 @@ fun MainTopBar(
             onToggleGamesViewMode = onToggleGamesViewMode,
         )
 
-        AnimatedVisibility(mainUIState.operationInProgress) {
+        AnimatedVisibility(mainUIState.showProgressIndicator) {
             LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
         }
     }

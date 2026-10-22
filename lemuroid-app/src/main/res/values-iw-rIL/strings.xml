@@ -3,6 +3,7 @@
     <string name="title_home">מסך הבית</string>
     <string name="title_search">חיפוש</string>
     <string name="title_systems">קונסולות</string>
+    <string name="tv_title_consoles">קונסולות</string>
     <string name="title_games">משחקים</string>
     <string name="title_settings">הגדרות</string>
     <string name="recent">המשך לשחק</string>
@@ -158,4 +159,8 @@
 • עטיפות: libretro-thumbnails.</string>
     <string name="help_covers_question">למה חסרה עטיפה או שהשם שגוי?</string>
     <string name="help_covers_answer">המשחקים מזוהים קודם לפי התוכן שלהם. אם זה נכשל, נעשה שימוש בשם הקובץ: קרא לקבצים כמו \"שםהמשחק (USA).nes\", או רק \"שםהמשחק.nes\". אחרי שינוי השם, סרוק שוב את המשחקים.</string>
+    <string name="library_loading_title">טוען את המשחקים שלך</string>
+    <string name="library_loading_message">אנחנו מחפשים את המשחקים בתיקייה שבחרת. זה עשוי לקחת כמה דקות אם יש לך הרבה.</string>
+    <string name="library_loading_listing">מחפש קבצים…</string>
+    <string name="library_loading_files">%1$d מתוך %2$d קבצים</string>
 </resources>

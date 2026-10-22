@@ -7,11 +7,14 @@ import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.leanback.widget.BrowseFrameLayout
 import androidx.leanback.widget.SearchOrbView
 import androidx.navigation.fragment.findNavController
 import com.swordfish.lemuroid.R
 import com.swordfish.lemuroid.app.tv.about.TVAboutFragment
+import com.swordfish.lemuroid.app.tv.favorites.TVFavoritesFragment
+import com.swordfish.lemuroid.app.tv.games.TVGamesFragment
 import com.swordfish.lemuroid.app.tv.home.TVHomeFragment
 import com.swordfish.lemuroid.app.tv.settings.TVSettingsTabFragment
 import com.swordfish.lemuroid.app.tv.systems.TVSystemsFragment
@@ -67,6 +70,7 @@ class TVMainTabsFragment : Fragment(R.layout.fragment_tv_main_tabs) {
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             when {
+                isShowingInnerScreen() -> closeInnerScreen()
                 getContentView()?.hasFocus() == true -> tabs[selectedTab].requestFocus()
                 selectedTab != TAB_HOME -> tabs[TAB_HOME].requestFocus()
                 else -> {
@@ -76,8 +80,10 @@ class TVMainTabsFragment : Fragment(R.layout.fragment_tv_main_tabs) {
             }
         }
 
+        // The search orb is the first focusable view, so Android gives it the initial focus: start on the tab instead.
+        val searchOrb = view.findViewById<View>(R.id.tv_search_orb)
         view.post {
-            if (!view.hasFocus()) {
+            if (!view.hasFocus() || searchOrb.hasFocus()) {
                 tabs[selectedTab].requestFocus()
             }
         }
@@ -125,6 +131,8 @@ class TVMainTabsFragment : Fragment(R.layout.fragment_tv_main_tabs) {
     }
 
     private fun showTabContent(index: Int) {
+        // The games of a system and the favorites belong to their tab: they are closed when another tab is selected.
+        childFragmentManager.popBackStack(BACK_STACK_INNER_SCREEN, FragmentManager.POP_BACK_STACK_INCLUSIVE)
         val fragment =
             when (index) {
                 TAB_SYSTEMS -> TVSystemsFragment()
@@ -141,6 +149,34 @@ class TVMainTabsFragment : Fragment(R.layout.fragment_tv_main_tabs) {
         tabs.forEachIndexed { index, tab -> tab.isSelected = index == selectedTab }
     }
 
+    /** Opens the games of a system in place of the "Consoles" grid, keeping the tabs bar on screen. */
+    fun showSystemGames(metaSystemId: String) {
+        showInnerScreen(TVGamesFragment.newInstance(metaSystemId))
+    }
+
+    /** Opens all the favorites ("Show all" card) in place of the "Home" rows, keeping the tabs bar on screen. */
+    fun showFavorites() {
+        showInnerScreen(TVFavoritesFragment())
+    }
+
+    private fun showInnerScreen(fragment: Fragment) {
+        childFragmentManager.beginTransaction()
+            .replace(R.id.tv_tab_content, fragment)
+            .addToBackStack(BACK_STACK_INNER_SCREEN)
+            .commit()
+        childFragmentManager.executePendingTransactions()
+        focusContent()
+    }
+
+    private fun isShowingInnerScreen(): Boolean = childFragmentManager.backStackEntryCount > 0
+
+    /** Back from the games of a system or from the favorites returns to the tab content they were opened from. */
+    private fun closeInnerScreen() {
+        val contentHadFocus = getContentView()?.hasFocus() == true
+        childFragmentManager.popBackStackImmediate()
+        if (contentHadFocus) focusContent()
+    }
+
     /** Used by the tab contents that cannot move the focus up to the tabs bar by themselves. */
     fun focusSelectedTab(): Boolean {
         return tabs.getOrNull(selectedTab)?.requestFocus() == true
@@ -154,6 +190,7 @@ class TVMainTabsFragment : Fragment(R.layout.fragment_tv_main_tabs) {
 
     companion object {
         private const val KEY_SELECTED_TAB = "selected_tab"
+        private const val BACK_STACK_INNER_SCREEN = "inner_screen"
         private const val TAB_HOME = 0
         private const val TAB_SYSTEMS = 1
         private const val TAB_SETTINGS = 2

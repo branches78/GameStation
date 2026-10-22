@@ -3,6 +3,7 @@
     <string name="title_home">الرئيسية</string>
     <string name="title_search">بحث</string>
     <string name="title_systems">الأنظمة</string>
+    <string name="tv_title_consoles">أجهزة الألعاب</string>
     <string name="title_games">الألعاب</string>
     <string name="title_settings">الإعدادات</string>
     <string name="recent">متابعة اللعب</string>
@@ -208,4 +209,8 @@
 • صور الأغلفة: libretro-thumbnails.</string>
     <string name="help_covers_question">لماذا يوجد غلاف مفقود أو اسم غير صحيح؟</string>
     <string name="help_covers_answer">يتم التعرف على الألعاب أولًا من محتواها. إذا فشل ذلك، يُستخدم اسم الملف: سمِّ ملفاتك مثل \"اسم_اللعبة (USA).nes\" أو فقط \"اسم_اللعبة.nes\". بعد إعادة التسمية، أعد فحص ألعابك.</string>
+    <string name="library_loading_title">جارٍ تحميل ألعابك</string>
+    <string name="library_loading_message">نبحث عن الألعاب في المجلد الذي اخترته. قد يستغرق ذلك بضع دقائق إذا كان لديك الكثير منها.</string>
+    <string name="library_loading_listing">جارٍ البحث عن الملفات…</string>
+    <string name="library_loading_files">%1$d من %2$d ملف</string>
 </resources>

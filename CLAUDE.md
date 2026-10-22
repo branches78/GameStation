@@ -44,7 +44,7 @@ No se sincroniza con Lemuroid: el código es propio y va por su cuenta.
   y sus datos (partidas, ajustes, biblioteca) no pasan a la nueva.
 - Variante que se compila: **freeDynamicDebug** (sin librerías de Google; los cores se descargan al usarlos).
   La sincronización con Google Drive solo existe en la variante `play` y requiere credenciales propias en Google Cloud.
-- Tema: verde GameStation fijo en teléfono y TV (sin Material You). Colores en
+- Tema: verde suave fijo en teléfono y TV (sin Material You, sin el verde fluorescente): verde claro #D4E8D0 para textos e iconos (`primary`) y verde oscuro #3A4B39 para rellenos (`primaryContainer`, `secondaryContainer`, interruptores de Ajustes). Colores en
   `lemuroid-app/src/main/java/.../mobile/shared/compose/ui/Color.kt` y `res/values/material-colors.xml` (deben coincidir).
 - Base de datos de la app (Room): versión 11 (`fileSize` y `fileLastModified` para detectar archivos cambiados al re-escanear).
 
@@ -55,11 +55,18 @@ No se sincroniza con Lemuroid: el código es propio y va por su cuenta.
   Orden: Continuar jugando, Favoritos, Añadidos recientemente, Porque jugaste, Vuelve a jugar, Descubrir,
   Clásicos de…, Más de…. Las filas sin juegos se ocultan (Añadidos recientemente siempre tiene juegos);
   con la biblioteca vacía no hay filas.
-- **TV:** pantalla de inicio con pestañas en `tv/main/TVMainTabsFragment.kt`; Ajustes de TV reutilizan las
+- **TV:** pantalla de inicio con pestañas (Inicio, Consolas, Ajustes, Acerca de) en `tv/main/TVMainTabsFragment.kt`,
+  todas con el mismo ancho de contenido centrado (`tv_content_width`, 672 dp). Las filas de Inicio avanzan de una tarjeta
+  en una con la enfocada en la primera posición y se recortan en ese ancho (`HomeListRowPresenter` en `TVHomeFragment.kt`).
+  Los juegos de una consola (`tv/games/TVGamesFragment.kt`) y "Mostrar todo" de Favoritos (`tv/favorites/TVFavoritesFragment.kt`)
+  se abren dentro de su pestaña, sin ocultar la barra (`showSystemGames` / `showFavorites`; Atrás vuelve a la pestaña).
+  Las rejillas de TV no oscurecen las tarjetas sin foco (`VerticalGridPresenter(..., useFocusDimmer = false)`); Ajustes de TV reutilizan las
   pantallas Compose del móvil (`tv/settings/TVSettingsTabFragment.kt`); estilo de tarjetas en `tv/shared/TVCardStyle.kt`.
 - **Carátulas:** forma por sistema en `app/shared/covers/CoverAspectRatio.kt`, sustituida por la forma real de cada
-  carátula una vez cargada (`CoverRatioCache.kt`). En filas la tarjeta toma la forma real; en rejillas mantiene la del
-  sistema y las carátulas de otra forma se muestran enteras dentro (`matchCoverShape = false`). Alternativas de nombre y caché de
+  carátula una vez cargada (`CoverRatioCache.kt`). En las rejillas la tarjeta mantiene la del sistema
+  (`matchCoverShape = false`); en las filas de Inicio del móvil todas son verticales, del ancho de una casilla de la rejilla,
+  y en las de la TV todas son cuadradas, 4 por fila (`fixedRatio`); las carátulas de otra forma se muestran enteras y
+  centradas dentro. Alternativas de nombre y caché de
   resultados en `ThumbnailFallbackInterceptor.kt`. Reconocimiento de juegos (CRC, TOSEC → No-Intro, búsqueda por título)
   en `lemuroid-metadata-libretro-db/.../LibretroDBMetadataProvider.kt`.
 - **Iconos de sistemas:** PNG del tema "FlatUI" de RetroArch (`retroarch-assets`, CC BY 4.0, crédito en `README.md`)
@@ -77,6 +84,12 @@ No se sincroniza con Lemuroid: el código es propio y va por su cuenta.
   PlayStation tiene dos cores: PCSX ReARMed (por defecto) y SwanStation (necesita BIOS scph5500/5501/5502).
   Los archivos extra de PSP (`assets/ppsspp.zip`, versión 1.15) también se bajan de PlayRetroCores, por el commit
   de esa versión (`PPSSPPAssetsManager.kt`). Las descargas de cores se hacen a un `.part` y se renombran al terminar.
+- **Progreso del escaneo:** `LemuroidLibrary.indexLibrary` lista primero todos los archivos y después los procesa,
+  avisando del progreso (`IndexProgress`); `LibraryIndexWork` lo publica con `setProgress` y
+  `PendingOperationsMonitor.directoryScanProgress()` lo lee. Con la biblioteca vacía, Inicio (móvil y TV) y Consolas (TV)
+  muestran "Cargando tus juegos" con barra y porcentaje en lugar del cuadro de la carpeta (`TVEmptyLibraryCard.kt`,
+  `HomeLibraryLoading` en `HomeScreen.kt`); al re-escanear, la barra sale bajo "Directorio" en Ajustes
+  (`LibraryScanProgress.kt`). La línea del móvil y el círculo de la TV solo salen para cores y sincronización.
 - **Acerca de:** misma información en la pestaña "Acerca de" de la TV (`tv/about/TVAboutFragment.kt`) y en la ventana
   del botón "?" del móvil: `shared/about/AboutContent.kt` (qué es PlayRetro, ayuda y licencia/créditos).
 - **Favoritos (móvil):** ya no es pestaña. Con más de 10 favoritos, la fila de Inicio termina en una tarjeta

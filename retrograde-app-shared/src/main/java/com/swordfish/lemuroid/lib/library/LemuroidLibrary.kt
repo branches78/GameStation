@@ -43,7 +43,9 @@ import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.flatMapMerge
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.mapNotNull
+import kotlinx.coroutines.flow.toList
 import timber.log.Timber
+import java.util.concurrent.atomic.AtomicInteger
 
 class LemuroidLibrary(
     private val retrogradedb: RetrogradeDatabase,
@@ -52,11 +54,14 @@ class LemuroidLibrary(
     private val biosManager: BiosManager,
     private val customCoverManager: CustomCoverManager,
 ) {
-    suspend fun indexLibrary() {
+    /** Progress of an indexing: [processed] of [total] files. [total] is null while the files are being listed. */
+    data class IndexProgress(val processed: Int, val total: Int?)
+
+    suspend fun indexLibrary(onProgress: suspend (IndexProgress) -> Unit = {}) {
         val startedAtMs = System.currentTimeMillis()
 
         try {
-            indexProviders(startedAtMs)
+            indexProviders(startedAtMs, onProgress)
         } catch (e: Throwable) {
             Timber.e(e, "Library indexing stopped due to exception")
         } finally {
@@ -68,24 +73,48 @@ class LemuroidLibrary(
     }
 
     @OptIn(FlowPreview::class)
-    private suspend fun indexProviders(startedAtMs: Long) {
+    private suspend fun indexProviders(
+        startedAtMs: Long,
+        onProgress: suspend (IndexProgress) -> Unit,
+    ) {
         val gameMetadata = gameMetadataProvider.get()
         val enabledProviders = storageProviderRegistry.get().enabledProviders
-        enabledProviders.asFlow()
-            .flatMapConcat { indexSingleProvider(it, startedAtMs, gameMetadata) }
+
+        // Every file is listed before processing, so the progress can be shown as a percentage.
+        onProgress(IndexProgress(0, null))
+        val providersFiles = enabledProviders.map { it to listGroupedFiles(it) }
+        val total = providersFiles.sumOf { (_, files) -> files.size }
+        onProgress(IndexProgress(0, total))
+
+        val processed = AtomicInteger(0)
+        val onBatchProcessed: suspend (Int) -> Unit = { batchSize ->
+            onProgress(IndexProgress(processed.addAndGet(batchSize), total))
+        }
+
+        providersFiles.asFlow()
+            .flatMapConcat { (provider, files) ->
+                indexSingleProvider(provider, files, startedAtMs, gameMetadata, onBatchProcessed)
+            }
             .collect()
+    }
+
+    private suspend fun listGroupedFiles(provider: StorageProvider): List<GroupedStorageFiles> {
+        return provider.listBaseStorageFiles()
+            .toList()
+            .flatMap { StorageFilesMerger.mergeDataFiles(provider, it) }
     }
 
     @OptIn(FlowPreview::class)
     private fun indexSingleProvider(
         provider: StorageProvider,
+        files: List<GroupedStorageFiles>,
         startedAtMs: Long,
         gameMetadata: GameMetadataProvider,
+        onBatchProcessed: suspend (Int) -> Unit,
     ): Flow<Unit> {
-        return provider.listBaseStorageFiles()
-            .flatMapConcat { StorageFilesMerger.mergeDataFiles(provider, it).asFlow() }
+        return files.asFlow()
             .batchWithSizeAndTime(MAX_BUFFER_SIZE, MAX_TIME)
-            .flatMapMerge { processBatch(it, provider, startedAtMs, gameMetadata) }
+            .flatMapMerge { processBatch(it, provider, startedAtMs, gameMetadata, onBatchProcessed) }
     }
 
     private suspend fun processBatch(
@@ -93,6 +122,7 @@ class LemuroidLibrary(
         provider: StorageProvider,
         startedAtMs: Long,
         gameMetadata: GameMetadataProvider,
+        onBatchProcessed: suspend (Int) -> Unit,
     ) = flow<Unit> {
         val entries = batch.map { fetchEntriesFromDatabase(it) }
 
@@ -104,6 +134,7 @@ class LemuroidLibrary(
                 .map { buildEntryFromMetadata(it.file, provider, gameMetadata, startedAtMs) }
 
         handleNewEntries(newEntries, startedAtMs, provider)
+        onBatchProcessed(batch.size)
     }
 
     private fun fetchEntriesFromDatabase(storageFile: GroupedStorageFiles): ScanEntry {

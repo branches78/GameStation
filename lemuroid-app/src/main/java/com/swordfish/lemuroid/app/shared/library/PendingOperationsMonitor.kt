@@ -4,10 +4,12 @@ import android.content.Context
 import androidx.work.WorkInfo
 import androidx.work.WorkManager
 import com.swordfish.lemuroid.app.shared.savesync.SaveSyncWork
+import com.swordfish.lemuroid.lib.library.LemuroidLibrary
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 
 class PendingOperationsMonitor(private val appContext: Context) {
@@ -20,6 +22,26 @@ class PendingOperationsMonitor(private val appContext: Context) {
 
     fun anyOperationInProgress(): Flow<Boolean> {
         return operationsInProgress(*Operation.values())
+    }
+
+    /** Operations shown by the general progress indicator: the directory scan shows its own progress bar. */
+    fun anyOperationInProgressExceptScan(): Flow<Boolean> {
+        return operationsInProgress(*Operation.values().filter { it != Operation.LIBRARY_INDEX }.toTypedArray())
+    }
+
+    /** Progress of the directory scan, null when no scan is running or waiting to start. */
+    fun directoryScanProgress(): Flow<LemuroidLibrary.IndexProgress?> {
+        return WorkManager.getInstance(appContext)
+            .getWorkInfosForUniqueWorkFlow(Operation.LIBRARY_INDEX.uniqueId)
+            .map { workInfos ->
+                val running = workInfos.firstOrNull { it.state == WorkInfo.State.RUNNING }
+                when {
+                    running != null -> LibraryIndexWork.progressFromWorkData(running.progress)
+                    isJobRunning(workInfos) -> LemuroidLibrary.IndexProgress(0, null)
+                    else -> null
+                }
+            }
+            .distinctUntilChanged()
     }
 
     fun anySaveOperationInProgress(): Flow<Boolean> {

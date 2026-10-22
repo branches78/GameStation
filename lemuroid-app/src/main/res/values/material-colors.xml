@@ -1,5 +1,5 @@
 <resources>
-    <color name="main_color">#00c64e</color>
+    <color name="main_color">#3A4B39</color>
     <color name="main_color_light">#9de3aa</color>
 
     <!-- Generated using material color builder -->
@@ -31,10 +31,10 @@
     <color name="md_theme_light_inversePrimary">#3EE266</color>
     <color name="md_theme_light_shadow">#000000</color>
     <color name="md_theme_light_primaryInverse">#3EE266</color>
-    <color name="md_theme_dark_primary">#3EE266</color>
-    <color name="md_theme_dark_onPrimary">#00390E</color>
-    <color name="md_theme_dark_primaryContainer">#005319</color>
-    <color name="md_theme_dark_onPrimaryContainer">#6AFF86</color>
+    <color name="md_theme_dark_primary">#D4E8D0</color>
+    <color name="md_theme_dark_onPrimary">#1A1C19</color>
+    <color name="md_theme_dark_primaryContainer">#3A4B39</color>
+    <color name="md_theme_dark_onPrimaryContainer">#D4E8D0</color>
     <color name="md_theme_dark_secondary">#B9CCB5</color>
     <color name="md_theme_dark_onSecondary">#243424</color>
     <color name="md_theme_dark_secondaryContainer">#3A4B39</color>
@@ -62,7 +62,7 @@
     <color name="md_theme_dark_outline">#8B9388</color>
     <color name="md_theme_dark_inverseOnSurface">#1A1C19</color>
     <color name="md_theme_dark_inverseSurface">#E2E3DD</color>
-    <color name="md_theme_dark_inversePrimary">#006E24</color>
+    <color name="md_theme_dark_inversePrimary">#3A4B39</color>
     <color name="md_theme_dark_shadow">#000000</color>
     <color name="md_theme_dark_primaryInverse">#006E24</color>
 </resources>

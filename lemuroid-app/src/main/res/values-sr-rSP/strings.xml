@@ -3,6 +3,7 @@
     <string name="title_home">Почетак</string>
     <string name="title_search">Претрага</string>
     <string name="title_systems">Системи</string>
+    <string name="tv_title_consoles">Конзоле</string>
     <string name="title_games">Игре</string>
     <string name="title_settings">Подешавања</string>
     <string name="recent">Настави игру</string>
@@ -209,4 +210,8 @@
 • Омоти: libretro-thumbnails.</string>
     <string name="help_covers_question">Зашто недостаје омот или је назив погрешан?</string>
     <string name="help_covers_answer">Игре се прво препознају по садржају. Ако то не успе, користи се назив датотеке: именуј датотеке као \"НазивИгре (USA).nes\" или само \"НазивИгре.nes\". После преименовања поново скенирај игре.</string>
+    <string name="library_loading_title">Учитавање твојих игара</string>
+    <string name="library_loading_message">Тражимо игре у фасцикли коју си изабрао. Ако их имаш много, може потрајати неколико минута.</string>
+    <string name="library_loading_listing">Тражење датотека…</string>
+    <string name="library_loading_files">%1$d од %2$d датотека</string>
 </resources>

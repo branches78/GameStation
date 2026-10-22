@@ -3,6 +3,7 @@
     <string name="title_home">Trang chủ</string>
     <string name="title_search">Tìm kiếm</string>
     <string name="title_systems">Hệ thống</string>
+    <string name="tv_title_consoles">Máy chơi game</string>
     <string name="title_games">Trò chơi</string>
     <string name="title_settings">Cài đặt</string>
     <string name="recent">Tiếp tục chơi</string>
@@ -192,4 +193,8 @@
 • Ảnh bìa: libretro-thumbnails.</string>
     <string name="help_covers_question">Tại sao thiếu ảnh bìa hoặc tên bị sai?</string>
     <string name="help_covers_answer">Game được nhận diện trước tiên theo nội dung. Nếu không được, tên tệp sẽ được dùng: đặt tên tệp như \"TenGame (USA).nes\", hoặc chỉ \"TenGame.nes\". Sau khi đổi tên, hãy quét lại game.</string>
+    <string name="library_loading_title">Đang tải trò chơi của bạn</string>
+    <string name="library_loading_message">Chúng tôi đang tìm trò chơi trong thư mục bạn đã chọn. Có thể mất vài phút nếu bạn có nhiều trò chơi.</string>
+    <string name="library_loading_listing">Đang tìm tệp…</string>
+    <string name="library_loading_files">%1$d / %2$d tệp</string>
 </resources>

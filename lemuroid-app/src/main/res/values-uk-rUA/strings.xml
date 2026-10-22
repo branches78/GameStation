@@ -3,6 +3,7 @@
     <string name="title_home">Головна</string>
     <string name="title_search">Пошук</string>
     <string name="title_systems">Системи</string>
+    <string name="tv_title_consoles">Консолі</string>
     <string name="title_games">Ігри</string>
     <string name="title_settings">Налаштування</string>
     <string name="recent">Продовжити гру</string>
@@ -209,4 +210,8 @@
 • Обкладинки: libretro-thumbnails.</string>
     <string name="help_covers_question">Чому немає обкладинки або назва неправильна?</string>
     <string name="help_covers_answer">Ігри спочатку розпізнаються за вмістом. Якщо це не вдається, використовується назва файлу: називайте файли як \"НазваГри (USA).nes\" або просто \"НазваГри.nes\". Після перейменування повторно проскануйте ігри.</string>
+    <string name="library_loading_title">Завантаження ваших ігор</string>
+    <string name="library_loading_message">Шукаємо ігри у вибраній теці. Якщо їх багато, це може тривати кілька хвилин.</string>
+    <string name="library_loading_listing">Пошук файлів…</string>
+    <string name="library_loading_files">%1$d з %2$d файлів</string>
 </resources>

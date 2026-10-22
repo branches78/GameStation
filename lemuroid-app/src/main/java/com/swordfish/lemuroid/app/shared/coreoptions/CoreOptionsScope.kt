@@ -4,13 +4,12 @@ import android.content.Context
 import androidx.core.content.edit
 import com.swordfish.lemuroid.lib.core.CoreVariablesManager
 import com.swordfish.lemuroid.lib.preferences.SharedPreferencesHelper
-import java.io.Serializable
 
 /**
  * Where the core options are saved: for every game of a system (as in Settings) or only for one game. The values of
  * a game win over the ones of its system when it is played (see CoreVariablesManager).
  */
-sealed interface CoreOptionsScope : Serializable {
+sealed interface CoreOptionsScope {
     val systemId: String
 
     data class System(override val systemId: String) : CoreOptionsScope
@@ -47,6 +46,18 @@ sealed interface CoreOptionsScope : Serializable {
                 is String -> value
                 else -> null
             }
+        }
+
+        /** Options (core variable names) with a value of their own for the game. */
+        fun gameOwnKeys(
+            context: Context,
+            gameId: Int,
+        ): Set<String> {
+            val prefix = CoreVariablesManager.computeGamePreferencesPrefix(gameId)
+            return SharedPreferencesHelper.getSharedPreferences(context).all.keys
+                .filter { it.startsWith(prefix) }
+                .map { it.removePrefix(prefix) }
+                .toSet()
         }
 
         /** Removes every core option value of a game, so it follows its system again. */

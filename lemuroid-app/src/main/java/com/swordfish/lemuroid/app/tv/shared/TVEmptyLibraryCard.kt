@@ -6,6 +6,7 @@ import android.widget.TextView
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import com.swordfish.lemuroid.R
+import com.swordfish.lemuroid.app.shared.library.EmptyLibraryLoading
 import com.swordfish.lemuroid.app.shared.library.LibraryLoadingProgress
 import com.swordfish.lemuroid.app.shared.library.LibraryScanProgressFormatter
 
@@ -14,7 +15,6 @@ import com.swordfish.lemuroid.app.shared.library.LibraryScanProgressFormatter
  * when it started) it shows its progress instead of the button, and the tab content stays hidden until it ends.
  */
 class TVEmptyLibraryCard(private val cardView: View, private val contentView: View) {
-    private var loadingEmptyLibrary = false
 
     init {
         cardView.findViewById<View>(R.id.tv_empty_library_action)
@@ -26,12 +26,7 @@ class TVEmptyLibraryCard(private val cardView: View, private val contentView: Vi
         indexInProgress: Boolean,
         scanProgress: LibraryLoadingProgress?,
     ) {
-        loadingEmptyLibrary =
-            when {
-                scanProgress == null -> false
-                isLibraryEmpty -> true
-                else -> loadingEmptyLibrary
-            }
+        val loadingEmptyLibrary = EmptyLibraryLoading.update(isLibraryEmpty, scanProgress)
 
         val showCard = isLibraryEmpty || loadingEmptyLibrary
         cardView.isVisible = showCard

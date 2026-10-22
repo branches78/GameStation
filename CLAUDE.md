@@ -115,6 +115,11 @@ No se sincroniza con Lemuroid: el código es propio y va por su cuenta.
   textos sin uso, descargas de cores atómicas y verificadas con `CoreChecksums.kt`, Zip Slip en ROM y en archivos
   de PSP, enlaces externos inválidos, BIOS de SwanStation, carátulas por HTTPS, firma fuera del código en
   `keystore.properties`). Al cambiar `CORES_VERSION` hay que regenerar `CoreChecksums.kt` con `git ls-tree -r <tag>`.
+- Ronda 2 (2026-10-22): corregidos todos los hallazgos. La limpieza de la biblioteca solo se hace si el escaneo
+  terminó bien (antes "Detener" o un error borraban juegos), la caché de opciones no guarda como valor de la consola
+  el propio de un juego, descargas de cores de una en una (`Mutex` en `CoreUpdaterImpl`), progreso que no retrocede,
+  "Cargando tus juegos" guardado fuera de la pantalla (`EmptyLibraryLoading`) y código muerto.
+  Pendiente menor: los valores propios de un juego no se borran al quitarlo de la biblioteca.
 
 ## Pendientes conocidos
 

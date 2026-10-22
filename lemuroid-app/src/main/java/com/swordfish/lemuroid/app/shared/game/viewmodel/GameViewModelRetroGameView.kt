@@ -10,6 +10,7 @@ import com.swordfish.lemuroid.BuildConfig
 import com.swordfish.lemuroid.R
 import com.swordfish.lemuroid.app.mobile.feature.settings.SettingsManager
 import com.swordfish.lemuroid.app.shared.coreoptions.CoreOption
+import com.swordfish.lemuroid.app.shared.coreoptions.CoreOptionsScope
 import com.swordfish.lemuroid.app.shared.game.ShaderChooser
 import com.swordfish.lemuroid.app.shared.rumble.RumbleManager
 import com.swordfish.lemuroid.app.shared.settings.HDModeQuality
@@ -299,7 +300,8 @@ class GameViewModelRetroGameView(
                     retroGameView.getVariables()
                         .mapNotNull { runCatching { CoreOption.fromLibretroDroidVariable(it) }.getOrNull() }
                         .map { it.toCacheDefinition() }
-                CoreOptionsCache(appContext).store(systemCoreConfig.coreID, definitions)
+                val gameOwnKeys = gameId?.let { CoreOptionsScope.gameOwnKeys(appContext, it) } ?: emptySet()
+                CoreOptionsCache(appContext).store(systemCoreConfig.coreID, definitions, gameOwnKeys)
             }.onFailure { Timber.e(it, "Unable to cache core options") }
         }
     }

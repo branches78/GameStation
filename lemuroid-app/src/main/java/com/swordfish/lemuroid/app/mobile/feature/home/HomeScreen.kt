@@ -46,12 +46,14 @@ import androidx.lifecycle.Lifecycle
 import com.swordfish.lemuroid.R
 import com.swordfish.lemuroid.app.mobile.shared.compose.ui.LemuroidGameCard
 import com.swordfish.lemuroid.app.mobile.shared.compose.ui.LibraryScanProgress
-import com.swordfish.lemuroid.app.mobile.shared.compose.ui.rememberLibraryScanProgress
 import com.swordfish.lemuroid.app.shared.home.HomeDynamicRows
+import com.swordfish.lemuroid.app.shared.library.EmptyLibraryLoading
 import com.swordfish.lemuroid.app.shared.library.LibraryLoadingProgress
+import com.swordfish.lemuroid.app.shared.library.PendingOperationsMonitor
 import com.swordfish.lemuroid.app.utils.android.ComposableLifecycle
 import com.swordfish.lemuroid.common.displayDetailsSettingsScreen
 import com.swordfish.lemuroid.lib.library.db.entity.Game
+import kotlinx.coroutines.flow.combine
 
 @Composable
 fun HomeScreen(
@@ -86,16 +88,17 @@ fun HomeScreen(
 
     // A scan started with an empty library (e.g. after choosing the folder) shows its progress instead of the
     // directory card, and the rows appear when it ends.
-    val scanProgress by rememberLibraryScanProgress()
-    var loadingEmptyLibrary by remember { mutableStateOf(false) }
-    val scanning = scanProgress != null
-    LaunchedEffect(scanning, state.value.showNoGamesCard) {
-        loadingEmptyLibrary =
-            when {
-                !scanning -> false
-                state.value.showNoGamesCard -> true
-                else -> loadingEmptyLibrary
-            }
+    // The flag lives outside the screen (EmptyLibraryLoading), so it survives a rotation in the middle of the scan.
+    val scanProgressFlow = remember { PendingOperationsMonitor(applicationContext).directoryScanProgress() }
+    var scanProgress by remember { mutableStateOf<LibraryLoadingProgress?>(null) }
+    var loadingEmptyLibrary by remember { mutableStateOf(EmptyLibraryLoading.isLoading()) }
+    LaunchedEffect(Unit) {
+        combine(scanProgressFlow, viewModel.getViewStates()) { progress, uiState ->
+            progress to EmptyLibraryLoading.update(uiState.showNoGamesCard, progress)
+        }.collect { (progress, loading) ->
+            scanProgress = progress
+            loadingEmptyLibrary = loading
+        }
     }
 
     HomeScreen(

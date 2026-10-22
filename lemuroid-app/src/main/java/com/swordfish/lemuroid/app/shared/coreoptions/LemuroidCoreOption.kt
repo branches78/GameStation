@@ -44,10 +44,6 @@ data class LemuroidCoreOption(
         return coreOption.variable.value
     }
 
-    fun getCurrentIndex(): Int {
-        return maxOf(getEntriesValues().indexOf(getCurrentValue()), 0)
-    }
-
     // When none of the values known by the app is reported by the core (e.g. another core version), the core
     // values are shown as they are.
     private fun getCorrectExposedSettings(): List<ExposedSetting.Value> {

@@ -34,6 +34,7 @@ import com.swordfish.lemuroid.lib.storage.StorageFile
 import com.swordfish.lemuroid.lib.storage.StorageProvider
 import com.swordfish.lemuroid.lib.storage.StorageProviderRegistry
 import dagger.Lazy
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
@@ -44,8 +45,9 @@ import kotlinx.coroutines.flow.flatMapMerge
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.flow.toList
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import timber.log.Timber
-import java.util.concurrent.atomic.AtomicInteger
 
 class LemuroidLibrary(
     private val retrogradedb: RetrogradeDatabase,
@@ -60,12 +62,21 @@ class LemuroidLibrary(
     suspend fun indexLibrary(onProgress: suspend (IndexProgress) -> Unit = {}) {
         val startedAtMs = System.currentTimeMillis()
 
+        // Games, data files and BIOS not seen in this pass are removed only when it went through every file:
+        // after a stop or an error (e.g. a folder that can't be read) the ones not reached yet would be lost.
+        var completed = false
         try {
             indexProviders(startedAtMs, onProgress)
+            completed = true
+        } catch (e: CancellationException) {
+            Timber.i("Library indexing stopped")
+            throw e
         } catch (e: Throwable) {
             Timber.e(e, "Library indexing stopped due to exception")
         } finally {
-            cleanUp(startedAtMs)
+            if (completed) {
+                cleanUp(startedAtMs)
+            }
         }
 
         val executionTime = System.currentTimeMillis() - startedAtMs
@@ -86,9 +97,14 @@ class LemuroidLibrary(
         val total = providersFiles.sumOf { (_, files) -> files.size }
         onProgress(IndexProgress(0, total))
 
-        val processed = AtomicInteger(0)
+        // Batches finish in parallel: counting and reporting together keeps the progress from going back.
+        val progressMutex = Mutex()
+        var processed = 0
         val onBatchProcessed: suspend (Int) -> Unit = { batchSize ->
-            onProgress(IndexProgress(processed.addAndGet(batchSize), total))
+            progressMutex.withLock {
+                processed += batchSize
+                onProgress(IndexProgress(processed, total))
+            }
         }
 
         providersFiles.asFlow()

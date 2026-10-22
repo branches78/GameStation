@@ -33,6 +33,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import timber.log.Timber
@@ -48,6 +50,10 @@ class CoreUpdaterImpl(
     companion object {
         private const val CORES_VERSION = CoreChecksums.CORES_VERSION
         private const val TEMP_SUFFIX = ".part"
+
+        // The library scan and the core update work can download at the same time: one at a time, so they don't
+        // write the same ".part" file.
+        private val downloadMutex = Mutex()
     }
 
     // Own fork of LemuroidCores (1.17.0 cores plus SwanStation), so the cores can be extended.
@@ -60,10 +66,12 @@ class CoreUpdaterImpl(
         coreIDs: List<CoreID>,
     ) {
         val sharedPreferences = SharedPreferencesHelper.getSharedPreferences(context.applicationContext)
-        coreIDs.asFlow()
-            .onEach { retrieveAssets(it, sharedPreferences) }
-            .onEach { retrieveFile(context, it) }
-            .collect()
+        downloadMutex.withLock {
+            coreIDs.asFlow()
+                .onEach { retrieveAssets(it, sharedPreferences) }
+                .onEach { retrieveFile(context, it) }
+                .collect()
+        }
     }
 
     private suspend fun retrieveFile(

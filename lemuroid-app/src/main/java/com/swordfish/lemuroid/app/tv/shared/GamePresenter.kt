@@ -15,9 +15,8 @@ import kotlin.math.roundToInt
 class GamePresenter(
     private val cardSize: Int,
     private val gameInteractor: GameInteractor,
-    // When false (grids) every card keeps the shape of its system and other covers are shown whole inside it.
-    private val matchCoverShape: Boolean = true,
-    // When set (home rows) every card has this shape (width / height) and other covers are shown whole inside it.
+    // When set (home rows and grids) every card has this shape (width / height) and other covers are shown whole
+    // inside it; otherwise the card takes the shape of the cover (search).
     private val fixedRatio: Float? = null,
 ) : Presenter() {
     override fun onBindViewHolder(
@@ -42,12 +41,7 @@ class GamePresenter(
         viewHolder: ViewHolder,
         game: Game,
     ) {
-        val cardRatio =
-            when {
-                fixedRatio != null -> fixedRatio
-                matchCoverShape -> CoverAspectRatio.forGame(game)
-                else -> CoverAspectRatio.forGameSystem(game)
-            }
+        val cardRatio = fixedRatio ?: CoverAspectRatio.forGame(game)
         val cardWidth = (cardSize * cardRatio).roundToInt()
         val imageView = viewHolder.mCardView.mainImageView
         val layoutParams = imageView?.layoutParams

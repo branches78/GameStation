@@ -19,6 +19,7 @@ import com.swordfish.lemuroid.app.mobile.shared.compose.ui.AppTheme
 import com.swordfish.lemuroid.app.shared.GameMenuContract
 import com.swordfish.lemuroid.app.shared.ImmersiveActivity
 import com.swordfish.lemuroid.app.shared.coreoptions.CoreOption
+import com.swordfish.lemuroid.app.shared.coreoptions.CoreOptionsScope
 import com.swordfish.lemuroid.app.shared.coreoptions.LemuroidCoreOption
 import com.swordfish.lemuroid.app.shared.game.viewmodel.GameViewModelSideEffects
 import com.swordfish.lemuroid.app.shared.input.InputDeviceManager
@@ -31,6 +32,7 @@ import com.swordfish.lemuroid.common.displayToast
 import com.swordfish.lemuroid.common.dump
 import com.swordfish.lemuroid.common.kotlin.serializable
 import com.swordfish.lemuroid.lib.core.CoreOptionsCache
+import com.swordfish.lemuroid.lib.core.CoreVariable
 import com.swordfish.lemuroid.lib.core.CoreVariablesManager
 import com.swordfish.lemuroid.lib.game.GameLoader
 import com.swordfish.lemuroid.lib.library.ExposedSetting
@@ -182,14 +184,30 @@ abstract class BaseGameActivity : ImmersiveActivity() {
             return
         }
 
-        val coreOptions = getCoreOptions()
+        val runningOptions = getCoreOptions()
+        val gameOwnKeys = CoreOptionsScope.gameOwnKeys(applicationContext, game.id)
+        val coreOptionsCache = CoreOptionsCache(applicationContext)
         // Also saved here, in case the game was closed before the options were saved when it started.
-        if (coreOptions.isNotEmpty()) {
+        if (runningOptions.isNotEmpty()) {
             runCatching {
-                val definitions = coreOptions.map { it.toCacheDefinition() }
-                CoreOptionsCache(applicationContext).store(systemCoreConfig.coreID, definitions)
+                val definitions = runningOptions.map { it.toCacheDefinition() }
+                coreOptionsCache.store(systemCoreConfig.coreID, definitions, gameOwnKeys)
             }
         }
+
+        // The menu starts from the values of the system: the ones chosen only for this game are read by the
+        // "Only this game" tab from their own keys, and must not be shown as the system ones.
+        val systemValues =
+            coreOptionsCache.get(systemCoreConfig.coreID)?.associate { it.key to it.value } ?: emptyMap()
+        val coreOptions =
+            runningOptions.map { option ->
+                val systemValue = systemValues[option.variable.key]
+                if (option.variable.key in gameOwnKeys && systemValue != null) {
+                    option.copy(variable = CoreVariable(option.variable.key, systemValue))
+                } else {
+                    option
+                }
+            }
 
         val options =
             systemCoreConfig.exposedSettings

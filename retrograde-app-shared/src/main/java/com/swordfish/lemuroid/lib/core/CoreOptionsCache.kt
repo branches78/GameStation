@@ -23,12 +23,25 @@ class CoreOptionsCache(context: Context) {
 
     private val preferences = context.getHarmonySharedPreferences(PREFERENCES_NAME)
 
+    /**
+     * [gameOwnKeys] are the options with a value chosen only for the game being played: that value is not the one of
+     * the system, so the previous one is kept (or the core default, the first value, the first time).
+     */
     fun store(
         coreID: CoreID,
         definitions: List<Definition>,
+        gameOwnKeys: Set<String> = emptySet(),
     ) {
+        val previousValues = get(coreID)?.associate { it.key to it.value } ?: emptyMap()
         val json = JSONArray()
-        definitions.forEach { definition ->
+        definitions.forEach { reported ->
+            val definition =
+                if (reported.key in gameOwnKeys) {
+                    val systemValue = previousValues[reported.key] ?: reported.values.firstOrNull()
+                    reported.copy(value = systemValue ?: reported.value)
+                } else {
+                    reported
+                }
             json.put(
                 JSONObject()
                     .put(KEY_KEY, definition.key)

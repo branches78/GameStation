@@ -138,6 +138,11 @@ class TVMainTabsFragment : Fragment(R.layout.fragment_tv_main_tabs) {
         tabs.forEachIndexed { index, tab -> tab.isSelected = index == selectedTab }
     }
 
+    /** Used by the tab contents that cannot move the focus up to the tabs bar by themselves. */
+    fun focusSelectedTab(): Boolean {
+        return tabs.getOrNull(selectedTab)?.requestFocus() == true
+    }
+
     private fun focusContent() {
         getContentView()?.requestFocus()
     }

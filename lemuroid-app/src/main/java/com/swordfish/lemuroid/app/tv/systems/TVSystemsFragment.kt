@@ -2,10 +2,10 @@ package com.swordfish.lemuroid.app.tv.systems
 
 import android.content.Context
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.View
 import androidx.leanback.app.VerticalGridSupportFragment
 import androidx.leanback.widget.ArrayObjectAdapter
-import androidx.leanback.widget.BrowseFrameLayout
 import androidx.leanback.widget.OnItemViewClickedListener
 import androidx.leanback.widget.VerticalGridPresenter
 import androidx.leanback.widget.VerticalGridView
@@ -17,6 +17,7 @@ import com.swordfish.lemuroid.app.shared.systems.MetaSystemInfo
 import com.swordfish.lemuroid.app.tv.home.SystemPresenter
 import com.swordfish.lemuroid.app.tv.home.TVHomeFragment
 import com.swordfish.lemuroid.app.tv.home.TVHomeViewModel
+import com.swordfish.lemuroid.app.tv.main.TVMainTabsFragment
 import com.swordfish.lemuroid.app.tv.main.TVMainTabsFragmentDirections
 import com.swordfish.lemuroid.common.coroutines.launchOnState
 import com.swordfish.lemuroid.lib.library.db.RetrogradeDatabase
@@ -83,14 +84,18 @@ class TVSystemsFragment : VerticalGridSupportFragment() {
     }
 
     /**
-     * Leanback moves the focus up from the first row to its own title area, which is hidden here,
-     * so the focus got stuck. Letting it leave the grid makes the tabs bar take it instead.
+     * Leanback does not let the focus leave the grid from its first row (it tries to reach its own title area,
+     * hidden here), so pressing up there moves the focus to the selected tab of the tabs bar instead.
      */
     private fun allowFocusUpToTabs(view: View) {
-        (view.findViewById<View>(androidx.leanback.R.id.grid_frame) as? BrowseFrameLayout)
-            ?.onFocusSearchListener = null
-        (view.findViewById<View>(androidx.leanback.R.id.browse_grid) as? VerticalGridView)
-            ?.setFocusOutAllowed(true, false)
+        val grid = view.findViewById<View>(androidx.leanback.R.id.browse_grid) as? VerticalGridView ?: return
+        grid.setOnKeyInterceptListener { event ->
+            val isUpOnFirstRow =
+                event.action == KeyEvent.ACTION_DOWN &&
+                    event.keyCode == KeyEvent.KEYCODE_DPAD_UP &&
+                    grid.selectedPosition < GRID_COLUMNS
+            isUpOnFirstRow && (parentFragment as? TVMainTabsFragment)?.focusSelectedTab() == true
+        }
     }
 
     companion object {

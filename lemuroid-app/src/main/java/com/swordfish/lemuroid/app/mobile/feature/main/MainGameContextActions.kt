@@ -102,12 +102,12 @@ fun MainGameContextActions(
     if (selectedGame != null) {
         ModalBottomSheet(
             sheetState = modalSheetState,
-            onDismissRequest = { onDismiss() },
+            onDismissRequest = { selectedGameState.value = null },
         ) {
             GameContextMenuContent(
                 selectedGame = selectedGame,
                 onGamePlay = onGamePlay,
-                onDismiss = { onDismiss() },
+                onDismiss = { selectedGameState.value = null },
                 onGameRestart = onGameRestart,
                 onFavoriteToggle = onFavoriteToggle,
                 shortcutSupported = shortcutSupported,

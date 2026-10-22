@@ -7,9 +7,9 @@
     <style name="LemuroidLeanbackTheme" parent="Theme.Leanback">
         <item name="defaultBrandColor">@color/leanback_foreground</item>
         <item name="defaultBrandColorDark">@color/leanback_foreground</item>
-        <item name="defaultSearchColor">@color/md_theme_dark_primary</item>
-        <item name="colorAccent">@color/md_theme_dark_primary</item>
-        <item name="android:colorAccent">@color/md_theme_dark_primary</item>
+        <item name="defaultSearchColor">@color/tv_accent</item>
+        <item name="colorAccent">@color/tv_accent</item>
+        <item name="android:colorAccent">@color/tv_accent</item>
         <item name="android:colorPrimary">@color/leanback_foreground</item>
         <item name="android:windowBackground">@color/leanback_background</item>
         <item name="imageCardViewStyle">@style/LemuroidLeanbackTheme.ImageCardViewStyle</item>

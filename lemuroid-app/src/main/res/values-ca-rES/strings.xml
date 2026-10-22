@@ -96,4 +96,28 @@
     <string name="core_options_summary_count">%1$s · Opcions: %2$d</string>
     <string name="core_options_summary_none">%1$s · Sense opcions</string>
     <string name="core_options_summary_unused">%1$s · Encara no utilitzat</string>
+    <string name="shader_filter_names_smooth">Suau (Desactivat)</string>
+    <string name="game_context_menu_start">Inicia</string>
+    <string name="game_context_menu_add_custom_name">Posa un nom personalitzat</string>
+    <string name="game_context_menu_remove_custom_name">Treu el nom personalitzat</string>
+    <string name="game_context_menu_add_custom_artwork">Posa una caràtula personalitzada</string>
+    <string name="game_context_menu_remove_custom_artwork">Treu la caràtula personalitzada</string>
+    <string name="game_context_menu_custom_name_dialog_title">Nom personalitzat</string>
+    <string name="game_context_menu_core_options">Configura el nucli</string>
+    <string name="game_context_menu_no_image_picker">No hi ha cap aplicació per triar imatges en aquest dispositiu.</string>
+    <string name="title_about">Quant a</string>
+    <string name="about_version">Versió %1$s</string>
+    <string name="about_what_is_title">Què és PlayRetro?</string>
+    <string name="about_what_is_text">PlayRetro és un emulador de consoles clàssiques per a telèfons, tauletes i Android TV. Organitza la teva col·lecció de jocs amb caràtules i et permet jugar amb el comandament o amb controls tàctils, desant la partida automàticament.
+
+Va néixer com una versió independent de Lemuroid, l\'emulador de codi obert de Filippo Scognamiglio, i funciona amb els nuclis d\'emulació de libretro, els mateixos que fa servir RetroArch.</string>
+    <string name="about_help_title">Ajuda</string>
+    <string name="about_license_title">Llicència i crèdits</string>
+    <string name="about_license_text">• PlayRetro és programari lliure amb la llicència GNU GPL v3.
+• Basat en Lemuroid i LibretroDroid, de Filippo Scognamiglio (Swordfish90).
+• Nuclis d\'emulació de libretro, cadascun amb la seva llicència de codi obert.
+• Icones de sistemes: tema \"FlatUI\" de RetroArch, llicència CC BY 4.0.
+• Caràtules: libretro-thumbnails.</string>
+    <string name="help_covers_question">Per què falta una caràtula o el nom no és correcte?</string>
+    <string name="help_covers_answer">Els jocs es reconeixen primer pel seu contingut. Si això falla, es fa servir el nom del fitxer: anomena\'ls com \"Nomdeljoc (USA).nes\", o només com \"Nomdeljoc.nes\". Després de canviar-los el nom, torna a escanejar els jocs.</string>
 </resources>

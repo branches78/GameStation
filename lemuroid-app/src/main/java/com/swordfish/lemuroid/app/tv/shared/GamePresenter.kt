@@ -4,7 +4,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.leanback.widget.ImageCardView
 import androidx.leanback.widget.Presenter
-import com.swordfish.lemuroid.app.shared.GameContextMenuListener
 import com.swordfish.lemuroid.app.shared.GameInteractor
 import com.swordfish.lemuroid.app.shared.covers.CoverAspectRatio
 import com.swordfish.lemuroid.app.shared.covers.CoverRatioCache
@@ -30,7 +29,11 @@ class GamePresenter(
         // Same height for every card; the width follows the cover shape (like on mobile).
         updateCardShape(viewHolder, game)
         viewHolder.updateCardViewImage(game) { updateCardShape(viewHolder, game) }
-        viewHolder.view.setOnCreateContextMenuListener(GameContextMenuListener(gameInteractor, game))
+        // A long press opens the same actions menu as on mobile.
+        viewHolder.view.setOnLongClickListener {
+            TVGameContextMenu.show(it.context, game, gameInteractor)
+            true
+        }
     }
 
     private fun updateCardShape(
@@ -65,7 +68,7 @@ class GamePresenter(
     override fun onUnbindViewHolder(viewHolder: Presenter.ViewHolder?) {
         val viewHolder = viewHolder as ViewHolder
         viewHolder.mCardView.mainImage = null
-        viewHolder.view.setOnCreateContextMenuListener(null)
+        viewHolder.view.setOnLongClickListener(null)
     }
 
     class ViewHolder(view: ImageCardView) : Presenter.ViewHolder(view) {

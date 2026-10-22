@@ -156,7 +156,7 @@
     <string name="error_message_incompatible_state">Αυτό το save state δεν είναι συμβατό με την τρέχουσα έκδοση του πυρήνα. Παρακαλώ φορτώστε προηγούμενο save του παιχνιδιού ή χρησιμοποιήστε μια προηγούμενη έκδοση PlayRetro.</string>
     <string name="shader_filter_names_auto">Αυτόματο</string>
     <string name="shader_filter_names_sharp">Κοφτερό</string>
-    <string name="shader_filter_names_smooth">Ομαλό</string>
+    <string name="shader_filter_names_smooth">Ομαλό (Απενεργοποιημένο)</string>
     <string name="shader_filter_names_crt">CRT</string>
     <string name="shader_filter_names_lcd">LCD</string>
     <string name="haptic_feedback_mode_names_none">Κανένα</string>
@@ -186,4 +186,27 @@
     <string name="core_options_summary_count">%1$s · Επιλογές: %2$d</string>
     <string name="core_options_summary_none">%1$s · Χωρίς επιλογές</string>
     <string name="core_options_summary_unused">%1$s · Δεν έχει χρησιμοποιηθεί</string>
+    <string name="game_context_menu_start">Έναρξη</string>
+    <string name="game_context_menu_add_custom_name">Προσθήκη προσαρμοσμένου ονόματος</string>
+    <string name="game_context_menu_remove_custom_name">Αφαίρεση προσαρμοσμένου ονόματος</string>
+    <string name="game_context_menu_add_custom_artwork">Προσθήκη προσαρμοσμένου εξωφύλλου</string>
+    <string name="game_context_menu_remove_custom_artwork">Αφαίρεση προσαρμοσμένου εξωφύλλου</string>
+    <string name="game_context_menu_custom_name_dialog_title">Προσαρμοσμένο όνομα</string>
+    <string name="game_context_menu_core_options">Ρύθμιση πυρήνα</string>
+    <string name="game_context_menu_no_image_picker">Δεν υπάρχει εφαρμογή επιλογής εικόνων σε αυτή τη συσκευή.</string>
+    <string name="title_about">Πληροφορίες</string>
+    <string name="about_version">Έκδοση %1$s</string>
+    <string name="about_what_is_title">Τι είναι το PlayRetro;</string>
+    <string name="about_what_is_text">Το PlayRetro είναι ένας εξομοιωτής κλασικών κονσολών για τηλέφωνα, tablet και Android TV. Οργανώνει τη συλλογή παιχνιδιών σου με εξώφυλλα και σου επιτρέπει να παίζεις με χειριστήριο ή χειρισμούς αφής, αποθηκεύοντας αυτόματα την πρόοδό σου.
+
+Ξεκίνησε ως ανεξάρτητη έκδοση του Lemuroid, του εξομοιωτή ανοιχτού κώδικα του Filippo Scognamiglio, και χρησιμοποιεί τους πυρήνες εξομοίωσης του libretro, τους ίδιους με το RetroArch.</string>
+    <string name="about_help_title">Βοήθεια</string>
+    <string name="about_license_title">Άδεια και ευχαριστίες</string>
+    <string name="about_license_text">• Το PlayRetro είναι ελεύθερο λογισμικό με άδεια GNU GPL v3.
+• Βασίζεται στα Lemuroid και LibretroDroid του Filippo Scognamiglio (Swordfish90).
+• Πυρήνες εξομοίωσης από το libretro, ο καθένας με τη δική του άδεια ανοιχτού κώδικα.
+• Εικονίδια συστημάτων: θέμα \"FlatUI\" του RetroArch, άδεια CC BY 4.0.
+• Εξώφυλλα: libretro-thumbnails.</string>
+    <string name="help_covers_question">Γιατί λείπει ένα εξώφυλλο ή το όνομα είναι λάθος;</string>
+    <string name="help_covers_answer">Τα παιχνίδια αναγνωρίζονται πρώτα από το περιεχόμενό τους. Αν αυτό αποτύχει, χρησιμοποιείται το όνομα του αρχείου: ονόμασε τα αρχεία σου όπως \"ΌνομαΠαιχνιδιού (USA).nes\" ή απλώς \"ΌνομαΠαιχνιδιού.nes\". Μετά τη μετονομασία, σάρωσε ξανά τα παιχνίδια σου.</string>
 </resources>

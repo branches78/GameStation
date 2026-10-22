@@ -145,7 +145,7 @@
     <string name="error_message_incompatible_state">Trạng thái lưu này không tương thích với phiên bản lõi hiện tại. Vui lòng tải bản lưu trong trò chơi mới nhất hoặc sử dụng phiên bản PlayRetro trước đó.</string>
     <string name="shader_filter_names_auto">Tự động</string>
     <string name="shader_filter_names_sharp">Sắc nét</string>
-    <string name="shader_filter_names_smooth">Mịn</string>
+    <string name="shader_filter_names_smooth">Mịn (Tắt)</string>
     <string name="shader_filter_names_crt">CRT</string>
     <string name="shader_filter_names_lcd">LCD</string>
     <string name="haptic_feedback_mode_names_none">Không</string>
@@ -169,4 +169,27 @@
     <string name="core_options_summary_count">%1$s · Tùy chọn: %2$d</string>
     <string name="core_options_summary_none">%1$s · Không có tùy chọn</string>
     <string name="core_options_summary_unused">%1$s · Chưa sử dụng</string>
+    <string name="game_context_menu_start">Bắt đầu</string>
+    <string name="game_context_menu_add_custom_name">Thêm tên tùy chỉnh</string>
+    <string name="game_context_menu_remove_custom_name">Xóa tên tùy chỉnh</string>
+    <string name="game_context_menu_add_custom_artwork">Thêm ảnh bìa tùy chỉnh</string>
+    <string name="game_context_menu_remove_custom_artwork">Xóa ảnh bìa tùy chỉnh</string>
+    <string name="game_context_menu_custom_name_dialog_title">Tên tùy chỉnh</string>
+    <string name="game_context_menu_core_options">Cấu hình lõi</string>
+    <string name="game_context_menu_no_image_picker">Thiết bị này không có ứng dụng để chọn hình ảnh.</string>
+    <string name="title_about">Giới thiệu</string>
+    <string name="about_version">Phiên bản %1$s</string>
+    <string name="about_what_is_title">PlayRetro là gì?</string>
+    <string name="about_what_is_text">PlayRetro là trình giả lập máy chơi game cổ điển cho điện thoại, máy tính bảng và Android TV. Ứng dụng sắp xếp bộ sưu tập game của bạn kèm ảnh bìa và cho phép chơi bằng tay cầm hoặc điều khiển cảm ứng, tự động lưu tiến trình.
+
+Ứng dụng bắt đầu như một phiên bản độc lập của Lemuroid, trình giả lập mã nguồn mở của Filippo Scognamiglio, và dùng các lõi giả lập của libretro, giống như RetroArch.</string>
+    <string name="about_help_title">Trợ giúp</string>
+    <string name="about_license_title">Giấy phép và ghi công</string>
+    <string name="about_license_text">• PlayRetro là phần mềm tự do theo giấy phép GNU GPL v3.
+• Dựa trên Lemuroid và LibretroDroid của Filippo Scognamiglio (Swordfish90).
+• Các lõi giả lập từ libretro, mỗi lõi có giấy phép mã nguồn mở riêng.
+• Biểu tượng hệ máy: giao diện \"FlatUI\" của RetroArch, giấy phép CC BY 4.0.
+• Ảnh bìa: libretro-thumbnails.</string>
+    <string name="help_covers_question">Tại sao thiếu ảnh bìa hoặc tên bị sai?</string>
+    <string name="help_covers_answer">Game được nhận diện trước tiên theo nội dung. Nếu không được, tên tệp sẽ được dùng: đặt tên tệp như \"TenGame (USA).nes\", hoặc chỉ \"TenGame.nes\". Sau khi đổi tên, hãy quét lại game.</string>
 </resources>

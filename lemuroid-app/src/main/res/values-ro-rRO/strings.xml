@@ -144,7 +144,7 @@
     <string name="error_message_incompatible_state">Această stare de salvare nu este compatibilă cu versiunea de bază curentă. Vă rugăm să încărcați ultima salvare din joc sau să folosiți o versiune PlayRetro anterioară.</string>
     <string name="shader_filter_names_auto">Auto</string>
     <string name="shader_filter_names_sharp">Ascuţit</string>
-    <string name="shader_filter_names_smooth">Netezit</string>
+    <string name="shader_filter_names_smooth">Netezit (Oprit)</string>
     <string name="shader_filter_names_crt">CRT</string>
     <string name="shader_filter_names_lcd">LCD</string>
     <string name="haptic_feedback_mode_names_none">Niciunul</string>
@@ -174,4 +174,27 @@
     <string name="core_options_summary_count">%1$s · Opțiuni: %2$d</string>
     <string name="core_options_summary_none">%1$s · Fără opțiuni</string>
     <string name="core_options_summary_unused">%1$s · Încă nefolosit</string>
+    <string name="game_context_menu_start">Pornește</string>
+    <string name="game_context_menu_add_custom_name">Adaugă nume personalizat</string>
+    <string name="game_context_menu_remove_custom_name">Elimină numele personalizat</string>
+    <string name="game_context_menu_add_custom_artwork">Adaugă copertă personalizată</string>
+    <string name="game_context_menu_remove_custom_artwork">Elimină coperta personalizată</string>
+    <string name="game_context_menu_custom_name_dialog_title">Nume personalizat</string>
+    <string name="game_context_menu_core_options">Configurează nucleul</string>
+    <string name="game_context_menu_no_image_picker">Pe acest dispozitiv nu există nicio aplicație pentru alegerea imaginilor.</string>
+    <string name="title_about">Despre</string>
+    <string name="about_version">Versiunea %1$s</string>
+    <string name="about_what_is_title">Ce este PlayRetro?</string>
+    <string name="about_what_is_text">PlayRetro este un emulator de console clasice pentru telefoane, tablete și Android TV. Îți organizează colecția de jocuri cu coperți și te lasă să joci cu controlerul sau cu comenzi tactile, salvându-ți automat progresul.
+
+A pornit ca o versiune independentă a Lemuroid, emulatorul open source al lui Filippo Scognamiglio, și folosește nucleele de emulare libretro, aceleași ca RetroArch.</string>
+    <string name="about_help_title">Ajutor</string>
+    <string name="about_license_title">Licență și mulțumiri</string>
+    <string name="about_license_text">• PlayRetro este software liber sub licența GNU GPL v3.
+• Bazat pe Lemuroid și LibretroDroid de Filippo Scognamiglio (Swordfish90).
+• Nuclee de emulare de la libretro, fiecare cu propria licență open source.
+• Pictograme sisteme: tema \"FlatUI\" din RetroArch, licență CC BY 4.0.
+• Coperți: libretro-thumbnails.</string>
+    <string name="help_covers_question">De ce lipsește o copertă sau numele este greșit?</string>
+    <string name="help_covers_answer">Jocurile sunt recunoscute mai întâi după conținut. Dacă nu reușește, se folosește numele fișierului: denumește fișierele ca \"NumeleJocului (USA).nes\" sau doar \"NumeleJocului.nes\". După redenumire, scanează din nou jocurile.</string>
 </resources>

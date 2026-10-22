@@ -15,12 +15,11 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.outlined.HelpOutline
 import androidx.compose.material.icons.automirrored.outlined.ViewList
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.CloudSync
 import androidx.compose.material.icons.outlined.GridView
-import androidx.compose.material.icons.outlined.Info
-import androidx.compose.material3.BottomAppBarDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -88,7 +87,8 @@ fun LemuroidTopAppBar(
     onToggleGamesViewMode: () -> Unit,
 ) {
     val context = LocalContext.current
-    val topBarColor = BottomAppBarDefaults.containerColor
+    // Same color as the screen background: no visible edge between the bar and the content.
+    val topBarColor = MaterialTheme.colorScheme.background
 
     TopAppBar(
         title = {
@@ -170,7 +170,7 @@ fun LemuroidTopBarActions(
             onClick = { onHelpPressed() },
         ) {
             Icon(
-                Icons.Outlined.Info,
+                Icons.AutoMirrored.Outlined.HelpOutline,
                 stringResource(R.string.mobile_settings_help),
             )
         }

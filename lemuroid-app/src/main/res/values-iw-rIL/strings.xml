@@ -134,4 +134,28 @@
     <string name="core_options_summary_count">%1$s · אפשרויות: %2$d</string>
     <string name="core_options_summary_none">%1$s · ללא אפשרויות</string>
     <string name="core_options_summary_unused">%1$s · עדיין לא בשימוש</string>
+    <string name="shader_filter_names_smooth">חלק (כבוי)</string>
+    <string name="game_context_menu_start">התחל</string>
+    <string name="game_context_menu_add_custom_name">הוסף שם מותאם אישית</string>
+    <string name="game_context_menu_remove_custom_name">הסר שם מותאם אישית</string>
+    <string name="game_context_menu_add_custom_artwork">הוסף עטיפה מותאמת אישית</string>
+    <string name="game_context_menu_remove_custom_artwork">הסר עטיפה מותאמת אישית</string>
+    <string name="game_context_menu_custom_name_dialog_title">שם מותאם אישית</string>
+    <string name="game_context_menu_core_options">הגדרת ליבה</string>
+    <string name="game_context_menu_no_image_picker">אין במכשיר זה אפליקציה לבחירת תמונות.</string>
+    <string name="title_about">אודות</string>
+    <string name="about_version">גרסה %1$s</string>
+    <string name="about_what_is_title">מה זה PlayRetro?</string>
+    <string name="about_what_is_text">PlayRetro הוא אמולטור לקונסולות קלאסיות לטלפונים, לטאבלטים ול-Android TV. הוא מסדר את אוסף המשחקים שלך עם עטיפות ומאפשר לשחק עם בקר או עם פקדי מגע, תוך שמירה אוטומטית של ההתקדמות.
+
+הוא התחיל כגרסה עצמאית של Lemuroid, אמולטור הקוד הפתוח של Filippo Scognamiglio, ומשתמש בליבות האמולציה של libretro, אותן ליבות של RetroArch.</string>
+    <string name="about_help_title">עזרה</string>
+    <string name="about_license_title">רישיון וקרדיטים</string>
+    <string name="about_license_text">• PlayRetro הוא תוכנה חופשית ברישיון GNU GPL v3.
+• מבוסס על Lemuroid ו-LibretroDroid של Filippo Scognamiglio ‏(Swordfish90).
+• ליבות אמולציה של libretro, לכל אחת רישיון קוד פתוח משלה.
+• סמלי מערכות: ערכת \"FlatUI\" של RetroArch, רישיון CC BY 4.0.
+• עטיפות: libretro-thumbnails.</string>
+    <string name="help_covers_question">למה חסרה עטיפה או שהשם שגוי?</string>
+    <string name="help_covers_answer">המשחקים מזוהים קודם לפי התוכן שלהם. אם זה נכשל, נעשה שימוש בשם הקובץ: קרא לקבצים כמו \"שםהמשחק (USA).nes\", או רק \"שםהמשחק.nes\". אחרי שינוי השם, סרוק שוב את המשחקים.</string>
 </resources>

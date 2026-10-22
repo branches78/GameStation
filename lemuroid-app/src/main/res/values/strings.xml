@@ -198,9 +198,7 @@
         <b>&#8226;How do I use PlayRetro?</b><br/>
         Copy all your ROMs files into a directory on your device and select it within PlayRetro. This directory is allowed to have subdirectories. After the scan completes you should see your games.<br/><br/>
         <b>&#8226;Why aren\'t my games detected?</b><br/>
-        If your games are compressed, try uncompressing them. If this doesn\'t work try putting ROMs into separate directories, one for each system with the following names: $SYSTEMS.<br/><br/>
-        <b>&#8226;Why is a cover missing or the name wrong?</b><br/>
-        Games are recognized by their content first. If that fails, the file name is used: name your files like "Arkanoid (USA).nes", or just with the title, like "Arkanoid.nes". After renaming, rescan your games.
+        If your games are compressed, try uncompressing them. If this doesn\'t work try putting ROMs into separate directories, one for each system with the following names: $SYSTEMS.
     ]]></string>
 
     <string name="lemuroid_crash_disclamer">It looks like the Libretro core has experienced an unexpected issue. If it\'s persistent please try the following:\n
@@ -214,7 +212,7 @@
 
     <string name="shader_filter_names_auto">Auto</string>
     <string name="shader_filter_names_sharp">Sharp</string>
-    <string name="shader_filter_names_smooth">Smooth</string>
+    <string name="shader_filter_names_smooth">Smooth (Off)</string>
     <string name="shader_filter_names_crt">CRT</string>
     <string name="shader_filter_names_lcd">LCD</string>
 
@@ -255,4 +253,22 @@
     <string name="core_options_summary_count">%1$s · Options: %2$d</string>
     <string name="core_options_summary_none">%1$s · No options</string>
     <string name="core_options_summary_unused">%1$s · Not used yet</string>
+    <string name="game_context_menu_start">Start</string>
+    <string name="game_context_menu_core_options">Configure core</string>
+    <string name="game_context_menu_no_image_picker">There is no app to pick images on this device.</string>
+    <string name="title_about">About</string>
+    <string name="about_version">Version %1$s</string>
+    <string name="about_what_is_title">What is PlayRetro?</string>
+    <string name="about_what_is_text">PlayRetro is a classic console emulator for phones, tablets and Android TV. It organizes your game collection with box art and lets you play with a gamepad or touch controls, saving your progress automatically.
+
+It started as an independent version of Lemuroid, the open source emulator by Filippo Scognamiglio, and runs the libretro emulation cores, the same ones used by RetroArch.</string>
+    <string name="about_help_title">Help</string>
+    <string name="about_license_title">License and credits</string>
+    <string name="about_license_text">• PlayRetro is free software under the GNU GPL v3 license.
+• Based on Lemuroid and LibretroDroid by Filippo Scognamiglio (Swordfish90).
+• Emulation cores from libretro, each one with its own open source license.
+• System icons: \"FlatUI\" theme from RetroArch, CC BY 4.0 license.
+• Box art: libretro-thumbnails.</string>
+    <string name="help_covers_question">Why is a cover missing or the name wrong?</string>
+    <string name="help_covers_answer">Games are recognized by their content first. If that fails, the file name is used: name your files like \"GameName (USA).nes\", or just \"GameName.nes\". After renaming, rescan your games.</string>
 </resources>

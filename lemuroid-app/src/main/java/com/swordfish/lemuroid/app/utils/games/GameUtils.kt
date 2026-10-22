@@ -20,7 +20,8 @@ class GameUtils {
             return "$systemName $developerName"
         }
 
-        private fun getSystemNameForGame(
+        /** Short name of the system of the game, e.g. "SNES". */
+        fun getSystemNameForGame(
             context: Context,
             game: Game,
         ): String {

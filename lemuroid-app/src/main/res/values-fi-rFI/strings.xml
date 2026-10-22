@@ -150,7 +150,7 @@
     <string name="error_message_incompatible_state">Tallennustila ei ole yhteensopiva nykyisen ydinversion kanssa. Lataa uusin pelin sisäinen tallennus tai käytä aiempaa PlayRetro-versiota.</string>
     <string name="shader_filter_names_auto">Automaattinen</string>
     <string name="shader_filter_names_sharp">Terävä</string>
-    <string name="shader_filter_names_smooth">Pehmeä</string>
+    <string name="shader_filter_names_smooth">Pehmeä (Pois)</string>
     <string name="shader_filter_names_crt">CRT</string>
     <string name="shader_filter_names_lcd">LCD</string>
     <string name="haptic_feedback_mode_names_none">Ei Mitään</string>
@@ -180,4 +180,27 @@
     <string name="core_options_summary_count">%1$s · Asetuksia: %2$d</string>
     <string name="core_options_summary_none">%1$s · Ei asetuksia</string>
     <string name="core_options_summary_unused">%1$s · Ei vielä käytetty</string>
+    <string name="game_context_menu_start">Aloita</string>
+    <string name="game_context_menu_add_custom_name">Lisää oma nimi</string>
+    <string name="game_context_menu_remove_custom_name">Poista oma nimi</string>
+    <string name="game_context_menu_add_custom_artwork">Lisää oma kansikuva</string>
+    <string name="game_context_menu_remove_custom_artwork">Poista oma kansikuva</string>
+    <string name="game_context_menu_custom_name_dialog_title">Oma nimi</string>
+    <string name="game_context_menu_core_options">Määritä ydin</string>
+    <string name="game_context_menu_no_image_picker">Tällä laitteella ei ole sovellusta kuvien valitsemiseen.</string>
+    <string name="title_about">Tietoja</string>
+    <string name="about_version">Versio %1$s</string>
+    <string name="about_what_is_title">Mikä PlayRetro on?</string>
+    <string name="about_what_is_text">PlayRetro on klassisten konsolien emulaattori puhelimille, tableteille ja Android TV:lle. Se järjestää pelikokoelmasi kansikuvineen ja antaa pelata ohjaimella tai kosketusohjaimilla tallentaen edistymisesi automaattisesti.
+
+Se sai alkunsa itsenäisenä versiona Lemuroidista, Filippo Scognamiglion avoimen lähdekoodin emulaattorista, ja käyttää libretron emulointiytimiä, samoja kuin RetroArch.</string>
+    <string name="about_help_title">Ohje</string>
+    <string name="about_license_title">Lisenssi ja kiitokset</string>
+    <string name="about_license_text">• PlayRetro on vapaa ohjelmisto GNU GPL v3 -lisenssillä.
+• Perustuu Filippo Scognamiglion (Swordfish90) Lemuroidiin ja LibretroDroidiin.
+• Emulointiytimet libretrolta, jokaisella oma avoimen lähdekoodin lisenssinsä.
+• Järjestelmäkuvakkeet: RetroArchin \"FlatUI\"-teema, CC BY 4.0 -lisenssi.
+• Kansikuvat: libretro-thumbnails.</string>
+    <string name="help_covers_question">Miksi kansikuva puuttuu tai nimi on väärä?</string>
+    <string name="help_covers_answer">Pelit tunnistetaan ensin niiden sisällöstä. Jos se ei onnistu, käytetään tiedostonimeä: nimeä tiedostot kuten \"Pelinnimi (USA).nes\" tai pelkästään \"Pelinnimi.nes\". Nimeämisen jälkeen skannaa pelit uudelleen.</string>
 </resources>

@@ -156,7 +156,7 @@
     <string name="error_message_incompatible_state">此保存状态与当前核心版本不兼容。请加载游戏内最新的保存状态或使用以前的 PlayRetro 版本。</string>
     <string name="shader_filter_names_auto">自动</string>
     <string name="shader_filter_names_sharp">锐利</string>
-    <string name="shader_filter_names_smooth">平滑</string>
+    <string name="shader_filter_names_smooth">平滑（关闭）</string>
     <string name="shader_filter_names_crt">CRT</string>
     <string name="shader_filter_names_lcd">LCD</string>
     <string name="haptic_feedback_mode_names_none">无</string>
@@ -186,4 +186,27 @@
     <string name="core_options_summary_count">%1$s · 选项：%2$d</string>
     <string name="core_options_summary_none">%1$s · 无选项</string>
     <string name="core_options_summary_unused">%1$s · 尚未使用</string>
+    <string name="game_context_menu_start">开始</string>
+    <string name="game_context_menu_add_custom_name">添加自定义名称</string>
+    <string name="game_context_menu_remove_custom_name">移除自定义名称</string>
+    <string name="game_context_menu_add_custom_artwork">添加自定义封面</string>
+    <string name="game_context_menu_remove_custom_artwork">移除自定义封面</string>
+    <string name="game_context_menu_custom_name_dialog_title">自定义名称</string>
+    <string name="game_context_menu_core_options">配置核心</string>
+    <string name="game_context_menu_no_image_picker">此设备上没有可用于选择图片的应用。</string>
+    <string name="title_about">关于</string>
+    <string name="about_version">版本 %1$s</string>
+    <string name="about_what_is_title">PlayRetro 是什么？</string>
+    <string name="about_what_is_text">PlayRetro 是一款适用于手机、平板和 Android TV 的经典游戏机模拟器。它会用封面整理你的游戏收藏，可以用手柄或触控按键游玩，并自动保存进度。
+
+它最初是 Filippo Scognamiglio 的开源模拟器 Lemuroid 的独立版本，使用与 RetroArch 相同的 libretro 模拟核心。</string>
+    <string name="about_help_title">帮助</string>
+    <string name="about_license_title">许可与致谢</string>
+    <string name="about_license_text">• PlayRetro 是采用 GNU GPL v3 许可的自由软件。
+• 基于 Filippo Scognamiglio（Swordfish90）的 Lemuroid 和 LibretroDroid。
+• 模拟核心来自 libretro，各自拥有自己的开源许可。
+• 系统图标：RetroArch 的“FlatUI”主题，CC BY 4.0 许可。
+• 封面：libretro-thumbnails。</string>
+    <string name="help_covers_question">为什么缺少封面或名称不正确？</string>
+    <string name="help_covers_answer">游戏首先根据其内容进行识别。如果失败，则使用文件名：将文件命名为“游戏名称 (USA).nes”，或仅命名为“游戏名称.nes”。重命名后，请重新扫描游戏。</string>
 </resources>

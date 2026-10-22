@@ -155,7 +155,7 @@
     <string name="error_message_incompatible_state">Tento save state není kompatibilní se současnou verzí jádra. Prosím načtěte nejnovější save nebo použijte předchozí verzi PlayRetrou.</string>
     <string name="shader_filter_names_auto">Automatický</string>
     <string name="shader_filter_names_sharp">Ostrý</string>
-    <string name="shader_filter_names_smooth">Hladký</string>
+    <string name="shader_filter_names_smooth">Hladký (Vypnuto)</string>
     <string name="shader_filter_names_crt">CRT</string>
     <string name="shader_filter_names_lcd">LCD</string>
     <string name="haptic_feedback_mode_names_none">Žádný</string>
@@ -185,4 +185,27 @@
     <string name="core_options_summary_count">%1$s · Možnosti: %2$d</string>
     <string name="core_options_summary_none">%1$s · Bez možností</string>
     <string name="core_options_summary_unused">%1$s · Zatím nepoužito</string>
+    <string name="game_context_menu_start">Spustit</string>
+    <string name="game_context_menu_add_custom_name">Přidat vlastní název</string>
+    <string name="game_context_menu_remove_custom_name">Odebrat vlastní název</string>
+    <string name="game_context_menu_add_custom_artwork">Přidat vlastní obal</string>
+    <string name="game_context_menu_remove_custom_artwork">Odebrat vlastní obal</string>
+    <string name="game_context_menu_custom_name_dialog_title">Vlastní název</string>
+    <string name="game_context_menu_core_options">Nastavit jádro</string>
+    <string name="game_context_menu_no_image_picker">V tomto zařízení není aplikace pro výběr obrázků.</string>
+    <string name="title_about">O aplikaci</string>
+    <string name="about_version">Verze %1$s</string>
+    <string name="about_what_is_title">Co je PlayRetro?</string>
+    <string name="about_what_is_text">PlayRetro je emulátor klasických konzolí pro telefony, tablety a Android TV. Uspořádá vaši sbírku her s obaly a umožní hrát s ovladačem nebo dotykovým ovládáním, přičemž automaticky ukládá váš postup.
+
+Vznikl jako nezávislá verze emulátoru Lemuroid s otevřeným zdrojovým kódem od Filippa Scognamiglia a používá emulační jádra libretro, stejná jako RetroArch.</string>
+    <string name="about_help_title">Nápověda</string>
+    <string name="about_license_title">Licence a poděkování</string>
+    <string name="about_license_text">• PlayRetro je svobodný software pod licencí GNU GPL v3.
+• Založeno na Lemuroid a LibretroDroid od Filippa Scognamiglia (Swordfish90).
+• Emulační jádra z libretro, každé s vlastní licencí open source.
+• Ikony systémů: motiv \"FlatUI\" z RetroArch, licence CC BY 4.0.
+• Obaly: libretro-thumbnails.</string>
+    <string name="help_covers_question">Proč chybí obal nebo je název špatně?</string>
+    <string name="help_covers_answer">Hry se nejprve rozpoznávají podle obsahu. Pokud to selže, použije se název souboru: pojmenujte soubory jako \"NazevHry (USA).nes\" nebo jen \"NazevHry.nes\". Po přejmenování hry znovu prohledejte.</string>
 </resources>

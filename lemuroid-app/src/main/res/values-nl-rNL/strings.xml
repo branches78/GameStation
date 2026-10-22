@@ -158,7 +158,7 @@
     <string name="error_message_incompatible_state">Deze save state is niet compatibel met de huidige core-versie. Laad de laatste versie van het spel of gebruik een eerdere versie van PlayRetro.</string>
     <string name="shader_filter_names_auto">Automatisch</string>
     <string name="shader_filter_names_sharp">Scherp</string>
-    <string name="shader_filter_names_smooth">Vloeiend</string>
+    <string name="shader_filter_names_smooth">Vloeiend (Uit)</string>
     <string name="shader_filter_names_crt">CRT</string>
     <string name="shader_filter_names_lcd">LCD</string>
     <string name="haptic_feedback_mode_names_none">Geen</string>
@@ -188,4 +188,27 @@
     <string name="core_options_summary_count">%1$s · Opties: %2$d</string>
     <string name="core_options_summary_none">%1$s · Geen opties</string>
     <string name="core_options_summary_unused">%1$s · Nog niet gebruikt</string>
+    <string name="game_context_menu_start">Starten</string>
+    <string name="game_context_menu_add_custom_name">Eigen naam toevoegen</string>
+    <string name="game_context_menu_remove_custom_name">Eigen naam verwijderen</string>
+    <string name="game_context_menu_add_custom_artwork">Eigen hoes toevoegen</string>
+    <string name="game_context_menu_remove_custom_artwork">Eigen hoes verwijderen</string>
+    <string name="game_context_menu_custom_name_dialog_title">Eigen naam</string>
+    <string name="game_context_menu_core_options">Core configureren</string>
+    <string name="game_context_menu_no_image_picker">Er is geen app om afbeeldingen te kiezen op dit apparaat.</string>
+    <string name="title_about">Over</string>
+    <string name="about_version">Versie %1$s</string>
+    <string name="about_what_is_title">Wat is PlayRetro?</string>
+    <string name="about_what_is_text">PlayRetro is een emulator voor klassieke consoles voor telefoons, tablets en Android TV. Het ordent je gamecollectie met hoesjes en laat je spelen met een controller of aanraakbediening, waarbij je voortgang automatisch wordt opgeslagen.
+
+Het begon als een onafhankelijke versie van Lemuroid, de opensource-emulator van Filippo Scognamiglio, en gebruikt de emulatiecores van libretro, dezelfde als RetroArch.</string>
+    <string name="about_help_title">Help</string>
+    <string name="about_license_title">Licentie en dankwoord</string>
+    <string name="about_license_text">• PlayRetro is vrije software onder de GNU GPL v3-licentie.
+• Gebaseerd op Lemuroid en LibretroDroid van Filippo Scognamiglio (Swordfish90).
+• Emulatiecores van libretro, elk met een eigen opensourcelicentie.
+• Systeempictogrammen: \"FlatUI\"-thema van RetroArch, CC BY 4.0-licentie.
+• Hoesjes: libretro-thumbnails.</string>
+    <string name="help_covers_question">Waarom ontbreekt een hoesje of is de naam verkeerd?</string>
+    <string name="help_covers_answer">Games worden eerst herkend aan hun inhoud. Als dat mislukt, wordt de bestandsnaam gebruikt: noem je bestanden zoals \"Gamenaam (USA).nes\", of gewoon \"Gamenaam.nes\". Scan je games opnieuw na het hernoemen.</string>
 </resources>

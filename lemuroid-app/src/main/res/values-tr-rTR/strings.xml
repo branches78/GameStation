@@ -157,7 +157,7 @@ $SYSTEMS.
     <string name="error_message_incompatible_state">Bu kayıt durumu mevcut çekirdek sürümüyle mevcut değil. Lütfen en son oyun içi kayıtı yükleyin veya önceki PlayRetro versiyonunu kullanın.</string>
     <string name="shader_filter_names_auto">Otomatik</string>
     <string name="shader_filter_names_sharp">Keskin</string>
-    <string name="shader_filter_names_smooth">Yumuşak</string>
+    <string name="shader_filter_names_smooth">Yumuşak (Kapalı)</string>
     <string name="shader_filter_names_crt">CRT</string>
     <string name="shader_filter_names_lcd">LCD</string>
     <string name="haptic_feedback_mode_names_none">Yok</string>
@@ -187,4 +187,27 @@ $SYSTEMS.
     <string name="core_options_summary_count">%1$s · Seçenekler: %2$d</string>
     <string name="core_options_summary_none">%1$s · Seçenek yok</string>
     <string name="core_options_summary_unused">%1$s · Henüz kullanılmadı</string>
+    <string name="game_context_menu_start">Başlat</string>
+    <string name="game_context_menu_add_custom_name">Özel ad ekle</string>
+    <string name="game_context_menu_remove_custom_name">Özel adı kaldır</string>
+    <string name="game_context_menu_add_custom_artwork">Özel kapak ekle</string>
+    <string name="game_context_menu_remove_custom_artwork">Özel kapağı kaldır</string>
+    <string name="game_context_menu_custom_name_dialog_title">Özel ad</string>
+    <string name="game_context_menu_core_options">Çekirdeği yapılandır</string>
+    <string name="game_context_menu_no_image_picker">Bu cihazda resim seçmek için bir uygulama yok.</string>
+    <string name="title_about">Hakkında</string>
+    <string name="about_version">Sürüm %1$s</string>
+    <string name="about_what_is_title">PlayRetro nedir?</string>
+    <string name="about_what_is_text">PlayRetro; telefonlar, tabletler ve Android TV için klasik konsol emülatörüdür. Oyun koleksiyonunu kapaklarıyla düzenler, kumanda ya da dokunmatik kontrollerle oynamanı sağlar ve ilerlemeni otomatik olarak kaydeder.
+
+Filippo Scognamiglio\'nun açık kaynak emülatörü Lemuroid\'in bağımsız bir sürümü olarak başladı ve RetroArch ile aynı olan libretro emülasyon çekirdeklerini kullanır.</string>
+    <string name="about_help_title">Yardım</string>
+    <string name="about_license_title">Lisans ve teşekkürler</string>
+    <string name="about_license_text">• PlayRetro, GNU GPL v3 lisansıyla özgür bir yazılımdır.
+• Filippo Scognamiglio\'nun (Swordfish90) Lemuroid ve LibretroDroid projelerine dayanır.
+• libretro\'nun emülasyon çekirdekleri, her birinin kendi açık kaynak lisansı vardır.
+• Sistem simgeleri: RetroArch\'ın \"FlatUI\" teması, CC BY 4.0 lisansı.
+• Kapaklar: libretro-thumbnails.</string>
+    <string name="help_covers_question">Neden bir kapak eksik veya ad yanlış?</string>
+    <string name="help_covers_answer">Oyunlar önce içeriklerine göre tanınır. Bu başarısız olursa dosya adı kullanılır: dosyalarını \"OyunAdı (USA).nes\" ya da yalnızca \"OyunAdı.nes\" şeklinde adlandır. Yeniden adlandırdıktan sonra oyunlarını yeniden tara.</string>
 </resources>

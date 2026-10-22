@@ -77,6 +77,8 @@ No se sincroniza con Lemuroid: el código es propio y va por su cuenta.
   PlayStation tiene dos cores: PCSX ReARMed (por defecto) y SwanStation (necesita BIOS scph5500/5501/5502).
   Los archivos extra de PSP (`assets/ppsspp.zip`, versión 1.15) también se bajan de PlayRetroCores, por el commit
   de esa versión (`PPSSPPAssetsManager.kt`). Las descargas de cores se hacen a un `.part` y se renombran al terminar.
+- **Acerca de:** misma información en la pestaña "Acerca de" de la TV (`tv/about/TVAboutFragment.kt`) y en la ventana
+  del botón "?" del móvil: `shared/about/AboutContent.kt` (qué es PlayRetro, ayuda y licencia/créditos).
 - **Favoritos (móvil):** ya no es pestaña. Con más de 10 favoritos, la fila de Inicio termina en una tarjeta
   "Mostrar todo" que abre `mobile/feature/favorites/FavoritesScreen.kt` (ruta `MainRoute.FAVORITES`), igual que en la TV.
   Cómo volver a hacerla pestaña: `saved-code/favorites-tab/RESTORE.md`.

@@ -156,7 +156,7 @@
     <string name="error_message_incompatible_state">Dieser Speicherstatus ist nicht mit der aktuellen Core-Version kompatibel. Bitte laden Sie den aktuellen Spielspeicher oder verwenden Sie eine vorherige PlayRetro-Version.</string>
     <string name="shader_filter_names_auto">Automatisch</string>
     <string name="shader_filter_names_sharp">Scharf</string>
-    <string name="shader_filter_names_smooth">Weichzeichnen</string>
+    <string name="shader_filter_names_smooth">Weichzeichnen (Aus)</string>
     <string name="shader_filter_names_crt">CRT</string>
     <string name="shader_filter_names_lcd">LCD</string>
     <string name="haptic_feedback_mode_names_none">Keine Vibration</string>
@@ -186,4 +186,27 @@
     <string name="core_options_summary_count">%1$s · Optionen: %2$d</string>
     <string name="core_options_summary_none">%1$s · Keine Optionen</string>
     <string name="core_options_summary_unused">%1$s · Noch nicht verwendet</string>
+    <string name="game_context_menu_start">Starten</string>
+    <string name="game_context_menu_add_custom_name">Eigenen Namen festlegen</string>
+    <string name="game_context_menu_remove_custom_name">Eigenen Namen entfernen</string>
+    <string name="game_context_menu_add_custom_artwork">Eigenes Cover festlegen</string>
+    <string name="game_context_menu_remove_custom_artwork">Eigenes Cover entfernen</string>
+    <string name="game_context_menu_custom_name_dialog_title">Eigener Name</string>
+    <string name="game_context_menu_core_options">Core konfigurieren</string>
+    <string name="game_context_menu_no_image_picker">Auf diesem Gerät gibt es keine App zur Bildauswahl.</string>
+    <string name="title_about">Über</string>
+    <string name="about_version">Version %1$s</string>
+    <string name="about_what_is_title">Was ist PlayRetro?</string>
+    <string name="about_what_is_text">PlayRetro ist ein Emulator für klassische Konsolen für Smartphones, Tablets und Android TV. Er ordnet deine Spielesammlung mit Covern und lässt dich mit Controller oder Touch-Steuerung spielen, wobei dein Fortschritt automatisch gespeichert wird.
+
+Er entstand als unabhängige Version von Lemuroid, dem Open-Source-Emulator von Filippo Scognamiglio, und nutzt die Emulations-Cores von libretro, dieselben wie RetroArch.</string>
+    <string name="about_help_title">Hilfe</string>
+    <string name="about_license_title">Lizenz und Danksagungen</string>
+    <string name="about_license_text">• PlayRetro ist freie Software unter der Lizenz GNU GPL v3.
+• Basiert auf Lemuroid und LibretroDroid von Filippo Scognamiglio (Swordfish90).
+• Emulations-Cores von libretro, jeder mit eigener Open-Source-Lizenz.
+• Systemsymbole: \"FlatUI\"-Design von RetroArch, Lizenz CC BY 4.0.
+• Cover: libretro-thumbnails.</string>
+    <string name="help_covers_question">Warum fehlt ein Cover oder ist der Name falsch?</string>
+    <string name="help_covers_answer">Spiele werden zuerst an ihrem Inhalt erkannt. Wenn das fehlschlägt, wird der Dateiname verwendet: Benenne deine Dateien wie \"Spielname (USA).nes\" oder nur \"Spielname.nes\". Scanne deine Spiele nach dem Umbenennen erneut.</string>
 </resources>

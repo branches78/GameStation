@@ -54,4 +54,28 @@
     <string name="core_options_summary_count">%1$s · Beállítások: %2$d</string>
     <string name="core_options_summary_none">%1$s · Nincs beállítás</string>
     <string name="core_options_summary_unused">%1$s · Még nem használt</string>
+    <string name="shader_filter_names_smooth">Sima (Ki)</string>
+    <string name="game_context_menu_start">Indítás</string>
+    <string name="game_context_menu_add_custom_name">Egyéni név megadása</string>
+    <string name="game_context_menu_remove_custom_name">Egyéni név törlése</string>
+    <string name="game_context_menu_add_custom_artwork">Egyéni borító megadása</string>
+    <string name="game_context_menu_remove_custom_artwork">Egyéni borító törlése</string>
+    <string name="game_context_menu_custom_name_dialog_title">Egyéni név</string>
+    <string name="game_context_menu_core_options">Mag beállítása</string>
+    <string name="game_context_menu_no_image_picker">Ezen az eszközön nincs képválasztó alkalmazás.</string>
+    <string name="title_about">Névjegy</string>
+    <string name="about_version">Verzió: %1$s</string>
+    <string name="about_what_is_title">Mi az a PlayRetro?</string>
+    <string name="about_what_is_text">A PlayRetro klasszikus konzolok emulátora telefonokra, táblagépekre és Android TV-re. Borítókkal rendezi a játékgyűjteményedet, és kontrollerrel vagy érintéses vezérlőkkel játszhatsz, miközben automatikusan menti az állást.
+
+A Lemuroid, Filippo Scognamiglio nyílt forráskódú emulátorának független változataként indult, és a libretro emulációs magjait használja, ugyanazokat, mint a RetroArch.</string>
+    <string name="about_help_title">Súgó</string>
+    <string name="about_license_title">Licenc és köszönetnyilvánítás</string>
+    <string name="about_license_text">• A PlayRetro szabad szoftver a GNU GPL v3 licenc alatt.
+• Filippo Scognamiglio (Swordfish90) Lemuroid és LibretroDroid projektjén alapul.
+• Emulációs magok a libretrotól, mindegyik saját nyílt forráskódú licenccel.
+• Rendszerikonok: a RetroArch \"FlatUI\" témája, CC BY 4.0 licenc.
+• Borítók: libretro-thumbnails.</string>
+    <string name="help_covers_question">Miért hiányzik egy borító, vagy miért rossz a név?</string>
+    <string name="help_covers_answer">A játékokat először a tartalmuk alapján ismeri fel. Ha ez nem sikerül, a fájlnevet használja: nevezd el a fájlokat így: \"Játéknév (USA).nes\", vagy csak \"Játéknév.nes\". Átnevezés után olvasd be újra a játékokat.</string>
 </resources>

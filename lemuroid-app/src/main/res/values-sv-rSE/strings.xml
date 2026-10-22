@@ -157,7 +157,7 @@
     <string name="error_message_incompatible_state">Detta sparläge är inte kompatibelt med den aktuella kärnversionen. Ladda in den senaste sparningen i spelet eller använd en tidigare PlayRetroversion.</string>
     <string name="shader_filter_names_auto">Automatisk</string>
     <string name="shader_filter_names_sharp">Skarp</string>
-    <string name="shader_filter_names_smooth">Mjuk</string>
+    <string name="shader_filter_names_smooth">Mjuk (Av)</string>
     <string name="shader_filter_names_crt">CRT</string>
     <string name="shader_filter_names_lcd">LCD</string>
     <string name="haptic_feedback_mode_names_none">Ingen</string>
@@ -187,4 +187,27 @@
     <string name="core_options_summary_count">%1$s · Alternativ: %2$d</string>
     <string name="core_options_summary_none">%1$s · Inga alternativ</string>
     <string name="core_options_summary_unused">%1$s · Inte använd än</string>
+    <string name="game_context_menu_start">Starta</string>
+    <string name="game_context_menu_add_custom_name">Lägg till eget namn</string>
+    <string name="game_context_menu_remove_custom_name">Ta bort eget namn</string>
+    <string name="game_context_menu_add_custom_artwork">Lägg till eget omslag</string>
+    <string name="game_context_menu_remove_custom_artwork">Ta bort eget omslag</string>
+    <string name="game_context_menu_custom_name_dialog_title">Eget namn</string>
+    <string name="game_context_menu_core_options">Konfigurera kärna</string>
+    <string name="game_context_menu_no_image_picker">Det finns ingen app för att välja bilder på den här enheten.</string>
+    <string name="title_about">Om</string>
+    <string name="about_version">Version %1$s</string>
+    <string name="about_what_is_title">Vad är PlayRetro?</string>
+    <string name="about_what_is_text">PlayRetro är en emulator för klassiska konsoler för telefoner, surfplattor och Android TV. Den ordnar din spelsamling med omslag och låter dig spela med handkontroll eller pekkontroller, och sparar dina framsteg automatiskt.
+
+Den började som en fristående version av Lemuroid, emulatorn med öppen källkod av Filippo Scognamiglio, och använder emuleringskärnorna från libretro, samma som RetroArch.</string>
+    <string name="about_help_title">Hjälp</string>
+    <string name="about_license_title">Licens och tack</string>
+    <string name="about_license_text">• PlayRetro är fri programvara under licensen GNU GPL v3.
+• Baserad på Lemuroid och LibretroDroid av Filippo Scognamiglio (Swordfish90).
+• Emuleringskärnor från libretro, var och en med egen licens för öppen källkod.
+• Systemikoner: \"FlatUI\"-tema från RetroArch, licens CC BY 4.0.
+• Omslag: libretro-thumbnails.</string>
+    <string name="help_covers_question">Varför saknas ett omslag eller är namnet fel?</string>
+    <string name="help_covers_answer">Spel känns först igen på sitt innehåll. Om det misslyckas används filnamnet: döp dina filer som \"Spelnamn (USA).nes\", eller bara \"Spelnamn.nes\". Skanna dina spel igen efter namnbytet.</string>
 </resources>

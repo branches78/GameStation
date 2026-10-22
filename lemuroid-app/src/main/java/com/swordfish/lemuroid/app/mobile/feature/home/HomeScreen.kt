@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -26,18 +27,20 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.key
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import com.swordfish.lemuroid.R
 import com.swordfish.lemuroid.app.mobile.shared.compose.ui.LemuroidGameCard
-import com.swordfish.lemuroid.app.shared.covers.CoverAspectRatio
 import com.swordfish.lemuroid.app.shared.home.HomeDynamicRows
 import com.swordfish.lemuroid.app.utils.android.ComposableLifecycle
 import com.swordfish.lemuroid.common.displayDetailsSettingsScreen
@@ -233,17 +236,33 @@ private fun HomeRowGames(
     onGameLongClick: (Game) -> Unit,
     onShowAll: (() -> Unit)?,
 ) {
+    val listState = rememberLazyListState()
+
+    // Lazy rows keep the previous first item in place when a game is added at the start (e.g. the game just
+    // played), which leaves the new first cover cut on the left. Go back to the start unless the user scrolled.
+    val firstGameId = games.firstOrNull()?.id
+    LaunchedEffect(firstGameId) {
+        if (listState.firstVisibleItemIndex <= 1) {
+            listState.scrollToItem(0)
+        }
+    }
+
+    // Same width as a cell of the games grid of a system, so covers have the same size in both screens;
+    // the height follows the shape of each cover.
+    val cardWidth = homeCardWidth()
+
     LazyRow(
+        state = listState,
         modifier =
             Modifier
                 .fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(HOME_ROW_SPACING),
+        // Texts stay aligned when covers have different heights.
+        verticalAlignment = Alignment.Bottom,
         contentPadding = PaddingValues(HOME_ROW_PADDING),
     ) {
         items(games.size, key = { games[it].id }) { index ->
             val game = games[index]
-            // All covers share the same height, so the card width follows the system box art ratio.
-            val cardWidth = HOME_ROW_COVER_HEIGHT * CoverAspectRatio.forGame(game)
             LemuroidGameCard(
                 modifier =
                     Modifier
@@ -256,7 +275,14 @@ private fun HomeRowGames(
         }
         if (onShowAll != null) {
             item(key = SHOW_ALL_KEY) {
-                HomeShowAllCard(modifier = Modifier.animateItem(), onClick = onShowAll)
+                HomeShowAllCard(
+                    modifier =
+                        Modifier
+                            .animateItem()
+                            .width(cardWidth)
+                            .height(cardWidth / PORTRAIT_RATIO + TEXTS_HEIGHT),
+                    onClick = onShowAll,
+                )
             }
         }
     }
@@ -269,7 +295,7 @@ private fun HomeShowAllCard(
     onClick: () -> Unit,
 ) {
     ElevatedCard(
-        modifier = modifier.width(HOME_ROW_COVER_HEIGHT).height(HOME_ROW_EMPTY_HEIGHT),
+        modifier = modifier,
         onClick = onClick,
     ) {
         Column(
@@ -294,12 +320,26 @@ private fun HomeShowAllCard(
 
 private const val SHOW_ALL_KEY = "show_all"
 
+@Composable
+private fun homeCardWidth(): Dp {
+    val screenWidth = LocalConfiguration.current.screenWidthDp.dp
+    return (screenWidth - HOME_ROW_PADDING * 2 - HOME_ROW_SPACING * (GAMES_GRID_COLUMNS - 1)) / GAMES_GRID_COLUMNS
+}
+
+// Same layout as the games grid of a system (GamesScreen).
+private const val GAMES_GRID_COLUMNS = 3
 private val HOME_ROW_PADDING = 16.dp
 private val HOME_ROW_SPACING = 12.dp
+
+// Shape of a vertical box art, used for the "Show all" card.
+private const val PORTRAIT_RATIO = 0.71f
+
+// Padding, two title lines and the system name below each cover.
+private val TEXTS_HEIGHT = 72.dp
 private val HOME_ROW_COVER_HEIGHT = 112.dp
 
-// Cover height plus the title and subtitle shown below it.
-private val HOME_ROW_EMPTY_HEIGHT = HOME_ROW_COVER_HEIGHT + 52.dp
+// Cover height plus the texts below it: padding, two title lines and the system name.
+private val HOME_ROW_EMPTY_HEIGHT = HOME_ROW_COVER_HEIGHT + TEXTS_HEIGHT
 
 @Composable
 private fun HomeNotification(

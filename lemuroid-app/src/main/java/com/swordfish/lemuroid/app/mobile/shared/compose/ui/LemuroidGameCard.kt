@@ -31,7 +31,7 @@ fun LemuroidGameCard(
                     ),
         ) {
             LemuroidGameImage(game = game, matchCoverShape = matchCoverShape)
-            LemuroidGameTexts(game = game)
+            LemuroidGameTexts(game = game, reserveTitleLines = true)
         }
     }
 }

@@ -158,7 +158,7 @@
     <string name="error_message_incompatible_state">이 상태저장은 현재 코어 버전과 호환되지 않습니다. 가장 최근의 인게임 세이브 데이터를 사용하거나 이전 버전의 PlayRetro를 사용하세요.</string>
     <string name="shader_filter_names_auto">자동</string>
     <string name="shader_filter_names_sharp">선명하게</string>
-    <string name="shader_filter_names_smooth">부드럽게</string>
+    <string name="shader_filter_names_smooth">부드럽게 (끄기)</string>
     <string name="shader_filter_names_crt">CRT</string>
     <string name="shader_filter_names_lcd">LCD</string>
     <string name="haptic_feedback_mode_names_none">없음</string>
@@ -188,4 +188,27 @@
     <string name="core_options_summary_count">%1$s · 옵션: %2$d</string>
     <string name="core_options_summary_none">%1$s · 옵션 없음</string>
     <string name="core_options_summary_unused">%1$s · 아직 사용 안 함</string>
+    <string name="game_context_menu_start">시작</string>
+    <string name="game_context_menu_add_custom_name">사용자 지정 이름 추가</string>
+    <string name="game_context_menu_remove_custom_name">사용자 지정 이름 제거</string>
+    <string name="game_context_menu_add_custom_artwork">사용자 지정 표지 추가</string>
+    <string name="game_context_menu_remove_custom_artwork">사용자 지정 표지 제거</string>
+    <string name="game_context_menu_custom_name_dialog_title">사용자 지정 이름</string>
+    <string name="game_context_menu_core_options">코어 설정</string>
+    <string name="game_context_menu_no_image_picker">이 기기에는 이미지를 선택할 앱이 없습니다.</string>
+    <string name="title_about">정보</string>
+    <string name="about_version">버전 %1$s</string>
+    <string name="about_what_is_title">PlayRetro란?</string>
+    <string name="about_what_is_text">PlayRetro는 휴대폰, 태블릿, Android TV용 클래식 게임기 에뮬레이터입니다. 게임 컬렉션을 표지와 함께 정리하고, 컨트롤러나 터치 컨트롤로 플레이할 수 있으며 진행 상황은 자동으로 저장됩니다.
+
+Filippo Scognamiglio의 오픈 소스 에뮬레이터인 Lemuroid의 독립 버전으로 시작했으며, RetroArch와 같은 libretro 에뮬레이션 코어로 작동합니다.</string>
+    <string name="about_help_title">도움말</string>
+    <string name="about_license_title">라이선스 및 크레딧</string>
+    <string name="about_license_text">• PlayRetro는 GNU GPL v3 라이선스의 자유 소프트웨어입니다.
+• Filippo Scognamiglio(Swordfish90)의 Lemuroid와 LibretroDroid를 기반으로 합니다.
+• 에뮬레이션 코어는 libretro의 것으로, 각각 고유한 오픈 소스 라이선스가 있습니다.
+• 시스템 아이콘: RetroArch의 \"FlatUI\" 테마, CC BY 4.0 라이선스.
+• 표지: libretro-thumbnails.</string>
+    <string name="help_covers_question">표지가 없거나 이름이 잘못된 이유는 무엇인가요?</string>
+    <string name="help_covers_answer">게임은 먼저 내용으로 인식됩니다. 실패하면 파일 이름이 사용됩니다. 파일 이름을 \"게임이름 (USA).nes\" 또는 \"게임이름.nes\"처럼 지정하세요. 이름을 바꾼 후 게임을 다시 검색하세요.</string>
 </resources>

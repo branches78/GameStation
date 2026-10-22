@@ -71,7 +71,7 @@
     <string name="settings_save_sync_include_states">Estados de sincronización</string>
     <string name="settings_save_sync_include_states_description">Más conveniente, pero más pesado y menos fiable. Elige qué núcleo/sistemas quieres sincronizar</string>
     <string name="game_context_menu_add_to_favorites">Añadir a favoritos</string>
-    <string name="game_context_menu_remove_from_favorites">Remover de favoritos</string>
+    <string name="game_context_menu_remove_from_favorites">Quitar de favoritos</string>
     <string name="game_context_menu_resume">Continuar</string>
     <string name="game_context_menu_restart">Reiniciar</string>
     <string name="game_context_menu_create_shortcut">Fijar al lanzador</string>
@@ -146,9 +146,7 @@
     <string name="lemuroid_help_content"><![CDATA[        <b>&#8226;¿Cómo usar PlayRetro?</b><br/>
         Copia todas tus ROM en un directorio de tu dispositivo y selecciónalo en PlayRetro. Este directorio puede tener subdirectorios. Después de que se complete el escaneo deberías ver tus juegos.<br/><br/>
         <b>&#8226;¿Por qué no se detectan mis juegos?</b><br/>
-        Si tus juegos están comprimidos, prueba a descomprimirlos. Si esto no funciona, prueba poniendo las ROM en directorios separados, uno por cada sistema con los siguientes nombres: $SYSTEMS.<br/><br/>
-        <b>&#8226;¿Por qué falta una carátula o el nombre no es correcto?</b><br/>
-        Los juegos se reconocen primero por su contenido. Si eso falla, se usa el nombre del archivo: nómbralos como "Arkanoid (USA).nes", o solo con el título, como "Arkanoid.nes". Después de renombrarlos, vuelve a escanear tus juegos.
+        Si tus juegos están comprimidos, prueba a descomprimirlos. Si esto no funciona, prueba poniendo las ROM en directorios separados, uno por cada sistema con los siguientes nombres: $SYSTEMS.
     ]]></string>
     <string name="lemuroid_crash_disclamer">Parece que el núcleo de Libretro ha experimentado un problema inesperado. Si esto persiste, por favor, intenta lo siguiente:\n
         \n\u2022 Desactiva el guardado automático y reinicia el juego
@@ -159,7 +157,7 @@
     <string name="error_message_incompatible_state">Este estado guardado no es compatible con la versión actual del núcleo. Por favor carga el último guardado hecho en el juego o usa una versión anterior de PlayRetro.</string>
     <string name="shader_filter_names_auto">Automático</string>
     <string name="shader_filter_names_sharp">Nítido</string>
-    <string name="shader_filter_names_smooth">Suave</string>
+    <string name="shader_filter_names_smooth">Suave (Apagado)</string>
     <string name="shader_filter_names_crt">CRT</string>
     <string name="shader_filter_names_lcd">LCD</string>
     <string name="haptic_feedback_mode_names_none">Nada</string>
@@ -197,4 +195,27 @@
     <string name="core_options_summary_count">%1$s · Opciones: %2$d</string>
     <string name="core_options_summary_none">%1$s · Sin opciones</string>
     <string name="core_options_summary_unused">%1$s · Aún no usado</string>
+    <string name="game_context_menu_start">Iniciar</string>
+    <string name="game_context_menu_add_custom_name">Poner nombre personalizado</string>
+    <string name="game_context_menu_remove_custom_name">Quitar nombre personalizado</string>
+    <string name="game_context_menu_add_custom_artwork">Poner carátula personalizada</string>
+    <string name="game_context_menu_remove_custom_artwork">Quitar carátula personalizada</string>
+    <string name="game_context_menu_custom_name_dialog_title">Nombre personalizado</string>
+    <string name="game_context_menu_core_options">Configurar núcleo</string>
+    <string name="game_context_menu_no_image_picker">No hay ninguna app para elegir imágenes en este dispositivo.</string>
+    <string name="title_about">Acerca de</string>
+    <string name="about_version">Versión %1$s</string>
+    <string name="about_what_is_title">¿Qué es PlayRetro?</string>
+    <string name="about_what_is_text">PlayRetro es un emulador de consolas clásicas para teléfonos, tablets y Android TV. Organiza tu colección de juegos con carátulas y te deja jugar con el mando o con controles táctiles, guardando tu partida automáticamente.
+
+Nació como una versión independiente de Lemuroid, el emulador de código abierto de Filippo Scognamiglio, y funciona con los núcleos de emulación de libretro, los mismos que usa RetroArch.</string>
+    <string name="about_help_title">Ayuda</string>
+    <string name="about_license_title">Licencia y créditos</string>
+    <string name="about_license_text">• PlayRetro es software libre bajo la licencia GNU GPL v3.
+• Basado en Lemuroid y LibretroDroid, de Filippo Scognamiglio (Swordfish90).
+• Núcleos de emulación de libretro, cada uno con su licencia de código abierto.
+• Iconos de sistemas: tema \"FlatUI\" de RetroArch, licencia CC BY 4.0.
+• Carátulas: libretro-thumbnails.</string>
+    <string name="help_covers_question">¿Por qué falta una carátula o el nombre no es correcto?</string>
+    <string name="help_covers_answer">Los juegos se reconocen primero por su contenido. Si eso falla, se usa el nombre del archivo: nómbralos como \"Nombredeljuego (USA).nes\", o solo como \"Nombredeljuego.nes\". Después de renombrarlos, vuelve a escanear tus juegos.</string>
 </resources>

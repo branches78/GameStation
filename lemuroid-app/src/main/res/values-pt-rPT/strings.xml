@@ -156,7 +156,7 @@
     <string name="error_message_incompatible_state">Este estado de gravação não é compatível com a versão actual do núcleo. Por favor, carregue a última gravação dentro do jogo ou use uma versão anterior do PlayRetro.</string>
     <string name="shader_filter_names_auto">Automático</string>
     <string name="shader_filter_names_sharp">Afiado</string>
-    <string name="shader_filter_names_smooth">Suave</string>
+    <string name="shader_filter_names_smooth">Suave (Desligado)</string>
     <string name="shader_filter_names_crt">CRT</string>
     <string name="shader_filter_names_lcd">LCD</string>
     <string name="haptic_feedback_mode_names_none">Nenhum</string>
@@ -186,4 +186,27 @@
     <string name="core_options_summary_count">%1$s · Opções: %2$d</string>
     <string name="core_options_summary_none">%1$s · Sem opções</string>
     <string name="core_options_summary_unused">%1$s · Ainda não utilizado</string>
+    <string name="game_context_menu_start">Iniciar</string>
+    <string name="game_context_menu_add_custom_name">Adicionar nome personalizado</string>
+    <string name="game_context_menu_remove_custom_name">Remover nome personalizado</string>
+    <string name="game_context_menu_add_custom_artwork">Adicionar capa personalizada</string>
+    <string name="game_context_menu_remove_custom_artwork">Remover capa personalizada</string>
+    <string name="game_context_menu_custom_name_dialog_title">Nome personalizado</string>
+    <string name="game_context_menu_core_options">Configurar núcleo</string>
+    <string name="game_context_menu_no_image_picker">Não existe nenhuma aplicação para escolher imagens neste dispositivo.</string>
+    <string name="title_about">Acerca de</string>
+    <string name="about_version">Versão %1$s</string>
+    <string name="about_what_is_title">O que é o PlayRetro?</string>
+    <string name="about_what_is_text">O PlayRetro é um emulador de consolas clássicas para telemóveis, tablets e Android TV. Organiza a tua coleção de jogos com capas e permite jogar com comando ou com controlos táteis, guardando o teu progresso automaticamente.
+
+Nasceu como uma versão independente do Lemuroid, o emulador de código aberto de Filippo Scognamiglio, e usa os núcleos de emulação do libretro, os mesmos do RetroArch.</string>
+    <string name="about_help_title">Ajuda</string>
+    <string name="about_license_title">Licença e créditos</string>
+    <string name="about_license_text">• O PlayRetro é software livre sob a licença GNU GPL v3.
+• Baseado no Lemuroid e no LibretroDroid, de Filippo Scognamiglio (Swordfish90).
+• Núcleos de emulação do libretro, cada um com a sua própria licença de código aberto.
+• Ícones dos sistemas: tema \"FlatUI\" do RetroArch, licença CC BY 4.0.
+• Capas: libretro-thumbnails.</string>
+    <string name="help_covers_question">Porque falta uma capa ou o nome está errado?</string>
+    <string name="help_covers_answer">Os jogos são reconhecidos primeiro pelo conteúdo. Se isso falhar, é usado o nome do ficheiro: dá aos ficheiros nomes como \"NomeDoJogo (USA).nes\", ou apenas \"NomeDoJogo.nes\". Depois de mudar os nomes, volta a analisar os jogos.</string>
 </resources>

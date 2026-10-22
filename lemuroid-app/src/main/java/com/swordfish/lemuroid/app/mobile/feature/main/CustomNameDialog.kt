@@ -42,12 +42,12 @@ fun CustomNameDialog(
                     }
                 },
             ) {
-                Text("OK")
+                Text(stringResource(id = R.string.ok))
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("Cancel")
+                Text(stringResource(id = R.string.cancel))
             }
         },
     )

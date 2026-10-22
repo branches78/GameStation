@@ -158,7 +158,7 @@
     <string name="error_message_incompatible_state">Это сохранение не совместимо с текущей версией ядра. Пожалуйста, загрузите последнюю версию сохранения в игре или воспользуйтесь предыдущей версией PlayRetro.</string>
     <string name="shader_filter_names_auto">Автоматически</string>
     <string name="shader_filter_names_sharp">Резкий</string>
-    <string name="shader_filter_names_smooth">Мягкий</string>
+    <string name="shader_filter_names_smooth">Мягкий (Выкл.)</string>
     <string name="shader_filter_names_crt">ЭЛТ</string>
     <string name="shader_filter_names_lcd">ЖК</string>
     <string name="haptic_feedback_mode_names_none">Нет</string>
@@ -188,4 +188,27 @@
     <string name="core_options_summary_count">%1$s · Параметров: %2$d</string>
     <string name="core_options_summary_none">%1$s · Нет параметров</string>
     <string name="core_options_summary_unused">%1$s · Ещё не использовалось</string>
+    <string name="game_context_menu_start">Запустить</string>
+    <string name="game_context_menu_add_custom_name">Задать своё название</string>
+    <string name="game_context_menu_remove_custom_name">Удалить своё название</string>
+    <string name="game_context_menu_add_custom_artwork">Задать свою обложку</string>
+    <string name="game_context_menu_remove_custom_artwork">Удалить свою обложку</string>
+    <string name="game_context_menu_custom_name_dialog_title">Своё название</string>
+    <string name="game_context_menu_core_options">Настроить ядро</string>
+    <string name="game_context_menu_no_image_picker">На этом устройстве нет приложения для выбора изображений.</string>
+    <string name="title_about">О приложении</string>
+    <string name="about_version">Версия %1$s</string>
+    <string name="about_what_is_title">Что такое PlayRetro?</string>
+    <string name="about_what_is_text">PlayRetro — эмулятор классических консолей для телефонов, планшетов и Android TV. Он упорядочивает вашу коллекцию игр с обложками и позволяет играть с геймпадом или сенсорным управлением, автоматически сохраняя прогресс.
+
+Он появился как независимая версия Lemuroid — эмулятора с открытым исходным кодом от Филиппо Сконьямильо — и использует ядра эмуляции libretro, те же, что и RetroArch.</string>
+    <string name="about_help_title">Справка</string>
+    <string name="about_license_title">Лицензия и благодарности</string>
+    <string name="about_license_text">• PlayRetro — свободное ПО под лицензией GNU GPL v3.
+• Основано на Lemuroid и LibretroDroid от Филиппо Сконьямильо (Swordfish90).
+• Ядра эмуляции из libretro, у каждого своя лицензия с открытым кодом.
+• Значки систем: тема \"FlatUI\" из RetroArch, лицензия CC BY 4.0.
+• Обложки: libretro-thumbnails.</string>
+    <string name="help_covers_question">Почему нет обложки или название неверное?</string>
+    <string name="help_covers_answer">Игры сначала распознаются по содержимому. Если это не удаётся, используется имя файла: называйте файлы как \"НазваниеИгры (USA).nes\" или просто \"НазваниеИгры.nes\". После переименования повторно просканируйте игры.</string>
 </resources>

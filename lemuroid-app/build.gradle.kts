@@ -110,7 +110,7 @@ android {
         getByName("debug") {
             applicationIdSuffix = ".debug"
             versionNameSuffix = "-DEBUG"
-            resValue("string", "lemuroid_name", "PlayRetro Debug")
+            resValue("string", "lemuroid_name", "PlayRetro")
         }
     }
 

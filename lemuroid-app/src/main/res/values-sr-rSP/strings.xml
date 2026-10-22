@@ -156,7 +156,7 @@
     <string name="error_message_incompatible_state">Ово стање чувања није компатибилно са тренутном верзијом језгра. Молимо Вас да учитате последње чување унутар игре или да користите старију PlayRetro верзију.</string>
     <string name="shader_filter_names_auto">Аутоматско</string>
     <string name="shader_filter_names_sharp">Оштро</string>
-    <string name="shader_filter_names_smooth">Глатко</string>
+    <string name="shader_filter_names_smooth">Глатко (Искључено)</string>
     <string name="shader_filter_names_crt">CRT</string>
     <string name="shader_filter_names_lcd">LCD</string>
     <string name="haptic_feedback_mode_names_none">Ништа</string>
@@ -186,4 +186,27 @@
     <string name="core_options_summary_count">%1$s · Опције: %2$d</string>
     <string name="core_options_summary_none">%1$s · Без опција</string>
     <string name="core_options_summary_unused">%1$s · Још није коришћено</string>
+    <string name="game_context_menu_start">Покрени</string>
+    <string name="game_context_menu_add_custom_name">Додај прилагођени назив</string>
+    <string name="game_context_menu_remove_custom_name">Уклони прилагођени назив</string>
+    <string name="game_context_menu_add_custom_artwork">Додај прилагођени омот</string>
+    <string name="game_context_menu_remove_custom_artwork">Уклони прилагођени омот</string>
+    <string name="game_context_menu_custom_name_dialog_title">Прилагођени назив</string>
+    <string name="game_context_menu_core_options">Подеси језгро</string>
+    <string name="game_context_menu_no_image_picker">На овом уређају нема апликације за избор слика.</string>
+    <string name="title_about">О апликацији</string>
+    <string name="about_version">Верзија %1$s</string>
+    <string name="about_what_is_title">Шта је PlayRetro?</string>
+    <string name="about_what_is_text">PlayRetro је емулатор класичних конзола за телефоне, таблете и Android TV. Организује твоју колекцију игара са омотима и омогућава играње контролером или контролама на додир, уз аутоматско чување напретка.
+
+Настао је као независна верзија Lemuroid-а, емулатора отвореног кода Филипа Скоњамиља, и користи libretro језгра за емулацију, иста као RetroArch.</string>
+    <string name="about_help_title">Помоћ</string>
+    <string name="about_license_title">Лиценца и заслуге</string>
+    <string name="about_license_text">• PlayRetro је слободан софтвер под лиценцом GNU GPL v3.
+• Заснован на Lemuroid-у и LibretroDroid-у Филипа Скоњамиља (Swordfish90).
+• Језгра за емулацију из libretro-а, свако са својом лиценцом отвореног кода.
+• Иконе система: тема \"FlatUI\" из RetroArch-а, лиценца CC BY 4.0.
+• Омоти: libretro-thumbnails.</string>
+    <string name="help_covers_question">Зашто недостаје омот или је назив погрешан?</string>
+    <string name="help_covers_answer">Игре се прво препознају по садржају. Ако то не успе, користи се назив датотеке: именуј датотеке као \"НазивИгре (USA).nes\" или само \"НазивИгре.nes\". После преименовања поново скенирај игре.</string>
 </resources>

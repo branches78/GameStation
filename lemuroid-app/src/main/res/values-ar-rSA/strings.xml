@@ -155,7 +155,7 @@
     <string name="error_message_incompatible_state">حالة الحفظ هذه غير متوافقة مع الإصدار الأساسي الحالي. الرجاء تحميل أحدث نسخة احتياطية في اللعبة أو استخدام إصدار محاكي PlayRetro السابق.</string>
     <string name="shader_filter_names_auto">تلقائي</string>
     <string name="shader_filter_names_sharp">حاد</string>
-    <string name="shader_filter_names_smooth">ناعم</string>
+    <string name="shader_filter_names_smooth">ناعم (إيقاف)</string>
     <string name="shader_filter_names_crt">تأثير CRT</string>
     <string name="shader_filter_names_lcd">LCD</string>
     <string name="haptic_feedback_mode_names_none">لا شيء</string>
@@ -185,4 +185,27 @@
     <string name="core_options_summary_count">%1$s · الخيارات: %2$d</string>
     <string name="core_options_summary_none">%1$s · بلا خيارات</string>
     <string name="core_options_summary_unused">%1$s · لم تُستخدم بعد</string>
+    <string name="game_context_menu_start">ابدأ</string>
+    <string name="game_context_menu_add_custom_name">إضافة اسم مخصص</string>
+    <string name="game_context_menu_remove_custom_name">إزالة الاسم المخصص</string>
+    <string name="game_context_menu_add_custom_artwork">إضافة غلاف مخصص</string>
+    <string name="game_context_menu_remove_custom_artwork">إزالة الغلاف المخصص</string>
+    <string name="game_context_menu_custom_name_dialog_title">اسم مخصص</string>
+    <string name="game_context_menu_core_options">إعداد النواة</string>
+    <string name="game_context_menu_no_image_picker">لا يوجد تطبيق لاختيار الصور على هذا الجهاز.</string>
+    <string name="title_about">حول</string>
+    <string name="about_version">الإصدار %1$s</string>
+    <string name="about_what_is_title">ما هو PlayRetro؟</string>
+    <string name="about_what_is_text">PlayRetro هو محاكي لأجهزة الألعاب الكلاسيكية للهواتف والأجهزة اللوحية وAndroid TV. ينظّم مجموعة ألعابك مع صور الأغلفة ويتيح لك اللعب بذراع التحكم أو بأزرار اللمس، مع حفظ تقدّمك تلقائيًا.
+
+بدأ كنسخة مستقلة من Lemuroid، المحاكي مفتوح المصدر الذي طوّره Filippo Scognamiglio، ويعمل بأنوية المحاكاة من libretro، وهي نفسها التي يستخدمها RetroArch.</string>
+    <string name="about_help_title">مساعدة</string>
+    <string name="about_license_title">الترخيص والشكر</string>
+    <string name="about_license_text">• PlayRetro برنامج حر بموجب ترخيص GNU GPL v3.
+• مبني على Lemuroid وLibretroDroid من تطوير Filippo Scognamiglio (Swordfish90).
+• أنوية المحاكاة من libretro، ولكل منها ترخيصها مفتوح المصدر.
+• أيقونات الأنظمة: سمة \"FlatUI\" من RetroArch، ترخيص CC BY 4.0.
+• صور الأغلفة: libretro-thumbnails.</string>
+    <string name="help_covers_question">لماذا يوجد غلاف مفقود أو اسم غير صحيح؟</string>
+    <string name="help_covers_answer">يتم التعرف على الألعاب أولًا من محتواها. إذا فشل ذلك، يُستخدم اسم الملف: سمِّ ملفاتك مثل \"اسم_اللعبة (USA).nes\" أو فقط \"اسم_اللعبة.nes\". بعد إعادة التسمية، أعد فحص ألعابك.</string>
 </resources>

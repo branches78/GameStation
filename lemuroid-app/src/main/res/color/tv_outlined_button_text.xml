@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- White text: the soft TV accent green is too dark to be readable as a text color. -->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:color="@color/md_theme_dark_onPrimary" android:state_focused="true" />
+    <item android:color="@android:color/white" android:state_focused="true" />
     <item android:color="@color/md_theme_dark_outline" android:state_enabled="false" />
-    <item android:color="@color/md_theme_dark_primary" />
+    <item android:color="@color/md_theme_dark_onSurface" />
 </selector>

@@ -3,7 +3,12 @@ package com.swordfish.lemuroid.app.tv.systems
 import android.content.Context
 import android.os.Bundle
 import android.view.KeyEvent
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import android.widget.FrameLayout
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import androidx.leanback.app.VerticalGridSupportFragment
 import androidx.leanback.widget.ArrayObjectAdapter
 import androidx.leanback.widget.OnItemViewClickedListener
@@ -19,6 +24,7 @@ import com.swordfish.lemuroid.app.tv.home.TVHomeFragment
 import com.swordfish.lemuroid.app.tv.home.TVHomeViewModel
 import com.swordfish.lemuroid.app.tv.main.TVMainTabsFragment
 import com.swordfish.lemuroid.app.tv.main.TVMainTabsFragmentDirections
+import com.swordfish.lemuroid.app.tv.shared.TVHelper
 import com.swordfish.lemuroid.common.coroutines.launchOnState
 import com.swordfish.lemuroid.lib.library.db.RetrogradeDatabase
 import dagger.android.support.AndroidSupportInjection
@@ -37,9 +43,46 @@ class TVSystemsFragment : VerticalGridSupportFragment() {
         setGridPresenter(gridPresenter)
     }
 
+    private var emptyLibraryView: View? = null
+    private var gridView: View? = null
+
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
         super.onAttach(context)
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
+    ): View? {
+        val gridRoot = super.onCreateView(inflater, container, savedInstanceState) ?: return null
+
+        // Same card as the "Home" tab when the library is empty (e.g. first launch), instead of an empty grid.
+        val root = FrameLayout(requireContext())
+        root.addView(gridRoot, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+        val emptyView = inflater.inflate(R.layout.tv_home_empty_library, root, false)
+        emptyView.findViewById<View>(R.id.tv_empty_library_action)
+            .setOnClickListener { TVHelper.launchFolderPicker(requireContext()) }
+        root.addView(emptyView)
+        emptyLibraryView = emptyView
+        gridView = gridRoot
+        return root
+    }
+
+    override fun onDestroyView() {
+        emptyLibraryView = null
+        gridView = null
+        super.onDestroyView()
+    }
+
+    private fun updateEmptyLibraryCard(viewState: TVHomeViewModel.HomeViewState) {
+        val emptyView = emptyLibraryView ?: return
+        val isLibraryEmpty = viewState.metaSystems.isEmpty()
+        emptyView.isVisible = isLibraryEmpty
+        // The empty grid would otherwise take the remote focus instead of the button.
+        gridView?.isInvisible = isLibraryEmpty
+        emptyView.findViewById<View>(R.id.tv_empty_library_action).isEnabled = !viewState.indexInProgress
     }
 
     override fun onViewCreated(
@@ -74,6 +117,11 @@ class TVSystemsFragment : VerticalGridSupportFragment() {
 
         val factory = TVHomeViewModel.Factory(retrogradeDb, requireContext().applicationContext)
         val viewModel = ViewModelProvider(this, factory)[TVHomeViewModel::class.java]
+
+        launchOnState(Lifecycle.State.RESUMED) {
+            viewModel.getViewStates()
+                .collect { updateEmptyLibraryCard(it) }
+        }
 
         launchOnState(Lifecycle.State.RESUMED) {
             viewModel.getViewStates()

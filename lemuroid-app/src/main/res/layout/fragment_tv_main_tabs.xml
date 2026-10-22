@@ -12,7 +12,7 @@
         android:id="@+id/tv_top_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/tv_top_bar_height"
-        android:background="@color/md_theme_dark_surfaceContainer"
+        android:background="@color/leanback_background"
         android:clipChildren="false"
         android:clipToPadding="false"
         android:paddingStart="@dimen/tv_top_bar_horizontal_padding"
@@ -47,6 +47,11 @@
                 android:id="@+id/tv_tab_settings"
                 style="@style/GameStationTVTab"
                 android:text="@string/title_settings" />
+
+            <TextView
+                android:id="@+id/tv_tab_about"
+                style="@style/GameStationTVTab"
+                android:text="@string/title_about" />
 
         </LinearLayout>
 

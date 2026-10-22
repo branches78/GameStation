@@ -11,6 +11,7 @@ import androidx.leanback.widget.BrowseFrameLayout
 import androidx.leanback.widget.SearchOrbView
 import androidx.navigation.fragment.findNavController
 import com.swordfish.lemuroid.R
+import com.swordfish.lemuroid.app.tv.about.TVAboutFragment
 import com.swordfish.lemuroid.app.tv.home.TVHomeFragment
 import com.swordfish.lemuroid.app.tv.settings.TVSettingsTabFragment
 import com.swordfish.lemuroid.app.tv.systems.TVSystemsFragment
@@ -38,6 +39,7 @@ class TVMainTabsFragment : Fragment(R.layout.fragment_tv_main_tabs) {
                 view.findViewById(R.id.tv_tab_home),
                 view.findViewById(R.id.tv_tab_systems),
                 view.findViewById(R.id.tv_tab_settings),
+                view.findViewById(R.id.tv_tab_about),
             )
 
         tabs.forEachIndexed { index, tab ->
@@ -49,7 +51,7 @@ class TVMainTabsFragment : Fragment(R.layout.fragment_tv_main_tabs) {
         }
 
         view.findViewById<SearchOrbView>(R.id.tv_search_orb).apply {
-            orbColor = ContextCompat.getColor(requireContext(), R.color.md_theme_dark_primary)
+            orbColor = ContextCompat.getColor(requireContext(), R.color.tv_accent)
             setOnOrbClickedListener { findNavController().navigate(R.id.navigation_search) }
         }
 
@@ -127,6 +129,7 @@ class TVMainTabsFragment : Fragment(R.layout.fragment_tv_main_tabs) {
             when (index) {
                 TAB_SYSTEMS -> TVSystemsFragment()
                 TAB_SETTINGS -> TVSettingsTabFragment()
+                TAB_ABOUT -> TVAboutFragment()
                 else -> TVHomeFragment()
             }
         childFragmentManager.beginTransaction()
@@ -154,5 +157,6 @@ class TVMainTabsFragment : Fragment(R.layout.fragment_tv_main_tabs) {
         private const val TAB_HOME = 0
         private const val TAB_SYSTEMS = 1
         private const val TAB_SETTINGS = 2
+        private const val TAB_ABOUT = 3
     }
 }

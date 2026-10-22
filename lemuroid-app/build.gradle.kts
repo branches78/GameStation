@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
@@ -86,7 +88,7 @@ android {
         // Release signing data lives in keystore.properties (not committed), next to release.jks.
         // Expected keys: storeFile (optional, defaults to release.jks), storePassword, keyAlias, keyPassword.
         val keystoreProperties =
-            java.util.Properties().apply {
+            Properties().apply {
                 val propertiesFile = rootProject.file("keystore.properties")
                 if (propertiesFile.exists()) propertiesFile.inputStream().use { load(it) }
             }

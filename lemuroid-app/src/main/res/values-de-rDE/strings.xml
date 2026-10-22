@@ -214,4 +214,5 @@ Er entstand als unabhängige Version von Lemuroid, dem Open-Source-Emulator von 
     <string name="library_loading_message">Wir suchen die Spiele im ausgewählten Ordner. Bei vielen Spielen kann das einige Minuten dauern.</string>
     <string name="library_loading_listing">Dateien werden gesucht…</string>
     <string name="library_loading_files">%1$d von %2$d Dateien</string>
+    <string name="library_loading_cores">Emulationskerne werden vorbereitet: %1$d von %2$d</string>
 </resources>

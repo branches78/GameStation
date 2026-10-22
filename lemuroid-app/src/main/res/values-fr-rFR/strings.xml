@@ -214,4 +214,5 @@ Il est né comme une version indépendante de Lemuroid, l\'émulateur open sourc
     <string name="library_loading_message">Nous cherchons les jeux dans le dossier que tu as choisi. Cela peut prendre quelques minutes si tu en as beaucoup.</string>
     <string name="library_loading_listing">Recherche des fichiers…</string>
     <string name="library_loading_files">%1$d fichiers sur %2$d</string>
+    <string name="library_loading_cores">Préparation des cœurs d\'émulation : %1$d sur %2$d</string>
 </resources>

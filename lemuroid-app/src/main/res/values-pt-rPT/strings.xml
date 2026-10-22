@@ -214,4 +214,5 @@ Nasceu como uma versão independente do Lemuroid, o emulador de código aberto d
     <string name="library_loading_message">Estamos à procura dos jogos na pasta que escolheste. Pode demorar alguns minutos se tiveres muitos.</string>
     <string name="library_loading_listing">A procurar ficheiros…</string>
     <string name="library_loading_files">%1$d de %2$d ficheiros</string>
+    <string name="library_loading_cores">A preparar os núcleos de emulação: %1$d de %2$d</string>
 </resources>

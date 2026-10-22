@@ -83,4 +83,5 @@ A Lemuroid, Filippo Scognamiglio nyílt forráskódú emulátorának független 
     <string name="library_loading_message">Keressük a játékokat a kiválasztott mappában. Ha sok van, ez néhány percig is eltarthat.</string>
     <string name="library_loading_listing">Fájlok keresése…</string>
     <string name="library_loading_files">%1$d / %2$d fájl</string>
+    <string name="library_loading_cores">Emulációs magok előkészítése: %1$d / %2$d</string>
 </resources>

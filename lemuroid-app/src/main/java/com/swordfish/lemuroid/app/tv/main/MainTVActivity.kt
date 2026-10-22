@@ -5,11 +5,8 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import com.swordfish.lemuroid.R
 import com.swordfish.lemuroid.app.mobile.feature.shortcuts.ShortcutsGenerator
@@ -28,8 +25,6 @@ import com.swordfish.lemuroid.app.tv.settings.TVSettingsTabFragment
 import com.swordfish.lemuroid.app.tv.shared.BaseTVActivity
 import com.swordfish.lemuroid.app.tv.systems.TVSystemsFragment
 import com.swordfish.lemuroid.app.tv.shared.TVHelper
-import com.swordfish.lemuroid.common.coroutines.launchOnState
-import com.swordfish.lemuroid.common.coroutines.safeCollect
 import com.swordfish.lemuroid.common.coroutines.safeLaunch
 import com.swordfish.lemuroid.lib.injection.PerActivity
 import com.swordfish.lemuroid.lib.injection.PerFragment
@@ -59,12 +54,6 @@ class MainTVActivity : BaseTVActivity(), BusyActivity {
 
         val factory = MainTVViewModel.Factory(applicationContext)
         mainViewModel = ViewModelProvider(this, factory).get(MainTVViewModel::class.java)
-
-        launchOnState(Lifecycle.State.CREATED) {
-            mainViewModel?.inProgress?.safeCollect {
-                findViewById<View>(R.id.tv_loading).isVisible = it
-            }
-        }
 
         ensureLegacyStoragePermissionsIfNeeded()
     }

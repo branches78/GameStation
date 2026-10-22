@@ -216,4 +216,5 @@
     <string name="library_loading_message">Ищем игры в выбранной папке. Если их много, это может занять несколько минут.</string>
     <string name="library_loading_listing">Поиск файлов…</string>
     <string name="library_loading_files">%1$d из %2$d файлов</string>
+    <string name="library_loading_cores">Подготовка ядер эмуляции: %1$d из %2$d</string>
 </resources>

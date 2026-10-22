@@ -215,4 +215,5 @@ Den började som en fristående version av Lemuroid, emulatorn med öppen källk
     <string name="library_loading_message">Vi letar efter spelen i mappen du valde. Det kan ta några minuter om du har många.</string>
     <string name="library_loading_listing">Letar efter filer…</string>
     <string name="library_loading_files">%1$d av %2$d filer</string>
+    <string name="library_loading_cores">Förbereder emuleringskärnor: %1$d av %2$d</string>
 </resources>

@@ -10,6 +10,7 @@ import com.swordfish.lemuroid.lib.core.CoreUpdater
 import com.swordfish.lemuroid.lib.core.CoresSelection
 import com.swordfish.lemuroid.lib.injection.AndroidWorkerInjection
 import com.swordfish.lemuroid.lib.injection.WorkerKey
+import com.swordfish.lemuroid.lib.library.CoreID
 import com.swordfish.lemuroid.lib.library.GameSystem
 import com.swordfish.lemuroid.lib.library.db.RetrogradeDatabase
 import dagger.Binds
@@ -48,20 +49,28 @@ class CoreUpdateWork(context: Context, workerParams: WorkerParameters) :
         setForegroundAsync(foregroundInfo)
 
         try {
-            val cores =
-                retrogradeDatabase.gameDao().selectSystems()
-                    .asFlow()
-                    .map { GameSystem.findById(it) }
-                    .map { coresSelection.getCoreConfigForSystem(it) }
-                    .map { it.coreID }
-                    .toList()
-
+            val cores = libraryCores(retrogradeDatabase, coresSelection)
             coreUpdater.downloadCores(applicationContext, cores)
         } catch (e: Throwable) {
             Timber.e(e, "Core update work failed with exception: ${e.message}")
         }
 
         return Result.success()
+    }
+
+    companion object {
+        /** Selected core of every system with games in the library. */
+        suspend fun libraryCores(
+            retrogradeDatabase: RetrogradeDatabase,
+            coresSelection: CoresSelection,
+        ): List<CoreID> {
+            return retrogradeDatabase.gameDao().selectSystems()
+                .asFlow()
+                .map { GameSystem.findById(it) }
+                .map { coresSelection.getCoreConfigForSystem(it) }
+                .map { it.coreID }
+                .toList()
+        }
     }
 
     @dagger.Module(subcomponents = [Subcomponent::class])

@@ -163,4 +163,5 @@
     <string name="library_loading_message">אנחנו מחפשים את המשחקים בתיקייה שבחרת. זה עשוי לקחת כמה דקות אם יש לך הרבה.</string>
     <string name="library_loading_listing">מחפש קבצים…</string>
     <string name="library_loading_files">%1$d מתוך %2$d קבצים</string>
+    <string name="library_loading_cores">מכין ליבות אמולציה: %1$d מתוך %2$d</string>
 </resources>

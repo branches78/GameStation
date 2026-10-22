@@ -50,6 +50,8 @@ fun CoreOptionsSettingsScreen(
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
                 text = stringResource(system.titleResId),
                 style = MaterialTheme.typography.titleLarge,
+                // Not inside a Surface: without an explicit color it would be black.
+                color = MaterialTheme.colorScheme.onBackground,
             )
         }
 

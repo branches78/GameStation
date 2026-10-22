@@ -215,4 +215,5 @@ Filippo Scognamiglio\'nun açık kaynak emülatörü Lemuroid\'in bağımsız bi
     <string name="library_loading_message">Seçtiğin klasördeki oyunları arıyoruz. Çok oyunun varsa birkaç dakika sürebilir.</string>
     <string name="library_loading_listing">Dosyalar aranıyor…</string>
     <string name="library_loading_files">%2$d dosyadan %1$d</string>
+    <string name="library_loading_cores">Emülasyon çekirdekleri hazırlanıyor: %2$d çekirdekten %1$d</string>
 </resources>

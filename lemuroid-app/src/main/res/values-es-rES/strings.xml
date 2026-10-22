@@ -223,4 +223,5 @@ Nació como una versión independiente de Lemuroid, el emulador de código abier
     <string name="library_loading_message">Estamos buscando los juegos de la carpeta que elegiste. Puede tardar unos minutos si tienes muchos.</string>
     <string name="library_loading_listing">Buscando archivos…</string>
     <string name="library_loading_files">%1$d de %2$d archivos</string>
+    <string name="library_loading_cores">Preparando los núcleos de emulación: %1$d de %2$d</string>
 </resources>

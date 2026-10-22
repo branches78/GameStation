@@ -330,18 +330,18 @@ private fun RomsSettings(
             onClick = { onChangeFolder() },
             enabled = !indexingInProgress,
         )
-        if (scanInProgress) {
-            LemuroidSettingsMenuLink(
-                title = { Text(text = stringResource(id = R.string.stop)) },
-                onClick = { LibraryIndexScheduler.cancelLibrarySync(context) },
-            )
-        } else {
-            LemuroidSettingsMenuLink(
-                title = { Text(text = stringResource(id = R.string.rescan)) },
-                onClick = { LibraryIndexScheduler.scheduleLibrarySync(context) },
-                enabled = !indexingInProgress,
-            )
-        }
+        // A single row that changes between "Rescan" and "Stop": with two different rows the focused one would be
+        // removed and the remote focus would jump elsewhere. It stays enabled for the same reason, and does nothing
+        // while the cores are updated after a scan.
+        LemuroidSettingsMenuLink(
+            title = { Text(text = stringResource(id = if (scanInProgress) R.string.stop else R.string.rescan)) },
+            onClick = {
+                when {
+                    scanInProgress -> LibraryIndexScheduler.cancelLibrarySync(context)
+                    !indexingInProgress -> LibraryIndexScheduler.scheduleLibrarySync(context)
+                }
+            },
+        )
         LemuroidSettingsSwitch(
             state = booleanPreferenceState(R.string.pref_key_autosave, true),
             title = { Text(text = stringResource(id = R.string.settings_title_enable_autosave)) },

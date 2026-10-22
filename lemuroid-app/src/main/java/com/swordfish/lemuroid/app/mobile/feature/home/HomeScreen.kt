@@ -48,9 +48,9 @@ import com.swordfish.lemuroid.app.mobile.shared.compose.ui.LemuroidGameCard
 import com.swordfish.lemuroid.app.mobile.shared.compose.ui.LibraryScanProgress
 import com.swordfish.lemuroid.app.mobile.shared.compose.ui.rememberLibraryScanProgress
 import com.swordfish.lemuroid.app.shared.home.HomeDynamicRows
+import com.swordfish.lemuroid.app.shared.library.LibraryLoadingProgress
 import com.swordfish.lemuroid.app.utils.android.ComposableLifecycle
 import com.swordfish.lemuroid.common.displayDetailsSettingsScreen
-import com.swordfish.lemuroid.lib.library.LemuroidLibrary
 import com.swordfish.lemuroid.lib.library.db.entity.Game
 
 @Composable
@@ -121,7 +121,7 @@ fun HomeScreen(
 private fun HomeScreen(
     modifier: Modifier = Modifier,
     state: HomeViewModel.UIState,
-    libraryLoadingProgress: LemuroidLibrary.IndexProgress?,
+    libraryLoadingProgress: LibraryLoadingProgress?,
     onGameClicked: (Game) -> Unit,
     onGameLongClick: (Game) -> Unit,
     onShowAllFavorites: () -> Unit,
@@ -370,7 +370,7 @@ private val HOME_ROW_COVER_HEIGHT = 112.dp
 private val HOME_ROW_EMPTY_HEIGHT = HOME_ROW_COVER_HEIGHT + TEXTS_HEIGHT
 
 @Composable
-private fun HomeLibraryLoading(progress: LemuroidLibrary.IndexProgress) {
+private fun HomeLibraryLoading(progress: LibraryLoadingProgress) {
     ElevatedCard(
         modifier =
             Modifier

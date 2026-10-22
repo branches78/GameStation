@@ -214,4 +214,5 @@ Den startede som en uafhængig version af Lemuroid, open source-emulatoren af Fi
     <string name="library_loading_message">Vi leder efter spillene i den mappe, du valgte. Det kan tage et par minutter, hvis du har mange.</string>
     <string name="library_loading_listing">Leder efter filer…</string>
     <string name="library_loading_files">%1$d af %2$d filer</string>
+    <string name="library_loading_cores">Klargør emuleringskerner: %1$d af %2$d</string>
 </resources>

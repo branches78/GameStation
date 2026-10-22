@@ -5,20 +5,42 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.KeyEvent
 import androidx.activity.ComponentDialog
+import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.ViewModelStore
+import androidx.lifecycle.ViewModelStoreOwner
+import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.swordfish.lemuroid.app.mobile.feature.main.GameContextMenuContent
+import com.swordfish.lemuroid.app.mobile.feature.settings.coreselection.CoreOptionsSettingsScreen
+import com.swordfish.lemuroid.app.mobile.feature.settings.coreselection.CoresSelectionViewModel
 import com.swordfish.lemuroid.app.mobile.shared.compose.ui.AppTheme
 import com.swordfish.lemuroid.app.shared.GameInteractor
-import com.swordfish.lemuroid.app.tv.coreoptions.TVCoreOptionsActivity
+import com.swordfish.lemuroid.lib.core.CoresSelection
 import com.swordfish.lemuroid.lib.library.db.entity.Game
+import com.swordfish.lemuroid.lib.preferences.SharedPreferencesHelper
+import kotlinx.coroutines.delay
 
-/** Long press menu of a game on TV: the same actions and icons as on mobile, in a dialog centered on screen. */
+/**
+ * Long press menu of a game on TV: the same actions and icons as on mobile, in a dialog centered on screen.
+ * "Configure core" shows the core options inside the same dialog; back returns to the menu.
+ */
 object TVGameContextMenu {
     fun show(
         context: Context,
@@ -26,36 +48,19 @@ object TVGameContextMenu {
         gameInteractor: GameInteractor,
     ) {
         val dialog = LongPressSafeDialog(context)
+        // The core options screen uses a ViewModel: the dialog keeps its own store, cleared when it closes.
+        val viewModelStoreOwner =
+            object : ViewModelStoreOwner {
+                override val viewModelStore = ViewModelStore()
+            }
+        dialog.setOnDismissListener { viewModelStoreOwner.viewModelStore.clear() }
+
         val content =
             ComposeView(context).apply {
                 setContent {
                     AppTheme {
-                        Surface(
-                            modifier = Modifier.widthIn(max = DIALOG_MAX_WIDTH.dp),
-                            shape = RoundedCornerShape(DIALOG_CORNER_RADIUS.dp),
-                            color = MaterialTheme.colorScheme.surfaceContainer,
-                        ) {
-                            GameContextMenuContent(
-                                selectedGame = game,
-                                onGamePlay = { gameInteractor.onGamePlay(it) },
-                                onDismiss = { dialog.dismiss() },
-                                onGameRestart = { gameInteractor.onGameRestart(it) },
-                                onFavoriteToggle = { selected, isFavorite ->
-                                    gameInteractor.onFavoriteToggle(selected, isFavorite)
-                                },
-                                shortcutSupported = gameInteractor.supportShortcuts(),
-                                onCreateShortcut = { gameInteractor.onCreateShortcut(it) },
-                                onSetCustomName = { selected, name -> gameInteractor.onSetCustomName(selected, name) },
-                                onClearCustomName = { gameInteractor.onClearCustomName(it) },
-                                onSetCustomCoverUri = { selected, uri ->
-                                    gameInteractor.onSetCustomCoverUri(selected, uri)
-                                },
-                                onClearCustomCoverUri = { gameInteractor.onClearCustomCoverUri(it) },
-                                onOpenCoreOptions = {
-                                    context.startActivity(TVCoreOptionsActivity.newIntent(context, it.systemId))
-                                },
-                                requestInitialFocus = true,
-                            )
+                        CompositionLocalProvider(LocalViewModelStoreOwner provides viewModelStoreOwner) {
+                            TVGameContextMenuContent(context, game, gameInteractor) { dialog.dismiss() }
                         }
                     }
                 }
@@ -64,6 +69,78 @@ object TVGameContextMenu {
         // The rounded surface draws the background, the window itself stays transparent.
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.show()
+    }
+
+    @Composable
+    private fun TVGameContextMenuContent(
+        context: Context,
+        game: Game,
+        gameInteractor: GameInteractor,
+        dismiss: () -> Unit,
+    ) {
+        var coreOptionsSystemId by remember { mutableStateOf<String?>(null) }
+        val showingCoreOptions = coreOptionsSystemId != null
+
+        Surface(
+            modifier =
+                Modifier
+                    .widthIn(max = if (showingCoreOptions) CORE_OPTIONS_MAX_WIDTH.dp else DIALOG_MAX_WIDTH.dp)
+                    .heightIn(max = CORE_OPTIONS_MAX_HEIGHT.dp),
+            shape = RoundedCornerShape(DIALOG_CORNER_RADIUS.dp),
+            color = MaterialTheme.colorScheme.surfaceContainer,
+        ) {
+            val systemId = coreOptionsSystemId
+            if (systemId != null) {
+                BackHandler { coreOptionsSystemId = null }
+                TVCoreOptions(context, systemId)
+            } else {
+                GameContextMenuContent(
+                    selectedGame = game,
+                    onGamePlay = { gameInteractor.onGamePlay(it) },
+                    // The menu closes itself after "Configure core": the dialog stays open to show them.
+                    onDismiss = { if (coreOptionsSystemId == null) dismiss() },
+                    onGameRestart = { gameInteractor.onGameRestart(it) },
+                    onFavoriteToggle = { selected, isFavorite ->
+                        gameInteractor.onFavoriteToggle(selected, isFavorite)
+                    },
+                    shortcutSupported = gameInteractor.supportShortcuts(),
+                    onCreateShortcut = { gameInteractor.onCreateShortcut(it) },
+                    onSetCustomName = { selected, name -> gameInteractor.onSetCustomName(selected, name) },
+                    onClearCustomName = { gameInteractor.onClearCustomName(it) },
+                    onSetCustomCoverUri = { selected, uri ->
+                        gameInteractor.onSetCustomCoverUri(selected, uri)
+                    },
+                    onClearCustomCoverUri = { gameInteractor.onClearCustomCoverUri(it) },
+                    onOpenCoreOptions = { coreOptionsSystemId = it.systemId },
+                    requestInitialFocus = true,
+                )
+            }
+        }
+    }
+
+    /** Same screen as Settings > Cores > system, with the system name as title. */
+    @Composable
+    private fun TVCoreOptions(
+        context: Context,
+        systemId: String,
+    ) {
+        val appContext = context.applicationContext
+        val coresSelection = remember { CoresSelection { SharedPreferencesHelper.getSharedPreferences(appContext) } }
+        val focusManager = LocalFocusManager.current
+
+        CoreOptionsSettingsScreen(
+            viewModel = viewModel(factory = CoresSelectionViewModel.Factory(appContext, coresSelection)),
+            systemId = systemId,
+            showTitle = true,
+        )
+
+        // The focused menu entry is gone: the focus goes to the first option once the options are shown.
+        LaunchedEffect(systemId) {
+            repeat(FOCUS_ATTEMPTS) {
+                delay(FOCUS_ATTEMPT_DELAY_MS)
+                if (focusManager.moveFocus(FocusDirection.Down)) return@LaunchedEffect
+            }
+        }
     }
 
     /**
@@ -95,5 +172,9 @@ object TVGameContextMenu {
     }
 
     private const val DIALOG_MAX_WIDTH = 460
+    private const val CORE_OPTIONS_MAX_WIDTH = 600
+    private const val CORE_OPTIONS_MAX_HEIGHT = 460
+    private const val FOCUS_ATTEMPTS = 20
+    private const val FOCUS_ATTEMPT_DELAY_MS = 50L
     private const val DIALOG_CORNER_RADIUS = 20
 }

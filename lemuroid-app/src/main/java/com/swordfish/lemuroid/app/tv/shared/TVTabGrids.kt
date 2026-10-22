@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.leanback.widget.VerticalGridView
 import com.swordfish.lemuroid.R
+import com.swordfish.lemuroid.app.tv.home.TVHomeFragment
 import com.swordfish.lemuroid.app.tv.main.TVMainTabsFragment
 
 /** Helpers for the leanback grids shown inside the tabs of the TV start screen. */
@@ -50,6 +51,21 @@ object TVTabGrids {
                     event.keyCode == KeyEvent.KEYCODE_DPAD_UP &&
                     grid.selectedPosition < columns
             isUpOnFirstRow && (fragment.parentFragment as? TVMainTabsFragment)?.focusSelectedTab() == true
+        }
+    }
+
+    /**
+     * Grid with the square cards of the home rows, 4 per row (games of a system, favorites). It is as wide as the
+     * other tabs content and its cards start from the left, also when a row is not full.
+     */
+    fun setUpHomeCardsGrid(grid: VerticalGridView) {
+        val resources = grid.resources
+        grid.horizontalSpacing = TVHomeFragment.homeCardSpacing(resources)
+        grid.setGravity(Gravity.START)
+        (grid.layoutParams as? FrameLayout.LayoutParams)?.let {
+            it.width = TVHomeFragment.rowsContentWidth(resources) + grid.paddingLeft + grid.paddingRight
+            it.gravity = Gravity.CENTER_HORIZONTAL
+            grid.layoutParams = it
         }
     }
 

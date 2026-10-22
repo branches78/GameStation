@@ -197,4 +197,5 @@
     <string name="library_loading_message">Chúng tôi đang tìm trò chơi trong thư mục bạn đã chọn. Có thể mất vài phút nếu bạn có nhiều trò chơi.</string>
     <string name="library_loading_listing">Đang tìm tệp…</string>
     <string name="library_loading_files">%1$d / %2$d tệp</string>
+    <string name="library_loading_cores">Đang chuẩn bị lõi giả lập: %1$d / %2$d</string>
 </resources>

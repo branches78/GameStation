@@ -208,4 +208,5 @@ Se sai alkunsa itsenäisenä versiona Lemuroidista, Filippo Scognamiglion avoime
     <string name="library_loading_message">Etsimme pelejä valitsemastasi kansiosta. Tämä voi kestää muutaman minuutin, jos pelejä on paljon.</string>
     <string name="library_loading_listing">Etsitään tiedostoja…</string>
     <string name="library_loading_files">%1$d / %2$d tiedostoa</string>
+    <string name="library_loading_cores">Valmistellaan emulointiytimiä: %1$d / %2$d</string>
 </resources>

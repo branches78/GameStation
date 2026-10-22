@@ -5,4 +5,5 @@
     <string name="library_loading_message">Ons soek die speletjies in die vouer wat jy gekies het. Dit kan \'n paar minute neem as jy baie het.</string>
     <string name="library_loading_listing">Soek lêers…</string>
     <string name="library_loading_files">%1$d van %2$d lêers</string>
+    <string name="library_loading_cores">Berei emulasiekerne voor: %1$d van %2$d</string>
 </resources>

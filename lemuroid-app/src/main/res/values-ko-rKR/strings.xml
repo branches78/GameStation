@@ -216,4 +216,5 @@ Filippo Scognamiglio의 오픈 소스 에뮬레이터인 Lemuroid의 독립 버�
     <string name="library_loading_message">선택한 폴더에서 게임을 찾고 있습니다. 게임이 많으면 몇 분 정도 걸릴 수 있습니다.</string>
     <string name="library_loading_listing">파일을 찾는 중…</string>
     <string name="library_loading_files">%2$d개 중 %1$d개 파일</string>
+    <string name="library_loading_cores">에뮬레이션 코어 준비 중: %2$d개 중 %1$d개</string>
 </resources>

@@ -199,4 +199,5 @@
     <string name="library_loading_message">正在尋找你所選資料夾中的遊戲。如果遊戲很多，可能需要幾分鐘。</string>
     <string name="library_loading_listing">正在尋找檔案…</string>
     <string name="library_loading_files">%1$d / %2$d 個檔案</string>
+    <string name="library_loading_cores">正在準備模擬核心：%1$d / %2$d</string>
 </resources>

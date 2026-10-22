@@ -19,8 +19,6 @@
     <!-- The games of a system are shown below the tabs bar: title right below it, then the grid. -->
     <dimen name="tv_games_title_top_margin">4dp</dimen>
     <dimen name="tv_games_grid_top_padding">64dp</dimen>
-    <!-- Focused cards grow a little, so some extra room is kept between columns. -->
-    <dimen name="tv_games_card_extra_spacing">16dp</dimen>
     <!-- Width of the tabs content: the "Consoles" grid (5 cards of 128dp + 4 spacings of 8dp) and the "About" cards. -->
     <dimen name="tv_content_width">672dp</dimen>
     <!-- Home rows: 4 square cards fill the content width. -->

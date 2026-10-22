@@ -214,4 +214,5 @@
     <string name="library_loading_message">Шукаємо ігри у вибраній теці. Якщо їх багато, це може тривати кілька хвилин.</string>
     <string name="library_loading_listing">Пошук файлів…</string>
     <string name="library_loading_files">%1$d з %2$d файлів</string>
+    <string name="library_loading_cores">Підготовка ядер емуляції: %1$d з %2$d</string>
 </resources>

@@ -215,4 +215,5 @@ Filippo Scognamiglio氏によるオープンソースのエミュレーター、
     <string name="library_loading_message">選択したフォルダ内のゲームを探しています。ゲームが多い場合は数分かかることがあります。</string>
     <string name="library_loading_listing">ファイルを検索しています…</string>
     <string name="library_loading_files">%1$d / %2$d ファイル</string>
+    <string name="library_loading_cores">エミュレーションコアを準備しています: %1$d / %2$d</string>
 </resources>

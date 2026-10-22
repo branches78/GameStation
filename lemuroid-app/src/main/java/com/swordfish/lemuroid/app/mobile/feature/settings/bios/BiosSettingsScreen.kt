@@ -38,7 +38,7 @@ private fun DetectedEntries(detected: List<Bios>) {
         title = { Text(text = stringResource(id = R.string.settings_bios_category_detected)) },
     ) {
         detected.forEach {
-            BiosEntry(it, true)
+            BiosEntry(it)
         }
     }
 }
@@ -49,20 +49,18 @@ private fun SupportedEntries(supported: List<Bios>) {
         title = { Text(text = stringResource(id = R.string.settings_bios_category_not_detected)) },
     ) {
         supported.forEach {
-            BiosEntry(it, false)
+            BiosEntry(it)
         }
     }
 }
 
 @Composable
-fun BiosEntry(
-    bios: Bios,
-    detected: Boolean,
-) {
+fun BiosEntry(bios: Bios) {
+    // Every entry stays enabled, also the ones not detected (their group title says so): disabled rows are grey and
+    // can't be focused, so on TV the remote could not scroll the list.
     LemuroidSettingsMenuLink(
         title = { Text(text = bios.description) },
         subtitle = { Text(text = bios.displayName()) },
-        enabled = detected,
         onClick = { },
     )
 }

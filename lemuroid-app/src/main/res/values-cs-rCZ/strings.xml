@@ -213,4 +213,5 @@ Vznikl jako nezávislá verze emulátoru Lemuroid s otevřeným zdrojovým kóde
     <string name="library_loading_message">Hledáme hry ve složce, kterou jsi vybral. Pokud jich máš hodně, může to trvat několik minut.</string>
     <string name="library_loading_listing">Hledání souborů…</string>
     <string name="library_loading_files">%1$d z %2$d souborů</string>
+    <string name="library_loading_cores">Příprava emulačních jader: %1$d z %2$d</string>
 </resources>

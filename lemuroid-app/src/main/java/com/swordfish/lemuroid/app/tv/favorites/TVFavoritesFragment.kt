@@ -53,7 +53,7 @@ class TVFavoritesFragment : VerticalGridSupportFragment() {
         view.findViewById<VerticalGridView>(androidx.leanback.R.id.browse_grid)?.let { grid ->
             val topPadding = resources.getDimensionPixelSize(R.dimen.tv_games_grid_top_padding)
             grid.setPadding(grid.paddingLeft, topPadding, grid.paddingRight, grid.paddingBottom)
-            grid.horizontalSpacing = TVHomeFragment.homeCardSpacing(resources)
+            TVTabGrids.setUpHomeCardsGrid(grid)
             TVTabGrids.allowFocusUpToTabs(this, grid, TVHomeFragment.cardsPerRow(resources))
         }
 

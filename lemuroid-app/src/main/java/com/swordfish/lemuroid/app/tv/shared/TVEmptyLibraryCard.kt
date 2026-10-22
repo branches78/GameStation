@@ -6,8 +6,8 @@ import android.widget.TextView
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import com.swordfish.lemuroid.R
+import com.swordfish.lemuroid.app.shared.library.LibraryLoadingProgress
 import com.swordfish.lemuroid.app.shared.library.LibraryScanProgressFormatter
-import com.swordfish.lemuroid.lib.library.LemuroidLibrary
 
 /**
  * Card of the TV "Home" and "Consoles" tabs for an empty library. While the first scan runs (the library was empty
@@ -24,7 +24,7 @@ class TVEmptyLibraryCard(private val cardView: View, private val contentView: Vi
     fun update(
         isLibraryEmpty: Boolean,
         indexInProgress: Boolean,
-        scanProgress: LemuroidLibrary.IndexProgress?,
+        scanProgress: LibraryLoadingProgress?,
     ) {
         loadingEmptyLibrary =
             when {
@@ -56,10 +56,10 @@ class TVEmptyLibraryCard(private val cardView: View, private val contentView: Vi
         }
     }
 
-    private fun bindProgress(scanProgress: LemuroidLibrary.IndexProgress) {
+    private fun bindProgress(scanProgress: LibraryLoadingProgress) {
         val context = cardView.context
         val progressBar = cardView.findViewById<ProgressBar>(R.id.tv_empty_library_progress_bar)
-        val fraction = LibraryScanProgressFormatter.fraction(scanProgress)
+        val fraction = scanProgress.fraction
         progressBar.isIndeterminate = fraction == null
         if (fraction != null) {
             progressBar.progress = (fraction * progressBar.max).toInt()

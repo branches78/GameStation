@@ -214,4 +214,5 @@ Den startet som en uavhengig versjon av Lemuroid, åpen kildekode-emulatoren av 
     <string name="library_loading_message">Vi leter etter spillene i mappen du valgte. Det kan ta noen minutter hvis du har mange.</string>
     <string name="library_loading_listing">Leter etter filer…</string>
     <string name="library_loading_files">%1$d av %2$d filer</string>
+    <string name="library_loading_cores">Klargjør emuleringskjerner: %1$d av %2$d</string>
 </resources>

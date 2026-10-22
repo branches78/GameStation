@@ -214,4 +214,5 @@ Powstał jako niezależna wersja Lemuroid, emulatora open source autorstwa Filip
     <string name="library_loading_message">Szukamy gier w wybranym folderze. Jeśli masz ich dużo, może to potrwać kilka minut.</string>
     <string name="library_loading_listing">Szukanie plików…</string>
     <string name="library_loading_files">%1$d z %2$d plików</string>
+    <string name="library_loading_cores">Przygotowywanie rdzeni emulacji: %1$d z %2$d</string>
 </resources>

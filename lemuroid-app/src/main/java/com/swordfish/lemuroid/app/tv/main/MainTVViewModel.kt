@@ -15,13 +15,13 @@ class MainTVViewModel(appContext: Context) : ViewModel() {
         }
     }
 
+    // Only used to know if the app is busy (no progress indicator on screen): it is collected from the start.
     val inProgress =
         PendingOperationsMonitor(appContext)
-            // The directory scan shows its own progress bar in the "Home" tab and in the settings.
-            .anyOperationInProgressExceptScan()
+            .anyOperationInProgress()
             .stateIn(
                 scope = viewModelScope,
-                started = SharingStarted.Lazily,
+                started = SharingStarted.Eagerly,
                 initialValue = false,
             )
 }

@@ -115,10 +115,6 @@
         </activity>
 
         <activity
-            android:name=".app.tv.coreoptions.TVCoreOptionsActivity"
-            android:theme="@style/LemuroidMaterialTheme" />
-
-        <activity
             android:name=".app.tv.folderpicker.TVFolderPickerActivity"
             android:theme="@style/Theme.Leanback.GuidedStep" />
         <activity android:name=".app.tv.folderpicker.TVFolderPickerLauncher" />

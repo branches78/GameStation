@@ -81,7 +81,8 @@ class TVSettingsTabFragment : Fragment() {
                 AppTheme {
                     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.TopCenter) {
                         val navController = rememberNavController()
-                        val contentModifier = Modifier.fillMaxWidth().widthIn(max = CONTENT_MAX_WIDTH)
+                        // widthIn goes first: after fillMaxWidth the maximum width would be ignored.
+                        val contentModifier = Modifier.widthIn(max = CONTENT_MAX_WIDTH).fillMaxWidth()
 
                         NavHost(
                             modifier = contentModifier,

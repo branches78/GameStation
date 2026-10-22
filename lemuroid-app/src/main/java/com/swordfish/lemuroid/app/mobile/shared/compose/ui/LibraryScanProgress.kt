@@ -20,31 +20,31 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import com.swordfish.lemuroid.app.shared.library.LibraryLoadingProgress
 import com.swordfish.lemuroid.app.shared.library.LibraryScanProgressFormatter
 import com.swordfish.lemuroid.app.shared.library.PendingOperationsMonitor
-import com.swordfish.lemuroid.lib.library.LemuroidLibrary
 
 /** Progress of the directory scan, null when no scan is running. */
 @Composable
-fun rememberLibraryScanProgress(): State<LemuroidLibrary.IndexProgress?> {
+fun rememberLibraryScanProgress(): State<LibraryLoadingProgress?> {
     val appContext = LocalContext.current.applicationContext
     val progressFlow = remember { PendingOperationsMonitor(appContext).directoryScanProgress() }
     return progressFlow.collectAsState(null)
 }
 
 /**
- * Bar with the percentage of the directory scan and "121 of 268 files" below. While the files are still being
- * listed the bar moves without percentage and the text says "Looking for files…".
+ * Bar with the percentage of the directory scan and "121 of 268 files" (then "Preparing cores: 2 of 5") below.
+ * While the files are still being listed the bar moves without percentage and the text says "Looking for files…".
  */
 @Composable
 fun LibraryScanProgress(
-    progress: LemuroidLibrary.IndexProgress,
+    progress: LibraryLoadingProgress,
     modifier: Modifier = Modifier,
     barHeight: Dp = 6.dp,
     percentSize: TextUnit = MaterialTheme.typography.bodyMedium.fontSize,
 ) {
     val context = LocalContext.current
-    val fraction = LibraryScanProgressFormatter.fraction(progress)
+    val fraction = progress.fraction
     val barModifier = Modifier.height(barHeight)
     val trackColor = MaterialTheme.colorScheme.surfaceContainerHighest
 

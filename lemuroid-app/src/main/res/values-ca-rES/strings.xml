@@ -125,4 +125,5 @@ Va néixer com una versió independent de Lemuroid, l\'emulador de codi obert de
     <string name="library_loading_message">Estem buscant els jocs de la carpeta que has triat. Pot trigar uns minuts si en tens molts.</string>
     <string name="library_loading_listing">S\'estan buscant fitxers…</string>
     <string name="library_loading_files">%1$d de %2$d fitxers</string>
+    <string name="library_loading_cores">Preparant els nuclis d\'emulació: %1$d de %2$d</string>
 </resources>

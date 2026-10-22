@@ -214,4 +214,5 @@
     <string name="library_loading_message">Тражимо игре у фасцикли коју си изабрао. Ако их имаш много, може потрајати неколико минута.</string>
     <string name="library_loading_listing">Тражење датотека…</string>
     <string name="library_loading_files">%1$d од %2$d датотека</string>
+    <string name="library_loading_cores">Припрема језгара за емулацију: %1$d од %2$d</string>
 </resources>

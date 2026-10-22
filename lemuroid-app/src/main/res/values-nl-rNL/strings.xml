@@ -216,4 +216,5 @@ Het begon als een onafhankelijke versie van Lemuroid, de opensource-emulator van
     <string name="library_loading_message">We zoeken de games in de map die je hebt gekozen. Dit kan een paar minuten duren als je er veel hebt.</string>
     <string name="library_loading_listing">Bestanden zoeken…</string>
     <string name="library_loading_files">%1$d van %2$d bestanden</string>
+    <string name="library_loading_cores">Emulatiecores voorbereiden: %1$d van %2$d</string>
 </resources>

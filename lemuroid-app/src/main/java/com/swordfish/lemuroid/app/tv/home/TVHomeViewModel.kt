@@ -5,11 +5,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.swordfish.lemuroid.app.shared.home.HomeDynamicRows
+import com.swordfish.lemuroid.app.shared.library.LibraryLoadingProgress
 import com.swordfish.lemuroid.app.shared.library.PendingOperationsMonitor
 import com.swordfish.lemuroid.app.shared.systems.MetaSystemInfo
 import com.swordfish.lemuroid.common.coroutines.combine
 import com.swordfish.lemuroid.lib.library.GameSystem
-import com.swordfish.lemuroid.lib.library.LemuroidLibrary
 import com.swordfish.lemuroid.lib.library.db.RetrogradeDatabase
 import com.swordfish.lemuroid.lib.library.db.entity.Game
 import com.swordfish.lemuroid.lib.library.metaSystemID
@@ -47,7 +47,7 @@ class TVHomeViewModel(retrogradeDb: RetrogradeDatabase, appContext: Context) : V
         val metaSystems: List<MetaSystemInfo> = emptyList(),
         val indexInProgress: Boolean = false,
         // Progress of the directory scan, null when no scan is running.
-        val scanProgress: LemuroidLibrary.IndexProgress? = null,
+        val scanProgress: LibraryLoadingProgress? = null,
     )
 
     // Null until the library has been read, so the UI doesn't show the "empty library" state for a moment.
@@ -63,7 +63,7 @@ class TVHomeViewModel(retrogradeDb: RetrogradeDatabase, appContext: Context) : V
         discoveryGames: List<Game>,
         metaSystems: List<MetaSystemInfo>,
         indexInProgress: Boolean,
-        scanProgress: LemuroidLibrary.IndexProgress?,
+        scanProgress: LibraryLoadingProgress?,
         dynamicRows: List<HomeDynamicRows.Row>,
     ): HomeViewState {
         return HomeViewState(

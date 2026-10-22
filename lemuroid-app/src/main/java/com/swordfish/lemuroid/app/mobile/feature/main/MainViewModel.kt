@@ -25,8 +25,6 @@ class MainViewModel(appContext: Context, private val saveSyncManager: SaveSyncMa
 
     data class UiState(
         val operationInProgress: Boolean = false,
-        // The line under the top bar: the directory scan is not included, it shows its own progress bar.
-        val showProgressIndicator: Boolean = false,
         val saveSyncEnabled: Boolean = false,
         val displaySearch: Boolean = false,
         val searchQuery: String = "",
@@ -37,12 +35,7 @@ class MainViewModel(appContext: Context, private val saveSyncManager: SaveSyncMa
 
     private val currentRouteFlow = MutableStateFlow(MainRoute.HOME)
     private val saveSyncEnabledFlow = MutableStateFlow(false)
-    private val operationInProgressFlow =
-        PendingOperationsMonitor(appContext).let { monitor ->
-            combine(monitor.anyOperationInProgress(), monitor.anyOperationInProgressExceptScan()) { any, exceptScan ->
-                any to exceptScan
-            }
-        }
+    private val operationInProgressFlow = PendingOperationsMonitor(appContext).anyOperationInProgress()
     private val searchQueryFlow = MutableStateFlow("")
     private val gamesGridModeFlow = MutableStateFlow(sharedPreferences.getBoolean(PREF_KEY_GAMES_GRID_MODE, true))
 
@@ -58,8 +51,7 @@ class MainViewModel(appContext: Context, private val saveSyncManager: SaveSyncMa
                 gamesGridModeFlow,
             ) { currentRoute, saveSyncEnabled, operationInProgress, searchQuery, gamesGridMode ->
                 UiState(
-                    operationInProgress = operationInProgress.first,
-                    showProgressIndicator = operationInProgress.second,
+                    operationInProgress = operationInProgress,
                     saveSyncEnabled = saveSyncEnabled,
                     displaySearch = currentRoute == MainRoute.SEARCH,
                     searchQuery = searchQuery,

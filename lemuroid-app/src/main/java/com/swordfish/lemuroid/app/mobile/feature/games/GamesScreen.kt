@@ -5,11 +5,16 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.swordfish.lemuroid.app.mobile.shared.compose.ui.LemuroidEmptyView
@@ -29,16 +34,20 @@ fun GamesScreen(
     onGameFavoriteToggle: (Game, Boolean) -> Unit,
 ) {
     val games = viewModel.games.collectAsLazyPagingItems()
+    // Kept here and not inside the grid or list: they are not shown while the games load (also for a moment when
+    // coming back from the details of a game), and their position must survive it.
+    val gridState = rememberLazyGridState()
+    val listState = rememberLazyListState()
 
     if (games.itemCount == 0) {
-        LemuroidEmptyView()
+        if (games.loadState.refresh is LoadState.NotLoading) LemuroidEmptyView()
         return
     }
 
     if (gridMode) {
-        GamesGrid(modifier, games, onGameClick, onGameLongClick)
+        GamesGrid(modifier, games, gridState, onGameClick, onGameLongClick)
     } else {
-        GamesList(modifier, games, onGameClick, onGameLongClick, onGameFavoriteToggle)
+        GamesList(modifier, games, listState, onGameClick, onGameLongClick, onGameFavoriteToggle)
     }
 }
 
@@ -47,11 +56,12 @@ fun GamesScreen(
 private fun GamesList(
     modifier: Modifier,
     games: LazyPagingItems<Game>,
+    state: LazyListState,
     onGameClick: (Game) -> Unit,
     onGameLongClick: (Game) -> Unit,
     onGameFavoriteToggle: (Game, Boolean) -> Unit,
 ) {
-    LazyColumn(modifier = modifier.fillMaxSize()) {
+    LazyColumn(modifier = modifier.fillMaxSize(), state = state) {
         items(games.itemCount, key = { games[it]?.id ?: it }) { index ->
             val game = games[index] ?: return@items
 
@@ -71,11 +81,13 @@ private fun GamesList(
 private fun GamesGrid(
     modifier: Modifier,
     games: LazyPagingItems<Game>,
+    state: LazyGridState,
     onGameClick: (Game) -> Unit,
     onGameLongClick: (Game) -> Unit,
 ) {
     LazyVerticalGrid(
         modifier = modifier.fillMaxSize(),
+        state = state,
         columns = GridCells.Fixed(GRID_COLUMNS),
         contentPadding = PaddingValues(16.dp),
         horizontalArrangement = Arrangement.spacedBy(12.dp),

@@ -18,6 +18,9 @@ class GamePresenter(
     // When set (home rows and grids) every card has this shape (width / height) and other covers are shown whole
     // inside it; otherwise the card takes the shape of the cover (search).
     private val fixedRatio: Float? = null,
+    // The long press menu is kept only in "Continue playing" when choosing a game opens its details, which have
+    // the same actions. Elsewhere a long press then opens the details too, like a normal press.
+    private val alwaysShowMenu: Boolean = false,
 ) : Presenter() {
     override fun onBindViewHolder(
         viewHolder: Presenter.ViewHolder?,
@@ -30,10 +33,15 @@ class GamePresenter(
         // Same height for every card; the width follows the cover shape (like on mobile).
         updateCardShape(viewHolder, game)
         viewHolder.updateCardViewImage(game) { updateCardShape(viewHolder, game) }
-        // A long press opens the same actions menu as on mobile.
+        // A long press opens the same actions menu as on mobile. When it is not handled, releasing the button
+        // counts as a normal press.
         viewHolder.view.setOnLongClickListener {
-            TVGameContextMenu.show(it.context, game, gameInteractor)
-            true
+            if (alwaysShowMenu || !gameInteractor.showDetailsOnClick()) {
+                TVGameContextMenu.show(it.context, game, gameInteractor)
+                true
+            } else {
+                false
+            }
         }
     }
 

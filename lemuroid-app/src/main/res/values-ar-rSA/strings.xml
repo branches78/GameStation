@@ -195,16 +195,10 @@
     <string name="title_about">حول</string>
     <string name="about_version">الإصدار %1$s</string>
     <string name="about_what_is_title">ما هو PlayRetro؟</string>
-    <string name="about_what_is_text">PlayRetro هو محاكي لأجهزة الألعاب الكلاسيكية للهواتف والأجهزة اللوحية وAndroid TV. ينظّم مجموعة ألعابك مع صور الأغلفة ويتيح لك اللعب بذراع التحكم أو بأزرار اللمس، مع حفظ تقدّمك تلقائيًا.
-
-بدأ كنسخة مستقلة من Lemuroid، المحاكي مفتوح المصدر الذي طوّره Filippo Scognamiglio، ويعمل بأنوية المحاكاة من libretro، وهي نفسها التي يستخدمها RetroArch.</string>
+    <string name="about_what_is_text">PlayRetro هو محاكي لأجهزة الألعاب الكلاسيكية للهواتف والأجهزة اللوحية وAndroid TV. ينظّم مجموعة ألعابك مع صور الأغلفة ويتيح لك اللعب بذراع التحكم أو بأزرار اللمس، مع حفظ تقدّمك تلقائيًا.\n\nبدأ كنسخة مستقلة من Lemuroid، المحاكي مفتوح المصدر الذي طوّره Filippo Scognamiglio، ويعمل بأنوية المحاكاة من libretro، وهي نفسها التي يستخدمها RetroArch.</string>
     <string name="about_help_title">مساعدة</string>
     <string name="about_license_title">الترخيص والشكر</string>
-    <string name="about_license_text">• PlayRetro برنامج حر بموجب ترخيص GNU GPL v3.
-• مبني على Lemuroid وLibretroDroid من تطوير Filippo Scognamiglio (Swordfish90).
-• أنوية المحاكاة من libretro، ولكل منها ترخيصها مفتوح المصدر.
-• أيقونات الأنظمة: سمة \"FlatUI\" من RetroArch، ترخيص CC BY 4.0.
-• صور الأغلفة: libretro-thumbnails.</string>
+    <string name="about_license_text">• PlayRetro برنامج حر بموجب ترخيص GNU GPL v3.\n• مبني على Lemuroid وLibretroDroid من تطوير Filippo Scognamiglio (Swordfish90).\n• أنوية المحاكاة من libretro، ولكل منها ترخيصها مفتوح المصدر.\n• أيقونات الأنظمة: سمة \"FlatUI\" من RetroArch، ترخيص CC BY 4.0.\n• صور الأغلفة: libretro-thumbnails.</string>
     <string name="help_covers_question">لماذا يوجد غلاف مفقود أو اسم غير صحيح؟</string>
     <string name="help_covers_answer">يتم التعرف على الألعاب أولًا من محتواها. إذا فشل ذلك، يُستخدم اسم الملف: سمِّ ملفاتك مثل \"اسم_اللعبة (USA).nes\" أو فقط \"اسم_اللعبة.nes\". بعد إعادة التسمية، أعد فحص ألعابك.</string>
     <string name="library_loading_title">جارٍ تحميل ألعابك</string>
@@ -221,4 +215,12 @@
     <string name="core_options_clear_game_description">العودة إلى إعدادات %1$s</string>
     <string name="core_options_aspect_ratio_unavailable">لا يمكن لـ %1$s تغيير نسبة العرض إلى الارتفاع. لاستخدام 16:9 اختر %2$s كنواة (قد يحتاج إلى BIOS الجهاز).</string>
     <string name="game_toast_applying_options">جارٍ إعادة تشغيل اللعبة لتطبيق التغييرات…</string>
+    <string name="settings_title_show_game_details">عرض تفاصيل اللعبة</string>
+    <string name="settings_description_show_game_details">يؤدي اختيار لعبة إلى فتح تفاصيلها مع وصف بدلاً من تشغيلها. تبدأ الألعاب التي لُعبت مؤخرًا مباشرةً دائمًا.</string>
+    <string name="game_details_more_from">المزيد من %1$s</string>
+    <string name="game_details_last_played">آخر تشغيل</string>
+    <string name="game_details_core">النواة</string>
+    <string name="game_details_read_more">اقرأ المزيد</string>
+    <string name="game_details_read_less">عرض أقل</string>
+    <string name="game_details_description_source">الوصف من ويكيبيديا</string>
 </resources>

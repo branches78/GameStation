@@ -3,7 +3,7 @@ package com.swordfish.lemuroid.app.mobile.feature.search
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.swordfish.lemuroid.common.paging.buildFlowPaging
 import com.swordfish.lemuroid.lib.library.db.RetrogradeDatabase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -39,12 +39,14 @@ class SearchViewModel(private val retrogradeDb: RetrogradeDatabase) : ViewModel(
                     retrogradeDb.gameSearchDao().search(it)
                 }
             }
-            .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), PagingData.empty())
+            // Kept while the screen is in the back stack: back from the details of a game shows the same results,
+            // at the same position, instead of searching again.
+            .cachedIn(viewModelScope)
 
     val searchState: Flow<UIState> =
         queryString
             .flatMapLatest { searchStatesForQuery(it) }
-            .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), UIState.Idle)
+            .stateIn(viewModelScope, SharingStarted.Lazily, UIState.Idle)
 
     private fun searchStatesForQuery(query: String): Flow<UIState> {
         if (query.isEmpty()) {

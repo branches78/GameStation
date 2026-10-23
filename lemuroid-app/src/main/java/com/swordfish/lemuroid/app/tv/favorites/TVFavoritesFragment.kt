@@ -14,6 +14,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import com.swordfish.lemuroid.R
 import com.swordfish.lemuroid.app.shared.GameInteractor
+import com.swordfish.lemuroid.app.tv.details.TVGameDetailsFragment
 import com.swordfish.lemuroid.app.tv.home.TVHomeFragment
 import com.swordfish.lemuroid.app.tv.shared.GamePresenter
 import com.swordfish.lemuroid.app.tv.shared.TVTabGrids
@@ -77,7 +78,7 @@ class TVFavoritesFragment : VerticalGridSupportFragment() {
         onItemViewClickedListener =
             OnItemViewClickedListener { _, item, _, _ ->
                 when (item) {
-                    is Game -> gameInteractor.onGamePlay(item)
+                    is Game -> TVGameDetailsFragment.openOrPlay(this, item, gameInteractor)
                 }
             }
     }

@@ -61,6 +61,9 @@ fun HomeScreen(
     viewModel: HomeViewModel,
     onGameClick: (Game) -> Unit,
     onGameLongClick: (Game) -> Unit,
+    // "Continue playing" starts the game right away and keeps the long press menu, also with the game details.
+    onRecentGameClick: (Game) -> Unit,
+    onRecentGameLongClick: (Game) -> Unit,
     onShowAllFavorites: () -> Unit,
 ) {
     val context = LocalContext.current
@@ -84,7 +87,7 @@ fun HomeScreen(
             }
         }
 
-    val state = viewModel.getViewStates().collectAsState(HomeViewModel.UIState())
+    val state = viewModel.getViewStates().collectAsState()
 
     // A scan started with an empty library (e.g. after choosing the folder) shows its progress instead of the
     // directory card, and the rows appear when it ends.
@@ -107,6 +110,8 @@ fun HomeScreen(
         scanProgress.takeIf { loadingEmptyLibrary },
         onGameClick,
         onGameLongClick,
+        onRecentGameClick,
+        onRecentGameLongClick,
         onShowAllFavorites,
         {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
@@ -127,6 +132,8 @@ private fun HomeScreen(
     libraryLoadingProgress: LibraryLoadingProgress?,
     onGameClicked: (Game) -> Unit,
     onGameLongClick: (Game) -> Unit,
+    onRecentGameClick: (Game) -> Unit,
+    onRecentGameLongClick: (Game) -> Unit,
     onShowAllFavorites: () -> Unit,
     onEnableNotificationsClicked: () -> Unit,
     onEnableMicrophoneClicked: () -> Unit,
@@ -172,8 +179,8 @@ private fun HomeScreen(
             stringResource(id = R.string.recent),
             state.recentGames,
             null,
-            onGameClicked,
-            onGameLongClick,
+            onRecentGameClick,
+            onRecentGameLongClick,
         )
         HomeRow(
             stringResource(id = R.string.favorites),
@@ -226,9 +233,10 @@ private fun HomeRow(
     }
 
     Column(modifier = Modifier.fillMaxWidth()) {
+        // Bigger than the names of the games (titleSmall), like the row titles on TV.
         Text(
             text = title,
-            style = MaterialTheme.typography.labelMedium,
+            style = MaterialTheme.typography.titleMedium,
             modifier = Modifier.padding(start = 16.dp, end = 16.dp),
         )
         if (games.isEmpty() && emptyMessage != null) {

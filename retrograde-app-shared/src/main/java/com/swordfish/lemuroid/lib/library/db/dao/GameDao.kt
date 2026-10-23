@@ -33,6 +33,10 @@ interface GameDao {
     @Query("SELECT * FROM games WHERE id = :id")
     suspend fun selectById(id: Int): Game?
 
+    /** The game and its later changes (favorite, custom name or cover), for its details screen. */
+    @Query("SELECT * FROM games WHERE id = :id")
+    fun observeById(id: Int): Flow<Game?>
+
     @Query("SELECT * FROM games WHERE fileUri = :fileUri")
     fun selectByFileUri(fileUri: String): Game?
 
@@ -58,8 +62,15 @@ interface GameDao {
     @Query("SELECT * FROM games WHERE isFavorite = 1 ORDER BY lastPlayedAt DESC LIMIT :limit")
     fun selectFirstFavorites(limit: Int): Flow<List<Game>>
 
-    @Query("SELECT * FROM games WHERE lastPlayedAt IS NULL LIMIT :limit")
-    fun selectFirstNotPlayed(limit: Int): Flow<List<Game>>
+    // Games never played in an order that changes with the seed (see HomeDiscovery).
+    @Query("SELECT * FROM games WHERE lastPlayedAt IS NULL ORDER BY (id * :seed) % 7919 LIMIT :limit")
+    fun selectNotPlayedShuffled(
+        seed: Int,
+        limit: Int,
+    ): Flow<List<Game>>
+
+    @Query("SELECT * FROM games WHERE lastPlayedAt IS NOT NULL ORDER BY lastPlayedAt ASC LIMIT :limit")
+    fun selectLeastRecentlyPlayed(limit: Int): Flow<List<Game>>
 
     @Query("SELECT * FROM games WHERE systemId = :systemId ORDER BY COALESCE(customName, title) ASC, id DESC")
     fun selectBySystem(systemId: String): PagingSource<Int, Game>

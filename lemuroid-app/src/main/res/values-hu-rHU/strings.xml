@@ -66,16 +66,10 @@
     <string name="title_about">Névjegy</string>
     <string name="about_version">Verzió: %1$s</string>
     <string name="about_what_is_title">Mi az a PlayRetro?</string>
-    <string name="about_what_is_text">A PlayRetro klasszikus konzolok emulátora telefonokra, táblagépekre és Android TV-re. Borítókkal rendezi a játékgyűjteményedet, és kontrollerrel vagy érintéses vezérlőkkel játszhatsz, miközben automatikusan menti az állást.
-
-A Lemuroid, Filippo Scognamiglio nyílt forráskódú emulátorának független változataként indult, és a libretro emulációs magjait használja, ugyanazokat, mint a RetroArch.</string>
+    <string name="about_what_is_text">A PlayRetro klasszikus konzolok emulátora telefonokra, táblagépekre és Android TV-re. Borítókkal rendezi a játékgyűjteményedet, és kontrollerrel vagy érintéses vezérlőkkel játszhatsz, miközben automatikusan menti az állást.\n\nA Lemuroid, Filippo Scognamiglio nyílt forráskódú emulátorának független változataként indult, és a libretro emulációs magjait használja, ugyanazokat, mint a RetroArch.</string>
     <string name="about_help_title">Súgó</string>
     <string name="about_license_title">Licenc és köszönetnyilvánítás</string>
-    <string name="about_license_text">• A PlayRetro szabad szoftver a GNU GPL v3 licenc alatt.
-• Filippo Scognamiglio (Swordfish90) Lemuroid és LibretroDroid projektjén alapul.
-• Emulációs magok a libretrotól, mindegyik saját nyílt forráskódú licenccel.
-• Rendszerikonok: a RetroArch \"FlatUI\" témája, CC BY 4.0 licenc.
-• Borítók: libretro-thumbnails.</string>
+    <string name="about_license_text">• A PlayRetro szabad szoftver a GNU GPL v3 licenc alatt.\n• Filippo Scognamiglio (Swordfish90) Lemuroid és LibretroDroid projektjén alapul.\n• Emulációs magok a libretrotól, mindegyik saját nyílt forráskódú licenccel.\n• Rendszerikonok: a RetroArch \"FlatUI\" témája, CC BY 4.0 licenc.\n• Borítók: libretro-thumbnails.</string>
     <string name="help_covers_question">Miért hiányzik egy borító, vagy miért rossz a név?</string>
     <string name="help_covers_answer">A játékokat először a tartalmuk alapján ismeri fel. Ha ez nem sikerül, a fájlnevet használja: nevezd el a fájlokat így: \"Játéknév (USA).nes\", vagy csak \"Játéknév.nes\". Átnevezés után olvasd be újra a játékokat.</string>
     <string name="library_loading_title">Játékaid betöltése</string>
@@ -92,4 +86,12 @@ A Lemuroid, Filippo Scognamiglio nyílt forráskódú emulátorának független 
     <string name="core_options_clear_game_description">Újra a(z) %1$s beállításai</string>
     <string name="core_options_aspect_ratio_unavailable">A(z) %1$s nem tudja módosítani a képarányt. 16:9-hez válaszd a(z) %2$s magot (szükség lehet a konzol BIOS-ára).</string>
     <string name="game_toast_applying_options">A játék újraindul a változtatások alkalmazásához…</string>
+    <string name="settings_title_show_game_details">Játék adatlapjának megjelenítése</string>
+    <string name="settings_description_show_game_details">Egy játék kiválasztása elindítás helyett megnyitja az adatlapját a leírással. A nemrég játszott játékok mindig azonnal elindulnak.</string>
+    <string name="game_details_more_from">Továbbiak: %1$s</string>
+    <string name="game_details_last_played">Utoljára játszva</string>
+    <string name="game_details_core">Mag</string>
+    <string name="game_details_read_more">Tovább</string>
+    <string name="game_details_read_less">Kevesebb</string>
+    <string name="game_details_description_source">Leírás a Wikipédiából</string>
 </resources>

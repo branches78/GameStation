@@ -196,16 +196,10 @@
     <string name="title_about">Πληροφορίες</string>
     <string name="about_version">Έκδοση %1$s</string>
     <string name="about_what_is_title">Τι είναι το PlayRetro;</string>
-    <string name="about_what_is_text">Το PlayRetro είναι ένας εξομοιωτής κλασικών κονσολών για τηλέφωνα, tablet και Android TV. Οργανώνει τη συλλογή παιχνιδιών σου με εξώφυλλα και σου επιτρέπει να παίζεις με χειριστήριο ή χειρισμούς αφής, αποθηκεύοντας αυτόματα την πρόοδό σου.
-
-Ξεκίνησε ως ανεξάρτητη έκδοση του Lemuroid, του εξομοιωτή ανοιχτού κώδικα του Filippo Scognamiglio, και χρησιμοποιεί τους πυρήνες εξομοίωσης του libretro, τους ίδιους με το RetroArch.</string>
+    <string name="about_what_is_text">Το PlayRetro είναι ένας εξομοιωτής κλασικών κονσολών για τηλέφωνα, tablet και Android TV. Οργανώνει τη συλλογή παιχνιδιών σου με εξώφυλλα και σου επιτρέπει να παίζεις με χειριστήριο ή χειρισμούς αφής, αποθηκεύοντας αυτόματα την πρόοδό σου.\n\nΞεκίνησε ως ανεξάρτητη έκδοση του Lemuroid, του εξομοιωτή ανοιχτού κώδικα του Filippo Scognamiglio, και χρησιμοποιεί τους πυρήνες εξομοίωσης του libretro, τους ίδιους με το RetroArch.</string>
     <string name="about_help_title">Βοήθεια</string>
     <string name="about_license_title">Άδεια και ευχαριστίες</string>
-    <string name="about_license_text">• Το PlayRetro είναι ελεύθερο λογισμικό με άδεια GNU GPL v3.
-• Βασίζεται στα Lemuroid και LibretroDroid του Filippo Scognamiglio (Swordfish90).
-• Πυρήνες εξομοίωσης από το libretro, ο καθένας με τη δική του άδεια ανοιχτού κώδικα.
-• Εικονίδια συστημάτων: θέμα \"FlatUI\" του RetroArch, άδεια CC BY 4.0.
-• Εξώφυλλα: libretro-thumbnails.</string>
+    <string name="about_license_text">• Το PlayRetro είναι ελεύθερο λογισμικό με άδεια GNU GPL v3.\n• Βασίζεται στα Lemuroid και LibretroDroid του Filippo Scognamiglio (Swordfish90).\n• Πυρήνες εξομοίωσης από το libretro, ο καθένας με τη δική του άδεια ανοιχτού κώδικα.\n• Εικονίδια συστημάτων: θέμα \"FlatUI\" του RetroArch, άδεια CC BY 4.0.\n• Εξώφυλλα: libretro-thumbnails.</string>
     <string name="help_covers_question">Γιατί λείπει ένα εξώφυλλο ή το όνομα είναι λάθος;</string>
     <string name="help_covers_answer">Τα παιχνίδια αναγνωρίζονται πρώτα από το περιεχόμενό τους. Αν αυτό αποτύχει, χρησιμοποιείται το όνομα του αρχείου: ονόμασε τα αρχεία σου όπως \"ΌνομαΠαιχνιδιού (USA).nes\" ή απλώς \"ΌνομαΠαιχνιδιού.nes\". Μετά τη μετονομασία, σάρωσε ξανά τα παιχνίδια σου.</string>
     <string name="library_loading_title">Φόρτωση των παιχνιδιών σου</string>
@@ -222,4 +216,12 @@
     <string name="core_options_clear_game_description">Επιστροφή στις ρυθμίσεις του %1$s</string>
     <string name="core_options_aspect_ratio_unavailable">Το %1$s δεν μπορεί να αλλάξει την αναλογία εικόνας. Για 16:9 επίλεξε το %2$s ως πυρήνα (ίσως χρειαστεί το BIOS της κονσόλας).</string>
     <string name="game_toast_applying_options">Επανεκκίνηση του παιχνιδιού για εφαρμογή των αλλαγών…</string>
+    <string name="settings_title_show_game_details">Εμφάνιση λεπτομερειών παιχνιδιού</string>
+    <string name="settings_description_show_game_details">Η επιλογή ενός παιχνιδιού ανοίγει τις λεπτομέρειές του με περιγραφή αντί να το ξεκινά. Τα παιχνίδια που παίχτηκαν πρόσφατα ξεκινούν πάντα αμέσως.</string>
+    <string name="game_details_more_from">Περισσότερα από %1$s</string>
+    <string name="game_details_last_played">Τελευταία φορά</string>
+    <string name="game_details_core">Πυρήνας</string>
+    <string name="game_details_read_more">Περισσότερα</string>
+    <string name="game_details_read_less">Λιγότερα</string>
+    <string name="game_details_description_source">Περιγραφή από τη Wikipedia</string>
 </resources>

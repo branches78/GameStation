@@ -29,6 +29,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.fredporciuncula.flow.preferences.FlowSharedPreferences
 import com.swordfish.lemuroid.R
+import com.swordfish.lemuroid.app.mobile.feature.details.GameDetailsScreen
 import com.swordfish.lemuroid.app.mobile.feature.favorites.FavoritesScreen
 import com.swordfish.lemuroid.app.mobile.feature.favorites.FavoritesViewModel
 import com.swordfish.lemuroid.app.mobile.feature.games.GamesScreen
@@ -54,6 +55,8 @@ import com.swordfish.lemuroid.app.mobile.feature.systems.MetaSystemsViewModel
 import com.swordfish.lemuroid.app.mobile.shared.compose.ui.AppTheme
 import com.swordfish.lemuroid.app.shared.GameInteractor
 import com.swordfish.lemuroid.app.shared.about.AboutContent
+import com.swordfish.lemuroid.app.shared.details.GameDescriptionProvider
+import com.swordfish.lemuroid.app.shared.details.GameDetailsViewModel
 import com.swordfish.lemuroid.app.shared.game.BaseGameActivity
 import com.swordfish.lemuroid.app.shared.game.GameLauncher
 import com.swordfish.lemuroid.app.shared.input.InputDeviceManager
@@ -104,6 +107,9 @@ class MainActivity : RetrogradeComponentActivity(), BusyActivity {
 
     @Inject
     lateinit var inputDeviceManager: InputDeviceManager
+
+    @Inject
+    lateinit var descriptionProvider: GameDescriptionProvider
 
     private val reviewManager = ReviewManager()
 
@@ -156,12 +162,31 @@ class MainActivity : RetrogradeComponentActivity(), BusyActivity {
                     mutableStateOf<Game?>(null)
                 }
 
-            val onGameLongClick = { game: Game ->
+            // "Continue playing" always starts the game and keeps the long press menu.
+            val onRecentGameClick = { game: Game ->
+                gameInteractor.onGamePlay(game)
+            }
+
+            val onRecentGameLongClick = { game: Game ->
                 selectedGameState.value = game
             }
 
+            // Elsewhere a game opens its details, which have all the actions of the menu (setting "Show game
+            // details"); without them it starts right away and the long press opens the menu, as before.
             val onGameClick = { game: Game ->
-                gameInteractor.onGamePlay(game)
+                if (gameInteractor.showDetailsOnClick()) {
+                    navController.navigateToGameDetails(game.id)
+                } else {
+                    gameInteractor.onGamePlay(game)
+                }
+            }
+
+            val onGameLongClick = { game: Game ->
+                if (gameInteractor.showDetailsOnClick()) {
+                    navController.navigateToGameDetails(game.id)
+                } else {
+                    selectedGameState.value = game
+                }
             }
 
             val onGameFavoriteToggle = { game: Game, isFavorite: Boolean ->
@@ -175,6 +200,8 @@ class MainActivity : RetrogradeComponentActivity(), BusyActivity {
 
             Scaffold(
                 topBar = {
+                    // The details of a game have their own back button over the screenshot.
+                    if (currentRoute == MainRoute.GAME_DETAILS) return@Scaffold
                     MainTopBar(
                         currentRoute = currentRoute,
                         titleOverrideId = currentSystemTitleId,
@@ -192,9 +219,9 @@ class MainActivity : RetrogradeComponentActivity(), BusyActivity {
                     navController = navController,
                     startDestination = MainRoute.HOME.route,
                 ) {
-                    composable(MainRoute.HOME) {
+                    composable(MainRoute.HOME) { entry ->
                         HomeScreen(
-                            modifier = Modifier.padding(padding),
+                            modifier = Modifier.padding(entry.stablePadding(padding, navBackStackEntry.value)),
                             viewModel =
                                 viewModel(
                                     factory =
@@ -206,20 +233,43 @@ class MainActivity : RetrogradeComponentActivity(), BusyActivity {
                                 ),
                             onGameClick = onGameClick,
                             onGameLongClick = onGameLongClick,
+                            onRecentGameClick = onRecentGameClick,
+                            onRecentGameLongClick = onRecentGameLongClick,
                             onShowAllFavorites = { navController.navigateToRoute(MainRoute.FAVORITES) },
                         )
                     }
-                    composable(MainRoute.FAVORITES) {
-                        FavoritesScreen(
+                    composable(MainRoute.GAME_DETAILS) { entry ->
+                        val gameId = entry.arguments?.getInt("gameId") ?: return@composable
+                        GameDetailsScreen(
                             modifier = Modifier.padding(padding),
+                            viewModel =
+                                viewModel(
+                                    key = "game_details_$gameId",
+                                    factory =
+                                        GameDetailsViewModel.Factory(
+                                            applicationContext,
+                                            gameId,
+                                            retrogradeDb,
+                                            descriptionProvider,
+                                        ),
+                                ),
+                            gameInteractor = gameInteractor,
+                            onBack = { navController.popBackStack() },
+                            onOpenCoreOptions = { game -> navController.navigateToCoreOptions(game.systemId, game.id) },
+                            onOpenGame = { game -> navController.navigateToGameDetails(game.id) },
+                        )
+                    }
+                    composable(MainRoute.FAVORITES) { entry ->
+                        FavoritesScreen(
+                            modifier = Modifier.padding(entry.stablePadding(padding, navBackStackEntry.value)),
                             viewModel = viewModel(factory = FavoritesViewModel.Factory(retrogradeDb)),
                             onGameClick = onGameClick,
                             onGameLongClick = onGameLongClick,
                         )
                     }
-                    composable(MainRoute.SEARCH) {
+                    composable(MainRoute.SEARCH) { entry ->
                         SearchScreen(
-                            modifier = Modifier.padding(padding),
+                            modifier = Modifier.padding(entry.stablePadding(padding, navBackStackEntry.value)),
                             viewModel =
                                 viewModel(
                                     factory = SearchViewModel.Factory(retrogradeDb),
@@ -249,7 +299,7 @@ class MainActivity : RetrogradeComponentActivity(), BusyActivity {
                     composable(MainRoute.SYSTEM_GAMES) { entry ->
                         val metaSystemId = entry.arguments?.getString("metaSystemId")
                         GamesScreen(
-                            modifier = Modifier.padding(padding),
+                            modifier = Modifier.padding(entry.stablePadding(padding, navBackStackEntry.value)),
                             viewModel =
                                 viewModel(
                                     factory =

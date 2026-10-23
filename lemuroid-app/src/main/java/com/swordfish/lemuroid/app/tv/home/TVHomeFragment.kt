@@ -9,36 +9,51 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import android.widget.TextView
 import androidx.leanback.app.RowsSupportFragment
 import androidx.leanback.widget.ArrayObjectAdapter
 import androidx.leanback.widget.BaseGridView
 import androidx.leanback.widget.ClassPresenterSelector
 import androidx.leanback.widget.DiffCallback
+import androidx.leanback.widget.FocusHighlight
 import androidx.leanback.widget.HeaderItem
 import androidx.leanback.widget.ListRow
 import androidx.leanback.widget.ListRowPresenter
+import androidx.leanback.widget.OnChildViewHolderSelectedListener
 import androidx.leanback.widget.OnItemViewClickedListener
+import androidx.leanback.widget.OnItemViewSelectedListener
+import androidx.leanback.widget.Row
+import androidx.leanback.widget.RowHeaderPresenter
 import androidx.leanback.widget.RowPresenter
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.RecyclerView
 import com.swordfish.lemuroid.R
 import com.swordfish.lemuroid.app.shared.GameInteractor
+import com.swordfish.lemuroid.app.shared.details.GameDescriptionProvider
+import com.swordfish.lemuroid.app.shared.details.gameCleanTitle
 import com.swordfish.lemuroid.app.shared.home.HomeDynamicRows
 import com.swordfish.lemuroid.app.shared.systems.MetaSystemInfo
+import com.swordfish.lemuroid.app.tv.details.TVGameDetailsFragment
 import com.swordfish.lemuroid.app.tv.main.TVMainTabsFragment
 import com.swordfish.lemuroid.app.tv.shared.GamePresenter
 import com.swordfish.lemuroid.app.tv.shared.TVEmptyLibraryCard
 import com.swordfish.lemuroid.common.coroutines.launchOnState
+import com.swordfish.lemuroid.lib.library.GameSystem
 import com.swordfish.lemuroid.lib.library.db.RetrogradeDatabase
 import com.swordfish.lemuroid.lib.library.db.entity.Game
 import dagger.android.support.AndroidSupportInjection
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
- * Content of the "Home" tab on TV. Like on mobile, the rows follow the same order
- * (recents, favorites, discover). Recents and favorites are hidden while empty,
- * while an empty discover row shows a hint in its middle. With an empty library
- * only the directory selection is shown.
+ * Content of the "Home" tab on TV. Discover always comes first as an immersive list: a screenshot, the title and a
+ * description of the focused game are shown above it. The other rows follow the mobile order (recents, favorites...).
+ * Recents and favorites are hidden while empty, while an empty discover row shows a hint in its middle.
+ * With an empty library only the directory selection is shown.
  */
 class TVHomeFragment : RowsSupportFragment() {
     @Inject
@@ -46,6 +61,9 @@ class TVHomeFragment : RowsSupportFragment() {
 
     @Inject
     lateinit var gameInteractor: GameInteractor
+
+    @Inject
+    lateinit var descriptionProvider: GameDescriptionProvider
 
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
@@ -68,6 +86,19 @@ class TVHomeFragment : RowsSupportFragment() {
         // by the screen sides, also while scrolling.
         val root = FrameLayout(requireContext())
         val rowEdge = resources.getDimensionPixelSize(R.dimen.tv_home_row_edge)
+
+        // Texts of the immersive list, above the first row and aligned with its first card. The rows are drawn
+        // over them, as they go up when the focus moves to the other rows.
+        val infoContainer = FrameLayout(requireContext())
+        val infoView = inflater.inflate(R.layout.tv_home_immersive_info, infoContainer, false)
+        (infoView.layoutParams as FrameLayout.LayoutParams).marginStart = rowEdge
+        infoContainer.addView(infoView)
+        val infoLayoutParams =
+            FrameLayout.LayoutParams(rowsContentWidth() + 2 * rowEdge, ViewGroup.LayoutParams.WRAP_CONTENT)
+        infoLayoutParams.gravity = Gravity.CENTER_HORIZONTAL
+        root.addView(infoContainer, infoLayoutParams)
+        immersiveInfo = ImmersiveInfo(infoView)
+
         val rowsLayoutParams =
             FrameLayout.LayoutParams(rowsContentWidth() + 2 * rowEdge, ViewGroup.LayoutParams.MATCH_PARENT)
         rowsLayoutParams.gravity = Gravity.CENTER_HORIZONTAL
@@ -82,7 +113,115 @@ class TVHomeFragment : RowsSupportFragment() {
 
     override fun onDestroyView() {
         emptyLibraryCard = null
+        immersiveInfo = null
+        immersiveJob = null
+        immersiveGame = null
+        discoverRow = null
+        recentsRow = null
+        rowsAlignmentOffset = null
         super.onDestroyView()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        immersiveGame?.let { tabsFragment()?.setHomeBackdrop(it) }
+    }
+
+    override fun onPause() {
+        // Hidden while another tab or screen is shown: the backdrop belongs to the tabs screen, behind all of them.
+        tabsFragment()?.setHomeBackdrop(null)
+        super.onPause()
+    }
+
+    private fun tabsFragment(): TVMainTabsFragment? = parentFragment as? TVMainTabsFragment
+
+    /** Texts of the immersive list: title, system and developer, and description of the focused game. */
+    private class ImmersiveInfo(val root: View) {
+        val title: TextView = root.findViewById(R.id.tv_immersive_title)
+        val meta: TextView = root.findViewById(R.id.tv_immersive_meta)
+        val description: TextView = root.findViewById(R.id.tv_immersive_description)
+    }
+
+    private var immersiveInfo: ImmersiveInfo? = null
+    private var immersiveJob: Job? = null
+    private var immersiveGame: Game? = null
+
+    /**
+     * Updates the immersive list for the [game] focused in its row, or hides it when the focus is on another row.
+     * Title and system change right away; the screenshot and the description, which may need the network,
+     * only once the focus stays on the game for a moment.
+     */
+    private fun showImmersiveGame(game: Game?) {
+        val info = immersiveInfo ?: return
+        if (game == immersiveGame) return
+        immersiveGame = game
+        immersiveJob?.cancel()
+
+        if (game == null) {
+            info.root.animate().alpha(0f).setDuration(IMMERSIVE_FADE_MS).start()
+            tabsFragment()?.setHomeBackdrop(null)
+            return
+        }
+
+        // Without the region and other tags of the file name: "Banjo-Tooie (USA)" -> "Banjo-Tooie".
+        info.title.text = gameCleanTitle(game)
+        info.meta.text = immersiveMeta(game)
+        info.description.text = descriptionProvider.getCachedDescription(game).orEmpty()
+        info.root.animate().alpha(1f).setDuration(IMMERSIVE_FADE_MS).start()
+
+        immersiveJob =
+            viewLifecycleOwner.lifecycleScope.launch {
+                delay(IMMERSIVE_DELAY_MS)
+                if (isResumed) tabsFragment()?.setHomeBackdrop(game)
+                val description = descriptionProvider.getDescription(game)
+                if (immersiveGame == game) info.description.text = description.orEmpty()
+            }
+    }
+
+    private fun immersiveMeta(game: Game): String {
+        val system = runCatching { getString(GameSystem.findById(game.systemId).titleResId) }.getOrNull()
+        return listOfNotNull(system, game.developer?.takeIf { it.isNotBlank() }).joinToString(" · ")
+    }
+
+    private fun onItemSelected(
+        item: Any?,
+        row: Row?,
+    ) {
+        val isImmersiveRow = row != null && row === discoverRow
+        showImmersiveGame(if (isImmersiveRow) item as? Game else null)
+    }
+
+    private var hasImmersiveRow = false
+    private var rowsAlignmentOffset: Int? = null
+
+    /**
+     * Where the selected row goes. The immersive list stays low on the screen, below its texts (its expanded state);
+     * the other rows go to the top, and the list collapses: its texts and screenshot are hidden.
+     */
+    private fun updateRowsAlignment(selectedPosition: Int) {
+        val gridView = verticalGridView ?: return
+        val immersiveSelected = hasImmersiveRow && selectedPosition <= 0
+        val offset =
+            resources.getDimensionPixelSize(
+                if (immersiveSelected) R.dimen.tv_immersive_row_top else R.dimen.tv_home_rows_top,
+            )
+        if (offset == rowsAlignmentOffset) return
+        val firstTime = rowsAlignmentOffset == null
+        rowsAlignmentOffset = offset
+
+        gridView.setPadding(gridView.paddingLeft, 0, gridView.paddingRight, gridView.paddingBottom)
+        gridView.windowAlignment = BaseGridView.WINDOW_ALIGN_NO_EDGE
+        gridView.windowAlignmentOffsetPercent = BaseGridView.WINDOW_ALIGN_OFFSET_PERCENT_DISABLED
+        gridView.windowAlignmentOffset = offset
+        gridView.itemAlignmentOffset = 0
+        gridView.itemAlignmentOffsetPercent = 0f
+
+        // The selection is reported before the grid scrolls, but scroll again in case it already used the old offset.
+        if (!firstTime) {
+            gridView.post {
+                if (gridView.selectedPosition == selectedPosition) gridView.setSelectedPositionSmooth(selectedPosition)
+            }
+        }
     }
 
     private fun updateEmptyLibraryCard(viewState: TVHomeViewModel.HomeViewState) {
@@ -100,12 +239,33 @@ class TVHomeFragment : RowsSupportFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         onItemViewClickedListener =
-            OnItemViewClickedListener { _, item, _, _ ->
-                when (item) {
-                    is Game -> gameInteractor.onGamePlay(item)
-                    is TVSetting -> onSettingClicked(item)
+            OnItemViewClickedListener { _, item, _, row ->
+                when {
+                    // "Continue playing" always starts the game; elsewhere a game opens its details.
+                    item is Game && row === recentsRow -> gameInteractor.onGamePlay(item)
+                    item is Game -> {
+                        rememberFocusedGame(row, item)
+                        TVGameDetailsFragment.openOrPlay(this, item, gameInteractor)
+                    }
+                    item is TVSetting -> onSettingClicked(item)
                 }
             }
+
+        onItemViewSelectedListener =
+            OnItemViewSelectedListener { _, item, _, row -> onItemSelected(item, row) }
+
+        verticalGridView?.addOnChildViewHolderSelectedListener(
+            object : OnChildViewHolderSelectedListener() {
+                override fun onChildViewHolderSelected(
+                    parent: RecyclerView,
+                    child: RecyclerView.ViewHolder?,
+                    position: Int,
+                    subposition: Int,
+                ) {
+                    updateRowsAlignment(position)
+                }
+            },
+        )
 
         createAdapter(emptyList())
 
@@ -130,6 +290,42 @@ class TVHomeFragment : RowsSupportFragment() {
 
     private var currentRows: List<Pair<String, String>> = emptyList()
 
+    /** The immersive list: the first row, without a title. */
+    private var discoverRow: ListRow? = null
+
+    /** "Continue playing": its games start right away and keep the long press menu. */
+    private var recentsRow: ListRow? = null
+
+    /**
+     * Row (key) and game opened in its details. The rows are built again when coming back (this fragment keeps
+     * living, its view doesn't), and the focus goes back to that game instead of the start of the screen.
+     */
+    private var gameToRefocus: Pair<String, Int>? = null
+
+    private fun rememberFocusedGame(
+        row: Row?,
+        game: Game,
+    ) {
+        if (!gameInteractor.showDetailsOnClick()) return
+        val rowIndex = (adapter as? ArrayObjectAdapter)?.indexOf(row) ?: -1
+        val rowKey = currentRows.getOrNull(rowIndex)?.first ?: return
+        gameToRefocus = rowKey to game.id
+    }
+
+    /** Selects and focuses the game opened before, once the rows are back. Done only once, found or not. */
+    private fun refocusGame(rows: List<HomeRow>) {
+        val (rowKey, gameId) = gameToRefocus ?: return
+        if (rows.isEmpty()) return
+        gameToRefocus = null
+
+        val rowIndex = rows.indexOfFirst { it.key == rowKey }
+        val itemIndex = rows.getOrNull(rowIndex)?.items?.indexOfFirst { (it as? Game)?.id == gameId } ?: -1
+        if (rowIndex < 0 || itemIndex < 0) return
+
+        setSelectedPosition(rowIndex, false, ListRowPresenter.SelectItemViewHolderTask(itemIndex))
+        view?.post { verticalGridView?.requestFocus() }
+    }
+
     private fun update(viewState: TVHomeViewModel.HomeViewState) {
         updateEmptyLibraryCard(viewState)
 
@@ -146,6 +342,20 @@ class TVHomeFragment : RowsSupportFragment() {
             val listRow = rowsAdapter.get(index) as ListRow
             (listRow.adapter as ArrayObjectAdapter).setItems(row.items, LEANBACK_MULTI_DIFF_CALLBACK)
         }
+
+        hasImmersiveRow = viewState.metaSystems.isNotEmpty() && viewState.discoveryGames.isNotEmpty()
+        updateRowsAlignment(selectedPosition)
+
+        // The selection is not reported again when the games of the row change: keep the texts in sync.
+        val selectedRow = rowsAdapter.takeIf { selectedPosition in 0 until it.size() }?.get(selectedPosition)
+        if (selectedRow === discoverRow) {
+            val selectedGame = immersiveGame?.let { current -> viewState.discoveryGames.firstOrNull { it.id == current.id } }
+            showImmersiveGame(selectedGame ?: viewState.discoveryGames.firstOrNull())
+        } else if (!hasImmersiveRow) {
+            showImmersiveGame(null)
+        }
+
+        refocusGame(rows)
     }
 
     private fun buildRows(viewState: TVHomeViewModel.HomeViewState): List<HomeRow> {
@@ -155,6 +365,10 @@ class TVHomeFragment : RowsSupportFragment() {
         if (viewState.metaSystems.isEmpty()) {
             return rows
         }
+
+        // Discover always comes first, as the immersive list (without a title: the focused game is shown above it).
+        val discoverItems = viewState.discoveryGames.ifEmpty { listOf(EmptyRowMessage(R.string.home_row_empty_discover)) }
+        rows += HomeRow(KEY_DISCOVER, "", discoverItems)
 
         // Recents and favorites stay hidden until they have games.
         if (viewState.recentGames.isNotEmpty()) {
@@ -173,10 +387,6 @@ class TVHomeFragment : RowsSupportFragment() {
         }
 
         rows += dynamicRows(viewState, HomeDynamicRows.Placement.BEFORE_DISCOVER)
-
-        val discoverItems = viewState.discoveryGames.ifEmpty { listOf(EmptyRowMessage(R.string.home_row_empty_discover)) }
-        rows += HomeRow(KEY_DISCOVER, getString(R.string.discover), discoverItems)
-
         rows += dynamicRows(viewState, HomeDynamicRows.Placement.AFTER_DISCOVER)
 
         return rows
@@ -206,15 +416,30 @@ class TVHomeFragment : RowsSupportFragment() {
                 com.swordfish.lemuroid.lib.R.dimen.settings_card_padding,
             )
 
-        val presenter =
+        fun presenter(alwaysShowMenu: Boolean) =
             ClassPresenterSelector().apply {
-                addClassPresenter(Game::class.java, GamePresenter(cardSize, gameInteractor, fixedRatio = 1f))
+                addClassPresenter(
+                    Game::class.java,
+                    GamePresenter(cardSize, gameInteractor, fixedRatio = 1f, alwaysShowMenu = alwaysShowMenu),
+                )
                 addClassPresenter(TVSetting::class.java, SettingPresenter(cardSize, settingsCardPadding))
                 addClassPresenter(EmptyRowMessage::class.java, EmptyRowMessagePresenter(cardSize, rowsContentWidth()))
             }
+        val presenter = presenter(alwaysShowMenu = false)
 
+        discoverRow = null
+        recentsRow = null
         rows.forEachIndexed { index, row ->
-            result.add(ListRow(HeaderItem(index.toLong(), row.title), ArrayObjectAdapter(presenter)))
+            val listRow =
+                when (row.key) {
+                    KEY_DISCOVER -> ListRow(ArrayObjectAdapter(presenter)).also { discoverRow = it }
+                    // "Continue playing" keeps the long press menu: its games start right away (see onViewCreated).
+                    KEY_RECENTS ->
+                        ListRow(HeaderItem(index.toLong(), row.title), ArrayObjectAdapter(presenter(alwaysShowMenu = true)))
+                            .also { recentsRow = it }
+                    else -> ListRow(HeaderItem(index.toLong(), row.title), ArrayObjectAdapter(presenter))
+                }
+            result.add(listRow)
         }
 
         adapter = result
@@ -224,12 +449,18 @@ class TVHomeFragment : RowsSupportFragment() {
     /**
      * Rows that move one card at a time: the focused card is aligned to the first position (like Google TV),
      * and at the end of the row the last cards fill it. As all the cards have the same width, the visible
-     * cards are always whole.
+     * cards are always whole. The focused card grows by 1.1, as the TV guidelines of the immersive list ask
+     * (the default is 1.14).
      */
     private class HomeListRowPresenter(
         private val rowEdge: Int,
         private val cardSpacing: Int,
-    ) : ListRowPresenter() {
+    ) : ListRowPresenter(FocusHighlight.ZOOM_FACTOR_SMALL) {
+        init {
+            // Rows without a title (the immersive list) don't keep the empty space of the title.
+            (headerPresenter as? RowHeaderPresenter)?.isNullItemVisibilityGone = true
+        }
+
         override fun initializeRowViewHolder(holder: RowPresenter.ViewHolder) {
             super.initializeRowViewHolder(holder)
             val gridView = (holder as ListRowPresenter.ViewHolder).gridView
@@ -264,6 +495,8 @@ class TVHomeFragment : RowsSupportFragment() {
         private const val KEY_FAVORITES = "favorites"
         private const val KEY_DISCOVER = "discover"
 
+        private const val IMMERSIVE_DELAY_MS = 300L
+        private const val IMMERSIVE_FADE_MS = 200L
         val LEANBACK_MULTI_DIFF_CALLBACK =
             object : DiffCallback<Any>() {
                 override fun areContentsTheSame(

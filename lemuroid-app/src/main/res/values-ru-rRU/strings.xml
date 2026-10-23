@@ -198,16 +198,10 @@
     <string name="title_about">О приложении</string>
     <string name="about_version">Версия %1$s</string>
     <string name="about_what_is_title">Что такое PlayRetro?</string>
-    <string name="about_what_is_text">PlayRetro — эмулятор классических консолей для телефонов, планшетов и Android TV. Он упорядочивает вашу коллекцию игр с обложками и позволяет играть с геймпадом или сенсорным управлением, автоматически сохраняя прогресс.
-
-Он появился как независимая версия Lemuroid — эмулятора с открытым исходным кодом от Филиппо Сконьямильо — и использует ядра эмуляции libretro, те же, что и RetroArch.</string>
+    <string name="about_what_is_text">PlayRetro — эмулятор классических консолей для телефонов, планшетов и Android TV. Он упорядочивает вашу коллекцию игр с обложками и позволяет играть с геймпадом или сенсорным управлением, автоматически сохраняя прогресс.\n\nОн появился как независимая версия Lemuroid — эмулятора с открытым исходным кодом от Филиппо Сконьямильо — и использует ядра эмуляции libretro, те же, что и RetroArch.</string>
     <string name="about_help_title">Справка</string>
     <string name="about_license_title">Лицензия и благодарности</string>
-    <string name="about_license_text">• PlayRetro — свободное ПО под лицензией GNU GPL v3.
-• Основано на Lemuroid и LibretroDroid от Филиппо Сконьямильо (Swordfish90).
-• Ядра эмуляции из libretro, у каждого своя лицензия с открытым кодом.
-• Значки систем: тема \"FlatUI\" из RetroArch, лицензия CC BY 4.0.
-• Обложки: libretro-thumbnails.</string>
+    <string name="about_license_text">• PlayRetro — свободное ПО под лицензией GNU GPL v3.\n• Основано на Lemuroid и LibretroDroid от Филиппо Сконьямильо (Swordfish90).\n• Ядра эмуляции из libretro, у каждого своя лицензия с открытым кодом.\n• Значки систем: тема \"FlatUI\" из RetroArch, лицензия CC BY 4.0.\n• Обложки: libretro-thumbnails.</string>
     <string name="help_covers_question">Почему нет обложки или название неверное?</string>
     <string name="help_covers_answer">Игры сначала распознаются по содержимому. Если это не удаётся, используется имя файла: называйте файлы как \"НазваниеИгры (USA).nes\" или просто \"НазваниеИгры.nes\". После переименования повторно просканируйте игры.</string>
     <string name="library_loading_title">Загрузка ваших игр</string>
@@ -224,4 +218,12 @@
     <string name="core_options_clear_game_description">Снова использовать настройки %1$s</string>
     <string name="core_options_aspect_ratio_unavailable">%1$s не позволяет менять соотношение сторон. Для 16:9 выберите ядро %2$s (может понадобиться BIOS консоли).</string>
     <string name="game_toast_applying_options">Перезапуск игры для применения изменений…</string>
+    <string name="settings_title_show_game_details">Показывать карточку игры</string>
+    <string name="settings_description_show_game_details">При выборе игры открывается её карточка с описанием вместо запуска. Недавние игры всегда запускаются сразу.</string>
+    <string name="game_details_more_from">Ещё для %1$s</string>
+    <string name="game_details_last_played">Последний запуск</string>
+    <string name="game_details_core">Ядро</string>
+    <string name="game_details_read_more">Читать далее</string>
+    <string name="game_details_read_less">Свернуть</string>
+    <string name="game_details_description_source">Описание из Википедии</string>
 </resources>

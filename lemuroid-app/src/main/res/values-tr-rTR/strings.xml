@@ -197,16 +197,10 @@ $SYSTEMS.
     <string name="title_about">Hakkında</string>
     <string name="about_version">Sürüm %1$s</string>
     <string name="about_what_is_title">PlayRetro nedir?</string>
-    <string name="about_what_is_text">PlayRetro; telefonlar, tabletler ve Android TV için klasik konsol emülatörüdür. Oyun koleksiyonunu kapaklarıyla düzenler, kumanda ya da dokunmatik kontrollerle oynamanı sağlar ve ilerlemeni otomatik olarak kaydeder.
-
-Filippo Scognamiglio\'nun açık kaynak emülatörü Lemuroid\'in bağımsız bir sürümü olarak başladı ve RetroArch ile aynı olan libretro emülasyon çekirdeklerini kullanır.</string>
+    <string name="about_what_is_text">PlayRetro; telefonlar, tabletler ve Android TV için klasik konsol emülatörüdür. Oyun koleksiyonunu kapaklarıyla düzenler, kumanda ya da dokunmatik kontrollerle oynamanı sağlar ve ilerlemeni otomatik olarak kaydeder.\n\nFilippo Scognamiglio\'nun açık kaynak emülatörü Lemuroid\'in bağımsız bir sürümü olarak başladı ve RetroArch ile aynı olan libretro emülasyon çekirdeklerini kullanır.</string>
     <string name="about_help_title">Yardım</string>
     <string name="about_license_title">Lisans ve teşekkürler</string>
-    <string name="about_license_text">• PlayRetro, GNU GPL v3 lisansıyla özgür bir yazılımdır.
-• Filippo Scognamiglio\'nun (Swordfish90) Lemuroid ve LibretroDroid projelerine dayanır.
-• libretro\'nun emülasyon çekirdekleri, her birinin kendi açık kaynak lisansı vardır.
-• Sistem simgeleri: RetroArch\'ın \"FlatUI\" teması, CC BY 4.0 lisansı.
-• Kapaklar: libretro-thumbnails.</string>
+    <string name="about_license_text">• PlayRetro, GNU GPL v3 lisansıyla özgür bir yazılımdır.\n• Filippo Scognamiglio\'nun (Swordfish90) Lemuroid ve LibretroDroid projelerine dayanır.\n• libretro\'nun emülasyon çekirdekleri, her birinin kendi açık kaynak lisansı vardır.\n• Sistem simgeleri: RetroArch\'ın \"FlatUI\" teması, CC BY 4.0 lisansı.\n• Kapaklar: libretro-thumbnails.</string>
     <string name="help_covers_question">Neden bir kapak eksik veya ad yanlış?</string>
     <string name="help_covers_answer">Oyunlar önce içeriklerine göre tanınır. Bu başarısız olursa dosya adı kullanılır: dosyalarını \"OyunAdı (USA).nes\" ya da yalnızca \"OyunAdı.nes\" şeklinde adlandır. Yeniden adlandırdıktan sonra oyunlarını yeniden tara.</string>
     <string name="library_loading_title">Oyunların yükleniyor</string>
@@ -223,4 +217,12 @@ Filippo Scognamiglio\'nun açık kaynak emülatörü Lemuroid\'in bağımsız bi
     <string name="core_options_clear_game_description">Yeniden %1$s ayarlarını kullan</string>
     <string name="core_options_aspect_ratio_unavailable">%1$s en boy oranını değiştiremez. 16:9 için çekirdek olarak %2$s seçin (konsol BIOS\'u gerekebilir).</string>
     <string name="game_toast_applying_options">Değişiklikleri uygulamak için oyun yeniden başlatılıyor…</string>
+    <string name="settings_title_show_game_details">Oyun ayrıntılarını göster</string>
+    <string name="settings_description_show_game_details">Bir oyun seçildiğinde başlatmak yerine açıklamalı ayrıntıları açılır. Son oynanan oyunlar her zaman doğrudan başlar.</string>
+    <string name="game_details_more_from">Daha fazla %1$s</string>
+    <string name="game_details_last_played">Son oynama</string>
+    <string name="game_details_core">Çekirdek</string>
+    <string name="game_details_read_more">Devamını oku</string>
+    <string name="game_details_read_less">Daha az göster</string>
+    <string name="game_details_description_source">Açıklama Vikipedi\'den</string>
 </resources>

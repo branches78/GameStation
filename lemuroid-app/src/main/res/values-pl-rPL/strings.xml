@@ -196,16 +196,10 @@
     <string name="title_about">O aplikacji</string>
     <string name="about_version">Wersja %1$s</string>
     <string name="about_what_is_title">Czym jest PlayRetro?</string>
-    <string name="about_what_is_text">PlayRetro to emulator klasycznych konsol na telefony, tablety i Android TV. Porządkuje Twoją kolekcję gier z okładkami i pozwala grać na kontrolerze lub sterowaniem dotykowym, automatycznie zapisując postępy.
-
-Powstał jako niezależna wersja Lemuroid, emulatora open source autorstwa Filippa Scognamiglia, i korzysta z rdzeni emulacji libretro, tych samych co RetroArch.</string>
+    <string name="about_what_is_text">PlayRetro to emulator klasycznych konsol na telefony, tablety i Android TV. Porządkuje Twoją kolekcję gier z okładkami i pozwala grać na kontrolerze lub sterowaniem dotykowym, automatycznie zapisując postępy.\n\nPowstał jako niezależna wersja Lemuroid, emulatora open source autorstwa Filippa Scognamiglia, i korzysta z rdzeni emulacji libretro, tych samych co RetroArch.</string>
     <string name="about_help_title">Pomoc</string>
     <string name="about_license_title">Licencja i podziękowania</string>
-    <string name="about_license_text">• PlayRetro to wolne oprogramowanie na licencji GNU GPL v3.
-• Oparte na Lemuroid i LibretroDroid autorstwa Filippa Scognamiglia (Swordfish90).
-• Rdzenie emulacji z libretro, każdy z własną licencją open source.
-• Ikony systemów: motyw \"FlatUI\" z RetroArch, licencja CC BY 4.0.
-• Okładki: libretro-thumbnails.</string>
+    <string name="about_license_text">• PlayRetro to wolne oprogramowanie na licencji GNU GPL v3.\n• Oparte na Lemuroid i LibretroDroid autorstwa Filippa Scognamiglia (Swordfish90).\n• Rdzenie emulacji z libretro, każdy z własną licencją open source.\n• Ikony systemów: motyw \"FlatUI\" z RetroArch, licencja CC BY 4.0.\n• Okładki: libretro-thumbnails.</string>
     <string name="help_covers_question">Dlaczego brakuje okładki lub nazwa jest błędna?</string>
     <string name="help_covers_answer">Gry są najpierw rozpoznawane po zawartości. Jeśli to się nie uda, używana jest nazwa pliku: nazwij pliki jak \"NazwaGry (USA).nes\" lub po prostu \"NazwaGry.nes\". Po zmianie nazw przeskanuj gry ponownie.</string>
     <string name="library_loading_title">Wczytywanie twoich gier</string>
@@ -222,4 +216,12 @@ Powstał jako niezależna wersja Lemuroid, emulatora open source autorstwa Filip
     <string name="core_options_clear_game_description">Wróć do ustawień %1$s</string>
     <string name="core_options_aspect_ratio_unavailable">%1$s nie pozwala zmienić proporcji obrazu. Aby użyć 16:9, wybierz rdzeń %2$s (może wymagać BIOS-u konsoli).</string>
     <string name="game_toast_applying_options">Ponowne uruchamianie gry w celu zastosowania zmian…</string>
+    <string name="settings_title_show_game_details">Pokaż szczegóły gry</string>
+    <string name="settings_description_show_game_details">Wybranie gry otwiera jej szczegóły z opisem zamiast ją uruchamiać. Ostatnio grane gry zawsze uruchamiają się od razu.</string>
+    <string name="game_details_more_from">Więcej z %1$s</string>
+    <string name="game_details_last_played">Ostatnio grano</string>
+    <string name="game_details_core">Rdzeń</string>
+    <string name="game_details_read_more">Czytaj więcej</string>
+    <string name="game_details_read_less">Pokaż mniej</string>
+    <string name="game_details_description_source">Opis z Wikipedii</string>
 </resources>

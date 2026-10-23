@@ -196,16 +196,10 @@
     <string name="title_about">О апликацији</string>
     <string name="about_version">Верзија %1$s</string>
     <string name="about_what_is_title">Шта је PlayRetro?</string>
-    <string name="about_what_is_text">PlayRetro је емулатор класичних конзола за телефоне, таблете и Android TV. Организује твоју колекцију игара са омотима и омогућава играње контролером или контролама на додир, уз аутоматско чување напретка.
-
-Настао је као независна верзија Lemuroid-а, емулатора отвореног кода Филипа Скоњамиља, и користи libretro језгра за емулацију, иста као RetroArch.</string>
+    <string name="about_what_is_text">PlayRetro је емулатор класичних конзола за телефоне, таблете и Android TV. Организује твоју колекцију игара са омотима и омогућава играње контролером или контролама на додир, уз аутоматско чување напретка.\n\nНастао је као независна верзија Lemuroid-а, емулатора отвореног кода Филипа Скоњамиља, и користи libretro језгра за емулацију, иста као RetroArch.</string>
     <string name="about_help_title">Помоћ</string>
     <string name="about_license_title">Лиценца и заслуге</string>
-    <string name="about_license_text">• PlayRetro је слободан софтвер под лиценцом GNU GPL v3.
-• Заснован на Lemuroid-у и LibretroDroid-у Филипа Скоњамиља (Swordfish90).
-• Језгра за емулацију из libretro-а, свако са својом лиценцом отвореног кода.
-• Иконе система: тема \"FlatUI\" из RetroArch-а, лиценца CC BY 4.0.
-• Омоти: libretro-thumbnails.</string>
+    <string name="about_license_text">• PlayRetro је слободан софтвер под лиценцом GNU GPL v3.\n• Заснован на Lemuroid-у и LibretroDroid-у Филипа Скоњамиља (Swordfish90).\n• Језгра за емулацију из libretro-а, свако са својом лиценцом отвореног кода.\n• Иконе система: тема \"FlatUI\" из RetroArch-а, лиценца CC BY 4.0.\n• Омоти: libretro-thumbnails.</string>
     <string name="help_covers_question">Зашто недостаје омот или је назив погрешан?</string>
     <string name="help_covers_answer">Игре се прво препознају по садржају. Ако то не успе, користи се назив датотеке: именуј датотеке као \"НазивИгре (USA).nes\" или само \"НазивИгре.nes\". После преименовања поново скенирај игре.</string>
     <string name="library_loading_title">Учитавање твојих игара</string>
@@ -222,4 +216,12 @@
     <string name="core_options_clear_game_description">Поново користи подешавања за %1$s</string>
     <string name="core_options_aspect_ratio_unavailable">%1$s не може да промени однос ширине и висине. За 16:9 изабери језгро %2$s (можда ће требати BIOS конзоле).</string>
     <string name="game_toast_applying_options">Поновно покретање игре ради примене измена…</string>
+    <string name="settings_title_show_game_details">Прикажи детаље игре</string>
+    <string name="settings_description_show_game_details">Избором игре отвара се њена картица са описом уместо покретања. Недавно игране игре увек се покрећу одмах.</string>
+    <string name="game_details_more_from">Још за %1$s</string>
+    <string name="game_details_last_played">Последњи пут</string>
+    <string name="game_details_core">Језгро</string>
+    <string name="game_details_read_more">Прочитај више</string>
+    <string name="game_details_read_less">Прикажи мање</string>
+    <string name="game_details_description_source">Опис са Википедије</string>
 </resources>

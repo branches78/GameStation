@@ -15,4 +15,12 @@
     <string name="core_options_clear_game_description">Gebruik weer die instellings van %1$s</string>
     <string name="core_options_aspect_ratio_unavailable">%1$s kan nie die beeldverhouding verander nie. Kies %2$s as kern om 16:9 te gebruik (dit kan die konsole se BIOS nodig hê).</string>
     <string name="game_toast_applying_options">Die speletjie word herbegin om die veranderinge toe te pas…</string>
+    <string name="settings_title_show_game_details">Wys speletjiebesonderhede</string>
+    <string name="settings_description_show_game_details">As jy ’n speletjie kies, maak sy besonderhede met ’n beskrywing oop in plaas daarvan om dit te begin. Onlangs gespeelde speletjies begin altyd dadelik.</string>
+    <string name="game_details_more_from">Meer van %1$s</string>
+    <string name="game_details_last_played">Laas gespeel</string>
+    <string name="game_details_core">Kern</string>
+    <string name="game_details_read_more">Lees meer</string>
+    <string name="game_details_read_less">Lees minder</string>
+    <string name="game_details_description_source">Beskrywing van Wikipedia</string>
 </resources>

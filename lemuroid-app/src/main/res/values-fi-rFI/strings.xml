@@ -190,16 +190,10 @@
     <string name="title_about">Tietoja</string>
     <string name="about_version">Versio %1$s</string>
     <string name="about_what_is_title">Mikä PlayRetro on?</string>
-    <string name="about_what_is_text">PlayRetro on klassisten konsolien emulaattori puhelimille, tableteille ja Android TV:lle. Se järjestää pelikokoelmasi kansikuvineen ja antaa pelata ohjaimella tai kosketusohjaimilla tallentaen edistymisesi automaattisesti.
-
-Se sai alkunsa itsenäisenä versiona Lemuroidista, Filippo Scognamiglion avoimen lähdekoodin emulaattorista, ja käyttää libretron emulointiytimiä, samoja kuin RetroArch.</string>
+    <string name="about_what_is_text">PlayRetro on klassisten konsolien emulaattori puhelimille, tableteille ja Android TV:lle. Se järjestää pelikokoelmasi kansikuvineen ja antaa pelata ohjaimella tai kosketusohjaimilla tallentaen edistymisesi automaattisesti.\n\nSe sai alkunsa itsenäisenä versiona Lemuroidista, Filippo Scognamiglion avoimen lähdekoodin emulaattorista, ja käyttää libretron emulointiytimiä, samoja kuin RetroArch.</string>
     <string name="about_help_title">Ohje</string>
     <string name="about_license_title">Lisenssi ja kiitokset</string>
-    <string name="about_license_text">• PlayRetro on vapaa ohjelmisto GNU GPL v3 -lisenssillä.
-• Perustuu Filippo Scognamiglion (Swordfish90) Lemuroidiin ja LibretroDroidiin.
-• Emulointiytimet libretrolta, jokaisella oma avoimen lähdekoodin lisenssinsä.
-• Järjestelmäkuvakkeet: RetroArchin \"FlatUI\"-teema, CC BY 4.0 -lisenssi.
-• Kansikuvat: libretro-thumbnails.</string>
+    <string name="about_license_text">• PlayRetro on vapaa ohjelmisto GNU GPL v3 -lisenssillä.\n• Perustuu Filippo Scognamiglion (Swordfish90) Lemuroidiin ja LibretroDroidiin.\n• Emulointiytimet libretrolta, jokaisella oma avoimen lähdekoodin lisenssinsä.\n• Järjestelmäkuvakkeet: RetroArchin \"FlatUI\"-teema, CC BY 4.0 -lisenssi.\n• Kansikuvat: libretro-thumbnails.</string>
     <string name="help_covers_question">Miksi kansikuva puuttuu tai nimi on väärä?</string>
     <string name="help_covers_answer">Pelit tunnistetaan ensin niiden sisällöstä. Jos se ei onnistu, käytetään tiedostonimeä: nimeä tiedostot kuten \"Pelinnimi (USA).nes\" tai pelkästään \"Pelinnimi.nes\". Nimeämisen jälkeen skannaa pelit uudelleen.</string>
     <string name="library_loading_title">Ladataan pelejäsi</string>
@@ -216,4 +210,12 @@ Se sai alkunsa itsenäisenä versiona Lemuroidista, Filippo Scognamiglion avoime
     <string name="core_options_clear_game_description">Käytä taas kohteen %1$s asetuksia</string>
     <string name="core_options_aspect_ratio_unavailable">%1$s ei voi muuttaa kuvasuhdetta. Käytä 16:9-kuvaa valitsemalla ytimeksi %2$s (se voi tarvita konsolin BIOSin).</string>
     <string name="game_toast_applying_options">Peli käynnistetään uudelleen muutosten käyttöön ottamiseksi…</string>
+    <string name="settings_title_show_game_details">Näytä pelin tiedot</string>
+    <string name="settings_description_show_game_details">Pelin valitseminen avaa sen tiedot ja kuvauksen sen sijaan, että peli käynnistyisi. Äskettäin pelatut pelit käynnistyvät aina heti.</string>
+    <string name="game_details_more_from">Lisää: %1$s</string>
+    <string name="game_details_last_played">Viimeksi pelattu</string>
+    <string name="game_details_core">Ydin</string>
+    <string name="game_details_read_more">Lue lisää</string>
+    <string name="game_details_read_less">Näytä vähemmän</string>
+    <string name="game_details_description_source">Kuvaus Wikipediasta</string>
 </resources>

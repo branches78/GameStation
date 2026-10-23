@@ -197,16 +197,10 @@
     <string name="title_about">このアプリについて</string>
     <string name="about_version">バージョン %1$s</string>
     <string name="about_what_is_title">PlayRetroとは？</string>
-    <string name="about_what_is_text">PlayRetroは、スマートフォン、タブレット、Android TV向けのクラシックゲーム機エミュレーターです。ゲームコレクションをカバー画像付きで整理し、コントローラーやタッチ操作でプレイでき、進行状況は自動で保存されます。
-
-Filippo Scognamiglio氏によるオープンソースのエミュレーター、Lemuroidの独立したバージョンとして始まり、RetroArchと同じlibretroのエミュレーションコアで動作します。</string>
+    <string name="about_what_is_text">PlayRetroは、スマートフォン、タブレット、Android TV向けのクラシックゲーム機エミュレーターです。ゲームコレクションをカバー画像付きで整理し、コントローラーやタッチ操作でプレイでき、進行状況は自動で保存されます。\n\nFilippo Scognamiglio氏によるオープンソースのエミュレーター、Lemuroidの独立したバージョンとして始まり、RetroArchと同じlibretroのエミュレーションコアで動作します。</string>
     <string name="about_help_title">ヘルプ</string>
     <string name="about_license_title">ライセンスとクレジット</string>
-    <string name="about_license_text">• PlayRetroはGNU GPL v3ライセンスのフリーソフトウェアです。
-• Filippo Scognamiglio氏（Swordfish90）のLemuroidとLibretroDroidをベースにしています。
-• エミュレーションコアはlibretroのもので、それぞれ独自のオープンソースライセンスがあります。
-• システムアイコン：RetroArchの「FlatUI」テーマ、CC BY 4.0ライセンス。
-• カバー画像：libretro-thumbnails。</string>
+    <string name="about_license_text">• PlayRetroはGNU GPL v3ライセンスのフリーソフトウェアです。\n• Filippo Scognamiglio氏（Swordfish90）のLemuroidとLibretroDroidをベースにしています。\n• エミュレーションコアはlibretroのもので、それぞれ独自のオープンソースライセンスがあります。\n• システムアイコン：RetroArchの「FlatUI」テーマ、CC BY 4.0ライセンス。\n• カバー画像：libretro-thumbnails。</string>
     <string name="help_covers_question">カバーがない、または名前が正しくないのはなぜですか？</string>
     <string name="help_covers_answer">ゲームはまず内容で認識されます。うまくいかない場合はファイル名が使われます。ファイル名を「ゲーム名 (USA).nes」または「ゲーム名.nes」のようにしてください。名前を変更したら、ゲームを再スキャンしてください。</string>
     <string name="library_loading_title">ゲームを読み込んでいます</string>
@@ -223,4 +217,12 @@ Filippo Scognamiglio氏によるオープンソースのエミュレーター、
     <string name="core_options_clear_game_description">%1$s の設定に戻す</string>
     <string name="core_options_aspect_ratio_unavailable">%1$s はアスペクト比を変更できません。16:9 を使うにはコアとして %2$s を選んでください（本体の BIOS が必要な場合があります）。</string>
     <string name="game_toast_applying_options">変更を適用するためにゲームを再起動しています…</string>
+    <string name="settings_title_show_game_details">ゲームの詳細を表示</string>
+    <string name="settings_description_show_game_details">ゲームを選ぶと、すぐに起動する代わりに説明付きの詳細画面を開きます。最近遊んだゲームは常にすぐ起動します。</string>
+    <string name="game_details_more_from">%1$s のその他のゲーム</string>
+    <string name="game_details_last_played">最終プレイ</string>
+    <string name="game_details_core">コア</string>
+    <string name="game_details_read_more">続きを読む</string>
+    <string name="game_details_read_less">閉じる</string>
+    <string name="game_details_description_source">Wikipedia の説明</string>
 </resources>

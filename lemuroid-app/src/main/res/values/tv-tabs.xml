@@ -28,6 +28,26 @@
     <dimen name="tv_home_card_spacing">12dp</dimen>
     <!-- Room on both sides of the rows for the zoom of the focused card; nothing else is drawn there. -->
     <dimen name="tv_home_row_edge">12dp</dimen>
+    <!-- Immersive list on top of the home screen: screenshot of the focused game in the top right corner (16:9,
+         three quarters of the screen width), title, system and description on the left, and the row of cards at the
+         bottom of the screen. Offsets are from the top of the tabs content (below the 80dp tabs bar). -->
+    <dimen name="tv_backdrop_width">720dp</dimen>
+    <dimen name="tv_backdrop_height">405dp</dimen>
+    <dimen name="tv_immersive_info_width">420dp</dimen>
+    <dimen name="tv_immersive_info_top_margin">12dp</dimen>
+    <!-- Right below the texts (one line of title, system, three lines of description). Like the next one, it is the
+         position of the cards: the title of a row goes above it. -->
+    <dimen name="tv_immersive_row_top">172dp</dimen>
+    <!-- Other home rows, while they have the focus and the immersive list is collapsed: room for their title above,
+         with the previous row fully out of the screen (its bottom edge must not show under the tabs bar). -->
+    <dimen name="tv_home_rows_top">46dp</dimen>
+    <dimen name="tv_immersive_title_size">30sp</dimen>
+    <dimen name="tv_immersive_meta_size">15sp</dimen>
+    <dimen name="tv_immersive_description_size">16sp</dimen>
+    <!-- Tabs: the pill slides to the selected tab and the content slides in from that side. -->
+    <integer name="tv_tab_animation_duration">280</integer>
+    <!-- Opening and closing the details of a game. -->
+    <integer name="tv_details_fade_duration">300</integer>
     <!-- Alphabet bar on the right of the games of a console, outside the content width. -->
     <integer name="tv_alphabet_min_games">13</integer>
     <dimen name="tv_alphabet_width">40dp</dimen>
@@ -68,8 +88,9 @@
         <item name="android:paddingEnd">@dimen/tv_tab_horizontal_padding</item>
         <item name="android:paddingTop">@dimen/tv_tab_vertical_padding</item>
         <item name="android:paddingBottom">@dimen/tv_tab_vertical_padding</item>
-        <item name="android:background">@drawable/tv_tab_background</item>
-        <item name="android:textColor">@color/tv_tab_text</item>
+        <!-- No background: the pill behind the tabs slides to the selected one (TVMainTabsFragment), which also
+             sets the text color of the tab over it. -->
+        <item name="android:textColor">@color/tv_tab_default_text</item>
         <item name="android:textSize">18sp</item>
         <item name="android:focusable">true</item>
         <item name="android:focusableInTouchMode">true</item>

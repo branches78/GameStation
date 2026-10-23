@@ -17,7 +17,8 @@ No se sincroniza con Lemuroid: el código es propio y va por su cuenta.
 6. **Commits:** no hagas commit ni push de nada hasta que el usuario lo diga, aunque un hook lo pida.
 7. **Textos en todos los idiomas:** cualquier cambio de texto visible se aplica al español, al inglés por
    defecto (`values/`) y a **todos** los idiomas de `res/values-*/strings.xml`, con traducción propia.
-   Si a un idioma le falta la cadena, se añade.
+   Si a un idioma le falta la cadena, se añade. Los saltos de línea dentro de un texto se escriben como `\n`:
+   Android convierte en un espacio los saltos de línea escritos tal cual en `strings.xml`.
 
 ## Trabajo en la nube vs. local
 
@@ -54,9 +55,30 @@ No se sincroniza con Lemuroid: el código es propio y va por su cuenta.
   `mobile/feature/home/HomeScreen.kt`, `tv/home/TVHomeFragment.kt`.
   Orden: Continuar jugando, Favoritos, Añadidos recientemente, Porque jugaste, Vuelve a jugar, Descubrir,
   Clásicos de…, Más de…. Las filas sin juegos se ocultan (Añadidos recientemente siempre tiene juegos);
-  con la biblioteca vacía no hay filas.
+  con la biblioteca vacía no hay filas. Descubrir (`shared/home/HomeDiscovery.kt`, móvil y TV) muestra juegos sin
+  jugar de distintas consolas (una de cada en turno), en un orden que cambia cada día y cada vez que se juega; si no
+  hay bastantes, completa con los jugados hace más tiempo. En la TV, Descubrir va siempre primero y sin título, como lista inmersiva
+  (ver más abajo).
+- **Descubrir inmersivo (TV):** al enfocar un juego de la primera fila se muestran arriba su título, consola ·
+  desarrollador y descripción (`tv_home_immersive_info.xml`, `TVHomeFragment.showImmersiveGame`), y detrás de la barra
+  de pestañas una captura del juego arriba a la derecha con degradado (`tv/home/TVBackdropView.kt`, en el layout de
+  `TVMainTabsFragment`, `setHomeBackdrop`; la barra se vuelve transparente mientras se ve). Captura: `Named_Snaps` del
+  servidor de carátulas, si no `Named_Titles` y si no la carátula difuminada. Descripción: Wikipedia en el idioma del
+  dispositivo (o inglés), buscando el juego en Wikidata por título y consola (`shared/details/GameDescriptionProvider.kt`,
+  caché en las preferencias `game_descriptions`). Captura y descripción esperan 300 ms con el foco quieto. Al bajar a
+  otras filas, los textos y la captura se ocultan. Captura 16:9 de 720×405 dp arriba a la derecha, recortada a su vista
+  y con bordes difuminados (degradados suavizados a la izquierda, abajo y arriba, con un tramo opaco en el borde). Muchas
+  capturas (p. ej. de N64) traen franjas negras a los lados: se recortan al cargarlas
+  (`shared/covers/TrimBlackBordersTransformation.kt`).
+  Los textos tienen alto fijo (título de 1 línea, descripción de 3), empiezan a 12 dp de la barra y las tarjetas de la
+  fila inmersiva van a 172 dp del borde superior del contenido; las demás filas, al enfocarse, a 46 dp, para que se vea
+  su título sin que asome el borde inferior de la fila anterior bajo la barra
+  (`TVHomeFragment.updateRowsAlignment`; Leanback alinea por las tarjetas, no por el título, y la alineación se cambia
+  al seleccionar fila). Tarjeta enfocada ampliada 1.1 (`ZOOM_FACTOR_SMALL`), como pide la guía.
 - **TV:** pantalla de inicio con pestañas (Inicio, Consolas, Ajustes, Acerca de) en `tv/main/TVMainTabsFragment.kt`,
-  todas con el mismo ancho de contenido centrado (`tv_content_width`, 672 dp). Las filas de Inicio avanzan de una tarjeta
+  todas con el mismo ancho de contenido centrado (`tv_content_width`, 672 dp). La píldora de la pestaña es una vista
+  aparte (`tv_tab_pill`) que se desliza a la pestaña elegida (blanca con texto oscuro si la barra tiene el foco, verde si
+  no) y el contenido entra desde el lado de la pestaña nueva (`res/anim/tv_tab_*`, `tv_tab_animation_duration`). Las filas de Inicio avanzan de una tarjeta
   en una con la enfocada en la primera posición y se recortan en ese ancho (`HomeListRowPresenter` en `TVHomeFragment.kt`).
   Los juegos de una consola (`tv/games/TVGamesFragment.kt`) y "Mostrar todo" de Favoritos (`tv/favorites/TVFavoritesFragment.kt`)
   se abren dentro de su pestaña, sin ocultar la barra (`showSystemGames` / `showFavorites`; Atrás vuelve a la pestaña),
@@ -72,7 +94,8 @@ No se sincroniza con Lemuroid: el código es propio y va por su cuenta.
   con ↑ va a la pestaña seleccionada (`TVMainTabsFragment.onFocusSearch`). Las rejillas de TV no oscurecen las tarjetas sin foco (`VerticalGridPresenter(..., useFocusDimmer = false)`); Ajustes de TV reutilizan las
   pantallas Compose del móvil (`tv/settings/TVSettingsTabFragment.kt`); al abrir una sub-opción el foco va a su primera
   opción y al volver con Atrás a la que la abrió (`TVSettingsDestination` + `SettingsFocusMemory.kt`, que registra las
-  filas de `Components.kt`); estilo de tarjetas en `tv/shared/TVCardStyle.kt`.
+  filas de `Components.kt`; la primera es la que está más arriba en pantalla; como pantallas como Dispositivos externos
+  cargan sus opciones en segundo plano, durante 3 s el foco sigue a la de más arriba mientras el usuario no lo mueva); estilo de tarjetas en `tv/shared/TVCardStyle.kt`.
 - **Carátulas:** forma por sistema en `app/shared/covers/CoverAspectRatio.kt`, sustituida por la forma real de cada
   carátula una vez cargada (`CoverRatioCache.kt`). En las rejillas la tarjeta mantiene la del sistema
   (`matchCoverShape = false`); en las filas de Inicio del móvil todas son verticales, del ancho de una casilla de la rejilla,
@@ -114,6 +137,31 @@ No se sincroniza con Lemuroid: el código es propio y va por su cuenta.
   muestran "Cargando tus juegos" con barra y porcentaje en lugar del cuadro de la carpeta (`TVEmptyLibraryCard.kt`,
   `HomeLibraryLoading` en `HomeScreen.kt`); al re-escanear, la barra sale bajo "Directorio" en Ajustes
   (`LibraryScanProgress.kt`). Ya no hay línea de progreso en el móvil ni círculo de carga en la TV.
+- **Ficha del juego:** al elegir un juego se abre su ficha en lugar de jugarlo (ajuste "Mostrar ficha del juego",
+  `pref_key_show_game_details`, activado por defecto, en Ajustes → ROMs; `GameInteractor.showDetailsOnClick`).
+  Continuar jugando siempre juega directamente y es la única fila que conserva el menú de pulsación larga; en el resto,
+  con la ficha activada, la pulsación larga también abre la ficha. Datos compartidos en `shared/details/`
+  (`GameDetailsViewModel`: juego observado con `GameDao.observeById`, descripción de Wikipedia, núcleo y "Más de
+  [consola]"; `GameActionsHost`: las mismas acciones del menú, con el diálogo de nombre y el selector de carátula).
+  TV: `tv/details/TVGameDetailsFragment.kt` (destino `navigation_game_details` del grafo de TV, se abre y cierra con
+  fundido `res/anim/tv_details_fade_*`), captura con `TVBackdropView`, botones de píldora y de icono (el nombre sale
+  debajo al enfocarlos), Jugar/Continuar enfocado al abrir, "Configurar núcleo" abre el diálogo de opciones
+  (`TVGameContextMenu.show(..., startWithCoreOptions = true)`). La ficha se muestra entera cuando están los datos
+  locales (`State.isReady`); la descripción ocupa siempre 4 líneas, se enfoca con ↑ desde los botones y con OK se abre
+  completa en un diálogo (↑ ↓ la desplazan). "Más de…" usa tarjetas como las de Inicio (tamaño, fondo, título y
+  subtítulo) con margen para el zoom; la ficha se mide con su alto completo (`wrapContentHeight(unbounded = true)`)
+  para que esa fila no se recorte. Al volver, el foco regresa a la carátula abierta en Inicio
+  (`TVHomeFragment.gameToRefocus`; `TVMainTabsFragment` devuelve el foco al contenido si lo tenía en `onPause`).
+  En la TV el borde de foco es blanco (tarjetas `tv_card_focus_foreground.xml`, ficha y Acerca de).
+  Tamaños: títulos de fila 20 sp en TV y `titleMedium` en móvil, siempre mayores que los nombres de los juegos.
+  Móvil: `mobile/feature/details/GameDetailsScreen.kt` (ruta `MainRoute.GAME_DETAILS`, sin barra superior ni
+  inferior). Al volver, Inicio, juegos de una consola, Favoritos y Búsqueda conservan su posición: Inicio lee su
+  `StateFlow` sin estado vacío inicial, las listas paginadas van con `cachedIn`, su estado de desplazamiento se guarda
+  fuera de la lista y no se muestra "vacío" mientras cargan; Búsqueda solo borra el texto al entrar desde la lupa.
+  Mientras se abre la ficha (sin barras), la pantalla de atrás mantiene sus márgenes (`stablePadding` en
+  `MainNavigationRoutes.kt`) para no crecer y perder posición.
+  Dispositivos externos no dibuja sus opciones hasta tener los mandos (`State.isLoaded`); sin mandos activados, las
+  asignaciones y atajos emiten listas vacías (`InputDeviceManager`), antes no emitían nada. Capturas en `shared/covers/GameScreenshots.kt` y recorte de franjas en `TrimBlackBordersTransformation`.
 - **Acerca de:** misma información en la pestaña "Acerca de" de la TV (`tv/about/TVAboutFragment.kt`) y en la del
   móvil, junto a Ajustes (`MainRoute.ABOUT`): `shared/about/AboutContent.kt` (qué es PlayRetro, ayuda y licencia/créditos).
 - **Búsqueda (móvil):** ya no es pestaña; se abre con la lupa de la barra superior (donde estaba el botón de ayuda,

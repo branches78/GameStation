@@ -2,6 +2,7 @@ package com.swordfish.lemuroid.app.mobile.feature.main
 
 import androidx.annotation.StringRes
 import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Info
@@ -12,6 +13,7 @@ import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material.icons.outlined.VideogameAsset
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavBackStackEntry
@@ -43,6 +45,26 @@ fun NavController.navigateToCoreOptions(
 ) {
     val route = MainRoute.SETTINGS_CORE_OPTIONS.route.substringBefore("?").replace("{systemId}", systemId)
     this.navigate(if (gameId != null) "$route?gameId=$gameId" else route)
+}
+
+/**
+ * Padding of a screen of the navigation. While another screen opens over it (e.g. the details of a game, which hide
+ * the top and bottom bars) it keeps the padding it had: otherwise it would grow during the transition and lose part of
+ * its scroll position.
+ */
+@Composable
+fun NavBackStackEntry.stablePadding(
+    padding: PaddingValues,
+    currentEntry: NavBackStackEntry?,
+): PaddingValues {
+    // Not a state: it is only read while composing this screen.
+    val kept = remember { arrayOf(padding) }
+    if (currentEntry == null || currentEntry.id == id) kept[0] = padding
+    return kept[0]
+}
+
+fun NavController.navigateToGameDetails(gameId: Int) {
+    this.navigate(MainRoute.GAME_DETAILS.route.replace("{gameId}", gameId.toString()))
 }
 
 enum class MainRoute(
@@ -116,6 +138,14 @@ enum class MainRoute(
     ABOUT(
         route = "about",
         titleId = R.string.title_about,
+    ),
+    // Not a tab: opened when a game is chosen. It has no top bar (its back button is over the screenshot) nor
+    // bottom navigation.
+    GAME_DETAILS(
+        route = "games/details/{gameId}",
+        titleId = R.string.title_games,
+        arguments = listOf(navArgument("gameId") { type = NavType.IntType }),
+        showBottomNavigation = false,
     ),
     ;
 

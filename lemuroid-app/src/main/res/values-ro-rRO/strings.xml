@@ -184,16 +184,10 @@
     <string name="title_about">Despre</string>
     <string name="about_version">Versiunea %1$s</string>
     <string name="about_what_is_title">Ce este PlayRetro?</string>
-    <string name="about_what_is_text">PlayRetro este un emulator de console clasice pentru telefoane, tablete și Android TV. Îți organizează colecția de jocuri cu coperți și te lasă să joci cu controlerul sau cu comenzi tactile, salvându-ți automat progresul.
-
-A pornit ca o versiune independentă a Lemuroid, emulatorul open source al lui Filippo Scognamiglio, și folosește nucleele de emulare libretro, aceleași ca RetroArch.</string>
+    <string name="about_what_is_text">PlayRetro este un emulator de console clasice pentru telefoane, tablete și Android TV. Îți organizează colecția de jocuri cu coperți și te lasă să joci cu controlerul sau cu comenzi tactile, salvându-ți automat progresul.\n\nA pornit ca o versiune independentă a Lemuroid, emulatorul open source al lui Filippo Scognamiglio, și folosește nucleele de emulare libretro, aceleași ca RetroArch.</string>
     <string name="about_help_title">Ajutor</string>
     <string name="about_license_title">Licență și mulțumiri</string>
-    <string name="about_license_text">• PlayRetro este software liber sub licența GNU GPL v3.
-• Bazat pe Lemuroid și LibretroDroid de Filippo Scognamiglio (Swordfish90).
-• Nuclee de emulare de la libretro, fiecare cu propria licență open source.
-• Pictograme sisteme: tema \"FlatUI\" din RetroArch, licență CC BY 4.0.
-• Coperți: libretro-thumbnails.</string>
+    <string name="about_license_text">• PlayRetro este software liber sub licența GNU GPL v3.\n• Bazat pe Lemuroid și LibretroDroid de Filippo Scognamiglio (Swordfish90).\n• Nuclee de emulare de la libretro, fiecare cu propria licență open source.\n• Pictograme sisteme: tema \"FlatUI\" din RetroArch, licență CC BY 4.0.\n• Coperți: libretro-thumbnails.</string>
     <string name="help_covers_question">De ce lipsește o copertă sau numele este greșit?</string>
     <string name="help_covers_answer">Jocurile sunt recunoscute mai întâi după conținut. Dacă nu reușește, se folosește numele fișierului: denumește fișierele ca \"NumeleJocului (USA).nes\" sau doar \"NumeleJocului.nes\". După redenumire, scanează din nou jocurile.</string>
     <string name="library_loading_title">Se încarcă jocurile tale</string>
@@ -210,4 +204,12 @@ A pornit ca o versiune independentă a Lemuroid, emulatorul open source al lui F
     <string name="core_options_clear_game_description">Folosește din nou setările %1$s</string>
     <string name="core_options_aspect_ratio_unavailable">%1$s nu poate schimba raportul de aspect. Pentru 16:9 alege %2$s ca nucleu (poate avea nevoie de BIOS-ul consolei).</string>
     <string name="game_toast_applying_options">Jocul se repornește pentru a aplica modificările…</string>
+    <string name="settings_title_show_game_details">Afișează detaliile jocului</string>
+    <string name="settings_description_show_game_details">Alegerea unui joc deschide detaliile lui cu o descriere în loc să-l pornească. Jocurile jucate recent pornesc mereu imediat.</string>
+    <string name="game_details_more_from">Mai multe de pe %1$s</string>
+    <string name="game_details_last_played">Ultima dată</string>
+    <string name="game_details_core">Nucleu</string>
+    <string name="game_details_read_more">Citește mai mult</string>
+    <string name="game_details_read_less">Afișează mai puțin</string>
+    <string name="game_details_description_source">Descriere de pe Wikipedia</string>
 </resources>

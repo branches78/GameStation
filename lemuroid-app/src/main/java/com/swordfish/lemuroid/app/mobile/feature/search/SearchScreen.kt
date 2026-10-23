@@ -8,13 +8,20 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.swordfish.lemuroid.R
@@ -34,9 +41,16 @@ fun SearchScreen(
 ) {
     val searchState = viewModel.searchState.collectAsState(SearchViewModel.UIState.Idle)
     val searchGames = viewModel.searchResults.collectAsLazyPagingItems()
+    // Kept outside the results, which are not shown for a moment when coming back from the details of a game.
+    val listState = rememberLazyListState()
 
+    // A new search starts empty, but back from the details of a game the search and its results are kept.
+    var queryReset by rememberSaveable { mutableStateOf(false) }
     LaunchedEffect(Unit) {
-        onResetSearchQuery()
+        if (!queryReset) {
+            onResetSearchQuery()
+            queryReset = true
+        }
     }
 
     LaunchedEffect(key1 = searchQuery) {
@@ -57,7 +71,8 @@ fun SearchScreen(
                 SearchLoadingView(modifier)
             }
 
-            state == SearchViewModel.UIState.Ready && searchGames.itemCount == 0 -> {
+            state == SearchViewModel.UIState.Ready && searchGames.itemCount == 0 &&
+                searchGames.loadState.refresh is LoadState.NotLoading -> {
                 SearchEmptyView(modifier, stringResource(id = R.string.empty_view_default))
             }
 
@@ -65,6 +80,7 @@ fun SearchScreen(
                 SearchResultsView(
                     modifier,
                     searchGames,
+                    listState,
                     onGameClick,
                     onGameLongClick,
                     onGameFavoriteToggle,
@@ -79,11 +95,14 @@ fun SearchScreen(
 private fun SearchResultsView(
     modifier: Modifier,
     games: LazyPagingItems<Game>,
+    listState: LazyListState,
     onGameClick: (Game) -> Unit,
     onGameLongClick: (Game) -> Unit,
     onGameFavoriteToggle: (Game, Boolean) -> Unit,
 ) {
-    LazyColumn(modifier = modifier) {
+    // Without results yet (they are being read again) the list is not shown, so it keeps its position.
+    if (games.itemCount == 0) return
+    LazyColumn(modifier = modifier, state = listState) {
         items(games.itemCount, key = { games[it]?.id ?: it }) { index ->
             val game = games[index] ?: return@items
 

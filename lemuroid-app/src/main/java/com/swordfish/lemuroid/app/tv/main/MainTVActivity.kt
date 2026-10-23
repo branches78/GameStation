@@ -19,6 +19,7 @@ import com.swordfish.lemuroid.app.shared.settings.SettingsInteractor
 import com.swordfish.lemuroid.app.tv.channel.ChannelUpdateWork
 import com.swordfish.lemuroid.app.tv.favorites.TVFavoritesFragment
 import com.swordfish.lemuroid.app.tv.games.TVGamesFragment
+import com.swordfish.lemuroid.app.tv.details.TVGameDetailsFragment
 import com.swordfish.lemuroid.app.tv.home.TVHomeFragment
 import com.swordfish.lemuroid.app.tv.search.TVSearchFragment
 import com.swordfish.lemuroid.app.tv.settings.TVSettingsTabFragment
@@ -108,6 +109,10 @@ class MainTVActivity : BaseTVActivity(), BusyActivity {
         @PerFragment
         @ContributesAndroidInjector(modules = [TVSearchFragment.Module::class])
         abstract fun tvSearchFragment(): TVSearchFragment
+
+        @PerFragment
+        @ContributesAndroidInjector(modules = [TVGameDetailsFragment.Module::class])
+        abstract fun tvGameDetailsFragment(): TVGameDetailsFragment
 
         @PerFragment
         @ContributesAndroidInjector(modules = [TVFavoritesFragment.Module::class])

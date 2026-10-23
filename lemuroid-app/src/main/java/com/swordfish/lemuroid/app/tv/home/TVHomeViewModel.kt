@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.swordfish.lemuroid.app.shared.home.HomeDiscovery
 import com.swordfish.lemuroid.app.shared.home.HomeDynamicRows
 import com.swordfish.lemuroid.app.shared.library.LibraryLoadingProgress
 import com.swordfish.lemuroid.app.shared.library.PendingOperationsMonitor
@@ -127,7 +128,5 @@ class TVHomeViewModel(retrogradeDb: RetrogradeDatabase, appContext: Context) : V
         retrogradeDb.gameDao()
             .selectFirstUnfavoriteRecents(CAROUSEL_MAX_ITEMS)
 
-    private fun discoveryGames(retrogradeDb: RetrogradeDatabase) =
-        retrogradeDb.gameDao()
-            .selectFirstNotPlayed(CAROUSEL_MAX_ITEMS)
+    private fun discoveryGames(retrogradeDb: RetrogradeDatabase) = HomeDiscovery.games(retrogradeDb, CAROUSEL_MAX_ITEMS)
 }

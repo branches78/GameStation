@@ -6,9 +6,11 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.swordfish.lemuroid.app.mobile.shared.compose.ui.LemuroidEmptyView
 import com.swordfish.lemuroid.app.mobile.shared.compose.ui.LemuroidGameCard
@@ -24,14 +26,18 @@ fun FavoritesScreen(
     onGameLongClick: (Game) -> Unit,
 ) {
     val games = viewModel.favorites.collectAsLazyPagingItems()
+    // Kept outside the grid, which is not shown while the games load (also for a moment when coming back from the
+    // details of a game): its position must survive it.
+    val gridState = rememberLazyGridState()
 
     if (games.itemCount == 0) {
-        LemuroidEmptyView()
+        if (games.loadState.refresh is LoadState.NotLoading) LemuroidEmptyView()
         return
     }
 
     LazyVerticalGrid(
         modifier = modifier.fillMaxSize(),
+        state = gridState,
         // Same grid as the games of a system.
         contentPadding = PaddingValues(16.dp),
         columns = GridCells.Fixed(GRID_COLUMNS),

@@ -30,6 +30,7 @@ import com.swordfish.lemuroid.app.mobile.feature.input.GamePadShortcutBindingAct
 import com.swordfish.lemuroid.app.mobile.feature.main.MainActivity
 import com.swordfish.lemuroid.app.mobile.feature.settings.SettingsManager
 import com.swordfish.lemuroid.app.mobile.feature.shortcuts.ShortcutsGenerator
+import com.swordfish.lemuroid.app.shared.details.GameDescriptionProvider
 import com.swordfish.lemuroid.app.shared.game.ExternalGameLauncherActivity
 import com.swordfish.lemuroid.app.shared.game.GameLauncher
 import com.swordfish.lemuroid.app.shared.input.InputDeviceManager
@@ -193,6 +194,14 @@ abstract class LemuroidApplicationModule {
                 .connectTimeout(1, TimeUnit.MINUTES)
                 .readTimeout(1, TimeUnit.MINUTES)
                 .build()
+
+        @Provides
+        @PerApp
+        @JvmStatic
+        fun gameDescriptionProvider(
+            context: Context,
+            okHttpClient: OkHttpClient,
+        ) = GameDescriptionProvider(context, okHttpClient)
 
         @Provides
         @PerApp

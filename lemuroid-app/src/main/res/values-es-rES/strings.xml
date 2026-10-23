@@ -205,16 +205,10 @@
     <string name="title_about">Acerca de</string>
     <string name="about_version">Versión %1$s</string>
     <string name="about_what_is_title">¿Qué es PlayRetro?</string>
-    <string name="about_what_is_text">PlayRetro es un emulador de consolas clásicas para teléfonos, tablets y Android TV. Organiza tu colección de juegos con carátulas y te deja jugar con el mando o con controles táctiles, guardando tu partida automáticamente.
-
-Nació como una versión independiente de Lemuroid, el emulador de código abierto de Filippo Scognamiglio, y funciona con los núcleos de emulación de libretro, los mismos que usa RetroArch.</string>
+    <string name="about_what_is_text">PlayRetro es un emulador de consolas clásicas para teléfonos, tablets y Android TV. Organiza tu colección de juegos con carátulas y te deja jugar con el mando o con controles táctiles, guardando tu partida automáticamente.\n\nNació como una versión independiente de Lemuroid, el emulador de código abierto de Filippo Scognamiglio, y funciona con los núcleos de emulación de libretro, los mismos que usa RetroArch.</string>
     <string name="about_help_title">Ayuda</string>
     <string name="about_license_title">Licencia y créditos</string>
-    <string name="about_license_text">• PlayRetro es software libre bajo la licencia GNU GPL v3.
-• Basado en Lemuroid y LibretroDroid, de Filippo Scognamiglio (Swordfish90).
-• Núcleos de emulación de libretro, cada uno con su licencia de código abierto.
-• Iconos de sistemas: tema \"FlatUI\" de RetroArch, licencia CC BY 4.0.
-• Carátulas: libretro-thumbnails.</string>
+    <string name="about_license_text">• PlayRetro es software libre bajo la licencia GNU GPL v3.\n• Basado en Lemuroid y LibretroDroid, de Filippo Scognamiglio (Swordfish90).\n• Núcleos de emulación de libretro, cada uno con su licencia de código abierto.\n• Iconos de sistemas: tema \"FlatUI\" de RetroArch, licencia CC BY 4.0.\n• Carátulas: libretro-thumbnails.</string>
     <string name="help_covers_question">¿Por qué falta una carátula o el nombre no es correcto?</string>
     <string name="help_covers_answer">Los juegos se reconocen primero por su contenido. Si eso falla, se usa el nombre del archivo: nómbralos como \"Nombredeljuego (USA).nes\", o solo como \"Nombredeljuego.nes\". Después de renombrarlos, vuelve a escanear tus juegos.</string>
     <string name="library_loading_title">Cargando tus juegos</string>
@@ -231,4 +225,12 @@ Nació como una versión independiente de Lemuroid, el emulador de código abier
     <string name="core_options_clear_game_description">Vuelve a usar la de %1$s</string>
     <string name="core_options_aspect_ratio_unavailable">%1$s no permite cambiar la relación de aspecto. Para usar 16:9 elige %2$s como núcleo (puede necesitar las BIOS de la consola).</string>
     <string name="game_toast_applying_options">Reiniciando el juego para aplicar los cambios…</string>
+    <string name="settings_title_show_game_details">Mostrar ficha del juego</string>
+    <string name="settings_description_show_game_details">Al elegir un juego se abre su ficha con la descripción en lugar de iniciarlo. Los juegos jugados recientemente siempre se inician directamente.</string>
+    <string name="game_details_more_from">Más de %1$s</string>
+    <string name="game_details_last_played">Última vez</string>
+    <string name="game_details_core">Núcleo</string>
+    <string name="game_details_read_more">Leer más</string>
+    <string name="game_details_read_less">Leer menos</string>
+    <string name="game_details_description_source">Descripción de Wikipedia</string>
 </resources>

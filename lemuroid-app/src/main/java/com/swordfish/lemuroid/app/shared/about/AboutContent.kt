@@ -68,7 +68,12 @@ fun AboutContent(
                 contentDescription = null,
             )
             Column(modifier = Modifier.padding(start = 16.dp)) {
-                Text(text = stringResource(R.string.lemuroid_name), style = MaterialTheme.typography.headlineSmall)
+                // Explicit color: on TV the content is not inside a Surface, so the default text color is black.
+                Text(
+                    text = stringResource(R.string.lemuroid_name),
+                    style = MaterialTheme.typography.headlineSmall,
+                    color = MaterialTheme.colorScheme.onSurface,
+                )
                 Text(
                     text = stringResource(R.string.about_version, version),
                     style = MaterialTheme.typography.bodyMedium,
@@ -98,7 +103,8 @@ private fun AboutSection(
 ) {
     var focused by remember { mutableStateOf(false) }
     val shape = RoundedCornerShape(CARD_CORNER_RADIUS.dp)
-    val borderColor = if (focused) MaterialTheme.colorScheme.primary else Color.Transparent
+    // Only focused on TV: white border, like the other focused elements there.
+    val borderColor = if (focused) Color.White else Color.Transparent
 
     Surface(
         modifier =

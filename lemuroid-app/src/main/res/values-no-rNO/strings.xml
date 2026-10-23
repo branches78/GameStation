@@ -196,16 +196,10 @@
     <string name="title_about">Om</string>
     <string name="about_version">Versjon %1$s</string>
     <string name="about_what_is_title">Hva er PlayRetro?</string>
-    <string name="about_what_is_text">PlayRetro er en emulator for klassiske konsoller for telefoner, nettbrett og Android TV. Den organiserer spillsamlingen din med omslag og lar deg spille med kontroller eller berøringskontroller, og lagrer fremgangen automatisk.
-
-Den startet som en uavhengig versjon av Lemuroid, åpen kildekode-emulatoren av Filippo Scognamiglio, og bruker emuleringskjernene fra libretro, de samme som RetroArch.</string>
+    <string name="about_what_is_text">PlayRetro er en emulator for klassiske konsoller for telefoner, nettbrett og Android TV. Den organiserer spillsamlingen din med omslag og lar deg spille med kontroller eller berøringskontroller, og lagrer fremgangen automatisk.\n\nDen startet som en uavhengig versjon av Lemuroid, åpen kildekode-emulatoren av Filippo Scognamiglio, og bruker emuleringskjernene fra libretro, de samme som RetroArch.</string>
     <string name="about_help_title">Hjelp</string>
     <string name="about_license_title">Lisens og takk</string>
-    <string name="about_license_text">• PlayRetro er fri programvare under lisensen GNU GPL v3.
-• Basert på Lemuroid og LibretroDroid av Filippo Scognamiglio (Swordfish90).
-• Emuleringskjerner fra libretro, hver med sin egen åpen kildekode-lisens.
-• Systemikoner: \"FlatUI\"-tema fra RetroArch, CC BY 4.0-lisens.
-• Omslag: libretro-thumbnails.</string>
+    <string name="about_license_text">• PlayRetro er fri programvare under lisensen GNU GPL v3.\n• Basert på Lemuroid og LibretroDroid av Filippo Scognamiglio (Swordfish90).\n• Emuleringskjerner fra libretro, hver med sin egen åpen kildekode-lisens.\n• Systemikoner: \"FlatUI\"-tema fra RetroArch, CC BY 4.0-lisens.\n• Omslag: libretro-thumbnails.</string>
     <string name="help_covers_question">Hvorfor mangler et omslag, eller hvorfor er navnet feil?</string>
     <string name="help_covers_answer">Spill gjenkjennes først etter innholdet. Hvis det mislykkes, brukes filnavnet: gi filene navn som \"Spillnavn (USA).nes\", eller bare \"Spillnavn.nes\". Skann spillene på nytt etter at du har endret navnene.</string>
     <string name="library_loading_title">Laster inn spillene dine</string>
@@ -222,4 +216,12 @@ Den startet som en uavhengig versjon av Lemuroid, åpen kildekode-emulatoren av 
     <string name="core_options_clear_game_description">Bruk innstillingene for %1$s igjen</string>
     <string name="core_options_aspect_ratio_unavailable">%1$s kan ikke endre bildeformatet. Velg %2$s som kjerne for å bruke 16:9 (den kan trenge konsollens BIOS).</string>
     <string name="game_toast_applying_options">Starter spillet på nytt for å bruke endringene…</string>
+    <string name="settings_title_show_game_details">Vis spilldetaljer</string>
+    <string name="settings_description_show_game_details">Når du velger et spill, åpnes detaljene med en beskrivelse i stedet for å starte det. Nylig spilte spill starter alltid med en gang.</string>
+    <string name="game_details_more_from">Mer fra %1$s</string>
+    <string name="game_details_last_played">Sist spilt</string>
+    <string name="game_details_core">Kjerne</string>
+    <string name="game_details_read_more">Les mer</string>
+    <string name="game_details_read_less">Vis mindre</string>
+    <string name="game_details_description_source">Beskrivelse fra Wikipedia</string>
 </resources>

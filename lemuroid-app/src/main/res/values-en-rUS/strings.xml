@@ -16,4 +16,12 @@
     <string name="core_options_clear_game_description">Use the %1$s settings again</string>
     <string name="core_options_aspect_ratio_unavailable">%1$s can\'t change the aspect ratio. To use 16:9 choose %2$s as core (it may need the console BIOS).</string>
     <string name="game_toast_applying_options">Restarting the game to apply the changes…</string>
+    <string name="settings_title_show_game_details">Show game details</string>
+    <string name="settings_description_show_game_details">Choosing a game opens its details with a description instead of starting it. Recently played games always start right away.</string>
+    <string name="game_details_more_from">More from %1$s</string>
+    <string name="game_details_last_played">Last played</string>
+    <string name="game_details_core">Core</string>
+    <string name="game_details_read_more">Read more</string>
+    <string name="game_details_read_less">Read less</string>
+    <string name="game_details_description_source">Description from Wikipedia</string>
 </resources>

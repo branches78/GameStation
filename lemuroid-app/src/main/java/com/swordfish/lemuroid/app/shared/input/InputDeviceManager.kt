@@ -41,6 +41,8 @@ class InputDeviceManager(
     fun getInputBindingsObservable(): Flow<(InputDevice?) -> Map<InputKey, RetroKey>> {
         return getEnabledInputsObservable()
             .flatMapLatest { devices ->
+                // Combining no flows emits nothing: without enabled gamepads there are simply no bindings.
+                if (devices.isEmpty()) return@flatMapLatest flowOf(emptyMap())
                 val allDeviceBindingsFlows = devices.map { device -> getBindingsFlow(device).map { device to it } }
                 combine(allDeviceBindingsFlows) { it.toMap() }
             }
@@ -50,6 +52,7 @@ class InputDeviceManager(
     fun getGameShortcutsObservable(): Flow<Map<InputDevice, List<GameShortcut>>> {
         return getEnabledInputsObservable()
             .flatMapLatest { devices ->
+                if (devices.isEmpty()) return@flatMapLatest flowOf(emptyMap())
                 val allShortcutFlows = devices.map { device -> getShortcutBindingsFlow(device).map { device to it } }
                 combine(allShortcutFlows) { it.toMap() }
             }

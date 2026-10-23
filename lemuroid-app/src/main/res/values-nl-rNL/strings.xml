@@ -198,16 +198,10 @@
     <string name="title_about">Over</string>
     <string name="about_version">Versie %1$s</string>
     <string name="about_what_is_title">Wat is PlayRetro?</string>
-    <string name="about_what_is_text">PlayRetro is een emulator voor klassieke consoles voor telefoons, tablets en Android TV. Het ordent je gamecollectie met hoesjes en laat je spelen met een controller of aanraakbediening, waarbij je voortgang automatisch wordt opgeslagen.
-
-Het begon als een onafhankelijke versie van Lemuroid, de opensource-emulator van Filippo Scognamiglio, en gebruikt de emulatiecores van libretro, dezelfde als RetroArch.</string>
+    <string name="about_what_is_text">PlayRetro is een emulator voor klassieke consoles voor telefoons, tablets en Android TV. Het ordent je gamecollectie met hoesjes en laat je spelen met een controller of aanraakbediening, waarbij je voortgang automatisch wordt opgeslagen.\n\nHet begon als een onafhankelijke versie van Lemuroid, de opensource-emulator van Filippo Scognamiglio, en gebruikt de emulatiecores van libretro, dezelfde als RetroArch.</string>
     <string name="about_help_title">Help</string>
     <string name="about_license_title">Licentie en dankwoord</string>
-    <string name="about_license_text">• PlayRetro is vrije software onder de GNU GPL v3-licentie.
-• Gebaseerd op Lemuroid en LibretroDroid van Filippo Scognamiglio (Swordfish90).
-• Emulatiecores van libretro, elk met een eigen opensourcelicentie.
-• Systeempictogrammen: \"FlatUI\"-thema van RetroArch, CC BY 4.0-licentie.
-• Hoesjes: libretro-thumbnails.</string>
+    <string name="about_license_text">• PlayRetro is vrije software onder de GNU GPL v3-licentie.\n• Gebaseerd op Lemuroid en LibretroDroid van Filippo Scognamiglio (Swordfish90).\n• Emulatiecores van libretro, elk met een eigen opensourcelicentie.\n• Systeempictogrammen: \"FlatUI\"-thema van RetroArch, CC BY 4.0-licentie.\n• Hoesjes: libretro-thumbnails.</string>
     <string name="help_covers_question">Waarom ontbreekt een hoesje of is de naam verkeerd?</string>
     <string name="help_covers_answer">Games worden eerst herkend aan hun inhoud. Als dat mislukt, wordt de bestandsnaam gebruikt: noem je bestanden zoals \"Gamenaam (USA).nes\", of gewoon \"Gamenaam.nes\". Scan je games opnieuw na het hernoemen.</string>
     <string name="library_loading_title">Je games worden geladen</string>
@@ -224,4 +218,12 @@ Het begon als een onafhankelijke versie van Lemuroid, de opensource-emulator van
     <string name="core_options_clear_game_description">Weer de instellingen van %1$s gebruiken</string>
     <string name="core_options_aspect_ratio_unavailable">%1$s kan de beeldverhouding niet wijzigen. Kies %2$s als core voor 16:9 (mogelijk is de BIOS van de console nodig).</string>
     <string name="game_toast_applying_options">Het spel wordt opnieuw gestart om de wijzigingen toe te passen…</string>
+    <string name="settings_title_show_game_details">Spelinformatie tonen</string>
+    <string name="settings_description_show_game_details">Als je een spel kiest, wordt de informatie met een beschrijving geopend in plaats van het spel te starten. Onlangs gespeelde spellen starten altijd direct.</string>
+    <string name="game_details_more_from">Meer van %1$s</string>
+    <string name="game_details_last_played">Laatst gespeeld</string>
+    <string name="game_details_core">Core</string>
+    <string name="game_details_read_more">Meer lezen</string>
+    <string name="game_details_read_less">Minder tonen</string>
+    <string name="game_details_description_source">Beschrijving van Wikipedia</string>
 </resources>

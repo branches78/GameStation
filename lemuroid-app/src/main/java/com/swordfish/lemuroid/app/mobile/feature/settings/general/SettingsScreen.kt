@@ -22,6 +22,7 @@ import com.swordfish.lemuroid.R
 import com.swordfish.lemuroid.app.mobile.feature.main.MainRoute
 import com.swordfish.lemuroid.app.mobile.feature.main.navigateToRoute
 import com.swordfish.lemuroid.app.mobile.shared.compose.ui.LibraryScanProgress
+import com.swordfish.lemuroid.app.shared.GameInteractor
 import com.swordfish.lemuroid.app.mobile.shared.compose.ui.rememberLibraryScanProgress
 import com.swordfish.lemuroid.app.shared.library.LibraryIndexScheduler
 import com.swordfish.lemuroid.app.utils.android.settings.LemuroidCardSettingsGroup
@@ -341,6 +342,11 @@ private fun RomsSettings(
                     !indexingInProgress -> LibraryIndexScheduler.scheduleLibrarySync(context)
                 }
             },
+        )
+        LemuroidSettingsSwitch(
+            state = booleanPreferenceState(R.string.pref_key_show_game_details, GameInteractor.SHOW_GAME_DETAILS_DEFAULT),
+            title = { Text(text = stringResource(id = R.string.settings_title_show_game_details)) },
+            subtitle = { Text(text = stringResource(id = R.string.settings_description_show_game_details)) },
         )
         LemuroidSettingsSwitch(
             state = booleanPreferenceState(R.string.pref_key_autosave, true),

@@ -45,6 +45,8 @@ class InputDevicesSettingsViewModel(
     data class State(
         val devices: List<DeviceView> = emptyList(),
         val bindings: Map<InputDevice, BindingsView> = emptyMap(),
+        // False until the gamepads have been read: the screen waits for them instead of showing its last option alone.
+        val isLoaded: Boolean = false,
     )
 
     val uiState =
@@ -60,7 +62,7 @@ class InputDevicesSettingsViewModel(
     private fun initializeState(context: Context): Flow<State> {
         val devicesViews = getEnabledDevicesViews(context)
         val bindingsViews = getDevicesBindingViews()
-        return combine(devicesViews, bindingsViews, ::State)
+        return combine(devicesViews, bindingsViews) { devices, bindings -> State(devices, bindings, isLoaded = true) }
     }
 
     private fun getEnabledDevicesViews(context: Context): Flow<List<DeviceView>> {

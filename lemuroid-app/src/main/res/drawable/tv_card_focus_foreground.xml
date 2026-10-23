@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Focus indicator for TV cards: a primary color border on the rounded card. -->
+<!-- Focus indicator for TV cards: a white border on the rounded card, like the focused tab. -->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_focused="true">
         <shape android:shape="rectangle">
             <corners android:radius="@dimen/tv_card_corner_radius" />
             <stroke
                 android:width="@dimen/tv_card_focus_stroke"
-                android:color="@color/md_theme_dark_primary" />
+                android:color="@android:color/white" />
         </shape>
     </item>
     <item android:drawable="@android:color/transparent" />

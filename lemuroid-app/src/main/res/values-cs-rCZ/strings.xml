@@ -195,16 +195,10 @@
     <string name="title_about">O aplikaci</string>
     <string name="about_version">Verze %1$s</string>
     <string name="about_what_is_title">Co je PlayRetro?</string>
-    <string name="about_what_is_text">PlayRetro je emulátor klasických konzolí pro telefony, tablety a Android TV. Uspořádá vaši sbírku her s obaly a umožní hrát s ovladačem nebo dotykovým ovládáním, přičemž automaticky ukládá váš postup.
-
-Vznikl jako nezávislá verze emulátoru Lemuroid s otevřeným zdrojovým kódem od Filippa Scognamiglia a používá emulační jádra libretro, stejná jako RetroArch.</string>
+    <string name="about_what_is_text">PlayRetro je emulátor klasických konzolí pro telefony, tablety a Android TV. Uspořádá vaši sbírku her s obaly a umožní hrát s ovladačem nebo dotykovým ovládáním, přičemž automaticky ukládá váš postup.\n\nVznikl jako nezávislá verze emulátoru Lemuroid s otevřeným zdrojovým kódem od Filippa Scognamiglia a používá emulační jádra libretro, stejná jako RetroArch.</string>
     <string name="about_help_title">Nápověda</string>
     <string name="about_license_title">Licence a poděkování</string>
-    <string name="about_license_text">• PlayRetro je svobodný software pod licencí GNU GPL v3.
-• Založeno na Lemuroid a LibretroDroid od Filippa Scognamiglia (Swordfish90).
-• Emulační jádra z libretro, každé s vlastní licencí open source.
-• Ikony systémů: motiv \"FlatUI\" z RetroArch, licence CC BY 4.0.
-• Obaly: libretro-thumbnails.</string>
+    <string name="about_license_text">• PlayRetro je svobodný software pod licencí GNU GPL v3.\n• Založeno na Lemuroid a LibretroDroid od Filippa Scognamiglia (Swordfish90).\n• Emulační jádra z libretro, každé s vlastní licencí open source.\n• Ikony systémů: motiv \"FlatUI\" z RetroArch, licence CC BY 4.0.\n• Obaly: libretro-thumbnails.</string>
     <string name="help_covers_question">Proč chybí obal nebo je název špatně?</string>
     <string name="help_covers_answer">Hry se nejprve rozpoznávají podle obsahu. Pokud to selže, použije se název souboru: pojmenujte soubory jako \"NazevHry (USA).nes\" nebo jen \"NazevHry.nes\". Po přejmenování hry znovu prohledejte.</string>
     <string name="library_loading_title">Načítání tvých her</string>
@@ -221,4 +215,12 @@ Vznikl jako nezávislá verze emulátoru Lemuroid s otevřeným zdrojovým kóde
     <string name="core_options_clear_game_description">Znovu použít nastavení %1$s</string>
     <string name="core_options_aspect_ratio_unavailable">%1$s neumí změnit poměr stran. Pro 16:9 zvol jádro %2$s (může potřebovat BIOS konzole).</string>
     <string name="game_toast_applying_options">Restartování hry kvůli použití změn…</string>
+    <string name="settings_title_show_game_details">Zobrazit podrobnosti hry</string>
+    <string name="settings_description_show_game_details">Výběr hry otevře její podrobnosti s popisem místo jejího spuštění. Nedávno hrané hry se vždy spustí hned.</string>
+    <string name="game_details_more_from">Další z %1$s</string>
+    <string name="game_details_last_played">Naposledy hráno</string>
+    <string name="game_details_core">Jádro</string>
+    <string name="game_details_read_more">Číst dál</string>
+    <string name="game_details_read_less">Zobrazit méně</string>
+    <string name="game_details_description_source">Popis z Wikipedie</string>
 </resources>

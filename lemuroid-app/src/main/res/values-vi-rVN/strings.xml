@@ -179,16 +179,10 @@
     <string name="title_about">Giới thiệu</string>
     <string name="about_version">Phiên bản %1$s</string>
     <string name="about_what_is_title">PlayRetro là gì?</string>
-    <string name="about_what_is_text">PlayRetro là trình giả lập máy chơi game cổ điển cho điện thoại, máy tính bảng và Android TV. Ứng dụng sắp xếp bộ sưu tập game của bạn kèm ảnh bìa và cho phép chơi bằng tay cầm hoặc điều khiển cảm ứng, tự động lưu tiến trình.
-
-Ứng dụng bắt đầu như một phiên bản độc lập của Lemuroid, trình giả lập mã nguồn mở của Filippo Scognamiglio, và dùng các lõi giả lập của libretro, giống như RetroArch.</string>
+    <string name="about_what_is_text">PlayRetro là trình giả lập máy chơi game cổ điển cho điện thoại, máy tính bảng và Android TV. Ứng dụng sắp xếp bộ sưu tập game của bạn kèm ảnh bìa và cho phép chơi bằng tay cầm hoặc điều khiển cảm ứng, tự động lưu tiến trình.\n\nỨng dụng bắt đầu như một phiên bản độc lập của Lemuroid, trình giả lập mã nguồn mở của Filippo Scognamiglio, và dùng các lõi giả lập của libretro, giống như RetroArch.</string>
     <string name="about_help_title">Trợ giúp</string>
     <string name="about_license_title">Giấy phép và ghi công</string>
-    <string name="about_license_text">• PlayRetro là phần mềm tự do theo giấy phép GNU GPL v3.
-• Dựa trên Lemuroid và LibretroDroid của Filippo Scognamiglio (Swordfish90).
-• Các lõi giả lập từ libretro, mỗi lõi có giấy phép mã nguồn mở riêng.
-• Biểu tượng hệ máy: giao diện \"FlatUI\" của RetroArch, giấy phép CC BY 4.0.
-• Ảnh bìa: libretro-thumbnails.</string>
+    <string name="about_license_text">• PlayRetro là phần mềm tự do theo giấy phép GNU GPL v3.\n• Dựa trên Lemuroid và LibretroDroid của Filippo Scognamiglio (Swordfish90).\n• Các lõi giả lập từ libretro, mỗi lõi có giấy phép mã nguồn mở riêng.\n• Biểu tượng hệ máy: giao diện \"FlatUI\" của RetroArch, giấy phép CC BY 4.0.\n• Ảnh bìa: libretro-thumbnails.</string>
     <string name="help_covers_question">Tại sao thiếu ảnh bìa hoặc tên bị sai?</string>
     <string name="help_covers_answer">Game được nhận diện trước tiên theo nội dung. Nếu không được, tên tệp sẽ được dùng: đặt tên tệp như \"TenGame (USA).nes\", hoặc chỉ \"TenGame.nes\". Sau khi đổi tên, hãy quét lại game.</string>
     <string name="library_loading_title">Đang tải trò chơi của bạn</string>
@@ -205,4 +199,12 @@
     <string name="core_options_clear_game_description">Dùng lại cài đặt của %1$s</string>
     <string name="core_options_aspect_ratio_unavailable">%1$s không thể đổi tỷ lệ khung hình. Để dùng 16:9 hãy chọn lõi %2$s (có thể cần BIOS của máy).</string>
     <string name="game_toast_applying_options">Đang khởi động lại trò chơi để áp dụng thay đổi…</string>
+    <string name="settings_title_show_game_details">Hiện thông tin trò chơi</string>
+    <string name="settings_description_show_game_details">Chọn một trò chơi sẽ mở thông tin kèm mô tả thay vì khởi động ngay. Trò chơi đã chơi gần đây luôn khởi động ngay.</string>
+    <string name="game_details_more_from">Thêm từ %1$s</string>
+    <string name="game_details_last_played">Lần chơi cuối</string>
+    <string name="game_details_core">Lõi</string>
+    <string name="game_details_read_more">Đọc thêm</string>
+    <string name="game_details_read_less">Thu gọn</string>
+    <string name="game_details_description_source">Mô tả từ Wikipedia</string>
 </resources>

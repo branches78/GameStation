@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.swordfish.lemuroid.common.paging.buildFlowPaging
 import com.swordfish.lemuroid.lib.library.MetaSystemID
 import com.swordfish.lemuroid.lib.library.db.RetrogradeDatabase
@@ -37,9 +38,12 @@ class GamesViewModel(
             .map { systemIds -> systemIds.map { it.dbname } }
             .flatMapLatest {
                 when (it.size) {
-                    0 -> emptyFlow()
+                    0 -> emptyFlow<PagingData<Game>>()
                     1 -> buildFlowPaging(20, viewModelScope) { retrogradeDb.gameDao().selectBySystem(it.first()) }
                     else -> buildFlowPaging(20, viewModelScope) { retrogradeDb.gameDao().selectBySystems(it) }
                 }
             }
+            // Kept while the screen is in the back stack: back from the details of a game shows the list right away,
+            // at the same position, instead of loading it again.
+            .cachedIn(viewModelScope)
 }

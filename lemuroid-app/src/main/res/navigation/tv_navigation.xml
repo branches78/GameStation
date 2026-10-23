@@ -14,4 +14,9 @@
         android:name="com.swordfish.lemuroid.app.tv.search.TVSearchFragment"
         android:label="@string/title_search"/>
 
+    <fragment
+        android:id="@+id/navigation_game_details"
+        android:name="com.swordfish.lemuroid.app.tv.details.TVGameDetailsFragment"
+        android:label="@string/title_games" />
+
 </navigation>

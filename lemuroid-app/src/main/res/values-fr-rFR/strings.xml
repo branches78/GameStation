@@ -196,16 +196,10 @@
     <string name="title_about">À propos</string>
     <string name="about_version">Version %1$s</string>
     <string name="about_what_is_title">Qu\'est-ce que PlayRetro ?</string>
-    <string name="about_what_is_text">PlayRetro est un émulateur de consoles classiques pour téléphones, tablettes et Android TV. Il organise ta collection de jeux avec leurs jaquettes et te permet de jouer à la manette ou avec les commandes tactiles, en sauvegardant automatiquement ta progression.
-
-Il est né comme une version indépendante de Lemuroid, l\'émulateur open source de Filippo Scognamiglio, et utilise les cœurs d\'émulation de libretro, les mêmes que RetroArch.</string>
+    <string name="about_what_is_text">PlayRetro est un émulateur de consoles classiques pour téléphones, tablettes et Android TV. Il organise ta collection de jeux avec leurs jaquettes et te permet de jouer à la manette ou avec les commandes tactiles, en sauvegardant automatiquement ta progression.\n\nIl est né comme une version indépendante de Lemuroid, l\'émulateur open source de Filippo Scognamiglio, et utilise les cœurs d\'émulation de libretro, les mêmes que RetroArch.</string>
     <string name="about_help_title">Aide</string>
     <string name="about_license_title">Licence et crédits</string>
-    <string name="about_license_text">• PlayRetro est un logiciel libre sous licence GNU GPL v3.
-• Basé sur Lemuroid et LibretroDroid de Filippo Scognamiglio (Swordfish90).
-• Cœurs d\'émulation de libretro, chacun avec sa propre licence open source.
-• Icônes des systèmes : thème \"FlatUI\" de RetroArch, licence CC BY 4.0.
-• Jaquettes : libretro-thumbnails.</string>
+    <string name="about_license_text">• PlayRetro est un logiciel libre sous licence GNU GPL v3.\n• Basé sur Lemuroid et LibretroDroid de Filippo Scognamiglio (Swordfish90).\n• Cœurs d\'émulation de libretro, chacun avec sa propre licence open source.\n• Icônes des systèmes : thème \"FlatUI\" de RetroArch, licence CC BY 4.0.\n• Jaquettes : libretro-thumbnails.</string>
     <string name="help_covers_question">Pourquoi une jaquette manque-t-elle ou le nom est-il incorrect ?</string>
     <string name="help_covers_answer">Les jeux sont d\'abord reconnus par leur contenu. Si cela échoue, le nom du fichier est utilisé : nomme tes fichiers comme \"NomDuJeu (USA).nes\", ou simplement \"NomDuJeu.nes\". Après les avoir renommés, analyse de nouveau tes jeux.</string>
     <string name="library_loading_title">Chargement de tes jeux</string>
@@ -222,4 +216,12 @@ Il est né comme une version indépendante de Lemuroid, l\'émulateur open sourc
     <string name="core_options_clear_game_description">Utiliser à nouveau ceux de %1$s</string>
     <string name="core_options_aspect_ratio_unavailable">%1$s ne permet pas de changer le format d\'image. Pour le 16:9, choisis %2$s comme cœur (il peut nécessiter le BIOS de la console).</string>
     <string name="game_toast_applying_options">Redémarrage du jeu pour appliquer les modifications…</string>
+    <string name="settings_title_show_game_details">Afficher la fiche du jeu</string>
+    <string name="settings_description_show_game_details">Choisir un jeu ouvre sa fiche avec une description au lieu de le lancer. Les jeux joués récemment se lancent toujours directement.</string>
+    <string name="game_details_more_from">Plus de %1$s</string>
+    <string name="game_details_last_played">Dernière partie</string>
+    <string name="game_details_core">Cœur</string>
+    <string name="game_details_read_more">Lire la suite</string>
+    <string name="game_details_read_less">Réduire</string>
+    <string name="game_details_description_source">Description de Wikipédia</string>
 </resources>

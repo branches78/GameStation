@@ -196,16 +196,10 @@
     <string name="title_about">Über</string>
     <string name="about_version">Version %1$s</string>
     <string name="about_what_is_title">Was ist PlayRetro?</string>
-    <string name="about_what_is_text">PlayRetro ist ein Emulator für klassische Konsolen für Smartphones, Tablets und Android TV. Er ordnet deine Spielesammlung mit Covern und lässt dich mit Controller oder Touch-Steuerung spielen, wobei dein Fortschritt automatisch gespeichert wird.
-
-Er entstand als unabhängige Version von Lemuroid, dem Open-Source-Emulator von Filippo Scognamiglio, und nutzt die Emulations-Cores von libretro, dieselben wie RetroArch.</string>
+    <string name="about_what_is_text">PlayRetro ist ein Emulator für klassische Konsolen für Smartphones, Tablets und Android TV. Er ordnet deine Spielesammlung mit Covern und lässt dich mit Controller oder Touch-Steuerung spielen, wobei dein Fortschritt automatisch gespeichert wird.\n\nEr entstand als unabhängige Version von Lemuroid, dem Open-Source-Emulator von Filippo Scognamiglio, und nutzt die Emulations-Cores von libretro, dieselben wie RetroArch.</string>
     <string name="about_help_title">Hilfe</string>
     <string name="about_license_title">Lizenz und Danksagungen</string>
-    <string name="about_license_text">• PlayRetro ist freie Software unter der Lizenz GNU GPL v3.
-• Basiert auf Lemuroid und LibretroDroid von Filippo Scognamiglio (Swordfish90).
-• Emulations-Cores von libretro, jeder mit eigener Open-Source-Lizenz.
-• Systemsymbole: \"FlatUI\"-Design von RetroArch, Lizenz CC BY 4.0.
-• Cover: libretro-thumbnails.</string>
+    <string name="about_license_text">• PlayRetro ist freie Software unter der Lizenz GNU GPL v3.\n• Basiert auf Lemuroid und LibretroDroid von Filippo Scognamiglio (Swordfish90).\n• Emulations-Cores von libretro, jeder mit eigener Open-Source-Lizenz.\n• Systemsymbole: \"FlatUI\"-Design von RetroArch, Lizenz CC BY 4.0.\n• Cover: libretro-thumbnails.</string>
     <string name="help_covers_question">Warum fehlt ein Cover oder ist der Name falsch?</string>
     <string name="help_covers_answer">Spiele werden zuerst an ihrem Inhalt erkannt. Wenn das fehlschlägt, wird der Dateiname verwendet: Benenne deine Dateien wie \"Spielname (USA).nes\" oder nur \"Spielname.nes\". Scanne deine Spiele nach dem Umbenennen erneut.</string>
     <string name="library_loading_title">Deine Spiele werden geladen</string>
@@ -222,4 +216,12 @@ Er entstand als unabhängige Version von Lemuroid, dem Open-Source-Emulator von 
     <string name="core_options_clear_game_description">Wieder die Einstellungen von %1$s verwenden</string>
     <string name="core_options_aspect_ratio_unavailable">%1$s kann das Seitenverhältnis nicht ändern. Für 16:9 wähle %2$s als Kern (braucht eventuell das BIOS der Konsole).</string>
     <string name="game_toast_applying_options">Spiel wird neu gestartet, um die Änderungen zu übernehmen…</string>
+    <string name="settings_title_show_game_details">Spieldetails anzeigen</string>
+    <string name="settings_description_show_game_details">Beim Auswählen eines Spiels öffnen sich seine Details mit einer Beschreibung, statt es zu starten. Kürzlich gespielte Spiele starten immer sofort.</string>
+    <string name="game_details_more_from">Mehr von %1$s</string>
+    <string name="game_details_last_played">Zuletzt gespielt</string>
+    <string name="game_details_core">Core</string>
+    <string name="game_details_read_more">Mehr lesen</string>
+    <string name="game_details_read_less">Weniger anzeigen</string>
+    <string name="game_details_description_source">Beschreibung aus Wikipedia</string>
 </resources>

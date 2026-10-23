@@ -13,6 +13,7 @@ import com.swordfish.lemuroid.common.displayToast
 import com.swordfish.lemuroid.lib.library.covers.CustomCoverManager
 import com.swordfish.lemuroid.lib.library.db.RetrogradeDatabase
 import com.swordfish.lemuroid.lib.library.db.entity.Game
+import com.swordfish.lemuroid.lib.preferences.SharedPreferencesHelper
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -32,6 +33,16 @@ class GameInteractor(
             return
         }
         gameLauncher.launchGameAsync(activity.activity(), game, true, useLeanback)
+    }
+
+    /**
+     * Whether choosing a game opens its details screen instead of starting it (setting "Show game details").
+     * The "Continue playing" row always starts the game.
+     */
+    fun showDetailsOnClick(): Boolean {
+        val context = activity.activity()
+        return SharedPreferencesHelper.getSharedPreferences(context)
+            .getBoolean(context.getString(R.string.pref_key_show_game_details), SHOW_GAME_DETAILS_DEFAULT)
     }
 
     fun onGameRestart(game: Game) {
@@ -123,5 +134,9 @@ class GameInteractor(
             return false
         }
         return true
+    }
+
+    companion object {
+        const val SHOW_GAME_DETAILS_DEFAULT = true
     }
 }

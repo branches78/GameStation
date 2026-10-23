@@ -145,16 +145,10 @@
     <string name="title_about">אודות</string>
     <string name="about_version">גרסה %1$s</string>
     <string name="about_what_is_title">מה זה PlayRetro?</string>
-    <string name="about_what_is_text">PlayRetro הוא אמולטור לקונסולות קלאסיות לטלפונים, לטאבלטים ול-Android TV. הוא מסדר את אוסף המשחקים שלך עם עטיפות ומאפשר לשחק עם בקר או עם פקדי מגע, תוך שמירה אוטומטית של ההתקדמות.
-
-הוא התחיל כגרסה עצמאית של Lemuroid, אמולטור הקוד הפתוח של Filippo Scognamiglio, ומשתמש בליבות האמולציה של libretro, אותן ליבות של RetroArch.</string>
+    <string name="about_what_is_text">PlayRetro הוא אמולטור לקונסולות קלאסיות לטלפונים, לטאבלטים ול-Android TV. הוא מסדר את אוסף המשחקים שלך עם עטיפות ומאפשר לשחק עם בקר או עם פקדי מגע, תוך שמירה אוטומטית של ההתקדמות.\n\nהוא התחיל כגרסה עצמאית של Lemuroid, אמולטור הקוד הפתוח של Filippo Scognamiglio, ומשתמש בליבות האמולציה של libretro, אותן ליבות של RetroArch.</string>
     <string name="about_help_title">עזרה</string>
     <string name="about_license_title">רישיון וקרדיטים</string>
-    <string name="about_license_text">• PlayRetro הוא תוכנה חופשית ברישיון GNU GPL v3.
-• מבוסס על Lemuroid ו-LibretroDroid של Filippo Scognamiglio ‏(Swordfish90).
-• ליבות אמולציה של libretro, לכל אחת רישיון קוד פתוח משלה.
-• סמלי מערכות: ערכת \"FlatUI\" של RetroArch, רישיון CC BY 4.0.
-• עטיפות: libretro-thumbnails.</string>
+    <string name="about_license_text">• PlayRetro הוא תוכנה חופשית ברישיון GNU GPL v3.\n• מבוסס על Lemuroid ו-LibretroDroid של Filippo Scognamiglio ‏(Swordfish90).\n• ליבות אמולציה של libretro, לכל אחת רישיון קוד פתוח משלה.\n• סמלי מערכות: ערכת \"FlatUI\" של RetroArch, רישיון CC BY 4.0.\n• עטיפות: libretro-thumbnails.</string>
     <string name="help_covers_question">למה חסרה עטיפה או שהשם שגוי?</string>
     <string name="help_covers_answer">המשחקים מזוהים קודם לפי התוכן שלהם. אם זה נכשל, נעשה שימוש בשם הקובץ: קרא לקבצים כמו \"שםהמשחק (USA).nes\", או רק \"שםהמשחק.nes\". אחרי שינוי השם, סרוק שוב את המשחקים.</string>
     <string name="library_loading_title">טוען את המשחקים שלך</string>
@@ -171,4 +165,12 @@
     <string name="core_options_clear_game_description">חזרה להגדרות של %1$s</string>
     <string name="core_options_aspect_ratio_unavailable">‏%1$s לא מאפשר לשנות את יחס הגובה-רוחב. כדי להשתמש ב-16:9 בחר את %2$s כליבה (ייתכן שיידרש ה-BIOS של הקונסולה).</string>
     <string name="game_toast_applying_options">המשחק מופעל מחדש כדי להחיל את השינויים…</string>
+    <string name="settings_title_show_game_details">הצגת פרטי המשחק</string>
+    <string name="settings_description_show_game_details">בחירת משחק פותחת את פרטיו עם תיאור במקום להפעיל אותו. משחקים ששוחקו לאחרונה תמיד מופעלים מיד.</string>
+    <string name="game_details_more_from">עוד מ-%1$s</string>
+    <string name="game_details_last_played">שוחק לאחרונה</string>
+    <string name="game_details_core">ליבה</string>
+    <string name="game_details_read_more">קרא עוד</string>
+    <string name="game_details_read_less">הצג פחות</string>
+    <string name="game_details_description_source">תיאור מוויקיפדיה</string>
 </resources>

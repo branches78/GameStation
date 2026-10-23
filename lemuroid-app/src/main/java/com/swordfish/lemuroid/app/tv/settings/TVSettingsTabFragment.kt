@@ -20,6 +20,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.unit.dp
@@ -52,8 +53,11 @@ import com.swordfish.lemuroid.lib.preferences.SharedPreferencesHelper
 import com.swordfish.lemuroid.lib.savesync.SaveSyncManager
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.takeWhile
 import kotlinx.coroutines.withTimeoutOrNull
 
 /**
@@ -186,6 +190,7 @@ class TVSettingsTabFragment : Fragment() {
      * and when it is shown again with Back, to the item that opened the other screen. Otherwise the focus would
      * jump to the search button, the first focusable view of the window.
      */
+    @OptIn(FlowPreview::class)
     @Composable
     private fun TVSettingsDestination(
         focusFirstItem: Boolean = true,
@@ -202,20 +207,40 @@ class TVSettingsTabFragment : Fragment() {
         LaunchedEffect(Unit) {
             val restoreKey = clickedItemKey
             if (restoreKey == null && !focusFirstItem) return@LaunchedEffect
-            // Wait for the items: some screens load them in the background.
-            val target =
-                withTimeoutOrNull(ITEMS_TIMEOUT_MS) {
-                    snapshotFlow {
-                        restoreKey?.let { focusMemory.item(it) } ?: focusMemory.firstItem()?.takeIf { restoreKey == null }
-                    }.filterNotNull().first()
-                } ?: focusMemory.firstItem()
-            clickedItemKey = null
-            target?.let { runCatching { it.requestFocus() } }
+
+            if (restoreKey != null) {
+                val target =
+                    withTimeoutOrNull(ITEMS_TIMEOUT_MS) {
+                        snapshotFlow { focusMemory.item(restoreKey) }.filterNotNull().first()
+                    } ?: focusMemory.firstItem()
+                clickedItemKey = null
+                target?.let { runCatching { it.requestFocus() } }
+                return@LaunchedEffect
+            }
+
+            // Some screens load their items in the background, and those at the top may arrive after the ones at
+            // the bottom (e.g. the gamepads of "External devices", after "Reset bindings"). For a while the focus
+            // follows the topmost item, as long as it stays where it was put (the user didn't move it).
+            var focused: FocusRequester? = null
+            withTimeoutOrNull(FIRST_ITEM_WATCH_MS) {
+                snapshotFlow { focusMemory.firstItem() }
+                    .debounce(ITEMS_SETTLE_MS)
+                    .filterNotNull()
+                    // Stops as soon as the user moved the focus to another item.
+                    .takeWhile { focused.let { it == null || focusMemory.hasFocus(it) } }
+                    .collect { first ->
+                        if (first != focused && runCatching { first.requestFocus() }.isSuccess) {
+                            focused = first
+                        }
+                    }
+            }
         }
     }
 
     companion object {
         private const val ITEMS_TIMEOUT_MS = 1000L
+        private const val ITEMS_SETTLE_MS = 250L
+        private const val FIRST_ITEM_WATCH_MS = 3000L
 
         // The settings cards have 16dp of side padding: they end up 672dp wide, like the "Consoles" grid
         // (5 cards of 128dp + 4 spacings of 8dp) and the "About" cards.

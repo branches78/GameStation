@@ -197,16 +197,10 @@
     <string name="title_about">Informazioni</string>
     <string name="about_version">Versione %1$s</string>
     <string name="about_what_is_title">Cos\'è PlayRetro?</string>
-    <string name="about_what_is_text">PlayRetro è un emulatore di console classiche per telefoni, tablet e Android TV. Organizza la tua raccolta di giochi con le copertine e ti permette di giocare con il controller o con i comandi touch, salvando automaticamente i progressi.
-
-È nato come versione indipendente di Lemuroid, l\'emulatore open source di Filippo Scognamiglio, e usa i core di emulazione di libretro, gli stessi di RetroArch.</string>
+    <string name="about_what_is_text">PlayRetro è un emulatore di console classiche per telefoni, tablet e Android TV. Organizza la tua raccolta di giochi con le copertine e ti permette di giocare con il controller o con i comandi touch, salvando automaticamente i progressi.\n\nÈ nato come versione indipendente di Lemuroid, l\'emulatore open source di Filippo Scognamiglio, e usa i core di emulazione di libretro, gli stessi di RetroArch.</string>
     <string name="about_help_title">Aiuto</string>
     <string name="about_license_title">Licenza e riconoscimenti</string>
-    <string name="about_license_text">• PlayRetro è software libero con licenza GNU GPL v3.
-• Basato su Lemuroid e LibretroDroid di Filippo Scognamiglio (Swordfish90).
-• Core di emulazione di libretro, ognuno con la propria licenza open source.
-• Icone dei sistemi: tema \"FlatUI\" di RetroArch, licenza CC BY 4.0.
-• Copertine: libretro-thumbnails.</string>
+    <string name="about_license_text">• PlayRetro è software libero con licenza GNU GPL v3.\n• Basato su Lemuroid e LibretroDroid di Filippo Scognamiglio (Swordfish90).\n• Core di emulazione di libretro, ognuno con la propria licenza open source.\n• Icone dei sistemi: tema \"FlatUI\" di RetroArch, licenza CC BY 4.0.\n• Copertine: libretro-thumbnails.</string>
     <string name="help_covers_question">Perché manca una copertina o il nome è sbagliato?</string>
     <string name="help_covers_answer">I giochi vengono riconosciuti prima dal contenuto. Se non funziona, si usa il nome del file: rinomina i file come \"NomeDelGioco (USA).nes\", o solo \"NomeDelGioco.nes\". Dopo averli rinominati, scansiona di nuovo i giochi.</string>
     <string name="library_loading_title">Caricamento dei tuoi giochi</string>
@@ -223,4 +217,12 @@
     <string name="core_options_clear_game_description">Torna a usare quelle di %1$s</string>
     <string name="core_options_aspect_ratio_unavailable">%1$s non può cambiare le proporzioni. Per usare 16:9 scegli %2$s come core (potrebbe servire il BIOS della console).</string>
     <string name="game_toast_applying_options">Riavvio del gioco per applicare le modifiche…</string>
+    <string name="settings_title_show_game_details">Mostra la scheda del gioco</string>
+    <string name="settings_description_show_game_details">Scegliendo un gioco si apre la sua scheda con la descrizione invece di avviarlo. I giochi giocati di recente si avviano sempre subito.</string>
+    <string name="game_details_more_from">Altro da %1$s</string>
+    <string name="game_details_last_played">Ultima partita</string>
+    <string name="game_details_core">Core</string>
+    <string name="game_details_read_more">Leggi di più</string>
+    <string name="game_details_read_less">Mostra meno</string>
+    <string name="game_details_description_source">Descrizione da Wikipedia</string>
 </resources>

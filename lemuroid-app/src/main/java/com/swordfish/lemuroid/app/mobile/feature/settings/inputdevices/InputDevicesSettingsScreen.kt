@@ -35,6 +35,9 @@ fun InputDevicesSettingsScreen(
             .collectAsState(InputDevicesSettingsViewModel.State())
             .value
 
+    // All the options appear at once: on TV the focus goes to the first one and the screen stays at the top.
+    if (!state.isLoaded) return
+
     LemuroidSettingsPage(modifier = modifier.fillMaxSize()) {
         EnabledDeviceCategory(state)
         state.bindings.forEach { (device, bindings) ->

@@ -196,16 +196,10 @@
     <string name="title_about">关于</string>
     <string name="about_version">版本 %1$s</string>
     <string name="about_what_is_title">PlayRetro 是什么？</string>
-    <string name="about_what_is_text">PlayRetro 是一款适用于手机、平板和 Android TV 的经典游戏机模拟器。它会用封面整理你的游戏收藏，可以用手柄或触控按键游玩，并自动保存进度。
-
-它最初是 Filippo Scognamiglio 的开源模拟器 Lemuroid 的独立版本，使用与 RetroArch 相同的 libretro 模拟核心。</string>
+    <string name="about_what_is_text">PlayRetro 是一款适用于手机、平板和 Android TV 的经典游戏机模拟器。它会用封面整理你的游戏收藏，可以用手柄或触控按键游玩，并自动保存进度。\n\n它最初是 Filippo Scognamiglio 的开源模拟器 Lemuroid 的独立版本，使用与 RetroArch 相同的 libretro 模拟核心。</string>
     <string name="about_help_title">帮助</string>
     <string name="about_license_title">许可与致谢</string>
-    <string name="about_license_text">• PlayRetro 是采用 GNU GPL v3 许可的自由软件。
-• 基于 Filippo Scognamiglio（Swordfish90）的 Lemuroid 和 LibretroDroid。
-• 模拟核心来自 libretro，各自拥有自己的开源许可。
-• 系统图标：RetroArch 的“FlatUI”主题，CC BY 4.0 许可。
-• 封面：libretro-thumbnails。</string>
+    <string name="about_license_text">• PlayRetro 是采用 GNU GPL v3 许可的自由软件。\n• 基于 Filippo Scognamiglio（Swordfish90）的 Lemuroid 和 LibretroDroid。\n• 模拟核心来自 libretro，各自拥有自己的开源许可。\n• 系统图标：RetroArch 的“FlatUI”主题，CC BY 4.0 许可。\n• 封面：libretro-thumbnails。</string>
     <string name="help_covers_question">为什么缺少封面或名称不正确？</string>
     <string name="help_covers_answer">游戏首先根据其内容进行识别。如果失败，则使用文件名：将文件命名为“游戏名称 (USA).nes”，或仅命名为“游戏名称.nes”。重命名后，请重新扫描游戏。</string>
     <string name="library_loading_title">正在加载你的游戏</string>
@@ -222,4 +216,12 @@
     <string name="core_options_clear_game_description">重新使用 %1$s 的设置</string>
     <string name="core_options_aspect_ratio_unavailable">%1$s 无法更改宽高比。要使用 16:9，请选择 %2$s 作为核心（可能需要主机 BIOS）。</string>
     <string name="game_toast_applying_options">正在重新启动游戏以应用更改…</string>
+    <string name="settings_title_show_game_details">显示游戏详情</string>
+    <string name="settings_description_show_game_details">选择游戏时打开带简介的详情页，而不是直接启动。最近玩过的游戏始终直接启动。</string>
+    <string name="game_details_more_from">更多 %1$s 游戏</string>
+    <string name="game_details_last_played">上次游玩</string>
+    <string name="game_details_core">核心</string>
+    <string name="game_details_read_more">展开</string>
+    <string name="game_details_read_less">收起</string>
+    <string name="game_details_description_source">简介来自维基百科</string>
 </resources>
